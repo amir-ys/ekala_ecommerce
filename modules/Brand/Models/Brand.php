@@ -5,6 +5,7 @@ namespace Modules\Brand\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Brand\Database\Factories\BrandFactory;
+use Modules\Brand\Enums\BrandStatus;
 
 class Brand extends Model
 {
@@ -15,5 +16,7 @@ class Brand extends Model
     {
         return new BrandFactory();
     }
-
+    protected $casts = [
+      'is_active'=> BrandStatus::class
+    ];
 }
