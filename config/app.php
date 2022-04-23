@@ -173,6 +173,7 @@ return [
          * Modules Service Providers...
          */
         Modules\Brand\Providers\BrandServiceProvider::class ,
+        Modules\Dashbaord\Providers\DashboardServiceProvider::class ,
 
 
 
