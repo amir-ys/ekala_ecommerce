@@ -18,5 +18,4 @@ class BrandsTest extends TestCase
         $this->assertDatabaseCount('brands' , 1);
         $this->assertDatabaseHas('brands' , $data);
     }
-
 }
