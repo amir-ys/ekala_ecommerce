@@ -168,6 +168,14 @@ return [
          * Package Service Providers...
          */
 
+
+        /*
+         * Modules Service Providers...
+         */
+        Modules\Brand\Providers\BrandServiceProvider::class ,
+
+
+
         /*
          * Application Service Providers...
          */
