@@ -24,8 +24,8 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/" ,
-            "Modules\\Brand\\": "Modules/Brand/" ,
-            "Modules\\Dashbaord\\": "Modules/Dashboard/"
+            "Modules\\Brand\\": "modules/Brand/",
+            "Modules\\Dashbaord\\": "modules/Dashboard/"
         }
     },
     "autoload-dev": {

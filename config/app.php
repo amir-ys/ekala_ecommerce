@@ -170,7 +170,7 @@ return [
 
 
         /*
-         * Modules Service Providers...
+         * modules Service Providers...
          */
         Modules\Brand\Providers\BrandServiceProvider::class ,
         Modules\Dashbaord\Providers\DashboardServiceProvider::class ,

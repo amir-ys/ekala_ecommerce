@@ -6,7 +6,7 @@ use Illuminate\Support\ServiceProvider;
 
 class DashboardServiceProvider extends ServiceProvider
 {
-    private $namespace = 'Modules\Dashboard\Http\Controllers';
+    private $namespace = 'modules\Dashboard\Http\Controllers';
 
     public function register()
     {
