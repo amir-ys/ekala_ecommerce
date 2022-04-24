@@ -12,6 +12,7 @@ class BrandServiceProvider extends ServiceProvider
     {
         $this->loadViewsFrom(__DIR__ . '/../Resources/Views' , 'Brand');
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
+        $this->loadJsonTranslationsFrom(__DIR__ . '/../Resources/Lang');
         $this->loadRoutes()
 ;    }
 

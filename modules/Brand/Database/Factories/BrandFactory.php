@@ -3,6 +3,7 @@
 namespace Modules\Brand\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Modules\Brand\Enums\BrandStatus;
 use Modules\Brand\Models\Brand;
 
 
@@ -17,9 +18,9 @@ class BrandFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->word ,
-            'slug' => $this->faker->unique()->word ,
-            'is_active' => $this->faker->randomElement([1 , 2]) ,
+            'name' => $name = $this->faker->word ,
+            'slug' => $name,
+            'is_active' => $this->faker->randomElement([BrandStatus::ACTIVE->value , BrandStatus::INACTIVE->value]) ,
         ];
     }
 }

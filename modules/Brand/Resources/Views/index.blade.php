@@ -32,12 +32,12 @@
                                     <td>{{ $brand->created_at }}</td>
                                     <td>
                                         <span
-                                            class="badge py-1 bg-{{ $brand->statusCssClass }}">{{ $brand->statusName() }}</span>
+                                        class="badge py-1 bg-{{ $brand->statusCssClass }}"> @lang($brand->is_active->name) </span>
                                     </td>
                                     <td>
                                         <a class="btn btn-sm bg-transparent d-inline"
                                            href="{{ route('panel.brands.edit' , $brand) }}"><i
-                                                class="fas fa-pen fa-15m text-success"></i></a>
+                                                class="-pen fa-15m text-success"></i></a>
 
                                         <a href="{{ route('panel.brands.destroy' , $brand->id) }}"
                                            class="btn btn-sm bg-transparent d-inline delete-confirm"><i

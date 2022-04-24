@@ -31,11 +31,11 @@
                                 <div class="row">
                                     <label class="col-sm-3 col-form-label">وضعیت</label>
                                     <div class="col-sm-9">
-                                        <select class="form-control" name="status" aria-hidden="true">
+                                        <select class="form-control" name="is_active" aria-hidden="true">
                                             <option value>یک وضعیت را انتخاب کنید</option>
                                             @foreach(\Modules\Brand\Enums\BrandStatus::cases() as  $status)
                                                 <option
-                                                    value="{{ $status->value }}"> {{ $status->name }}  </option>
+                                                    value="{{ $status->value }}">  @lang($status->name) </option>
                                             @endforeach
                                         </select>
                                         @error('status')
