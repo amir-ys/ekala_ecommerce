@@ -37,11 +37,18 @@
                                     <td>
                                         <a class="btn btn-sm bg-transparent d-inline"
                                            href="{{ route('panel.brands.edit' , $brand) }}"><i
-                                                class="-pen fa-15m text-success"></i></a>
+                                                class="fa fa-pencil fa-15m text-success"></i></a>
 
                                         <a href="{{ route('panel.brands.destroy' , $brand->id) }}"
+                                           onclick="deleteBrand('{{ $brand->id }}')"
                                            class="btn btn-sm bg-transparent d-inline delete-confirm"><i
-                                                class="fas fa-trash fa-15m text-danger"></i></a>
+                                                class="fa fa-trash fa-15m text-danger"></i></a>
+
+                                        <form action="{{ route('panel.brands.destroy' , $brand->id) }}" method="post"
+                                        id="destroy-brand-{{ $brand->id }}">
+                                            @csrf
+                                            @method('delete')
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
@@ -54,4 +61,12 @@
         @include('Brand::create')
     </div>
     <!-- /basic responsive table -->
+@endsection
+@section('script')
+    <script>
+        function deleteBrand(id) {
+            event.preventDefault();
+            document.querySelector('#destroy-brand-' + id).submit()
+        }
+    </script>
 @endsection

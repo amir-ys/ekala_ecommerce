@@ -3,7 +3,6 @@
 namespace Modules\Brand\Tests\Feature\Controllers;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Modules\Brand\Enums\BrandStatus;
 use Modules\Brand\Models\Brand;
 use Tests\TestCase;
 
@@ -26,6 +25,42 @@ class BrandControllerTest extends TestCase
 
         $this->assertDatabaseCount('brands' , 1);
         $this->assertDatabaseHas('brands' , $data);
+        $response->assertRedirect();
+    }
+
+    public function test_edit_method()
+    {
+        $brand = Brand::factory()->create();
+        $response = $this->get(route('panel.brands.edit' , $brand->id));
+
+        $response->assertViewIs('Brand::edit')
+            ->assertViewHas('brand' , $brand);
+
+    }
+
+
+    public function test_update_method()
+    {
+        $brand = Brand::factory()->create();
+        $data = Brand::factory()->make()->toArray();
+        $dataForUpdate = $data;
+        unset($dataForUpdate['slug']);
+        $response = $this->patch(route('panel.brands.update' , $brand->id), $dataForUpdate);
+
+        $this->assertDatabaseCount('brands' , 1);
+        $this->assertDatabaseHas('brands' , $data);
+        $response->assertRedirect();
+    }
+
+
+    public function test_destroy_method()
+    {
+        $brand = Brand::factory()->create();
+
+        $response = $this->delete(route('panel.brands.destroy' ,  $brand->id));
+
+        $this->assertDatabaseCount('brands' ,0 );
+        $this->assertDatabaseMissing('brands' ,$brand->toArray());
         $response->assertRedirect();
     }
 

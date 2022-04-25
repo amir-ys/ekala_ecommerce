@@ -18,3 +18,4 @@
 {{--<script src="/assets/panel/js/custom.js"></script>--}}
 <script src="/assets/panel/js/app.js"></script>
 <!-- end::custom scripts -->
+@yield('script')

@@ -24,4 +24,28 @@ class BrandController extends Controller
         return back();
     }
 
+    public function edit($brandId)
+    {
+        $brand = Brand::query()->findOrFail($brandId);
+        return view('Brand::edit' , compact('brand'));
+    }
+
+    public function update(BrandRequest $request , $brandId)
+    {
+        $brand = Brand::query()->findOrFail($brandId);
+        $brand->update([
+            'name' => $request->name ,
+            'slug' => str()->slug($request->name) ,
+            'is_active' => $request->is_active
+        ]);
+        return to_route('panel.brands.index');
+    }
+
+    public function destroy($brandId)
+    {
+        $brand = Brand::query()->findOrFail($brandId);
+        $brand->delete();
+      return back();
+    }
+
 }
