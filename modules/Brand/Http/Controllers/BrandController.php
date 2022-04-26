@@ -10,7 +10,7 @@ class BrandController extends Controller
 {
     public function index()
     {
-        $brands = Brand::query()->latest()->paginate(1);
+        $brands = Brand::query()->latest()->paginate();
         return view('Brand::index' , compact('brands'));
     }
 
@@ -18,7 +18,6 @@ class BrandController extends Controller
     {
         Brand::create([
             'name' => $request->name ,
-            'slug' => str()->slug($request->name) ,
             'is_active' => $request->is_active
         ]);
         return back();
@@ -35,7 +34,6 @@ class BrandController extends Controller
         $brand = Brand::query()->findOrFail($brandId);
         $brand->update([
             'name' => $request->name ,
-            'slug' => str()->slug($request->name) ,
             'is_active' => $request->is_active
         ]);
         return to_route('panel.brands.index');
