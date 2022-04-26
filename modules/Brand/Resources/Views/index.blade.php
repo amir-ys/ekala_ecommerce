@@ -11,8 +11,8 @@
                     <div class="row mb-3">
                     </div>
                     <div class="table-responsive">
-                        <table id="tbl_users" class="table table-striped table-hover">
-                            <thead class="table-light">
+                        <table id="tbl_users" class="table table-hover">
+                            <thead class="thead-light">
                             <tr>
                                 <th>شناسه</th>
                                 <th>نام</th>
@@ -54,6 +54,7 @@
                             @endforeach
                             </tbody>
                         </table>
+                        {!! $brands->links() !!}
                     </div>
                 </div>
             </div>
