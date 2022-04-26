@@ -1,5 +1,9 @@
 @extends('Dashboard::master')
 @section('title' , 'ویرایش  برند')
+@section('breadcrumb')
+    <li class="breadcrumb-item"><a href="{{ route('panel.brands.index') }}"> برند ها </a></li>
+    <li class="breadcrumb-item active"><a > ویرایش برند</a></li>
+@endsection
 @section('content')
     <div class="row">
         <div class="col-lg-8">
@@ -44,19 +48,19 @@
                                                         >  @lang($status->name) </option>
                                                     @endforeach
                                                 </select>
-                                                @error('status')
+                                                @error('is_active')
                                                 <div class="invalid-feedback">
                                                     <strong> {{ $message }} </strong>
                                                 </div>
+                                                @enderror
                                             </div>
-                                            @enderror
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-9 offset-3">
-                                <button type="submit" class="btn btn-primary waves-effect waves-light">
-                                    بروزرسانی
+                                <button type="submit" class="btn btn-primary btn-uppercase">
+                                    <i class="ti-check-box m-l-5"></i>بروزرسانی
                                 </button>
                                 <a href="{{ route('panel.brands.index') }}" class="btn btn-secondary waves-effect">
                                     بازگشت

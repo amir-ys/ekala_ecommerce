@@ -38,7 +38,7 @@
                                                     value="{{ $status->value }}">  @lang($status->name) </option>
                                             @endforeach
                                         </select>
-                                        @error('status')
+                                        @error('is_active')
                                         <div class="invalid-feedback">
                                             <strong> {{ $message }} </strong>
                                         </div>
@@ -49,8 +49,8 @@
                         </div>
                     </div>
                     <div class="col-md-9 offset-3">
-                        <button type="submit" class="btn btn-primary waves-effect waves-light">
-                            ذخیره
+                        <button type="submit" class="btn btn-primary btn-uppercase">
+                            <i class="ti-check-box m-l-5"></i> ذخیره
                         </button>
                     </div>
                 </form>
