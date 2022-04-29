@@ -11,7 +11,7 @@
                 <div class="card overflow-hidden border border-5">
                     <div class="card-header">
                         <div class="alert alert-primary" role="alert">
-                            ویرایش برند
+                            <div class="font-size-12 text-left">  تاریخ اخرین بروزرسانی : {{ getJalaliDate($brand->updated_at) }}</div>
                         </div>
                     </div>
                     <div class="card-body">

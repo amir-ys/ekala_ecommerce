@@ -16,20 +16,17 @@
                             <tr>
                                 <th>شناسه</th>
                                 <th>نام</th>
-                                <th>نام انگلیسی</th>
                                 <th> تاریخ ایجاد</th>
                                 <th>وضعیت</th>
                                 <th> عملیات</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @php $i = 1 @endphp
                             @foreach($brands as $brand)
                                 <tr>
-                                    <td>{{ $i++ }}</td>
+                                    <td>{{ $loop->iteration  }}</td>
                                     <td>{{ $brand->name }}</td>
-                                    <td>{{ $brand->slug }}</td>
-                                    <td>{{ $brand->created_at }}</td>
+                                    <td>{{ getJalaliDate($brand->created_at) }}</td>
                                     <td>
                                         <span
                                         class="badge py-1 bg-{{ $brand->statusCssClass }}"> @lang($brand->is_active->name) </span>

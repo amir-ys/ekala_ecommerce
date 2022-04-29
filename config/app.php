@@ -174,6 +174,7 @@ return [
          */
         Modules\Brand\Providers\BrandServiceProvider::class ,
         Modules\Dashbaord\Providers\DashboardServiceProvider::class ,
+        Modules\Core\Providers\CoreServiceProvider::class ,
 
 
 

@@ -10,7 +10,8 @@
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.2",
         "laravel/sanctum": "^2.14.1",
-        "laravel/tinker": "^2.7"
+        "laravel/tinker": "^2.7",
+        "morilog/jalali": "3.*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",
@@ -27,8 +28,12 @@
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/" ,
             "Modules\\Brand\\": "modules/Brand/",
-            "Modules\\Dashbaord\\": "modules/Dashboard/"
-        }
+            "Modules\\Dashbaord\\": "modules/Dashboard/" ,
+            "Modules\\Core\\": "modules/Core/"
+        },
+        "files": [
+            "modules/Core/Helpers/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
