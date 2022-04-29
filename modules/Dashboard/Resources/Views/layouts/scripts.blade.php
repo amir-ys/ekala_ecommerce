@@ -3,15 +3,15 @@
 <!-- end::global scripts -->
 
 <!-- begin::chart -->
-<script src="/assets/panel/vendors/charts/chart.min.js"></script>
-<script src="/assets/panel/vendors/charts/sparkline.min.js"></script>
-<script src="/assets/panel/vendors/circle-progress/circle-progress.min.js"></script>
-<script src="/assets/panel/js/examples/charts.js"></script>
+{{--<script src="/assets/panel/vendors/charts/chart.min.js"></script>--}}
+{{--<script src="/assets/panel/vendors/charts/sparkline.min.js"></script>--}}
+{{--<script src="/assets/panel/vendors/circle-progress/circle-progress.min.js"></script>--}}
+{{--<script src="/assets/panel/js/examples/charts.js"></script>--}}
 <!-- end::chart -->
 
 <!-- begin::swiper -->
-<script src="/assets/panel/vendors/swiper/swiper.min.js"></script>
-<script src="/assets/panel/js/examples/swiper.js"></script>
+{{--<script src="/assets/panel/vendors/swiper/swiper.min.js"></script>--}}
+{{--<script src="/assets/panel/js/examples/swiper.js"></script>--}}
 <!-- end::swiper -->
 
 <!-- begin::custom scripts -->

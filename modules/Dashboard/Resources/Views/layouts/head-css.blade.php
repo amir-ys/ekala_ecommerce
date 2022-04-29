@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="/assets/panel/vendors/bundle.css" type="text/css">
 <!-- end::global styles -->
 
-<link rel="stylesheet" href="/assets/panel/vendors/swiper/swiper.min.css">
+{{--<link rel="stylesheet" href="/assets/panel/vendors/swiper/swiper.min.css">--}}
 <link rel="stylesheet" href="/assets/panel/vendors/font-awesome/css/font-awesome.min.css?v=1">
 <!-- begin::custom styles -->
 <link rel="stylesheet" href="/assets/panel/css/app.css" type="text/css">

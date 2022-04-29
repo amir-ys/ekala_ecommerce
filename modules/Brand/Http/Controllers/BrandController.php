@@ -36,6 +36,7 @@ class BrandController extends Controller
             'name' => $request->name ,
             'is_active' => $request->is_active
         ]);
+        newFeedback();
         return to_route('panel.brands.index');
     }
 

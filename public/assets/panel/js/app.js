@@ -198,20 +198,20 @@ var _0x33a7 = function(i, parameter1) {
     }
     $area["on"](_0x33a7("0x15"), function() {
         $(_0x33a7("0x16"))[_0x33a7("0x17")](700, function() {
-            setTimeout(function() {
-                toastr[_0x33a7("0x18")] = {};
-                /** @type {number} */
-                toastr[_0x33a7("0x18")][_0x33a7("0x19")] = 3E3;
-                /** @type {boolean} */
-                toastr[_0x33a7("0x18")][_0x33a7("0x1a")] = !![];
-                toastr[_0x33a7("0x18")][_0x33a7("0x1b")] = _0x33a7("0x1c");
-                toastr[_0x33a7("0x18")][_0x33a7("0x1d")] = _0x33a7("0x1e");
-                /** @type {number} */
-                toastr[_0x33a7("0x18")][_0x33a7("0x1f")] = 200;
-                /** @type {number} */
-                toastr[_0x33a7("0x18")][_0x33a7("0x20")] = 200;
-                toastr[_0x33a7("0x21")](_0x33a7("0x22"));
-            }, 1E3);
+            // setTimeout(function() {
+            //     toastr[_0x33a7("0x18")] = {};
+            //     /** @type {number} */
+            //     toastr[_0x33a7("0x18")][_0x33a7("0x19")] = 3E3;
+            //     /** @type {boolean} */
+            //     toastr[_0x33a7("0x18")][_0x33a7("0x1a")] = !![];
+            //     toastr[_0x33a7("0x18")][_0x33a7("0x1b")] = _0x33a7("0x1c");
+            //     toastr[_0x33a7("0x18")][_0x33a7("0x1d")] = _0x33a7("0x1e");
+            //     /** @type {number} */
+            //     toastr[_0x33a7("0x18")][_0x33a7("0x1f")] = 200;
+            //     /** @type {number} */
+            //     toastr[_0x33a7("0x18")][_0x33a7("0x20")] = 200;
+            //     toastr[_0x33a7("0x21")](_0x33a7("0x22"));
+            // }, 1E3);
         });
     });
     $area["on"](_0x33a7("0x15"), function() {
