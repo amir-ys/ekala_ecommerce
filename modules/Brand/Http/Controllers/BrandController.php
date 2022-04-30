@@ -42,9 +42,18 @@ class BrandController extends Controller
 
     public function destroy($brandId)
     {
-        $brand = Brand::query()->findOrFail($brandId);
+        $brand = Brand::query()->find($brandId);
+        if (!$brand){
+            return response()->json([
+                'message' => 'برندی با این شناسه پیدا نشد!' ,
+                'status' => -1
+            ]);
+        }
         $brand->delete();
-      return back();
+        return response()->json([
+            'message' => "برند ".$brand->name." با موفقیت حذف شد." ,
+            'status' => 1
+        ]);
     }
 
 }

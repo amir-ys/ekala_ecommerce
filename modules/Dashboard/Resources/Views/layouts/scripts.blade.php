@@ -15,8 +15,9 @@
 <!-- end::swiper -->
 
 <!-- begin::custom scripts -->
-{{--<script src="/assets/panel/js/custom.js"></script>--}}
+<script src="/assets/panel/js/custom.js"></script>
  @include('Core::toast.feedbacks')
 <script src="/assets/panel/js/app.js"></script>
+<script src="/assets/panel/vendors/toastr/toastr.min.js"></script>
 <!-- end::custom scripts -->
 @yield('script')

@@ -37,7 +37,7 @@
                                                 class="fa fa-pencil fa-15m text-success"></i></a>
 
                                         <a href="{{ route('panel.brands.destroy' , $brand->id) }}"
-                                           onclick="deleteBrand('{{ $brand->id }}')"
+                                           onclick="deleteItem(event ,  '{{ route('panel.brands.destroy' , $brand->id) }}')"
                                            class="btn btn-sm bg-transparent d-inline delete-confirm"><i
                                                 class="fa fa-trash fa-15m text-danger"></i></a>
 
@@ -60,18 +60,31 @@
     </div>
     <!-- /basic responsive table -->
 @endsection
-@section('css')
-    <script src="/assets/panel/vendors/toastr/toastr.min.css"></script>
-
-@endsection
-@section('script')
-    <script src="/assets/panel/vendors/toastr/toastr.min.js"></script>
-    <script>
-        function deleteBrand(id) {
-            event.preventDefault();
-            document.querySelector('#destroy-brand-' + id).submit()
-        }
-
-    </script>
-
-@endsection
+{{--@section('script')--}}
+{{--    <script>--}}
+{{--        swal({--}}
+{{--            title: "آیا اطمینان دارید؟",--}}
+{{--            text: "پس از حذف قادر به بازیابی این فایل خیالی نخواهید بود!",--}}
+{{--            icon: "warning",--}}
+{{--            buttons: {--}}
+{{--                confirm : 'بله',--}}
+{{--                cancel : 'خیر'--}}
+{{--            },--}}
+{{--            dangerMode: true--}}
+{{--        })--}}
+{{--            .then(function(willDelete) {--}}
+{{--                if (willDelete) {--}}
+{{--                    swal("پوف! فایل خیالی شما حذف شد!", {--}}
+{{--                        icon: "success",--}}
+{{--                        button: "باشه"--}}
+{{--                    });--}}
+{{--                }--}}
+{{--                else {--}}
+{{--                    swal("فایل خیالی شما در امان است!", {--}}
+{{--                        icon: "error",--}}
+{{--                        button: "باشه"--}}
+{{--                    });--}}
+{{--                }--}}
+{{--            });--}}
+{{--    </script>--}}
+{{--@endsection--}}

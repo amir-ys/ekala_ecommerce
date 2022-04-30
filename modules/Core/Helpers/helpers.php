@@ -14,7 +14,7 @@ if (!function_exists('getJalaliDate')){
 
 if (!function_exists('newFeedback')){
     function newFeedback($title =  'موفقیت آمیز' , $body = "عملیات با موفقیت انجام شد." , $type = 'success') {
-        $session = session()->has('newFeedBack') ?session()->get('newFeedBack') : [];
+        $session = session()->has('newFeedback') ?session()->get('newFeedback') : [];
         $session[] = [ 'title' => $title  , 'body' =>  $body , 'type' => $type ];
         session()->flash('newFeedback'  , $session ) ;
     }

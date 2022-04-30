@@ -12,4 +12,5 @@
 <!-- begin::favicon -->
 <link rel="shortcut icon" href="/assets/panel/media/image/favicon.png">
 <!-- end::favicon -->
+<link rel="stylesheet" href="/assets/panel/vendors/toastr/toastr.min.css" type="text/css">
 @yield('css')

@@ -18,8 +18,7 @@ class BrandFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $name = $this->faker->word ,
-            'slug' => $name,
+            'name' =>  $this->faker->word ,
             'is_active' => $this->faker->randomElement([BrandStatus::ACTIVE->value , BrandStatus::INACTIVE->value]) ,
         ];
     }
