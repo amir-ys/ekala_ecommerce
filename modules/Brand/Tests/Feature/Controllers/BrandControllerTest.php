@@ -67,4 +67,19 @@ class BrandControllerTest extends TestCase
         ]);
     }
 
+    public function test_validation_request_brand_data_has_required()
+    {
+        $data = [];
+        $errors = [
+            'name' =>  __('validation.required' , [ 'attribute' =>  'نام']  ),
+            'is_active' =>   __('validation.required' , ['attribute' =>  'وضعیت']),
+        ];
+
+        $this->post(route('panel.brands.store') , $data)
+            ->assertSessionHasErrors($errors);
+
+        $this->post(route('panel.brands.update' , Brand::factory()->create()->id) , $data)
+            ->assertSessionHasErrors($errors);
+    }
+
 }
