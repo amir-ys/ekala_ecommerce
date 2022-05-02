@@ -3,6 +3,8 @@ namespace Modules\Brand\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Modules\Brand\Contracts\BrandRepositoryInterface;
+use Modules\Brand\Repositories\BrandRepo;
 
 class BrandServiceProvider extends ServiceProvider
 {
@@ -13,12 +15,13 @@ class BrandServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__ . '/../Resources/Views' , 'Brand');
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
         $this->loadJsonTranslationsFrom(__DIR__ . '/../Resources/Lang');
-        $this->loadRoutes()
-;    }
+        $this->loadRoutes();
+
+    }
 
     public function boot()
     {
-
+        $this->app->bind(BrandRepositoryInterface::class , BrandRepo::class);
     }
 
     private function loadRoutes()
