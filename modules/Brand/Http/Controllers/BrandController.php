@@ -5,6 +5,7 @@ namespace Modules\Brand\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Modules\Brand\Contracts\brandRepositoryInterface;
 use Modules\Brand\Http\Requests\BrandRequest;
+use Modules\Core\Responses\AjaxResponse;
 
 class BrandController extends Controller
 {
@@ -22,6 +23,7 @@ class BrandController extends Controller
     public function store(BrandRequest $request)
     {
         $this->brandRepo->store($request->all());
+        newFeedback();
         return back();
     }
 
@@ -42,16 +44,10 @@ class BrandController extends Controller
     {
         $brand = $this->brandRepo->findById($brandId);
         if (!$brand){
-            return response()->json([
-                'message' => 'برندی با این شناسه پیدا نشد!' ,
-                'status' => -1
-            ]);
+           return AjaxResponse::error('برندی با این شناسه پیدا نشد.');
         }
         $this->brandRepo->destroy($brandId);
-        return response()->json([
-            'message' => "برند ".$brand->name." با موفقیت حذف شد." ,
-            'status' => 1
-        ]);
+        return AjaxResponse::success("برند ".$brand->name." با موفقیت حذف شد.");
     }
 
 }
