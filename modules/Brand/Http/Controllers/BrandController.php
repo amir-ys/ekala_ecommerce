@@ -3,14 +3,14 @@
 namespace Modules\Brand\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Modules\Brand\Contracts\brandRepositoryInterface;
+use Modules\Brand\Contracts\BrandRepositoryInterface;
 use Modules\Brand\Http\Requests\BrandRequest;
 use Modules\Core\Responses\AjaxResponse;
 
 class BrandController extends Controller
 {
     private $brandRepo;
-    public function __construct(brandRepositoryInterface $brandRepo)
+    public function __construct(BrandRepositoryInterface $brandRepo)
     {
         $this->brandRepo = $brandRepo;
     }
