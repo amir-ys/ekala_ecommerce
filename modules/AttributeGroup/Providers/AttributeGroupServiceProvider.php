@@ -3,6 +3,8 @@ namespace Modules\AttributeGroup\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Modules\AttributeGroup\Contracts\AttributeGroupRepositoryInterface;
+use Modules\AttributeGroup\Repositories\AttributeGroupRepo;
 
 class AttributeGroupServiceProvider extends  ServiceProvider
 {
@@ -11,12 +13,14 @@ class AttributeGroupServiceProvider extends  ServiceProvider
     public function register()
     {
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
+        $this->loadViewsFrom(__DIR__ . '/../Resources/Views' , 'AttributeGroup');
         $this->loadRoutes();
 
     }
 
     public function boot()
     {
+        app()->bind(AttributeGroupRepositoryInterface::class , AttributeGroupRepo::class);
 
     }
 

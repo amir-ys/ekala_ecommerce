@@ -14,7 +14,7 @@ x<div class="side-menu">
                     <span>برند ها</span> <span class="badge bg-danger-gradient"></span></a>
             </li>
 
-            <li><a data-attr="layout-builder-toggle" class="c-active" href="{{ route('panel.attributeGroup.index') }}">
+            <li><a data-attr="layout-builder-toggle" class="c-active" href="{{ route('panel.attributeGroups.index') }}">
                     <i class="icon ti-layout"></i>
                     <span>گروه مشخصات </span> <span class="badge bg-danger-gradient"></span></a>
             </li>

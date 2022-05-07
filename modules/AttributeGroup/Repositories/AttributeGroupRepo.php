@@ -1,17 +1,19 @@
 <?php
 
-namespace Modules\Brand\Repositories;
+namespace Modules\AttributeGroup\Repositories;
 
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\Pagination\Paginator;
-use Modules\Brand\Contracts\BrandRepositoryInterface;
+use Modules\AttributeGroup\Contracts\AttributeGroupRepositoryInterface;
+use Modules\AttributeGroup\Models\AttributeGroup;
 use Modules\Brand\Models\Brand;
 
-class BrandRepo implements BrandRepositoryInterface
+class AttributeGroupRepo implements AttributeGroupRepositoryInterface
 {
     private $query;
     public function __construct()
     {
-        $this->query = Brand::query();
+        $this->query = AttributeGroup::query();
     }
 
     public function getAllPaginate(): Paginator

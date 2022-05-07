@@ -21,27 +21,23 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($brands as $brand)
+                            @foreach($attributeGroups as $attributeGroup)
                                 <tr>
                                     <td>{{ $loop->iteration  }}</td>
-                                    <td>{{ $brand->name }}</td>
-                                    <td>{{ getJalaliDate($brand->created_at) }}</td>
-                                    <td>
-                                        <span
-                                            class="badge py-1 bg-{{ $brand->statusCssClass }}"> @lang($brand->is_active->name) </span>
-                                    </td>
+                                    <td>{{ $attributeGroup->name }}</td>
+                                    <td>{{ getJalaliDate($attributeGroup->created_at) }}</td>
                                     <td>
                                         <a class="btn btn-sm bg-transparent d-inline"
-                                           href="{{ route('panel.brands.edit' , $brand) }}"><i
+                                           href="{{ route('panel.attributeGroups.edit' , $attributeGroup) }}"><i
                                                 class="fa fa-pencil fa-15m text-success"></i></a>
 
-                                        <a href="{{ route('panel.brands.destroy' , $brand->id) }}"
-                                           onclick="deleteItem(event ,  '{{ route('panel.brands.destroy' , $brand->id) }}')"
+                                        <a href="{{ route('panel.attributeGroups.destroy' , $attributeGroup->id) }}"
+                                           onclick="deleteItem(event ,  '{{ route('panel.attributeGroups.destroy' , $attributeGroup->id) }}')"
                                            class="btn btn-sm bg-transparent d-inline delete-confirm"><i
                                                 class="fa fa-trash fa-15m text-danger"></i></a>
 
-                                        <form action="{{ route('panel.brands.destroy' , $brand->id) }}" method="post"
-                                              id="destroy-brand-{{ $brand->id }}">
+                                        <form action="{{ route('panel.attributeGroups.destroy' , $attributeGroup->id) }}" method="post"
+                                              id="destroy-brand-{{ $attributeGroup->id }}">
                                             @csrf
                                             @method('delete')
                                         </form>
@@ -50,12 +46,12 @@
                             @endforeach
                             </tbody>
                         </table>
-                        {!! $brands->links() !!}
+                        {!! $attributeGroups->links() !!}
                     </div>
                 </div>
             </div>
         </div>
-        @include('Brand::create')
+        @include('AttributeGroup::create')
     </div>
     <!-- /basic responsive table -->
 @endsection
