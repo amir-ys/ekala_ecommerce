@@ -28,7 +28,7 @@ class BrandServiceProvider extends ServiceProvider
     {
         Route::middleware('web')
             ->namespace($this->namespace)
-            ->group(__DIR__ . '/../Routes/Brands_routes.php');
+            ->group(__DIR__ . '/../Routes/brands_routes.php');
     }
 
 }

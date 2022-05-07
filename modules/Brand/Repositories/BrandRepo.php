@@ -17,7 +17,7 @@ class BrandRepo implements BrandRepositoryInterface
 
     public function getAllPaginate(): Paginator
     {
-       return $this->query->latest()->simplePaginate();
+       return $this->query->latest()->paginate();
     }
 
     public function findById(int $id)

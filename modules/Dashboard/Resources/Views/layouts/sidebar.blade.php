@@ -13,11 +13,11 @@ x<div class="side-menu">
                     <i class="icon ti-layout"></i>
                     <span>برند ها</span> <span class="badge bg-danger-gradient"></span></a>
             </li>
-{{--            <li><a href="#"><i class="icon ti-rocket"></i> <span>اپ ها</span> </a>--}}
-{{--                <ul>--}}
-{{--                    <li><a href="chat.html">گفتگو </a></li>--}}
-{{--                </ul>--}}
-{{--            </li>--}}
+
+            <li><a data-attr="layout-builder-toggle" class="c-active" href="{{ route('panel.attributeGroup.index') }}">
+                    <i class="icon ti-layout"></i>
+                    <span>گروه مشخصات </span> <span class="badge bg-danger-gradient"></span></a>
+            </li>
         </ul>
     </div>
 </div>

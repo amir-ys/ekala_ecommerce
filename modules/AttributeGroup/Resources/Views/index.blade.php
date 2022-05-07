@@ -1,7 +1,7 @@
 @extends('Dashboard::master')
-@section('title'  ,'برندها')
+@section('title'  ,'گروه مشخصات')
 @section('breadcrumb')
-    <li class="breadcrumb-item active"><a>برند ها</a></li>
+    <li class="breadcrumb-item active"><a>گروه مشخصات</a></li>
 @endsection
 @section('content')
     <div class="row">
@@ -17,7 +17,6 @@
                                 <th>شناسه</th>
                                 <th>نام</th>
                                 <th> تاریخ ایجاد</th>
-                                <th>وضعیت</th>
                                 <th> عملیات</th>
                             </tr>
                             </thead>
@@ -29,7 +28,7 @@
                                     <td>{{ getJalaliDate($brand->created_at) }}</td>
                                     <td>
                                         <span
-                                        class="badge py-1 bg-{{ $brand->statusCssClass }}"> @lang($brand->is_active->name) </span>
+                                            class="badge py-1 bg-{{ $brand->statusCssClass }}"> @lang($brand->is_active->name) </span>
                                     </td>
                                     <td>
                                         <a class="btn btn-sm bg-transparent d-inline"
@@ -42,7 +41,7 @@
                                                 class="fa fa-trash fa-15m text-danger"></i></a>
 
                                         <form action="{{ route('panel.brands.destroy' , $brand->id) }}" method="post"
-                                        id="destroy-brand-{{ $brand->id }}">
+                                              id="destroy-brand-{{ $brand->id }}">
                                             @csrf
                                             @method('delete')
                                         </form>

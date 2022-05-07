@@ -5,7 +5,7 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "require": {
-        "php": "^8.*",
+        "php": "^8.1",
         "cviebrock/eloquent-sluggable": "^9.0",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.2",
@@ -29,7 +29,8 @@
             "Database\\Seeders\\": "database/seeders/" ,
             "Modules\\Brand\\": "modules/Brand/",
             "Modules\\Dashbaord\\": "modules/Dashboard/" ,
-            "Modules\\Core\\": "modules/Core/"
+            "Modules\\Core\\": "modules/Core/" ,
+            "Modules\\AttributeGroup\\" : "modules/AttributeGroup/"
         },
         "files": [
             "modules/Core/Helpers/helpers.php"
