@@ -30,7 +30,6 @@ class AttributeGroupRepo implements AttributeGroupRepositoryInterface
     {
         $this->query->create([
             'name' => $data['name'] ,
-            'is_active' => $data['is_active']
         ]);
     }
 
@@ -39,7 +38,6 @@ class AttributeGroupRepo implements AttributeGroupRepositoryInterface
         $brand = $this->findById($id);
          $brand->update([
             'name' => $data['name'] ,
-            'is_active' => $data['is_active']
         ]);
     }
 

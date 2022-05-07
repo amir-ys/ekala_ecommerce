@@ -21,7 +21,6 @@ class AttributeGroupServiceProvider extends  ServiceProvider
     public function boot()
     {
         app()->bind(AttributeGroupRepositoryInterface::class , AttributeGroupRepo::class);
-
     }
 
     private function loadRoutes()
