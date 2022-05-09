@@ -24,13 +24,9 @@
                                         <div class="row">
                                             <label for="name" class="col-sm-3 col-form-label">نام</label>
                                             <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="name" name="name"
+                                                <input type="text" class="form-control" id="name" name="name" placeholder="نام"
                                                        value="{{ old('name' , $brand->name) }}">
-                                                @error('name')
-                                                <div class="invalid-feedback">
-                                                    <strong> {{ $message }} </strong>
-                                                </div>
-                                                @enderror
+                                                <x-validation-error field="name" />
                                             </div>
                                         </div>
                                     </div>
@@ -48,11 +44,7 @@
                                                         >  @lang($status->name) </option>
                                                     @endforeach
                                                 </select>
-                                                @error('is_active')
-                                                <div class="invalid-feedback">
-                                                    <strong> {{ $message }} </strong>
-                                                </div>
-                                                @enderror
+                                                <x-validation-error field="is_active" />
                                             </div>
                                         </div>
                                     </div>

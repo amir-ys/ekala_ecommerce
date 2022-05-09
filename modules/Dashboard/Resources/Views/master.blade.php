@@ -14,10 +14,10 @@
 <body>
 
 <!-- begin::page loader-->
-<div class="page-loader">
-    <div class="spinner-border"></div>
-    <span>در حال بارگذاری ...</span>
-</div>
+{{--<div class="page-loader">--}}
+{{--    <div class="spinner-border"></div>--}}
+{{--    <span>در حال بارگذاری ...</span>--}}
+{{--</div>--}}
 <!-- end::page loader -->
 
 <!-- begin::sidebar -->

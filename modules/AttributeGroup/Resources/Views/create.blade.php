@@ -17,11 +17,7 @@
                                     <div class="col-sm-9">
                                         <input type="text" class="form-control" id="name" name="name" placeholder="نام"
                                                value="{{ old('name') }}">
-                                        @error('name')
-                                        <div class="invalid-feedback">
-                                            <strong> {{ $message }} </strong>
-                                        </div>
-                                        @enderror
+                                        <x-validation-error field="name" />
                                     </div>
                                 </div>
                             </div>
