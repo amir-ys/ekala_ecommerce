@@ -5,23 +5,15 @@ namespace Modules\Brand\Repositories;
 use Illuminate\Contracts\Pagination\Paginator;
 use Modules\Brand\Contracts\BrandRepositoryInterface;
 use Modules\Brand\Models\Brand;
+use Modules\Core\Repositories\BaseRepository;
 
 class BrandRepo implements BrandRepositoryInterface
 {
+    use BaseRepository;
     private $query;
     public function __construct()
     {
         $this->query = Brand::query();
-    }
-
-    public function getAllPaginate(): Paginator
-    {
-       return $this->query->latest()->paginate();
-    }
-
-    public function findById(int $id)
-    {
-       return $this->query->findOrFail($id);
     }
 
     public function store(array $data)
@@ -41,9 +33,4 @@ class BrandRepo implements BrandRepositoryInterface
         ]);
     }
 
-    public function destroy(int $id)
-    {
-        $brand = $this->findById($id);
-         $brand->delete();
-    }
 }

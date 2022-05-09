@@ -7,23 +7,16 @@ use Illuminate\Contracts\Pagination\Paginator;
 use Modules\AttributeGroup\Contracts\AttributeGroupRepositoryInterface;
 use Modules\AttributeGroup\Models\AttributeGroup;
 use Modules\Brand\Models\Brand;
+use Modules\Core\Repositories\BaseRepository;
 
 class AttributeGroupRepo implements AttributeGroupRepositoryInterface
 {
+    use BaseRepository;
+
     private $query;
     public function __construct()
     {
         $this->query = AttributeGroup::query();
-    }
-
-    public function getAllPaginate(): Paginator
-    {
-       return $this->query->latest()->paginate();
-    }
-
-    public function findById(int $id)
-    {
-       return $this->query->findOrFail($id);
     }
 
     public function store(array $data)
@@ -39,11 +32,5 @@ class AttributeGroupRepo implements AttributeGroupRepositoryInterface
          $brand->update([
             'name' => $data['name'] ,
         ]);
-    }
-
-    public function destroy(int $id)
-    {
-        $brand = $this->findById($id);
-         $brand->delete();
     }
 }
