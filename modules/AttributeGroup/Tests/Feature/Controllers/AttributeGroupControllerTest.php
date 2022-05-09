@@ -49,6 +49,16 @@ class AttributeGroupControllerTest extends TestCase
         $this->assertDatabaseHas('attribute_groups' , $data);
     }
 
+    public function test_destroy_method()
+    {
+        $attributeGroup = AttributeGroup::factory()->create();
+        $response = $this->delete(route('panel.attributeGroups.destroy' , $attributeGroup->id ));
 
+        $response->assertJson([
+           'message' =>  'گروه مشخصات'. $attributeGroup->name .' با موفقیت حذف شد.'
+        ]);
+        $this->assertDatabaseCount('attribute_groups',0);
+        $this->assertDatabaseMissing('attribute_groups' , $attributeGroup->toArray());
+    }
 
 }

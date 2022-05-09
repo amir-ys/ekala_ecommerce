@@ -5,6 +5,7 @@ namespace Modules\AttributeGroup\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Modules\AttributeGroup\Contracts\AttributeGroupRepositoryInterface;
 use Modules\AttributeGroup\Http\Requests\AttributeGroupRequest;
+use Modules\Core\Responses\AjaxResponse;
 
 class AttributeGroupController extends Controller
 {
@@ -38,6 +39,16 @@ class AttributeGroupController extends Controller
         $this->attributeGroupRepo->update($attributeGroupId , $request->all());
         newFeedback();
         return to_route('panel.attributeGroups.index');
+    }
+
+    public function destroy($attributeGroupId)
+    {
+       $attributeGroup =  $this->attributeGroupRepo->findById($attributeGroupId);
+        $this->attributeGroupRepo->destroy($attributeGroupId);
+        return AjaxResponse::success(
+            'گروه مشخصات'. $attributeGroup->name .' با موفقیت حذف شد.'
+        );
+
     }
 
 
