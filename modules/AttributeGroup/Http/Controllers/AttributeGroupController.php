@@ -27,4 +27,19 @@ class AttributeGroupController extends Controller
         return back();
     }
 
+    public function edit($attributeGroupId)
+    {
+        $attributeGroup = $this->attributeGroupRepo->findById($attributeGroupId);
+        return view('AttributeGroup::edit' , compact('attributeGroup'));
+    }
+
+    public function update(AttributeGroupRequest $request ,$attributeGroupId)
+    {
+        $this->attributeGroupRepo->update($attributeGroupId , $request->all());
+        newFeedback();
+        return to_route('panel.attributeGroups.index');
+    }
+
+
+
 }
