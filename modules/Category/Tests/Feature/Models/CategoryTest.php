@@ -13,7 +13,7 @@ class CategoryTest extends TestCase
     public function test_insert_data()
     {
         $data = Category::factory()->make()->toArray();
-        $data['slug'] = SlugService::createSlug(Category::class , 'slug' , 'name');
+        $data['slug'] = SlugService::createSlug(Category::class , 'slug' , $data['name']);
 
         Category::create($data);
 
