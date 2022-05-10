@@ -30,7 +30,8 @@
             "Modules\\Brand\\": "modules/Brand/",
             "Modules\\Dashbaord\\": "modules/Dashboard/" ,
             "Modules\\Core\\": "modules/Core/" ,
-            "Modules\\AttributeGroup\\" : "modules/AttributeGroup/"
+            "Modules\\AttributeGroup\\" : "modules/AttributeGroup/" ,
+            "Modules\\Category\\" : "modules/Category/"
         },
         "files": [
             "modules/Core/Helpers/helpers.php"
