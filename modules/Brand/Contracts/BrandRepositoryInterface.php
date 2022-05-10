@@ -2,11 +2,9 @@
 
 namespace Modules\Brand\Contracts;
 
-interface BrandRepositoryInterface
+use Modules\Core\Contracts\BaseRepositoryInterface;
+
+interface BrandRepositoryInterface extends BaseRepositoryInterface
 {
     public function getAllPaginate();
-    public function findById(int $id);
-    public function store(array $data);
-    public function update(int $id,array $data);
-    public function destroy(int $id);
 }

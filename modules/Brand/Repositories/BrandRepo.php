@@ -2,15 +2,13 @@
 
 namespace Modules\Brand\Repositories;
 
-use Illuminate\Contracts\Pagination\Paginator;
 use Modules\Brand\Contracts\BrandRepositoryInterface;
 use Modules\Brand\Models\Brand;
 use Modules\Core\Repositories\BaseRepository;
 
-class BrandRepo implements BrandRepositoryInterface
+class BrandRepo extends BaseRepository implements BrandRepositoryInterface
 {
-    use BaseRepository;
-    private $query;
+    protected $query;
     public function __construct()
     {
         $this->query = Brand::query();

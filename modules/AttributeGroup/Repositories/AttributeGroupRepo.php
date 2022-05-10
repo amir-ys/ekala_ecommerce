@@ -9,11 +9,9 @@ use Modules\AttributeGroup\Models\AttributeGroup;
 use Modules\Brand\Models\Brand;
 use Modules\Core\Repositories\BaseRepository;
 
-class AttributeGroupRepo implements AttributeGroupRepositoryInterface
+class AttributeGroupRepo extends BaseRepository implements AttributeGroupRepositoryInterface
 {
-    use BaseRepository;
-
-    private $query;
+    protected $query;
     public function __construct()
     {
         $this->query = AttributeGroup::query();

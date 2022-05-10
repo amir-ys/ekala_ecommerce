@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
-trait BaseRepository
+ class BaseRepository
 {
     public function getAllPaginate(): Paginator
     {
@@ -21,7 +21,7 @@ trait BaseRepository
 
     public function destroy(int $id): void
     {
-        $brand = $this->findById($id);
-        $brand->delete();
+        $model = $this->findById($id);
+        $model->delete();
     }
 }
