@@ -13,4 +13,9 @@ class CategoryController extends Controller
         return view('Category::index' , compact('categories'));
     }
 
+    public function create()
+    {
+        return view('Category::create');
+    }
+
 }

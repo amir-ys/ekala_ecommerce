@@ -6,10 +6,16 @@
 @section('content')
     <div class="row">
         <div class="col-lg-12">
+            <div class="row mb-3">
+                <div class="col-sm-12 col-md-12 col-lg-2">
+                    <a href="{{ route('panel.categories.create') }}"
+                       class="btn btn-primary btn-rounded waves-effect waves-light mb-2 me-2 w-100">
+                        <i class="mdi mdi-plus me-1"></i>
+                        ساخت دسته بندی </a>
+                </div>
+            </div>
             <div class="card">
                 <div class="card-body border border-5">
-                    <div class="row mb-3">
-                    </div>
                     <div class="table-responsive">
                         <table id="tbl_users" class="table table-hover">
                             <thead class="thead-light">

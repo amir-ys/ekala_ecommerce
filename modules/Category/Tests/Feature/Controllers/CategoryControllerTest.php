@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Category\Tests\Feature\Models\Controllers;
+namespace Modules\Category\Tests\Feature\Controllers;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\Category\Models\Category;
@@ -16,6 +16,12 @@ class CategoryControllerTest extends TestCase
 
         $response->assertViewIs('Category::index')
             ->assertViewHas('categories' , Category::query()->latest()->paginate());
+    }
+
+    public function test_create_method()
+    {
+        $response = $this->get(route('panel.categories.create'));
+        $response->assertViewIs('Category::create');
     }
 
 }
