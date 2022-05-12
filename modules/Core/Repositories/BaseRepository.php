@@ -7,8 +7,14 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
- class BaseRepository
+class BaseRepository
 {
+    protected Builder $query;
+    public function __construct()
+    {
+        $this->query = (new $this->model)::query();
+    }
+
     public function getAllPaginate(): Paginator
     {
         return $this->query->latest()->paginate();

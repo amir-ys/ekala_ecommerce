@@ -8,12 +8,7 @@ use Modules\Core\Repositories\BaseRepository;
 
 class BrandRepo extends BaseRepository implements BrandRepositoryInterface
 {
-    protected $query;
-    public function __construct()
-    {
-        $this->query = Brand::query();
-    }
-
+    protected $model = Brand::class;
     public function store(array $data)
     {
         $this->query->create([

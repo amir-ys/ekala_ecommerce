@@ -3,6 +3,8 @@ namespace Modules\Category\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Modules\Category\Contracts\CategoryRepositoryInterface;
+use Modules\Category\Repositories\CategoryRepo;
 
 class CategoryServiceProvider extends  ServiceProvider
 {
@@ -19,7 +21,7 @@ class CategoryServiceProvider extends  ServiceProvider
 
     public function boot()
     {
-
+        $this->app->bind(CategoryRepositoryInterface::class , CategoryRepo::class);
     }
 
     private function loadRoutes()

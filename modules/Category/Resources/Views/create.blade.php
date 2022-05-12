@@ -27,18 +27,46 @@
 
                                     <div class="col-md-10 mb-3">
                                         <div class="row">
+                                            <label class="col-sm-3 col-form-label">دسته پدر</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" name="parent_id" aria-hidden="true">
+                                                    <option value>دسته پدر را انتخاب کنید</option>
+                                                    @foreach($parentCategories as  $parentCategory)
+                                                        <option
+                                                            value="{{ $parentCategory->id }}"
+                                                            @selected(old('category') == $parentCategory->id)
+                                                        >  {{ $parentCategory->name }} </option>
+                                                    @endforeach
+                                                </select>
+                                                <x-validation-error field="parent_id" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-10 mb-3">
+                                        <div class="row">
                                             <label class="col-sm-3 col-form-label">وضعیت</label>
                                             <div class="col-sm-9">
                                                 <select class="form-control" name="is_active" aria-hidden="true">
                                                     <option value>یک وضعیت را انتخاب کنید</option>
-                                                    @foreach(\Modules\Brand\Enums\BrandStatus::cases() as  $status)
+                                                    @foreach(\Modules\Category\Enums\CategoryStatus::cases() as  $status)
                                                         <option
                                                             value="{{ $status->value }}"
-{{--                                                            @selected($status->value == $brand->is_active->value)--}}
+{{--                                                              @selected($status->value == $brand->is_active->value)--}}
                                                         >  @lang($status->name) </option>
                                                     @endforeach
                                                 </select>
                                                 <x-validation-error field="is_active" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-10 mb-3">
+                                        <div class="row">
+                                            <label class="col-sm-3 col-form-label">قابل فیلتر باشد؟</label>
+                                            <div class="col-sm-9 mt-md-3">
+                                                <input type="checkbox" class="form-check" name="is_searchable"  value="{{ \Modules\Category\Models\Category::SEARCHABLE_TRUE }}">
+                                                <x-validation-error field="is_searchable" />
                                             </div>
                                         </div>
                                     </div>

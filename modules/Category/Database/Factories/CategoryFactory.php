@@ -20,6 +20,7 @@ class CategoryFactory extends Factory
     {
         return [
             'name' => $this->faker->word() ,
+            'parent_id' => null,
             'is_active' => $this->faker->randomElement([0 ,1]) ,
             'is_searchable' => $this->faker->randomElement([0 ,1]) ,
         ];

@@ -9,9 +9,10 @@
             <div class="row mb-3">
                 <div class="col-sm-12 col-md-12 col-lg-2">
                     <a href="{{ route('panel.categories.create') }}"
-                       class="btn btn-primary btn-rounded waves-effect waves-light mb-2 me-2 w-100">
+                       class="btn btn-primary
+                        btn-rounded waves-effect waves-light mb-2 me-2 w-100">
                         <i class="mdi mdi-plus me-1"></i>
-                        ساخت دسته بندی </a>
+                        ساخت دسته بندی جدید</a>
                 </div>
             </div>
             <div class="card">
@@ -22,6 +23,7 @@
                             <tr>
                                 <th>شناسه</th>
                                 <th>نام</th>
+                                <th>دسته پدر</th>
                                 <th> تاریخ ایجاد</th>
                                 <th>قابل فیلتر است ؟</th>
                                 <th>وضعیت</th>
@@ -33,7 +35,15 @@
                                 <tr>
                                     <td>{{ $loop->iteration  }}</td>
                                     <td>{{ $category->name }}</td>
+                                    <td>{{ $category->parent_id ?? 'ندارد' }}</td>
                                     <td>{{ getJalaliDate($category->created_at) }}</td>
+                                    <td>
+                                          <span
+                                              class="badge py-1 bg-light">
+                                              {{ $category->is_searchable == \Modules\Category\Models\Category::SEARCHABLE_TRUE
+                                                      ? 'بله'  : 'خیر'   }}
+                                        </span>
+                                        </td>
                                     <td>
                                         <span
                                             class="badge py-1 bg-{{ $category->statusCssClass }}"> @lang($category->is_active->name)

@@ -11,12 +11,7 @@ use Modules\Core\Repositories\BaseRepository;
 
 class AttributeGroupRepo extends BaseRepository implements AttributeGroupRepositoryInterface
 {
-    protected $query;
-    public function __construct()
-    {
-        $this->query = AttributeGroup::query();
-    }
-
+    protected $model = AttributeGroup::class;
     public function store(array $data)
     {
         $this->query->create([
