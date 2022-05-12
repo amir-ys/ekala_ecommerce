@@ -4,6 +4,7 @@ namespace Modules\AttributeGroup\Tests\Feature\Controllers;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\AttributeGroup\Models\AttributeGroup;
+use Modules\Brand\Models\Brand;
 use Tests\TestCase;
 
 class AttributeGroupControllerTest extends TestCase
@@ -59,6 +60,20 @@ class AttributeGroupControllerTest extends TestCase
         ]);
         $this->assertDatabaseCount('attribute_groups',0);
         $this->assertDatabaseMissing('attribute_groups' , $attributeGroup->toArray());
+    }
+
+    public function test_validation_request_attributeGroup_data_has_required()
+    {
+        $data = [];
+        $errors = [
+            'name' =>  __('validation.required' , [ 'attribute' =>  'نام']  ),
+        ];
+
+        $this->post(route('panel.attributeGroups.store') , $data)
+            ->assertSessionHasErrors($errors);
+
+        $this->post(route('panel.attributeGroups.update' , AttributeGroup::factory()->create()->id) , $data)
+            ->assertSessionHasErrors($errors);
     }
 
 }

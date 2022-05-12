@@ -70,4 +70,19 @@ class CategoryControllerTest extends TestCase
         $this->assertDatabaseCount( 'categories' ,0);
         $this->assertDatabaseMissing('categories' , $category->toArray() );
     }
+
+    public function test_validation_request_category_data_has_required()
+    {
+        $data = [];
+        $errors = [
+            'name' => __('validation.required' , ['attribute' => 'نام']) ,
+            'is_active' => __('validation.required' , ['attribute' => 'وضعیت']) ,
+        ];
+
+        $this->post(route('panel.categories.store') , $data)
+        ->assertSessionHasErrors($errors);
+
+        $this->patch(route('panel.categories.update' , Category::factory()->create()->id) , $data)
+            ->assertSessionHasErrors($errors);
+    }
 }

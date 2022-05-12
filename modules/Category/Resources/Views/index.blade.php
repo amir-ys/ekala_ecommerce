@@ -39,7 +39,8 @@
                                     <td>{{ getJalaliDate($category->created_at) }}</td>
                                     <td>
                                           <span
-                                              class="badge py-1 bg-light">
+                                              class="badge py-1 badge-{{ $category->is_searchable == \Modules\Category\Models\Category::SEARCHABLE_TRUE
+                                                      ? 'success'  : 'danger'   }}">
                                               {{ $category->is_searchable == \Modules\Category\Models\Category::SEARCHABLE_TRUE
                                                       ? 'بله'  : 'خیر'   }}
                                         </span>
