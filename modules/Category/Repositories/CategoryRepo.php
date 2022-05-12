@@ -49,4 +49,9 @@ class CategoryRepo extends BaseRepository  implements CategoryRepositoryInterfac
             return $cat->id != $id;
         });
     }
+
+    public function checkHasChildes($id)
+    {
+      return  $this->query->where('parent_id' , $id)->first();
+    }
 }

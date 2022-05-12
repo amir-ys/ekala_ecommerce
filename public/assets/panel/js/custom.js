@@ -167,7 +167,9 @@ function deleteItem(event , route) {
                                 timer: 1000
                             });
                         }else{
-                            swal("متاسفانه مشگلی در فرایند حذف پیش آمده است.!", {
+                            var message;
+                             response.message != null ? message =response.message : "متاسفانه مشگلی در فرایند حذف پیش آمده است.!" ;
+                            swal(message, {
                                 icon: "error",
                                 button: "باشه"
                             });

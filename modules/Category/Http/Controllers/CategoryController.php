@@ -5,11 +5,12 @@ namespace Modules\Category\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Modules\Category\Contracts\CategoryRepositoryInterface;
 use Modules\Category\Http\Requests\CategoryRequest;
-use Modules\Category\Models\Category;
+use Modules\Category\Repositories\CategoryRepo;
+use Modules\Core\Responses\AjaxResponse;
 
 class CategoryController extends Controller
 {
-    private  $categoryRepo;
+    private CategoryRepo $categoryRepo;
     public function __construct(CategoryRepositoryInterface $categoryRepo)
     {
         $this->categoryRepo  = $categoryRepo;
@@ -32,6 +33,7 @@ class CategoryController extends Controller
         newFeedback();
         return to_route('panel.categories.index');
     }
+
     public function edit($categoryId)
     {
         $category = $this->categoryRepo->findById($categoryId);
@@ -46,5 +48,15 @@ class CategoryController extends Controller
         return to_route('panel.categories.index');
     }
 
+    public function destroy($categoryId)
+    {
+        $category =$this->categoryRepo->findById($categoryId);
+        $categoryChildes = $this->categoryRepo->checkHasChildes($categoryId);
+        if ($categoryChildes){
+            return  AjaxResponse::error('این دسته بندی شامل زیر دسته است و قابل حذف نیست.');
+        }
+        $this->categoryRepo->destroy($categoryId);
+        return AjaxResponse::success("دسته بندی ". $category->name ." با موفقیت حذف شد.");
+    }
 
 }

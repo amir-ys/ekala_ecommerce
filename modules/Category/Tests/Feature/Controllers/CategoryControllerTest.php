@@ -47,7 +47,6 @@ class CategoryControllerTest extends TestCase
             }));
     }
 
-
     public function test_update_method()
     {
         $category =  Category::factory()->create();
@@ -58,7 +57,17 @@ class CategoryControllerTest extends TestCase
         $response->assertRedirect();
         $this->assertDatabaseCount( 'categories' ,1);
         $this->assertDatabaseHas('categories' , $data );
-
     }
 
+    public function test_destroy_method()
+    {
+        $category =  Category::factory()->create();
+
+        $response = $this->delete(route('panel.categories.destroy' , $category->id));
+        $response->assertJson([
+            'message' => "دسته بندی ". $category->name ." با موفقیت حذف شد."
+        ]);
+        $this->assertDatabaseCount( 'categories' ,0);
+        $this->assertDatabaseMissing('categories' , $category->toArray() );
+    }
 }
