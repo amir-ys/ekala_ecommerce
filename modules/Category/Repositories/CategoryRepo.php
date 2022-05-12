@@ -2,6 +2,7 @@
 
 namespace Modules\Category\Repositories;
 
+use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
 use Modules\Category\Contracts\CategoryRepositoryInterface;
 use Modules\Category\Models\Category;
@@ -10,6 +11,11 @@ use Modules\Core\Repositories\BaseRepository;
 class CategoryRepo extends BaseRepository  implements CategoryRepositoryInterface
 {
     protected $model = Category::class;
+
+    public function getAllPaginate(): Paginator
+    {
+        return $this->query->latest()->with('parent')->paginate();
+    }
     public function store(array $data)
     {
         $this->query->create([
@@ -22,7 +28,13 @@ class CategoryRepo extends BaseRepository  implements CategoryRepositoryInterfac
 
     public function update(int $id, array $data)
     {
-        // TODO: Implement update() method.
+        $model = $this->findById($id);
+        $model->update([
+            'name' => $data['name'] ,
+            'parent_id' => $data['parent_id'] ,
+            'is_active' => $data['is_active'] ,
+            'is_searchable' => $data['is_searchable'] ?? Category::SEARCHABLE_FALSE
+        ]);
     }
 
     public function getParentCategories(): Collection|array
@@ -30,6 +42,11 @@ class CategoryRepo extends BaseRepository  implements CategoryRepositoryInterfac
        return $this->query->whereNull('parent_id')->get();
     }
 
-
-
+    public function getParentCategoriesExceptId($id)
+    {
+        return $this->query->whereNull('parent_id')->get()->
+        filter(function ($cat) use ($id) {
+            return $cat->id != $id;
+        });
+    }
 }

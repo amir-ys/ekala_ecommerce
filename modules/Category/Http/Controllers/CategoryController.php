@@ -32,5 +32,19 @@ class CategoryController extends Controller
         newFeedback();
         return to_route('panel.categories.index');
     }
+    public function edit($categoryId)
+    {
+        $category = $this->categoryRepo->findById($categoryId);
+        $parentCategories = $this->categoryRepo->getParentCategoriesExceptId($categoryId);
+        return view('Category::edit' , compact( 'category' ,'parentCategories'));
+    }
+
+    public function update(CategoryRequest $request , $categoryId)
+    {
+        $this->categoryRepo->update($categoryId ,$request->all());
+        newFeedback();
+        return to_route('panel.categories.index');
+    }
+
 
 }

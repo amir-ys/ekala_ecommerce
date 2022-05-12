@@ -35,7 +35,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration  }}</td>
                                     <td>{{ $category->name }}</td>
-                                    <td>{{ $category->parent_id ?? 'ندارد' }}</td>
+                                    <td>{{ $category->parent_id ? $category->parent->name : 'ندارد' }}</td>
                                     <td>{{ getJalaliDate($category->created_at) }}</td>
                                     <td>
                                           <span
@@ -52,7 +52,7 @@
 
                                     <td>
                                         <a class="btn btn-sm bg-transparent d-inline"
-                                           href="{{ route('panel.categories.edit' , $category) }}"><i
+                                           href="{{ route('panel.categories.edit' , $category->id) }}"><i
                                                 class="fa fa-pencil fa-15m text-success"></i></a>
 
                                         <a href="{{ route('panel.categories.destroy' , $category->id) }}"

@@ -35,4 +35,30 @@ class CategoryControllerTest extends TestCase
         $this->assertDatabaseHas('categories' , $data);
     }
 
+    public function test_edit_method()
+    {
+        $category =  Category::factory()->create();
+
+        $response = $this->get(route('panel.categories.edit' , $category->id));
+
+        $response->assertViewIs('Category::edit')
+            ->assertViewHas('parentCategories' , Category::query()->whereNull('parent_id')->get()->filter(function ($cat) use($category){
+                 return $category->id !=  $cat->id;
+            }));
+    }
+
+
+    public function test_update_method()
+    {
+        $category =  Category::factory()->create();
+        $data =  Category::factory()->make()->toArray();
+
+        $response = $this->patch(route('panel.categories.update' , $category->id) , $data);
+
+        $response->assertRedirect();
+        $this->assertDatabaseCount( 'categories' ,1);
+        $this->assertDatabaseHas('categories' , $data );
+
+    }
+
 }

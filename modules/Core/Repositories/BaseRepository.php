@@ -4,15 +4,14 @@ namespace Modules\Core\Repositories;
 
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
-class BaseRepository
+abstract class BaseRepository
 {
-    protected Builder $query;
+    protected Builder|Model $query;
     public function __construct()
     {
-        $this->query = (new $this->model)::query();
+        $this->query = (new $this->model);
     }
 
     public function getAllPaginate(): Paginator
@@ -20,7 +19,7 @@ class BaseRepository
         return $this->query->latest()->paginate();
     }
 
-    public function findById(int $id): Model|Collection|Builder|array|null
+    public function findById(int $id)
     {
         return $this->query->findOrFail($id);
     }
