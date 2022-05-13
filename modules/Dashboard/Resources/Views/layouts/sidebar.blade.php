@@ -15,13 +15,20 @@ x<div class="side-menu">
 
             <li><a data-attr="layout-builder-toggle" class="{{ request()->url(route('panel.attributeGroups.index')) == route('panel.attributeGroups.index') ? 'c-active' : '' }}" href="{{ route('panel.attributeGroups.index') }}">
                     <i class="icon ti-layout"></i>
-                    <span>گروه مشخصات</span> <span class="badge bg-danger-gradient"></span></a>
+                    <span>گروه ویژگی ها</span> <span class="badge bg-danger-gradient"></span></a>
+            </li>
+
+            <li><a data-attr="layout-builder-toggle" class="{{ request()->url(route('panel.attributes.index')) == route('panel.attributes.index') ? 'c-active' : '' }}" href="{{ route('panel.attributes.index') }}">
+                    <i class="icon ti-layout"></i>
+                    <span>ویژگی ها</span> <span class="badge bg-danger-gradient"></span></a>
             </li>
 
             <li><a data-attr="layout-builder-toggle" class="{{ request()->url(route('panel.categories.index')) == route('panel.categories.index') ? 'c-active' : '' }}" href="{{ route('panel.categories.index') }}">
                     <i class="icon ti-layout"></i>
                     <span>دسته بندی ها</span> <span class="badge bg-danger-gradient"></span></a>
             </li>
+
+
         </ul>
     </div>
 </div>
