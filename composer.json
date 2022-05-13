@@ -31,7 +31,8 @@
             "Modules\\Dashbaord\\": "modules/Dashboard/" ,
             "Modules\\Core\\": "modules/Core/" ,
             "Modules\\AttributeGroup\\" : "modules/AttributeGroup/" ,
-            "Modules\\Category\\" : "modules/Category/"
+            "Modules\\Category\\" : "modules/Category/" ,
+            "Modules\\Attribute\\" : "modules/Attribute/"
         },
         "files": [
             "modules/Core/Helpers/helpers.php"

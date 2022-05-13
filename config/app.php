@@ -177,6 +177,7 @@ return [
         Modules\Core\Providers\CoreServiceProvider::class ,
         Modules\AttributeGroup\Providers\AttributeGroupServiceProvider::class,
         Modules\Category\Providers\CategoryServiceProvider::class,
+        Modules\Attribute\Providers\AttributeServiceProvider::class,
 
 
 
