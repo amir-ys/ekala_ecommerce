@@ -20,6 +20,10 @@ class AttributeRepo extends BaseRepository implements AttributeRepositoryInterfa
 
     public function update(int $id, array $data)
     {
-        // TODO: Implement update() method.
-    }
+        $model  = $this->query->findOrFail($id);
+        $model->update([
+            'name' => $data['name'] ,
+            'attribute_group_id' => $data['attribute_group_id'] ,
+            'is_filterable' => $data['is_filterable'] ??  Attribute::FILTERABLE_FALSE ,
+        ]);    }
 }

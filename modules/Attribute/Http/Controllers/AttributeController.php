@@ -32,4 +32,18 @@ class AttributeController extends Controller
         newFeedback();
         return to_route('panel.attributes.index');
     }
+
+    public function edit($attributeId , AttributeGroupRepositoryInterface $attributeGroupRepository)
+    {
+        $attribute = $this->attributeRepo->findById($attributeId);
+        $attributeGroups = $attributeGroupRepository->all();
+        return view('Attribute::edit' , compact('attribute' , 'attributeGroups'));
+    }
+
+    public function update(AttributeRequest $request , $attributeId)
+    {
+        $this->attributeRepo->update($attributeId , $request->all());
+        newFeedback();
+        return to_route('panel.attributes.index');
+    }
 }
