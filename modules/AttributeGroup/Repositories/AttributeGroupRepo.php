@@ -4,6 +4,7 @@ namespace Modules\AttributeGroup\Repositories;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Database\Eloquent\Collection;
 use Modules\AttributeGroup\Contracts\AttributeGroupRepositoryInterface;
 use Modules\AttributeGroup\Models\AttributeGroup;
 use Modules\Brand\Models\Brand;
@@ -25,5 +26,10 @@ class AttributeGroupRepo extends BaseRepository implements AttributeGroupReposit
          $brand->update([
             'name' => $data['name'] ,
         ]);
+    }
+
+    public function all(): array|Collection
+    {
+       return $this->query->get();
     }
 }

@@ -10,9 +10,10 @@
                 <div class="col-sm-12 col-md-12 col-lg-2">
                     <a href="{{ route('panel.attributes.create') }}"
                        class="btn btn-primary
-                        btn-rounded waves-effect waves-light mb-2 me-2 w-100">
+                        btn-rounded waves-effect waves-light mb-2 me-2">
                         <i class="mdi mdi-plus me-1"></i>
-                        ساخت ویژگی جدید</a>
+                        ساخت ویژگی جدید
+                    </a>
                 </div>
             </div>
             <div class="card">
@@ -38,9 +39,9 @@
                                     <td>{{ getJalaliDate($attribute->created_at) }}</td>
                                     <td>
                                           <span
-                                              class="badge py-1 badge-{{ $attribute->is_searchable == \Modules\Category\Models\Category::SEARCHABLE_TRUE
+                                              class="badge py-1 badge-{{ $attribute->is_filterable == \Modules\Attribute\Models\Attribute::FILTERABLE_TRUE
                                                       ? 'success'  : 'danger'   }}">
-                                              {{ $attribute->is_searchable == \Modules\Category\Models\Category::SEARCHABLE_TRUE
+                                              {{ $attribute->is_filterable == \Modules\Attribute\Models\Attribute::FILTERABLE_TRUE
                                                       ? 'بله'  : 'خیر'   }}
                                         </span>
                                     </td>

@@ -4,6 +4,8 @@ namespace Modules\Attribute\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Modules\Attribute\Contracts\AttributeRepositoryInterface;
+use Modules\Attribute\Http\Requests\AttributeRequest;
+use Modules\AttributeGroup\Contracts\AttributeGroupRepositoryInterface;
 
 class AttributeController extends Controller
 {
@@ -16,5 +18,18 @@ class AttributeController extends Controller
     {
         $attributes = $this->attributeRepo->getAllPaginate();
         return view('Attribute::index' ,compact('attributes'));
+    }
+
+    public function create(AttributeGroupRepositoryInterface $attributeGroupRepository)
+    {
+        $attributeGroups = $attributeGroupRepository->all();
+        return view('Attribute::create' , compact('attributeGroups'));
+    }
+
+    public function store(AttributeRequest $request)
+    {
+        $this->attributeRepo->store($request->all());
+        newFeedback();
+        return to_route('panel.attributes.index');
     }
 }

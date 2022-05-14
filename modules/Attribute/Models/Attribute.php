@@ -13,6 +13,9 @@ class Attribute extends Model
     use HasFactory;
     protected $guarded = [];
 
+    const FILTERABLE_TRUE = 1;
+    const FILTERABLE_FALSE = 0;
+
     public static  function factory(): AttributeFactory
     {
         return new AttributeFactory();

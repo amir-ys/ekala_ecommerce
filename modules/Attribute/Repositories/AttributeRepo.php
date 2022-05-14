@@ -4,7 +4,6 @@ namespace Modules\Attribute\Repositories;
 
 use Modules\Attribute\Contracts\AttributeRepositoryInterface;
 use Modules\Attribute\Models\Attribute;
-use Modules\AttributeGroup\Contracts\AttributeGroupRepositoryInterface;
 use Modules\Core\Repositories\BaseRepository;
 
 class AttributeRepo extends BaseRepository implements AttributeRepositoryInterface
@@ -12,7 +11,11 @@ class AttributeRepo extends BaseRepository implements AttributeRepositoryInterfa
     protected string $model = Attribute::class;
     public function store(array $data)
     {
-        // TODO: Implement store() method.
+        $this->query->create([
+           'name' => $data['name'] ,
+           'attribute_group_id' => $data['attribute_group_id'] ,
+           'is_filterable' => $data['is_filterable'] ??  Attribute::FILTERABLE_FALSE ,
+        ]);
     }
 
     public function update(int $id, array $data)
