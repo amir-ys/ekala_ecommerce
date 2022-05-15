@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Modules\Attribute\Contracts\AttributeRepositoryInterface;
 use Modules\Attribute\Http\Requests\AttributeRequest;
 use Modules\AttributeGroup\Contracts\AttributeGroupRepositoryInterface;
+use Modules\Core\Responses\AjaxResponse;
 
 class AttributeController extends Controller
 {
@@ -45,5 +46,12 @@ class AttributeController extends Controller
         $this->attributeRepo->update($attributeId , $request->all());
         newFeedback();
         return to_route('panel.attributes.index');
+    }
+
+    public function destroy($attributeId)
+    {
+        $attribute = $this->attributeRepo->findById($attributeId);
+        $this->attributeRepo->destroy($attributeId);
+        return AjaxResponse::success("ویژگی  ". $attribute->name." با موفقیت حذف شد.");
     }
 }

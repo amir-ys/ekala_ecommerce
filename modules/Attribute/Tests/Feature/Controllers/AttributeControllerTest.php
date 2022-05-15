@@ -63,4 +63,16 @@ class AttributeControllerTest extends TestCase
         $this->assertDatabaseHas('attributes' , $data);
     }
 
+    public function test_destroy_method()
+    {
+        $attribute = Attribute::factory()->create();
+        $response =  $this->delete(route('panel.attributes.destroy' , $attribute->id));
+
+        $response->assertJson([
+               'message' =>  "ویژگی  ". $attribute->name." با موفقیت حذف شد."
+            ]);
+        $this->assertDatabaseCount('attributes' , 0);
+        $this->assertDatabaseMissing('attributes' , $attribute->toArray());
+    }
+
 }
