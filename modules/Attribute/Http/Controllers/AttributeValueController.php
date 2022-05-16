@@ -3,11 +3,9 @@
 namespace Modules\Attribute\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Modules\Attribute\Contracts\AttributeRepositoryInterface;
-use Modules\Attribute\Http\Requests\AttributeRequest;
-use Modules\AttributeGroup\Contracts\AttributeGroupRepositoryInterface;
-use Modules\Core\Responses\AjaxResponse;
+use Modules\Attribute\Http\Requests\AttributeValue\DeleteAttributeValueRequest;
+use Modules\Attribute\Http\Requests\AttributeValue\SaveAttributeValueRequest;
 
 class AttributeValueController extends Controller
 {
@@ -23,9 +21,17 @@ class AttributeValueController extends Controller
         return view('Attribute::attribute-value.save' , compact('attribute'));
     }
 
-    public function saveValue($attributeId ,Request $request)
+    public function saveValue($attributeId , SaveAttributeValueRequest $request)
     {
+        $this->attributeRepo->saveValue($attributeId , $request->attributeValue);
+        newFeedback();
+        return to_route('panel.attributes.value.index' , $attributeId);
+    }
 
-
+    public function deleteValue($attributeId , DeleteAttributeValueRequest $request)
+    {
+        $this->attributeRepo->deleteValue($attributeId , $request->value);
+        newFeedback();
+        return to_route('panel.attributes.value.index' , $attributeId);
     }
 }

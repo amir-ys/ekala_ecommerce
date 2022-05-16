@@ -48,6 +48,7 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('panel.attributes.value.index' , $attribute->id) }}">
+                                           ( <span> {{ $attribute->values->count() }} </span> )
                                             اضافه کردن
                                         <i class="fa fa-plus fa-15m text-success"></i>
                                         </a>

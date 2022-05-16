@@ -3,7 +3,6 @@
 namespace Modules\Attribute\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Modules\Attribute\Contracts\AttributeRepositoryInterface;
 use Modules\Attribute\Http\Requests\AttributeRequest;
 use Modules\AttributeGroup\Contracts\AttributeGroupRepositoryInterface;

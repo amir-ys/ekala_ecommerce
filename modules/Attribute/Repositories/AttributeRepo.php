@@ -25,5 +25,23 @@ class AttributeRepo extends BaseRepository implements AttributeRepositoryInterfa
             'name' => $data['name'] ,
             'attribute_group_id' => $data['attribute_group_id'] ,
             'is_filterable' => $data['is_filterable'] ??  Attribute::FILTERABLE_FALSE ,
-        ]);    }
+        ]);
+    }
+
+    public function saveValue($attributeId , $data)
+    {
+        $model = $this->query->findOrFail($attributeId);
+        foreach ($data as $value) {
+            $model->values()->create([
+                'attribute_id' => $attributeId,
+                'value' => $value
+            ]);
+        }
+    }
+
+    public function deleteValue($attributeId , $value)
+    {
+        $model = $this->query->findOrFail($attributeId);
+        $model->values()->where('value' , $value)->delete();
+    }
 }
