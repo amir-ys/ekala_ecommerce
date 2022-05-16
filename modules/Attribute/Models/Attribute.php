@@ -5,6 +5,7 @@ namespace Modules\Attribute\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Modules\Attribute\Database\Factories\AttributeFactory;
 use Modules\AttributeGroup\Models\AttributeGroup;
 
@@ -24,5 +25,10 @@ class Attribute extends Model
     public function attributeGroup(): BelongsTo
     {
         return $this->belongsTo(AttributeGroup::class , 'attribute_group_id');
+    }
+
+    public function values(): HasMany
+    {
+        return $this->hasMany(AttributeValue::class , 'attribute_id');
     }
 }
