@@ -1,7 +1,7 @@
 @extends('Dashboard::master')
-@section('title'  ,'برندها')
+@section('title'  ,    __('Brand::translation.index'))
 @section('breadcrumb')
-    <li class="breadcrumb-item active"><a>برند ها</a></li>
+    <li class="breadcrumb-item active"><a> @lang('Brand::translation.index') </a></li>
 @endsection
 @section('content')
     <div class="row">

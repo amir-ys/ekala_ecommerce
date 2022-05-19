@@ -1,7 +1,7 @@
 @extends('Dashboard::master')
-@section('title'  ,'دسته بندی ها')
+@section('title'  ,__('Category::translation.index'))
 @section('breadcrumb')
-    <li class="breadcrumb-item active"><a>دسته بندی ها</a></li>
+    <li class="breadcrumb-item active"><a>@lang('Category::translation.index')</a></li>
 @endsection
 @section('content')
     <div class="row">
@@ -10,9 +10,9 @@
                 <div class="col-sm-12 col-md-12 col-lg-2">
                     <a href="{{ route('panel.categories.create') }}"
                        class="btn btn-primary
-                        btn-rounded waves-effect waves-light mb-2 me-2 w-100">
+                        btn-rounded waves-effect waves-light mb-2 me-2">
                         <i class="mdi mdi-plus me-1"></i>
-                        ساخت دسته بندی جدید</a>
+                        @lang('Category::translation.create')</a>
                 </div>
             </div>
             <div class="card">

@@ -14,6 +14,7 @@ class AttributeGroupServiceProvider extends  ServiceProvider
     {
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
         $this->loadViewsFrom(__DIR__ . '/../Resources/Views' , 'AttributeGroup');
+        $this->loadTranslationsFrom(__DIR__ . '/../Resources/Lang' , 'AttributeGroup');
         $this->loadRoutes();
 
     }

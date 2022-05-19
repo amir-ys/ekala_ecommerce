@@ -1,14 +1,26 @@
 @extends('Dashboard::master')
-@section('title' , 'ویرابش  دسته بندی')
+@section('title' ,__('Category::translation.edit'))
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('panel.categories.index') }}"> دسته بندی ها </a></li>
-    <li class="breadcrumb-item active"><a > ویرابش دسته بندی {{ $category->name }}</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('panel.categories.index') }}"> @lang('Category::translation.index') </a></li>
+    <li class="breadcrumb-item active"><a > @lang('Category::translation.edit') {{ $category->name }}</a></li>
 @endsection
 @section('content')
     <div class="row">
         <div class="col-lg-8">
             <div class="col-xl-12">
                 <div class="card overflow-hidden border border-5">
+                    <div class="card-header border border-5">
+                        <div class="alert alert-primary" role="alert">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    @lang('Category::translation.edit') "{{ $category->name }}"
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="font-size-12 text-left">  تاریخ اخرین بروزرسانی : {{ getJalaliDate($category->updated_at) }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('panel.categories.update' , $category->id) }}">
                             @csrf
@@ -78,13 +90,18 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-9 offset-3">
-                                <button type="submit" class="btn btn-primary btn-uppercase">
-                                    <i class="ti-check-box m-l-5"></i>ذخیره
-                                </button>
-                                <a href="{{ route('panel.categories.index') }}" class="btn btn-secondary waves-effect">
-                                    بازگشت
-                                </a>
+                            <div class="col-md-10">
+                                <div class="row">
+                                    <div class="col-md-9 offset-md-3">
+                                        <button type="submit" class="btn btn-primary btn-uppercase">
+                                            <i class="ti-check-box m-l-5"></i>بروزرسانی
+                                        </button>
+                                        <a href="{{ route('panel.categories.index') }}"
+                                           class="btn btn-secondary waves-effect">
+                                            بازگشت
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     </div>

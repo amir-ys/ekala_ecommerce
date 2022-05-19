@@ -15,6 +15,7 @@ class AttributeServiceProvider extends ServiceProvider
     {
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
         $this->loadViewsFrom(__DIR__ . '/../Resources/Views' , 'Attribute');
+        $this->loadTranslationsFrom(__DIR__ . '/../Resources/Lang' , 'Attribute');
         $this->loadRoutes();
 
     }

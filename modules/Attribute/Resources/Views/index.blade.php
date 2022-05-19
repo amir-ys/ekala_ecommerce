@@ -1,7 +1,7 @@
 @extends('Dashboard::master')
-@section('title'  ,'ویژگی ها')
+@section('title'  ,__('Attribute::translation.index'))
 @section('breadcrumb')
-    <li class="breadcrumb-item active"><a>ویژگی ها</a></li>
+    <li class="breadcrumb-item active"><a>@lang('Attribute::translation.index')</a></li>
 @endsection
 @section('content')
     <div class="row">
@@ -12,7 +12,7 @@
                        class="btn btn-primary
                         btn-rounded waves-effect waves-light mb-2 me-2">
                         <i class="mdi mdi-plus me-1"></i>
-                        ساخت ویژگی جدید
+                        @lang('Attribute::translation.create')
                     </a>
                 </div>
             </div>

@@ -1,9 +1,8 @@
 <div class="col-lg-4">
-    <div class="col-xl-12">
         <div class="card overflow-hidden">
             <div class="card-header border border-5">
                 <div class="alert alert-primary" role="alert">
-                    ساخت برند جدید
+                   @lang('Brand::translation.create')
                 </div>
             </div>
             <div class="card-body border border-5">
@@ -21,8 +20,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
                             <div class="col-md-10 mb-3">
                                 <div class="row">
                                     <label class="col-sm-3 col-form-label">وضعیت</label>
@@ -38,15 +35,16 @@
                                     </div>
                                 </div>
                             </div>
+
+                        <div class="col-md-10 offset-md-3">
+                            <button type="submit" class="btn btn-primary btn-uppercase">
+                                <i class="ti-check-box m-l-5"></i> ذخیره
+                            </button>
                         </div>
-                    </div>
-                    <div class="col-md-9 offset-3">
-                        <button type="submit" class="btn btn-primary btn-uppercase">
-                            <i class="ti-check-box m-l-5"></i> ذخیره
-                        </button>
+
+                        </div>
                     </div>
                 </form>
             </div>
         </div>
-    </div>
 </div>

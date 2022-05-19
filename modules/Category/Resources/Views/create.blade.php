@@ -1,14 +1,19 @@
 @extends('Dashboard::master')
-@section('title' , 'ایجاد  دسته بندی')
+@section('title' , __('Category::translation.create'))
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('panel.categories.index') }}"> دسته بندی ها </a></li>
-    <li class="breadcrumb-item active"><a > ایجاد دسته بندی</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('panel.categories.index') }}"> @lang('Category::translation.index') </a></li>
+    <li class="breadcrumb-item active"><a > @lang('Category::translation.create')</a></li>
 @endsection
 @section('content')
     <div class="row">
         <div class="col-lg-8">
             <div class="col-xl-12">
                 <div class="card overflow-hidden border border-5">
+                    <div class="card-header border border-5">
+                        <div class="alert alert-primary" role="alert">
+                            @lang('Category::translation.create')
+                        </div>
+                    </div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('panel.categories.store') }}">
                             @csrf
@@ -72,13 +77,17 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-9 offset-3">
-                                <button type="submit" class="btn btn-primary btn-uppercase">
-                                    <i class="ti-check-box m-l-5"></i>ذخیره
-                                </button>
-                                <a href="{{ route('panel.categories.index') }}" class="btn btn-secondary waves-effect">
-                                    بازگشت
-                                </a>
+                            <div class="col-md-10">
+                                <div class="row">
+                                    <div class="col-md-9 offset-md-3">
+                                        <button type="submit" class="btn btn-primary btn-uppercase">
+                                            <i class="ti-check-box m-l-5"></i>ذخیره
+                                        </button>
+                                        <a href="{{ route('panel.categories.index') }}" class="btn btn-secondary waves-effect">
+                                            بازگشت
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     </div>

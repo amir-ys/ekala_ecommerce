@@ -1,17 +1,16 @@
 @extends('Dashboard::master')
-@section('title' , 'ایجاد ویژگی')
+@section('title' , __('Attribute::translation.create'))
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('panel.attributes.index') }}"> ویژگی ها </a></li>
-    <li class="breadcrumb-item active"><a> ایجاد ویژگی</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('panel.attributes.index') }}">@lang('Attribute::translation.index') </a></li>
+    <li class="breadcrumb-item active"><a> @lang('Attribute::translation.create')</a></li>
 @endsection
 @section('content')
     <div class="row">
         <div class="col-lg-10">
-            <div class="col-xl-12">
                 <div class="card overflow-hidden">
                     <div class="card-header border border-5">
                         <div class="alert alert-primary" role="alert">
-                            ایجاد ویژگی جدید
+                            @lang('Attribute::translation.create')
                         </div>
                     </div>
                     <div class="card-body border border-5">
@@ -30,7 +29,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="col-md-10 mb-3">
                                         <div class="row">
                                             <label class="col-sm-4 col-form-label">گروه ویژگی</label>
@@ -47,7 +45,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="col-md-10">
                                         <div class="row">
                                             <label class="col-sm-4 col-form-label">قابل فیلتر باشد؟</label>
@@ -60,16 +57,24 @@
 
                                 </div>
                             </div>
-                            <div class="col-md-9 offset-3">
-                                <button type="submit" class="btn btn-primary btn-uppercase">
-                                    <i class="ti-check-box m-l-5"></i> ذخیره
-                                </button>
+
+                            <div class="col-md-10">
+                                <div class="row">
+                                    <div class="col-md-8 offset-md-4">
+                                        <button type="submit" class="btn btn-primary btn-uppercase">
+                                            <i class="ti-check-box m-l-5"></i>ذخیره
+                                        </button>
+                                        <a href="{{ route('panel.attributes.index') }}" class="btn btn-secondary waves-effect">
+                                            بازگشت
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
+
                         </form>
                     </div>
                 </div>
             </div>
-        </div>
     </div>
     <!-- end row -->
 @endsection

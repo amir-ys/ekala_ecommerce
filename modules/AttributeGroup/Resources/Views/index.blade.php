@@ -1,7 +1,7 @@
 @extends('Dashboard::master')
-@section('title'  ,'گروه مشخصات')
+@section('title'  ,__('AttributeGroup::translation.index'))
 @section('breadcrumb')
-    <li class="breadcrumb-item active"><a>گروه مشخصات</a></li>
+    <li class="breadcrumb-item active"><a>@lang('AttributeGroup::translation.index')</a></li>
 @endsection
 @section('content')
     <div class="row">

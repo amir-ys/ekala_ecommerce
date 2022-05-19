@@ -14,6 +14,7 @@ class CategoryServiceProvider extends  ServiceProvider
     {
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
         $this->loadViewsFrom(__DIR__ . '/../Resources/Views' , 'Category');
+        $this->loadTranslationsFrom(__DIR__ . '/../Resources/Lang' , 'Category');
         $this->loadRoutes();
 
 
