@@ -1,0 +1,14 @@
+{
+    "name": "amir_ys/attributegroup-module",
+    "description": "attributegroup  module",
+    "autoload": {
+        "psr-4": {
+            "Modules\\AttributeGroup\\" : "src"
+        }
+    },
+    "extra": {
+        "laravel" : {
+            "providers" : "Modules\\AttributeGroup\\Providers\\AttributeGroupServiceProvider"
+        }
+    }
+}

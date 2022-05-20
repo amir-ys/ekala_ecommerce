@@ -1,0 +1,15 @@
+{
+    "name" : "amir-ys/attribute-module" ,
+    "autoload": {
+        "psr-4": {
+            "Modules\\Attribute\\" : "src"
+        }
+    },
+    "extra": {
+        "laravel" : {
+            "providers" : "Modules\\Attribute\\Providers\\AttributeServiceProvider"
+        }
+    },
+    "description": ""
+
+}

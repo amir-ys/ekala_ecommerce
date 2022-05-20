@@ -1,0 +1,14 @@
+{
+    "name": "amir_ys/brand-module",
+    "autoload": {
+        "psr-4": {
+            "Modules\\Brand\\" : "src"
+        }
+    },
+    "extra": {
+        "laravel" : {
+            "providers" : "Modules\\Brand\\Providers\\BrandServiceProvider"
+        }
+    }
+
+}

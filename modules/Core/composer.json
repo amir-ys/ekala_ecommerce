@@ -1,0 +1,16 @@
+{
+    "name": "amir_ys/core-module",
+    "autoload": {
+        "psr-4": {
+            "Modules\\Core\\" : "src"
+        } ,
+        "files": [
+            "src/Helpers/helpers.php"
+        ]
+    } ,
+    "extra": {
+        "laravel" :{
+            "providers" : "Modules\\Core\\Providers\\CoreServiceProvider"
+        }
+    }
+}

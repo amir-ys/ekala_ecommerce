@@ -1,0 +1,13 @@
+{
+    "name": "amir_ys/dashboard-module",
+    "autoload": {
+        "psr-4": {
+            "Modules\\Dashboard\\" : "src"
+        }
+    },
+    "extra" : {
+        "laravel" : {
+            "providers" : "Modules\\Dashboard\\Providers\\DashboardServiceProvider"
+        }
+    }
+}

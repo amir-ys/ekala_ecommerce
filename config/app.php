@@ -172,12 +172,12 @@ return [
         /*
          * modules Service Providers...
          */
-        Modules\Brand\Providers\BrandServiceProvider::class ,
-        Modules\Dashbaord\Providers\DashboardServiceProvider::class ,
-        Modules\Core\Providers\CoreServiceProvider::class ,
-        Modules\AttributeGroup\Providers\AttributeGroupServiceProvider::class,
-        Modules\Category\Providers\CategoryServiceProvider::class,
-        Modules\Attribute\Providers\AttributeServiceProvider::class,
+//        Modules\Brand\Providers\BrandServiceProvider::class ,
+//        Modules\Dashboard\Providers\DashboardServiceProvider::class ,
+//        Modules\Core\Providers\CoreServiceProvider::class ,
+//        Modules\AttributeGroup\Providers\AttributeGroupServiceProvider::class,
+//        Modules\Category\Providers\CategoryServiceProvider::class,
+////        Modules\Attribute\Providers\AttributeServiceProvider::class,
 
 
 

@@ -4,8 +4,150 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "64b2f803661ef6088c1e628f8ccf4b54",
+    "content-hash": "6726a6942c4ba61258e0c796f2336f61",
     "packages": [
+        {
+            "name": "amir_ys/attribute-module",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "modules/Attribute",
+                "reference": "957abfacd7d2aa8e0180f7a6e4f28879314a0e98"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": "Modules\\Attribute\\Providers\\AttributeServiceProvider"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Modules\\Attribute\\": "src"
+                }
+            },
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "amir_ys/attributegroup-module",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "modules/AttributeGroup",
+                "reference": "d51528636433fcc1625798e652e95ec01856718e"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": "Modules\\AttributeGroup\\Providers\\AttributeGroupServiceProvider"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Modules\\AttributeGroup\\": "src"
+                }
+            },
+            "description": "attributegroup  module",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "amir_ys/brand-module",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "modules/Brand",
+                "reference": "028432b33e37a458f36c2da74753ac6de3b32faa"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": "Modules\\Brand\\Providers\\BrandServiceProvider"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Modules\\Brand\\": "src"
+                }
+            },
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "amir_ys/category-module",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "modules/Category",
+                "reference": "e0cd354ebb927f81eb21f76f1610099731cc3022"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": "Modules\\Category\\Providers\\CategoryServiceProvider"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Modules\\Category\\": "src"
+                }
+            },
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "amir_ys/core-module",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "modules/Core",
+                "reference": "86a4261522bebd263f42c4307bef7d041d796f10"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": "Modules\\Core\\Providers\\CoreServiceProvider"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Modules\\Core\\": "src"
+                },
+                "files": [
+                    "src/Helpers/helpers.php"
+                ]
+            },
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "amir_ys/dashboard-module",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "modules/Dashboard",
+                "reference": "f8cab31c31dfdc7e0c3847ada57db51558aa1cd3"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": "Modules\\Dashboard\\Providers\\DashboardServiceProvider"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Modules\\Dashboard\\": "src"
+                }
+            },
+            "transport-options": {
+                "relative": true
+            }
+        },
         {
             "name": "beberlei/assert",
             "version": "v3.3.2",
@@ -8226,12 +8368,19 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "amir_ys/attribute-module": 20,
+        "amir_ys/attributegroup-module": 20,
+        "amir_ys/brand-module": 20,
+        "amir_ys/category-module": 20,
+        "amir_ys/core-module": 20,
+        "amir_ys/dashboard-module": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.1"
+        "php": "^8.0|^8.1"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.0.0"
 }

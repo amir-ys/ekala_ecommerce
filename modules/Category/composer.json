@@ -1,0 +1,15 @@
+{
+    "name" : "amir_ys/category-module" ,
+    "autoload": {
+        "psr-4": {
+            "Modules\\Category\\" : "src"
+        }
+    },
+    "extra": {
+        "laravel" : {
+            "providers" : "Modules\\Category\\Providers\\CategoryServiceProvider"
+        }
+    },
+    "description": ""
+
+}

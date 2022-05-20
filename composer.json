@@ -6,6 +6,12 @@
     "license": "MIT",
     "require": {
         "php": "^8.0|^8.1",
+        "amir_ys/attribute-module": "dev-master",
+        "amir_ys/attributegroup-module": "dev-master",
+        "amir_ys/brand-module": "dev-master",
+        "amir_ys/category-module": "dev-master",
+        "amir_ys/core-module": "dev-master",
+        "amir_ys/dashboard-module": "dev-master",
         "cviebrock/eloquent-sluggable": "^9.0",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.2",
@@ -26,18 +32,35 @@
         "psr-4": {
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/" ,
-            "Modules\\Brand\\": "modules/Brand/",
-            "Modules\\Dashbaord\\": "modules/Dashboard/" ,
-            "Modules\\Core\\": "modules/Core/" ,
-            "Modules\\AttributeGroup\\" : "modules/AttributeGroup/" ,
-            "Modules\\Category\\" : "modules/Category/" ,
-            "Modules\\Attribute\\" : "modules/Attribute/"
-        },
-        "files": [
-            "modules/Core/Helpers/helpers.php"
-        ]
+            "Database\\Seeders\\": "database/seeders/"
+        }
     },
+    "repositories" : [
+        {
+            "type" : "path" ,
+            "url" : "modules/Attribute"
+        } ,
+        {
+            "type" : "path" ,
+            "url" : "modules/AttributeGroup"
+        } ,
+        {
+            "type" : "path" ,
+            "url" : "modules/Core"
+        } ,
+        {
+            "type" : "path" ,
+            "url" : "modules/Dashboard"
+        } ,
+        {
+            "type" : "path" ,
+            "url" : "modules/Brand"
+        } ,
+        {
+            "type" : "path" ,
+            "url" : "modules/Category"
+        }
+    ],
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
