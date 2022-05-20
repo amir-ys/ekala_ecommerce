@@ -36,7 +36,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration  }}</td>
                                     <td>{{ $attribute->name }}</td>
-                                    <td>{{ $attribute->parent_id ? $attribute->parent->name : 'ندارد' }}</td>
+                                    <td>{{ $attribute->attributeGroup ? $attribute->attributeGroup->name : 'ندارد' }}</td>
                                     <td>{{ getJalaliDate($attribute->created_at) }}</td>
                                     <td>
                                           <span
