@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Attribute\src\Tests\Feature\Controllers;
+namespace Modules\Attribute\Tests\Feature\Controllers;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\Attribute\Models\Attribute;

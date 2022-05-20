@@ -1,5 +1,5 @@
 <?php
-namespace Modules\Attribute\src\Tests\Feature\Models;
+namespace Modules\Attribute\Tests\Feature\Models;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\Attribute\Models\Attribute;
 use Modules\Attribute\Models\AttributeValue;
