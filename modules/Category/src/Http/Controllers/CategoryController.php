@@ -3,6 +3,7 @@
 namespace Modules\Category\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Modules\AttributeGroup\Contracts\AttributeGroupRepositoryInterface;
 use Modules\Category\Contracts\CategoryRepositoryInterface;
 use Modules\Category\Http\Requests\CategoryRequest;
 use Modules\Category\Repositories\CategoryRepo;
@@ -54,6 +55,10 @@ class CategoryController extends Controller
         $categoryChildes = $this->categoryRepo->checkHasChildes($categoryId);
         if ($categoryChildes){
             return  AjaxResponse::error('این دسته بندی شامل زیر دسته است و قابل حذف نیست.');
+        }
+        $hasAttributeGroups = (resolve(AttributeGroupRepositoryInterface::class))->checkHasCategory($categoryId);
+        if ($hasAttributeGroups){
+            return  AjaxResponse::error('این دسته بندی شامل گروه ویژگی است و قابل حذف نیست.');
         }
         $this->categoryRepo->destroy($categoryId);
         return AjaxResponse::success("دسته بندی ". $category->name ." با موفقیت حذف شد.");

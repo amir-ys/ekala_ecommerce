@@ -54,4 +54,9 @@ class CategoryRepo extends BaseRepository  implements CategoryRepositoryInterfac
     {
       return  $this->query->where('parent_id' , $id)->first();
     }
+
+    public function all(): array|Collection
+    {
+        return $this->query->get();
+    }
 }

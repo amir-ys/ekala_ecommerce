@@ -13,10 +13,16 @@ use Modules\Core\Repositories\BaseRepository;
 class AttributeGroupRepo extends BaseRepository implements AttributeGroupRepositoryInterface
 {
     protected $model = AttributeGroup::class;
+
+    public function getAllPaginate(): Paginator|LengthAwarePaginator
+    {
+      return $this->query->with('category')->latest()->paginate();
+    }
     public function store(array $data)
     {
         $this->query->create([
             'name' => $data['name'] ,
+            'category_id' => $data['category_id'] ,
         ]);
     }
 
@@ -25,11 +31,17 @@ class AttributeGroupRepo extends BaseRepository implements AttributeGroupReposit
         $brand = $this->findById($id);
          $brand->update([
             'name' => $data['name'] ,
-        ]);
+             'category_id' => $data['category_id'] ,
+         ]);
     }
 
     public function all(): array|Collection
     {
        return $this->query->get();
+    }
+
+    public function checkHasCategory($id)
+    {
+       return $this->query->where('category_id' , $id)->first();
     }
 }

@@ -16,6 +16,7 @@
                             <tr>
                                 <th>شناسه</th>
                                 <th>نام</th>
+                                <th>دسته بندی</th>
                                 <th> تاریخ ایجاد</th>
                                 <th> عملیات</th>
                             </tr>
@@ -25,6 +26,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration  }}</td>
                                     <td>{{ $attributeGroup->name }}</td>
+                                    <td>{{ $attributeGroup->category->name }}</td>
                                     <td>{{ getJalaliDate($attributeGroup->created_at) }}</td>
                                     <td>
                                         <a class="btn btn-sm bg-transparent d-inline"

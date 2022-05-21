@@ -4,6 +4,7 @@ namespace Modules\AttributeGroup\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Modules\AttributeGroup\Models\AttributeGroup;
+use Modules\Category\Models\Category;
 
 
 class AttributeGroupFactory extends Factory
@@ -17,7 +18,8 @@ class AttributeGroupFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->word
+            'name' => $this->faker->word ,
+            'category_id' => Category::factory() ,
         ];
     }
 }

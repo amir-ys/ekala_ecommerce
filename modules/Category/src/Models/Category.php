@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Modules\AttributeGroup\Models\AttributeGroup;
 use Modules\Category\Database\Factories\CategoryFactory;
 use Modules\Category\Enums\CategoryStatus;
 
@@ -53,5 +54,10 @@ class Category extends Model
     public function childes(): HasMany
     {
         return $this->hasMany(Category::class , 'parent_id' );
+    }
+
+    public function attributeGroups()
+    {
+        return $this->hasMany(AttributeGroup::class , 'category_id');
     }
 }

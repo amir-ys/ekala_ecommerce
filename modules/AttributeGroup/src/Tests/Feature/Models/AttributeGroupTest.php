@@ -5,6 +5,7 @@ namespace Modules\AttributeGroup\Tests\Feature\Models;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\Attribute\Models\Attribute;
 use Modules\AttributeGroup\Models\AttributeGroup;
+use Modules\Category\Models\Category;
 use Tests\TestCase;
 
 class AttributeGroupTest extends TestCase
@@ -20,12 +21,21 @@ class AttributeGroupTest extends TestCase
         $this->assertDatabaseHas('attribute_groups' , $data);
    }
 
-    public function attribute()
+    public function test_attribute_attributeGroup_relation_with_attribute()
     {
         $count = rand(1 ,9);
         $attributeGroup = AttributeGroup::factory()->has(Attribute::factory()->count($count))->create();
 
         $this->assertCount($count , $attributeGroup->attributes);
         $this->assertInstanceOf(Attribute::class , $attributeGroup->attributes->first() );
+    }
+
+    public function test_attributeGroup_relation_with_categories ()
+    {
+        $attributeGroup = AttributeGroup::factory()->for(Category::factory())->create();
+
+        $this->assertTrue(isset($attributeGroup->category->id));
+        $this->assertInstanceOf(Category::class , $attributeGroup->category);
+
     }
 }

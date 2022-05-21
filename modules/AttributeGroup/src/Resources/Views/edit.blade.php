@@ -1,7 +1,8 @@
 @extends('Dashboard::master')
 @section('title' , __('AttributeGroup::translation.edit'))
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('panel.attributeGroups.index') }}"> @lang('AttributeGroup::translation.index') </a></li>
+    <li class="breadcrumb-item"><a
+            href="{{ route('panel.attributeGroups.index') }}"> @lang('AttributeGroup::translation.index') </a></li>
     <li class="breadcrumb-item active"><a>@lang('AttributeGroup::translation.edit')</a></li>
 @endsection
 @section('content')
@@ -16,7 +17,8 @@
                                     @lang('AttributeGroup::translation.edit') "{{ $attributeGroup->name }}"
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="font-size-12 text-left">  تاریخ اخرین بروزرسانی : {{ getJalaliDate($attributeGroup->updated_at) }}</div>
+                                    <div class="font-size-12 text-left"> تاریخ اخرین بروزرسانی
+                                        : {{ getJalaliDate($attributeGroup->updated_at) }}</div>
                                 </div>
                             </div>
                         </div>
@@ -33,23 +35,43 @@
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control" id="name" name="name"
                                                        value="{{ old('name' , $attributeGroup->name) }}">
-                                                <x-validation-error field="name" />
+                                                <x-validation-error field="name"/>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            <div class="col-md-10">
-                                <div class="row">
-                                    <div class="col-md-9 offset-md-3">
-                                        <button type="submit" class="btn btn-primary btn-uppercase">
-                                            <i class="ti-check-box m-l-5"></i>بروزرسانی
-                                        </button>
-                                        <a href="{{ route('panel.attributeGroups.index') }}" class="btn btn-secondary waves-effect">
-                                            بازگشت
-                                        </a>
+
+                                <div class="col-md-10 mb-3">
+                                    <div class="row">
+                                        <label class="col-sm-3 col-form-label">دسته بندی</label>
+                                        <div class="col-sm-9">
+                                            <select class="form-control" name="category_id" aria-hidden="true">
+                                                <option value>یک دسته بندی را انتخاب کنید</option>
+                                                @foreach($categories as  $category)
+                                                    <option
+                                                        value="{{ $category->id  }}"
+                                                       @selected($category->id == $attributeGroup->category->id)
+                                                    >  {{ $category->name }} </option>
+                                                @endforeach
+                                            </select>
+                                            <x-validation-error field="category_id" />
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+
+                                <div class="col-md-10">
+                                    <div class="row">
+                                        <div class="col-md-9 offset-md-3">
+                                            <button type="submit" class="btn btn-primary btn-uppercase">
+                                                <i class="ti-check-box m-l-5"></i>بروزرسانی
+                                            </button>
+                                            <a href="{{ route('panel.attributeGroups.index') }}"
+                                               class="btn btn-secondary waves-effect">
+                                                بازگشت
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     </div>
