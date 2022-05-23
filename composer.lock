@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6726a6942c4ba61258e0c796f2336f61",
+    "content-hash": "daf97214d3371e93eb0aa9f3452f6243",
     "packages": [
         {
             "name": "amir_ys/attribute-module",
@@ -142,6 +142,29 @@
             "autoload": {
                 "psr-4": {
                     "Modules\\Dashboard\\": "src"
+                }
+            },
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "amir_ys/product-module",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "modules/Product",
+                "reference": "61ad92bd324c3deac4d1ffa81bdde3593e8b8fd8"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": "Modules\\Product\\Providers\\ProductServiceProvider"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Modules\\Product\\": "src"
                 }
             },
             "transport-options": {
@@ -8374,7 +8397,8 @@
         "amir_ys/brand-module": 20,
         "amir_ys/category-module": 20,
         "amir_ys/core-module": 20,
-        "amir_ys/dashboard-module": 20
+        "amir_ys/dashboard-module": 20,
+        "amir_ys/product-module": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

@@ -1,0 +1,15 @@
+{
+    "name": "amir_ys/product-module",
+    "autoload": {
+        "psr-4": {
+            "Modules\\Product\\" : "src"
+        }
+    },
+    "extra": {
+        "laravel" :
+        {
+            "providers" : "Modules\\Product\\Providers\\ProductServiceProvider"
+        }
+    },
+    "description": ""
+}
