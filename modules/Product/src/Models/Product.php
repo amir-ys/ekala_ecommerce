@@ -5,6 +5,8 @@ namespace Modules\Product\Models;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Modules\Brand\Models\Brand;
 use Modules\Product\Database\Factories\ProductFactory;
 
 class Product extends Model
@@ -25,5 +27,10 @@ class Product extends Model
                 'source' => 'name'
             ]
         ];
+    }
+
+    public function brand(): BelongsTo
+    {
+        return $this->belongsTo(Brand::class);
     }
 }
