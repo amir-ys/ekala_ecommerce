@@ -28,6 +28,11 @@ x<div class="side-menu">
                     <span>دسته بندی ها</span> <span class="badge bg-danger-gradient"></span></a>
             </li>
 
+            <li><a data-attr="layout-builder-toggle" class="{{ request()->url(route('panel.products.index')) == route('panel.products.index') ? 'c-active' : '' }}" href="{{ route('panel.products.index') }}">
+                    <i class="icon ti-layout"></i>
+                    <span> محصولات </span> <span class="badge bg-danger-gradient"></span></a>
+            </li>
+
 
         </ul>
     </div>

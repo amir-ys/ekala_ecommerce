@@ -1,12 +1,14 @@
 <?php
 namespace Modules\Product\Tests\Feature\Models;
 use Cviebrock\EloquentSluggable\Services\SlugService;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\Brand\Models\Brand;
 use Tests\TestCase;
 use Modules\Product\Models\Product;
 
 class ProductTest extends TestCase
 {
+    use RefreshDatabase;
     public function test_insert_data()
     {
         $data = Product::factory()->make()->toArray();

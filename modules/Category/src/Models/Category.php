@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Modules\AttributeGroup\Models\AttributeGroup;
 use Modules\Category\Database\Factories\CategoryFactory;
 use Modules\Category\Enums\CategoryStatus;
+use Modules\Product\Models\Product;
 
 class Category extends Model
 {
@@ -59,5 +60,10 @@ class Category extends Model
     public function attributeGroups()
     {
         return $this->hasMany(AttributeGroup::class , 'category_id');
+    }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
     }
 }

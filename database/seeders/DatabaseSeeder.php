@@ -7,6 +7,7 @@ use Modules\Attribute\Models\Attribute;
 use Modules\AttributeGroup\Models\AttributeGroup;
 use Modules\Brand\Models\Brand;
 use Modules\Category\Models\Category;
+use Modules\Product\Models\Product;
 
 class DatabaseSeeder extends Seeder
 {
@@ -22,5 +23,6 @@ class DatabaseSeeder extends Seeder
         AttributeGroup::factory()->count(rand(1, 100))->create();
         Brand::factory()->count(rand(1, 100))->create();
         Attribute::factory()->count(rand(1, 100))->create();
+        Product::factory()->count(rand(1, 100))->create();
     }
 }
