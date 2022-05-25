@@ -16,7 +16,7 @@ class BrandController extends Controller
     }
     public function index()
     {
-        $brands = $this->brandRepo->getAllPaginate();
+        $brands = $this->brandRepo->getAll();
         return view('Brand::index' , compact('brands'));
     }
 

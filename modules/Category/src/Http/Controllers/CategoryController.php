@@ -18,7 +18,7 @@ class CategoryController extends Controller
     }
     public function index()
     {
-        $categories = $this->categoryRepo->getAllPaginate();
+        $categories = $this->categoryRepo->getAll();
         return view('Category::index' , compact('categories'));
     }
 

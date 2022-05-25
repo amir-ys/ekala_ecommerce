@@ -6,5 +6,5 @@ use Modules\Core\Contracts\BaseRepositoryInterface;
 
 interface BrandRepositoryInterface extends BaseRepositoryInterface
 {
-    public function getAllPaginate();
+    public function getAll();
 }

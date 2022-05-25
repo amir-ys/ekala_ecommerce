@@ -11,7 +11,7 @@
                     <div class="row mb-3">
                     </div>
                     <div class="table-responsive">
-                        <table id="tbl_users" class="table table-hover">
+                        <table id="table" class="table table-hover">
                             <thead class="thead-light">
                             <tr>
                                 <th>شناسه</th>
@@ -48,7 +48,6 @@
                             @endforeach
                             </tbody>
                         </table>
-                        {!! $attributeGroups->links() !!}
                     </div>
                 </div>
             </div>

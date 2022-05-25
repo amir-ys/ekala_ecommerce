@@ -14,9 +14,9 @@ abstract class BaseRepository
         $this->query = (new $this->model);
     }
 
-    public function getAllPaginate(): Paginator
+    public function getAll()
     {
-        return $this->query->latest()->paginate();
+        return $this->query->latest()->get();
     }
 
     public function findById(int $id)

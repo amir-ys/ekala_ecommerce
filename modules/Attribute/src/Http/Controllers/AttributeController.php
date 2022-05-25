@@ -17,7 +17,7 @@ class AttributeController extends Controller
     }
     public function index()
     {
-        $attributes = $this->attributeRepo->getAllPaginate();
+        $attributes = $this->attributeRepo->getAll();
         return view('Attribute::index' ,compact('attributes'));
     }
 

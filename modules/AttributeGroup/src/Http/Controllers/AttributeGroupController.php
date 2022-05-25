@@ -19,7 +19,7 @@ class AttributeGroupController extends Controller
     public function index(CategoryRepositoryInterface $categoryRepo)
     {
         $categories = $categoryRepo->all();
-        $attributeGroups = $this->attributeGroupRepo->getAllPaginate();
+        $attributeGroups = $this->attributeGroupRepo->getAll();
         return view('AttributeGroup::index' , compact('attributeGroups' , 'categories'));
     }
 

@@ -19,7 +19,7 @@
             <div class="card">
                 <div class="card-body border border-5">
                     <div class="table-responsive">
-                        <table id="tbl_users" class="table table-hover">
+                        <table  id="table" class="table table-hover">
                             <thead class="thead-light">
                             <tr>
                                 <th>شناسه</th>
@@ -73,9 +73,7 @@
                             @endforeach
                             </tbody>
                         </table>
-                        {!! $attributes->links() !!}
                     </div>
-                </div>
             </div>
         </div>
     </div>
