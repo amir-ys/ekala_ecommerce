@@ -16,7 +16,7 @@ class AttributeControllerTest extends TestCase
 
         $response->assertViewIs('Attribute::index')
             ->assertViewHasAll([
-                'attributes' => Attribute::query()->latest()->paginate() ,
+                'attributes' => Attribute::query()->get() ,
             ]);
     }
 

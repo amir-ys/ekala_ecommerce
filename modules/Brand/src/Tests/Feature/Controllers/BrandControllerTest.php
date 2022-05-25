@@ -17,7 +17,7 @@ class BrandControllerTest extends TestCase
         $response = $this->get(route('panel.brands.index'));
 
         $response->assertViewIs('Brand::index')
-            ->assertViewHas('brands' , Brand::query()->latest()->paginate());
+            ->assertViewHas('brands' , Brand::query()->latest()->get());
     }
 
     public function test_store_method()

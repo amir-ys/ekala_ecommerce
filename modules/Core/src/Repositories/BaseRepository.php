@@ -19,6 +19,7 @@ abstract class BaseRepository
         return $this->query->latest()->get();
     }
 
+
     public function findById(int $id)
     {
         return $this->query->findOrFail($id);

@@ -14,7 +14,7 @@ class AttributeGroupControllerTest extends TestCase
     {
         $response = $this->get(route('panel.attributeGroups.index'));
         $response->assertViewIs('AttributeGroup::index')
-            ->assertViewHas('attributeGroups' , AttributeGroup::query()->paginate() );
+            ->assertViewHas('attributeGroups' , AttributeGroup::query()->get() );
     }
 
     public function test_edit_method()

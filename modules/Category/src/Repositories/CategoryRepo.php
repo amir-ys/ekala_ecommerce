@@ -12,9 +12,9 @@ class CategoryRepo extends BaseRepository  implements CategoryRepositoryInterfac
 {
     protected $model = Category::class;
 
-    public function getAllPaginate(): Paginator
+    public function getAll()
     {
-        return $this->query->latest()->with('parent')->paginate();
+        return $this->query->latest()->with('parent')->get();
     }
     public function store(array $data)
     {
