@@ -15,7 +15,7 @@ class CategoryControllerTest extends TestCase
         $response = $this->get(route('panel.categories.index'));
 
         $response->assertViewIs('Category::index')
-            ->assertViewHas('categories' , Category::query()->latest()->paginate());
+            ->assertViewHas('categories' , Category::query()->latest()->get());
     }
 
     public function test_create_method()

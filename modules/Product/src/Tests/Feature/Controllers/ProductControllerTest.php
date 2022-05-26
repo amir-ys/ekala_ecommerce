@@ -17,7 +17,27 @@ class ProductControllerTest extends TestCase
 
         $response->assertViewIs('Product::index')
             ->assertViewHas([
-                'products' => Product::query()->latest()->paginate()
+                'products' => Product::query()->latest()->get()
             ]);
+    }
+
+    public function test_create_method()
+    {
+        $response = $this->get(route('panel.products.create'));
+        $response->assertViewIs('Product::create')
+            ->assertViewHas([
+                'brands' => Brand::all() ,
+                'categories' => Category::all()
+            ]);
+    }
+
+    public function test_product_can_be_store()
+    {
+        $this->withoutExceptionHandling();
+        $data = Product::factory()->make()->toArray();
+        $this->post(route('panel.products.store') , $data);
+
+        $this->assertDatabaseCount('products' , 1);
+        $this->assertDatabaseHas('products' , $data);
     }
 }

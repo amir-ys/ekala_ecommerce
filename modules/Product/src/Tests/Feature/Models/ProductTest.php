@@ -21,7 +21,6 @@ class ProductTest extends TestCase
 
     public function test_product_relation_with_brand()
     {
-        $count = rand(1, 9);
         $product = Product::factory()->for(Brand::factory())->create();
 
         $this->assertTrue(isset($product->brand->id));

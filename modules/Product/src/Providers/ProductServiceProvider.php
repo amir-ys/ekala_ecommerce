@@ -3,6 +3,8 @@ namespace Modules\Product\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Modules\Product\Contracts\ProductRepositoryInterface;
+use Modules\Product\Repositories\ProductRepo;
 
 class ProductServiceProvider extends ServiceProvider
 {
@@ -18,7 +20,7 @@ class ProductServiceProvider extends ServiceProvider
 
     public function boot()
     {
-
+        $this->app->bind(ProductRepositoryInterface::class , ProductRepo::class);
     }
 
     private function loadRoutes()

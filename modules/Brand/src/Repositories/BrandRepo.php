@@ -26,4 +26,9 @@ class BrandRepo extends BaseRepository implements BrandRepositoryInterface
         ]);
     }
 
+    public function all()
+    {
+        return $this->query->get();
+    }
+
 }
