@@ -16,21 +16,21 @@ class ProductRequest extends  FormRequest
     public function rules()
     {
         return [
-//            'name' => ['required' , 'string'] ,
-//            'price' => ['required' , 'numeric' , 'min:1000' ] ,
-//            'quantity' => ['required' , 'numeric' , 'min:0'] ,
-//            'brand_id' => ['required' , Rule::exists('brands' , 'id')] ,
-//            'category_id' => ['required' , Rule::exists('categories' , 'id')] ,
-//            'is_active' => ['required' ,new Enum(ProductStatus::class)] ,
-//            'description' => ['required' ] ,
-//            'primary_image' => ['required' , 'image' , 'mimes:jpeg,jpg,png' ] ,
-//            'images' => ['nullable' , 'array'] ,
-//            'images.*' => ['nullable' , 'image' , 'mimes:jpeg,jpg,png' ] ,
-//            'special_price' => ['nullable' , 'numeric' ] ,
-//            'special_price_start' => [ 'nullable' ,  Rule::requiredIf(function (){
-//              return  request()->special_price != null;  })  ] ,
-//            'special_price_end' => ['nullable' , 'date' , Rule::requiredIf(function (){
-//                return  request()->special_price != null; })  ]
+            'name' => ['required' , 'string'] ,
+            'price' => ['required' , 'numeric' , 'min:1000' ] ,
+            'quantity' => ['required' , 'numeric' , 'min:0'] ,
+            'brand_id' => ['required' , Rule::exists('brands' , 'id')] ,
+            'category_id' => ['required' , Rule::exists('categories' , 'id')] ,
+            'is_active' => ['required' ,new Enum(ProductStatus::class)] ,
+            'description' => ['required' ] ,
+            'primary_image' => ['required' , 'image' , 'mimes:jpeg,jpg,png' ] ,
+            'images' => ['nullable' , 'array'] ,
+            'images.*' => ['nullable' , 'image' , 'mimes:jpeg,jpg,png' ] ,
+            'special_price' => ['nullable' , 'numeric' ] ,
+            'special_price_start' => [ 'nullable' ,  Rule::requiredIf(function (){
+              return  request()->special_price != null;  })  ] ,
+            'special_price_end' => ['nullable' , 'date' , Rule::requiredIf(function (){
+                return  request()->special_price != null; })  ]
         ];
     }
 

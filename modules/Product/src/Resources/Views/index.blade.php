@@ -27,8 +27,8 @@
                                 <th> برند </th>
                                 <th> قیمت </th>
                                 <th> موجودی </th>
-                                <th> وضعیت </th>
                                 <th> تاریخ ایجاد</th>
+                                <th> وضعیت </th>
                                 <th> عملیات</th>
                             </tr>
                             </thead>
@@ -41,12 +41,12 @@
                                     <td>{{  $product->brand->name  }}</td>
                                     <td>{{ number_format( $product->price)  }}</td>
                                     <td>{{ $product->quantity  }}</td>
+                                    <td>{{ getJalaliDate($product->created_at) }}</td>
                                     <td>
                                         <span
                                             class="badge py-1 bg-{{ $product->statusCssClass }}"> @lang($product->is_active->name)
                                         </span>
                                     </td>
-                                    <td>{{ getJalaliDate($product->created_at) }}</td>
 
                                     <td>
                                         <a class="btn btn-sm bg-transparent d-inline"
