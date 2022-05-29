@@ -6,7 +6,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
-class ImageUploadService
+class ImageService
 {
     public static function loadImage($filename, $dir)
     {

@@ -9,7 +9,7 @@ use Modules\Product\Contracts\ProductRepositoryInterface;
 use Modules\Product\Http\Requests\ProductRequest;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductImage;
-use Modules\Product\Services\ImageUploadService;
+use Modules\Product\Services\ImageService;
 
 class ProductController extends Controller
 {
@@ -36,13 +36,13 @@ class ProductController extends Controller
         $product = $this->productRepo->store($request->all());
 
         //upload primary image
-        $imageName = ImageUploadService::uploadImage($request->primary_image, Product::getUploadDirectory());
+        $imageName = ImageService::uploadImage($request->primary_image, Product::getUploadDirectory());
         $this->productRepo->saveProductImage($imageName, $product, ProductImage::IS_PRIMARY_TRUE);
         //other images
         if ($request->hasFile('images')) {
             $images = $request->images;
             foreach ($images as $image) {
-                $imageName = ImageUploadService::uploadImage($image, Product::getUploadDirectory());
+                $imageName = ImageService::uploadImage($image, Product::getUploadDirectory());
                 $this->productRepo->saveProductImage($imageName, $product, ProductImage::IS_PRIMARY_FALSE);
             }
         }

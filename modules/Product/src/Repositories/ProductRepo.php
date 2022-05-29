@@ -45,4 +45,41 @@ class ProductRepo extends BaseRepository implements ProductRepositoryInterface
             'is_primary' => $isPrimary
         ]);
     }
+
+    public function findByIdWithImages(int $id)
+    {
+      return $this->query->where('id' , $id)->with('images')->firstOrFail();
+
+    }
+    public function storeProductImage($name , $productId , $isPrimary)
+    {
+        $this->findById($productId)->images()->create([
+            'name' => $name ,
+            'is_primary' => $isPrimary
+        ]);
+    }
+
+    public function findImageById($productId , $imageId)
+    {
+        $model =  $this->findById($productId);
+      return  $model->images()->where('id' , $imageId)->firstOrFail();
+
+    }
+
+    public function deleteProductImage($image)
+    {
+        return $image->delete();
+    }
+
+    public function getProductImages($productId)
+    {
+       $model =  $this->findById($productId);
+      return $model->images;
+    }
+
+    public function deletePrimaryImage($productId)
+    {
+        $this->findById($productId)->primaryImage->delete();
+    }
+
 }

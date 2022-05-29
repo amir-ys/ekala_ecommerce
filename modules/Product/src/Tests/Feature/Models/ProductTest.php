@@ -3,8 +3,9 @@ namespace Modules\Product\Tests\Feature\Models;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\Brand\Models\Brand;
-use Tests\TestCase;
 use Modules\Product\Models\Product;
+use Modules\Product\Models\ProductImage;
+use Tests\TestCase;
 
 class ProductTest extends TestCase
 {
@@ -25,6 +26,15 @@ class ProductTest extends TestCase
 
         $this->assertTrue(isset($product->brand->id));
         $this->assertInstanceOf(Brand::class , $product->brand);
+    }
+
+    public function test_product_relation_with_productImage()
+    {
+        $count = rand(1 ,9);
+        $product = Product::factory()->has(ProductImage::factory() ->count($count), 'images')->create();
+
+        $this->assertCount($count , $product->images);
+        $this->assertInstanceOf(ProductImage::class , $product->images->first());
     }
 
 }

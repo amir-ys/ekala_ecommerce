@@ -29,6 +29,7 @@
                                 <th> موجودی </th>
                                 <th> تاریخ ایجاد</th>
                                 <th> وضعیت </th>
+                                <th> گالری </th>
                                 <th> عملیات</th>
                             </tr>
                             </thead>
@@ -45,6 +46,12 @@
                                     <td>
                                         <span
                                             class="badge py-1 bg-{{ $product->statusCssClass }}"> @lang($product->is_active->name)
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <span class="badge py-1">
+                                            <a href="{{ route('panel.products.images.show' , $product->id) }}"> گالری </a>
                                         </span>
                                     </td>
 

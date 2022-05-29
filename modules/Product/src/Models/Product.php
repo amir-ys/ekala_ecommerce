@@ -57,7 +57,16 @@ class Product extends Model
 
     public function images(): HasMany
     {
-        return $this->hasMany(ProductImage::class , 'product_id');
+        return $this->hasMany(ProductImage::class , 'product_id')
+            ->where('is_primary' ,ProductImage::IS_PRIMARY_FALSE );
+    }
+
+    public function primaryImage() :Attribute
+    {
+     return Attribute::get(function (){
+          return $this->hasMany(ProductImage::class , 'product_id')->
+          where('is_primary' , ProductImage::IS_PRIMARY_TRUE)->first();
+      });
     }
 
     public static function getUploadDirectory() :string
