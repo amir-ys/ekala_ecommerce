@@ -17,7 +17,23 @@ class ProductRepo extends BaseRepository implements ProductRepositoryInterface
 
     public function store(array $data)
     {
-       $product =  $this->query->create([
+        return $this->query->create([
+             'name' => $data['name'],
+             'category_id' => $data['category_id'],
+             'brand_id' => $data['brand_id'],
+             'description' => $data['description'],
+             'price' => $data['price'],
+             'quantity' => $data['quantity'],
+             'special_price' => $data['special_price'],
+             'special_price_start' => $data['special_price_start'],
+             'special_price_end' => $data['special_price_end'],
+             'is_active' => $data['is_active'],
+         ]);
+    }
+
+    public function update(int $id, array $data)
+    {
+        return $this->query->where('id' , $id)->update([
             'name' => $data['name'],
             'category_id' => $data['category_id'],
             'brand_id' => $data['brand_id'],
@@ -29,13 +45,6 @@ class ProductRepo extends BaseRepository implements ProductRepositoryInterface
             'special_price_end' => $data['special_price_end'],
             'is_active' => $data['is_active'],
         ]);
-
-        return $product;
-    }
-
-    public function update(int $id, array $data)
-    {
-
     }
 
     public function saveProductImage($imageName ,Product $product , $isPrimary)
@@ -46,11 +55,26 @@ class ProductRepo extends BaseRepository implements ProductRepositoryInterface
         ]);
     }
 
+    public function updateProductImage($imageName ,Product $product , $isPrimary)
+    {
+        $product->primaryImage()->update([
+            'name' => $imageName ,
+            'is_primary' => $isPrimary
+        ]);
+    }
+
     public function findByIdWithImages(int $id)
     {
       return $this->query->where('id' , $id)->with('images')->firstOrFail();
 
     }
+
+    public function findByIdWithRelations(int $id)
+    {
+        return $this->query->where('id' , $id)->with(['brand' , 'category' , 'images'])->firstOrFail();
+
+    }
+
     public function storeProductImage($name , $productId , $isPrimary)
     {
         $this->findById($productId)->images()->create([

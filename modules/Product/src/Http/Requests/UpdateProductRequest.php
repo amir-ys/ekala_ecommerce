@@ -6,7 +6,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Enum;
 use Modules\Product\Enums\ProductStatus;
 
-class ProductRequest extends  FormRequest
+class UpdateProductRequest extends  FormRequest
 {
     public function authorize()
     {
@@ -23,7 +23,7 @@ class ProductRequest extends  FormRequest
             'category_id' => ['required' , Rule::exists('categories' , 'id')] ,
             'is_active' => ['required' ,new Enum(ProductStatus::class)] ,
             'description' => ['required' ] ,
-            'primary_image' => ['required' , 'image' , 'mimes:jpeg,jpg,png' ] ,
+            'primary_image' => ['nullable' , 'image' , 'mimes:jpeg,jpg,png' ] ,
             'images' => ['nullable' , 'array'] ,
             'images.*' => ['nullable' , 'image' , 'mimes:jpeg,jpg,png' ] ,
             'special_price' => ['nullable' , 'numeric' ] ,

@@ -18,15 +18,6 @@ class ProductImageTest extends TestCase
         $this->assertDatabaseHas('product_images' , $data);
     }
 
-    public function test_product_relation_with_brand()
-    {
-        $product = Product::factory()->for(Brand::factory())->create();
-
-        $this->assertTrue(isset($product->brand->id));
-        $this->assertInstanceOf(Brand::class , $product->brand);
-    }
-
-
     public function test_productImage_relation_with_product()
     {
         $productImage = ProductImage::factory()->for(Product::factory() , 'product')->create();
