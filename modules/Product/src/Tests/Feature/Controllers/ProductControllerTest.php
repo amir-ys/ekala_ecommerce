@@ -5,7 +5,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Modules\Brand\Models\Brand;
 use Modules\Category\Models\Category;
-use Modules\Product\Database\Factories\ProductImageFactory;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductImage;
 use Tests\TestCase;

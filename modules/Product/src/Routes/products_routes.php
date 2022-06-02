@@ -2,6 +2,7 @@
 namespace Modules\Product\Routes;
 
 use Illuminate\Support\Facades\Route;
+use Modules\Product\Http\Controllers\ProductAttributeController;
 use Modules\Product\Http\Controllers\ProductController;
 use Modules\Product\Http\Controllers\ProductImageController;
 
@@ -15,4 +16,9 @@ Route::group([] , function (){
    Route::delete('products/{product}/image/{image}/delete' , [ProductImageController::class , 'deleteImage'])->name('panel.products.images.delete');
    Route::delete('products/{product}/image/delete-all' , [ProductImageController::class , 'deleteAllImages'])->name('panel.products.images.deleteAll');
    Route::post('products/{product}/image/upload' , [ProductImageController::class , 'upload'])->name('panel.products.images.upload');
+
+   //product attributes
+   Route::get('products/{product}/attributes' , [ProductAttributeController::class , 'show'])->name('panel.products.attributes.show') ;
+   Route::post('products/{product}/attribute-vale/save' , [ProductAttributeController::class , 'saveAttributeValue'])->name('panel.products.attributes.save') ;
+
 });

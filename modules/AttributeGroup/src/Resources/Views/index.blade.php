@@ -26,7 +26,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration  }}</td>
                                     <td>{{ $attributeGroup->name }}</td>
-                                    <td>{{ $attributeGroup->category->name }}</td>
+                                    <td>{{ optional($attributeGroup->category)->name ?? '-' }}</td>
                                     <td>{{ getJalaliDate($attributeGroup->created_at) }}</td>
                                     <td>
                                         <a class="btn btn-sm bg-transparent d-inline"

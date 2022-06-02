@@ -30,6 +30,7 @@
                                 <th> تاریخ ایجاد</th>
                                 <th> وضعیت </th>
                                 <th> گالری </th>
+                                <th> ویژگی ها </th>
                                 <th> عملیات</th>
                             </tr>
                             </thead>
@@ -52,6 +53,12 @@
                                     <td>
                                         <span class="badge py-1">
                                             <a href="{{ route('panel.products.images.show' , $product->id) }}"> گالری </a>
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <span class="badge py-1">
+                                            <a href="{{ route('panel.products.attributes.show' , $product->id) }}"> الحاق </a>
                                         </span>
                                     </td>
 

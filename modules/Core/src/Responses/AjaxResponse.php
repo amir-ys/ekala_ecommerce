@@ -22,6 +22,16 @@ class AjaxResponse
         ]);
     }
 
+    public static function sendData($data ,$message =  'عملیات موفق'  , $error = '')
+    {
+        return response()->json([
+            'data' => $data ,
+            'status' => -1 ,
+            'message' => $message ,
+            'error' => $error
+        ]);
+    }
+
 
 
 }

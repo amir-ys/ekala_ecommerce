@@ -106,4 +106,17 @@ class ProductRepo extends BaseRepository implements ProductRepositoryInterface
         $this->findById($productId)->primaryImage->delete();
     }
 
+    public function attachAttributeWithValue($productId , $attributes)
+    {
+        $product = $this->findById($productId);
+        foreach ($attributes as $attributeId => $value){
+        $product->attributes()->attach($attributeId , ['value' => $value]);
+        }
+    }
+
+    public function findByIdWithCategory($id)
+    {
+        return $this->query->where('id' , $id)->with('category.attributeGroups')->firstOrFail();
+    }
+
 }

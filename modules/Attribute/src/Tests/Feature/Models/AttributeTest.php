@@ -2,8 +2,8 @@
 namespace Modules\Attribute\Tests\Feature\Models;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\Attribute\Models\Attribute;
-use Modules\Attribute\Models\AttributeValue;
 use Modules\AttributeGroup\Models\AttributeGroup;
+use Modules\Product\Models\Product;
 use Tests\TestCase;
 
 class AttributeTest extends TestCase
@@ -27,13 +27,12 @@ class AttributeTest extends TestCase
         $this->assertInstanceOf(AttributeGroup::class , $attribute->attributeGroup );
     }
 
-    public function test_attributes_relation_relation_with_attribute_values()
+    public function test_attribute_relation_with_products()
     {
         $count = rand(1 ,9);
-        $attribute =  Attribute::factory()->has(AttributeValue::factory()->count($count) ,'values')->create();
+        $attribute = Attribute::factory()->hasAttached(Product::factory()->count($count) , ['value' => '::test::'] , 'products')->create();
 
-        $this->assertCount($count , $attribute->values);
-        $this->assertTrue(isset($attribute->values->first()->id));
-        $this->assertInstanceOf(AttributeValue::class , $attribute->values->first());
+        $this->assertCount($count , $attribute->products);
     }
+
 }

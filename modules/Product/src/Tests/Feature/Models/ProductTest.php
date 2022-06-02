@@ -2,6 +2,7 @@
 namespace Modules\Product\Tests\Feature\Models;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Modules\Attribute\Models\Attribute;
 use Modules\Brand\Models\Brand;
 use Modules\Category\Models\Category;
 use Modules\Product\Models\Product;
@@ -46,4 +47,13 @@ class ProductTest extends TestCase
         $this->assertInstanceOf(ProductImage::class , $product->images->first());
     }
 
+    public function test_product_relation_with_attributes()
+    {
+        $count = rand(1 ,9);
+        $product = Product::factory()->hasAttached(Attribute::factory()->count($count) ,
+            ['value' => '::test::'] ,'attributes')->create();
+
+        $this->assertCount($count , $product->attributes);
+        $this->assertInstanceOf(Attribute::class , $product->attributes->first());
+    }
 }

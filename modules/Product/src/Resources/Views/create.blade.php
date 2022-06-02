@@ -149,7 +149,7 @@
                                             <button type="submit" class="btn btn-primary btn-uppercase">
                                                 <i class="ti-check-box m-l-5"></i>ذخیره
                                             </button>
-                                            <a href="{{ route('panel.categories.index') }}" class="btn btn-secondary waves-effect">
+                                            <a href="{{ route('panel.products.index') }}" class="btn btn-secondary waves-effect">
                                                 بازگشت
                                             </a>
                                         </div>

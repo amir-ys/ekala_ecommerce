@@ -28,20 +28,8 @@ class AttributeRepo extends BaseRepository implements AttributeRepositoryInterfa
         ]);
     }
 
-    public function saveValue($attributeId , $data)
+    public function all()
     {
-        $model = $this->query->findOrFail($attributeId);
-        foreach ($data as $value) {
-            $model->values()->create([
-                'attribute_id' => $attributeId,
-                'value' => $value
-            ]);
-        }
-    }
-
-    public function deleteValue($attributeId , $value)
-    {
-        $model = $this->query->findOrFail($attributeId);
-        $model->values()->where('value' , $value)->delete();
+        return $this->query->with(['attributeGroup'])->get();
     }
 }

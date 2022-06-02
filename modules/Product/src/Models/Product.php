@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Brand\Models\Brand;
@@ -72,5 +73,11 @@ class Product extends Model
     public static function getUploadDirectory() :string
     {
         return 'products';
+    }
+
+    public function attributes(): BelongsToMany
+    {
+        return $this->belongsToMany(\Modules\Attribute\Models\Attribute::class  , 'attribute_product' ,
+            'product_id' , 'attribute_id')->withPivot('value')->withTimestamps();
     }
 }

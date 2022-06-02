@@ -27,7 +27,6 @@
                                 <th>گروه ویژگی</th>
                                 <th> تاریخ ایجاد</th>
                                 <th>قابل فیلتر است ؟</th>
-                                <th> مقادیر ویژگی</th>
                                 <th> عملیات</th>
                             </tr>
                             </thead>
@@ -45,13 +44,6 @@
                                               {{ $attribute->is_filterable == \Modules\Attribute\Models\Attribute::FILTERABLE_TRUE
                                                       ? 'بله'  : 'خیر'   }}
                                         </span>
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('panel.attributes.value.index' , $attribute->id) }}">
-                                           ( <span> {{ $attribute->values->count() }} </span> )
-                                            اضافه کردن
-                                        <i class="fa fa-plus fa-15m text-success"></i>
-                                        </a>
                                     </td>
                                     <td>
                                         <a class="btn btn-sm bg-transparent d-inline"
