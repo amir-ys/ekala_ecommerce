@@ -45,16 +45,15 @@
                                     <div class="row">
                                         <label class="col-sm-3 col-form-label">دسته بندی</label>
                                         <div class="col-sm-9">
-                                            <select class="form-control" name="category_id" aria-hidden="true">
-                                                <option value>یک دسته بندی را انتخاب کنید</option>
+                                            <select name="category_ids[]" class="select2-multiple form-control" id="select-category-id" multiple aria-hidden="true">
                                                 @foreach($categories as  $category)
                                                     <option
                                                         value="{{ $category->id  }}"
-                                                       @selected($category->id == $attributeGroup->category->id)
+                                                       @selected($attributeGroup->categories->contains($category->id))
                                                     >  {{ $category->name }} </option>
                                                 @endforeach
                                             </select>
-                                            <x-validation-error field="category_id" />
+                                            <x-validation-error field="category_ids" />
                                         </div>
                                     </div>
                                 </div>
@@ -81,4 +80,17 @@
         </div>
     </div>
     <!-- end row -->
+@endsection
+@section('css')
+    <link rel="stylesheet" href="/assets/panel/vendors/select2/css/select2.min.css" type="text/css">
+@endsection
+
+@section('script')
+    <script src="/assets/panel/vendors/select2/js/select2.min.js"></script>
+    <script>
+        $('#select-category-id').select2({
+            placeholder: "دسته بندی را انتخاب کنید",
+            // allowClear: true
+        });
+    </script>
 @endsection

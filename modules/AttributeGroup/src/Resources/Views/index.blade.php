@@ -38,8 +38,10 @@
                                            class="btn btn-sm bg-transparent d-inline delete-confirm"><i
                                                 class="fa fa-trash fa-15m text-danger"></i></a>
 
-                                        <form action="{{ route('panel.attributeGroups.destroy' , $attributeGroup->id) }}" method="post"
-                                              id="destroy-brand-{{ $attributeGroup->id }}">
+                                        <form
+                                            action="{{ route('panel.attributeGroups.destroy' , $attributeGroup->id) }}"
+                                            method="post"
+                                            id="destroy-brand-{{ $attributeGroup->id }}">
                                             @csrf
                                             @method('delete')
                                         </form>
@@ -55,4 +57,17 @@
         @include('AttributeGroup::create')
     </div>
     <!-- /basic responsive table -->
+@endsection
+@section('css')
+        <link rel="stylesheet" href="/assets/panel/vendors/select2/css/select2.min.css" type="text/css">
+@endsection
+
+@section('script')
+        <script src="/assets/panel/vendors/select2/js/select2.min.js"></script>
+    <script>
+        $('#select-category-id').select2({
+            placeholder: "دسته بندی را انتخاب کنید",
+            // allowClear: true
+        });
+    </script>
 @endsection

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Modules\AttributeGroup\Models\AttributeGroup;
 use Modules\Category\Database\Factories\CategoryFactory;
@@ -57,9 +58,10 @@ class Category extends Model
         return $this->hasMany(Category::class , 'parent_id' );
     }
 
-    public function attributeGroups()
+    public function attributeGroups(): BelongsToMany
     {
-        return $this->hasMany(AttributeGroup::class , 'category_id');
+        return $this->belongsToMany(AttributeGroup::class , 'attribute_group_category',
+            'category_id' , 'attribute_group_id');
     }
 
     public function products()

@@ -19,7 +19,6 @@ class AttributeGroupFactory extends Factory
     {
         return [
             'name' => $this->faker->word ,
-            'category_id' => Category::factory() ,
         ];
     }
 }

@@ -11,6 +11,7 @@ class ProductAttributeControllerTest extends TestCase
 
     public function test_show_method()
     {
+        $this->withoutExceptionHandling();
         $product = Product::factory()->create();
         $response = $this->get(route('panel.products.attributes.show' , $product->id));
 

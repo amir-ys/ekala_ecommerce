@@ -32,10 +32,11 @@ class AttributeGroupTest extends TestCase
 
     public function test_attributeGroup_relation_with_categories ()
     {
-        $attributeGroup = AttributeGroup::factory()->for(Category::factory())->create();
+        $count = rand(1 , 9);
+        $attributeGroup = AttributeGroup::factory()->has(Category::factory()->count($count))->create();
 
-        $this->assertTrue(isset($attributeGroup->category->id));
-        $this->assertInstanceOf(Category::class , $attributeGroup->category);
+        $this->assertCount($count , $attributeGroup->categories);
+        $this->assertInstanceOf(Category::class , $attributeGroup->categories()->first());
 
     }
 }

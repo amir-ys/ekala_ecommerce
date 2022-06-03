@@ -56,10 +56,8 @@ class CategoryController extends Controller
         if ($categoryChildes){
             return  AjaxResponse::error('این دسته بندی شامل زیر دسته است و قابل حذف نیست.');
         }
-        $hasAttributeGroups = (resolve(AttributeGroupRepositoryInterface::class))->checkHasCategory($categoryId);
-        if ($hasAttributeGroups){
-            return  AjaxResponse::error('این دسته بندی شامل گروه ویژگی است و قابل حذف نیست.');
-        }
+
+        $this->categoryRepo->detachAttributeGroupFromCategory($categoryId);
         $this->categoryRepo->destroy($categoryId);
         return AjaxResponse::success("دسته بندی ". $category->name ." با موفقیت حذف شد.");
     }

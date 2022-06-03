@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('attribute_groups', function (Blueprint $table) {
-            $table->id();
-            $table->string('name' , 255);
-            $table->timestamps();
+        Schema::create('attribute_group_category', function (Blueprint $table) {
+            $table->foreignId('category_id')->constrained('categories');
+            $table->foreignId('attribute_group_id')->constrained('attribute_groups');
+            $table->primary(['category_id','attribute_group_id']);
         });
     }
 
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('attribute_groups');
+        Schema::dropIfExists('attribute_group_category');
     }
 };

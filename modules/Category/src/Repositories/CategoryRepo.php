@@ -59,4 +59,10 @@ class CategoryRepo extends BaseRepository  implements CategoryRepositoryInterfac
     {
         return $this->query->get();
     }
+
+    public function detachAttributeGroupFromCategory($id)
+    {
+        $category = $this->findById($id);
+        $category->attributeGroups()->detach();
+    }
 }
