@@ -29,4 +29,11 @@ class AttributeGroup extends Model
         return $this->belongsToMany(Category::class , 'attribute_group_category','attribute_group_id' ,
             'category_id');
     }
+
+    public function getCategoriesName()
+    {
+        return $this->categories->count() > 0
+            ? implode(',' ,  $this->categories()->pluck('name')->toArray())
+            : 'ندارد' ;
+    }
 }

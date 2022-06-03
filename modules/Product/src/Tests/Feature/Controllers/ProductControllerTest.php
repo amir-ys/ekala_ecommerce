@@ -3,6 +3,7 @@ namespace Modules\Product\Tests\Feature\Controllers;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
+use Modules\Attribute\Models\Attribute;
 use Modules\Brand\Models\Brand;
 use Modules\Category\Models\Category;
 use Modules\Product\Models\Product;
@@ -71,5 +72,22 @@ class ProductControllerTest extends TestCase
         $response->assertRedirect();
         $this->assertDatabaseCount('products' , 1);
         $this->assertDatabaseHas('products' , $data);
+    }
+
+    public function test_product_can_be_delete()
+    {
+        $this->withoutExceptionHandling();
+        $product = Product::factory()->create();
+        $attribute =  Attribute::factory()->create();
+        $data = [ 'attributes' => [ $attribute->id => '::attribute-value::' ] ];
+        $this->post(route('panel.products.attributes.save' , $product->id) , $data);
+
+
+        $this->delete(route('panel.products.destroy' , $product->id));
+        $this->isSoftDeletableModel($product->getTable() , $product->toArray());
+        $this->assertDatabaseCount('attribute_product' , 0);
+        $this->assertDatabaseMissing('attribute_product' , [ 'product_id' =>$product->id ,
+            'attribute_id' => $attribute->id , 'value' => $data['attributes'][$attribute->id]]);
+
     }
 }

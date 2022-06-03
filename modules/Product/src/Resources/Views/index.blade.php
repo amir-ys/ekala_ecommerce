@@ -24,7 +24,6 @@
                                 <th>شناسه</th>
                                 <th>نام</th>
                                 <th> دسته بندی </th>
-                                <th> برند </th>
                                 <th> قیمت </th>
                                 <th> موجودی </th>
                                 <th> تاریخ ایجاد</th>
@@ -40,7 +39,6 @@
                                     <td>{{ $loop->iteration  }}</td>
                                     <td>{{ $product->name }}</td>
                                     <td>{{  $product->category->name  }}</td>
-                                    <td>{{  $product->brand->name  }}</td>
                                     <td>{{ number_format( $product->price)  }}</td>
                                     <td>{{ $product->quantity  }}</td>
                                     <td>{{ getJalaliDate($product->created_at) }}</td>

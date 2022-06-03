@@ -49,18 +49,15 @@ class ProductRepo extends BaseRepository implements ProductRepositoryInterface
 
     public function saveProductImage($imageName ,Product $product , $isPrimary)
     {
-        $product->images()->create([
+        $product->allImages()->create([
             'name' => $imageName ,
             'is_primary' => $isPrimary
         ]);
     }
 
-    public function updateProductImage($imageName ,Product $product , $isPrimary)
+    public function deleteImageById($imageId, $product)
     {
-        $product->primaryImage()->update([
-            'name' => $imageName ,
-            'is_primary' => $isPrimary
-        ]);
+        $product->allImages()->where('id' , $imageId)->delete();
     }
 
     public function findByIdWithImages(int $id)
@@ -109,6 +106,7 @@ class ProductRepo extends BaseRepository implements ProductRepositoryInterface
     public function attachAttributeWithValue($productId , $attributes)
     {
         $product = $this->findById($productId);
+        $product->attributes()->detach();
         foreach ($attributes as $attributeId => $value){
         $product->attributes()->attach($attributeId , ['value' => $value]);
         }
@@ -117,6 +115,14 @@ class ProductRepo extends BaseRepository implements ProductRepositoryInterface
     public function findByIdWithCategory($id)
     {
         return $this->query->where('id' , $id)->with('category.attributeGroups')->firstOrFail();
+    }
+
+    public function destroy($id) :void
+    {
+        $product = $this->findById($id);
+        $product->attributes()->detach();
+        $product->allImages()->delete();
+        $product->delete();
     }
 
 }

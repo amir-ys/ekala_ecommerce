@@ -5,6 +5,7 @@ namespace Modules\Product\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Modules\Brand\Contracts\BrandRepositoryInterface;
 use Modules\Category\Contracts\CategoryRepositoryInterface;
+use Modules\Core\Responses\AjaxResponse;
 use Modules\Product\Contracts\ProductRepositoryInterface;
 use Modules\Product\Http\Requests\StoreProductRequest;
 use Modules\Product\Http\Requests\UpdateProductRequest;
@@ -61,18 +62,22 @@ class ProductController extends Controller
 
     public function update(UpdateProductRequest $request , $productId)
     {
+        $product =  $this->productRepo->findById($productId);
+
         //update product
-        $product = $this->productRepo->update($productId ,  $request->all());
+        $this->productRepo->update($productId ,  $request->all());
 
 
         //upload primary image
         if ($request->hasFile('primary_image')){
         //delete old image
-        ImageService::deleteImage($product->primaryImage->name , Product::getUploadDirectory());
-
+            if (!is_null($product->primaryImage)){
+              ImageService::deleteImage($product->primaryImage->name , Product::getUploadDirectory());
+                $this->productRepo->deleteImageById($product->primaryImage->id, $product);
+            }
         //upload new image
         $imageName = ImageService::uploadImage($request->primary_image, Product::getUploadDirectory());
-        $this->productRepo->updateProductImage($imageName, $product , ProductImage::IS_PRIMARY_TRUE);
+        $this->productRepo->saveProductImage($imageName, $product , ProductImage::IS_PRIMARY_TRUE);
         }
 
         //other images
@@ -85,5 +90,16 @@ class ProductController extends Controller
         }
         newFeedback();
         return redirect()->route('panel.products.index');
+    }
+
+    public function destroy($productId)
+    {
+        $product = $this->productRepo->findById($productId);
+        //todo use observer
+        foreach ($product->allImages as $image) {
+            ImageService::deleteImage($image, Product::getUploadDirectory());
+        }
+        $this->productRepo->destroy($productId);
+        return AjaxResponse::success();
     }
 }
