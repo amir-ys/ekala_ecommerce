@@ -14,6 +14,7 @@
         "amir_ys/dashboard-module": "dev-master",
         "amir_ys/front-module": "dev-master",
         "amir_ys/product-module": "dev-master",
+        "amir_ys/user-module": "dev-master",
         "cviebrock/eloquent-sluggable": "^9.0",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.2",
@@ -69,6 +70,10 @@
         {
             "type" : "path" ,
             "url" : "modules/Front"
+        } ,
+        {
+            "type" : "path" ,
+            "url" : "modules/User"
         }
     ],
     "autoload-dev": {

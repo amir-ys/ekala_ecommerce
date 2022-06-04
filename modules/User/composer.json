@@ -1,0 +1,14 @@
+{
+    "name": "amir_ys/user-module",
+    "autoload": {
+        "psr-4": {
+            "Modules\\User\\" : "src"
+        }
+    },
+    "extra": {
+        "laravel" : {
+            "providers" : "Modules\\User\\Providers\\UserServiceProvider"
+        }
+    }
+
+}
