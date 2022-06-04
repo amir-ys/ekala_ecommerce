@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "daf97214d3371e93eb0aa9f3452f6243",
+    "content-hash": "93322c0d3dba047bc40d7fd0147e1413",
     "packages": [
         {
             "name": "amir_ys/attribute-module",
@@ -142,6 +142,29 @@
             "autoload": {
                 "psr-4": {
                     "Modules\\Dashboard\\": "src"
+                }
+            },
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "amir_ys/front-module",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "modules/Front",
+                "reference": "667fa29daf292458550f7050609069edd538f94e"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": "Modules\\Front\\Providers\\FrontServiceProvider"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Modules\\Front\\": "src"
                 }
             },
             "transport-options": {
@@ -8398,6 +8421,7 @@
         "amir_ys/category-module": 20,
         "amir_ys/core-module": 20,
         "amir_ys/dashboard-module": 20,
+        "amir_ys/front-module": 20,
         "amir_ys/product-module": 20
     },
     "prefer-stable": true,
