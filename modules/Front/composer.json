@@ -1,0 +1,14 @@
+{
+    "name": "amir_ys/front-module",
+    "autoload": {
+        "psr-4": {
+            "Modules\\Front\\" : "src"
+        }
+    },
+
+    "extra": {
+        "laravel" : {
+            "providers" : "Modules\\Front\\Providers\\FrontServiceProvider"
+        }
+    }
+}
