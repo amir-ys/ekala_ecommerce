@@ -27,7 +27,7 @@ class CategoryServiceProvider extends  ServiceProvider
 
     private function loadRoutes()
     {
-        Route::middleware(['web'])
+        Route::middleware(['web' , 'auth'])
             ->namespace($this->namespace)
             ->group(__DIR__ . '/../Routes/categories_routes.php');
     }

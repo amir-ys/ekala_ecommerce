@@ -28,7 +28,7 @@ class AttributeServiceProvider extends ServiceProvider
 
     private function loadRoutes()
     {
-        Route::middleware('web')
+        Route::middleware(['web' , 'auth'])
             ->namespace($this->namespace)
             ->group(__DIR__ . '/../Routes/attributes_routes.php');
     }

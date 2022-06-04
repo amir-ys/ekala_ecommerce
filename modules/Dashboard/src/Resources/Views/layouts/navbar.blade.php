@@ -49,7 +49,10 @@
                         <a href="profile.html" class="dropdown-item">پروفایل</a>
                         <a href="#" data-sidebar-target="#settings" class="sidebar-open dropdown-item">تنظیمات</a>
                         <div class="dropdown-divider"></div>
-                        <a href="login.html" class="text-danger dropdown-item">خروج</a>
+                        <a href="" onclick="logoutUser()" class="text-danger dropdown-item">خروج</a>
+                        <form action="{{ route('logout') }}" method="post" id="logout-user">
+                            @csrf
+                        </form>
                     </div>
                 </li>
                 <li class="nav-item d-lg-none d-sm-block">
@@ -62,3 +65,11 @@
 
     </div>
 </nav>
+@section('script')
+    <script>
+        function logoutUser() {
+            event.preventDefault();
+            document.getElementById('logout-user').submit()
+        }
+    </script>
+@endsection

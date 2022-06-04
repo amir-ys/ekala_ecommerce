@@ -1,4 +1,4 @@
-@extends('Front::layouts.master')
+@extends('Front::master')
 @section('content')
     <!-- Slider Section -->
     <section id="slider" class="mt-3">

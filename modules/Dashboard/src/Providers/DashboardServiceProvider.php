@@ -23,7 +23,7 @@ class DashboardServiceProvider extends ServiceProvider
 
     public function loadRoutes()
     {
-        Route::middleware('web')
+        Route::middleware(['web' , 'auth'])
             ->namespace($this->namespace)
             ->group(__DIR__ . '/../Routes/dashboards_routes.php');
     }
