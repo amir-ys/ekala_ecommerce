@@ -17,6 +17,7 @@
         "amir_ys/user-module": "dev-master",
         "cviebrock/eloquent-sluggable": "^9.0",
         "guzzlehttp/guzzle": "^7.2",
+        "laravel/breeze": "^1.9",
         "laravel/framework": "^9.2",
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
