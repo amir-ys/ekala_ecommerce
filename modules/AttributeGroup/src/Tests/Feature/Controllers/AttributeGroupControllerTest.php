@@ -5,6 +5,7 @@ namespace Modules\AttributeGroup\Tests\Feature\Controllers;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\AttributeGroup\Models\AttributeGroup;
 use Modules\Category\Models\Category;
+use Modules\User\Models\User;
 use Tests\TestCase;
 
 class AttributeGroupControllerTest extends TestCase
@@ -12,6 +13,7 @@ class AttributeGroupControllerTest extends TestCase
     use RefreshDatabase;
     public function test_index_method()
     {
+        $this->actingAsUser();
         $response = $this->get(route('panel.attributeGroups.index'));
         $response->assertViewIs('AttributeGroup::index')
             ->assertViewHas([
@@ -23,6 +25,7 @@ class AttributeGroupControllerTest extends TestCase
 
     public function test_store_method()
     {
+        $this->actingAsUser();
         $count = rand(1 ,9);
         $data = AttributeGroup::factory()->make()->toArray();
         $dataWithCategory = $data;
@@ -38,6 +41,7 @@ class AttributeGroupControllerTest extends TestCase
 
     public function test_edit_method()
     {
+        $this->actingAsUser();
         $attributeGroup = AttributeGroup::factory()->create();
 
         $response = $this->get(route('panel.attributeGroups.edit' , $attributeGroup->id));
@@ -49,6 +53,7 @@ class AttributeGroupControllerTest extends TestCase
 
     public function test_update_method()
     {
+        $this->actingAsUser();
         $count = rand(1 ,9);
         $attributeGroup = AttributeGroup::factory()->create();
         $data = AttributeGroup::factory()->make()->toArray();
@@ -63,6 +68,7 @@ class AttributeGroupControllerTest extends TestCase
 
     public function test_destroy_method()
     {
+        $this->actingAsUser();
         $attributeGroup = AttributeGroup::factory()->create();
         $response = $this->delete(route('panel.attributeGroups.destroy' , $attributeGroup->id ));
 
@@ -75,6 +81,7 @@ class AttributeGroupControllerTest extends TestCase
 
     public function test_validation_request_attributeGroup_data_has_required()
     {
+        $this->actingAsUser();
         $data = [];
         $errors = [
             'name' =>  __('validation.required' , [ 'attribute' =>  'نام']  ),
@@ -85,6 +92,12 @@ class AttributeGroupControllerTest extends TestCase
 
         $this->post(route('panel.attributeGroups.update' , AttributeGroup::factory()->create()->id) , $data)
             ->assertSessionHasErrors($errors);
+    }
+
+    public function actingAsUser()
+    {
+        $user =  User::factory()->create();
+        $this->actingAs($user);
     }
 
 }

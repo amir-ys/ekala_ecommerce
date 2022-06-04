@@ -4,6 +4,7 @@ namespace Modules\Category\Tests\Feature\Controllers;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\Category\Models\Category;
+use Modules\User\Models\User;
 use Tests\TestCase;
 
 class CategoryControllerTest extends TestCase
@@ -12,6 +13,7 @@ class CategoryControllerTest extends TestCase
 
     public function test_index_method()
     {
+        $this->actingAsUser();
         $response = $this->get(route('panel.categories.index'));
 
         $response->assertViewIs('Category::index')
@@ -20,6 +22,7 @@ class CategoryControllerTest extends TestCase
 
     public function test_create_method()
     {
+        $this->actingAsUser();
         $response = $this->get(route('panel.categories.create'));
         $response->assertViewIs('Category::create')
             ->assertViewHas('parentCategories' , Category::query()->whereNull('parent_id')->get());
@@ -27,6 +30,7 @@ class CategoryControllerTest extends TestCase
 
     public function test_store_method()
     {
+        $this->actingAsUser();
         $data = Category::factory()->make()->toArray();
         $response = $this->post(route('panel.categories.store') , $data);
 
@@ -37,6 +41,7 @@ class CategoryControllerTest extends TestCase
 
     public function test_edit_method()
     {
+        $this->actingAsUser();
         $category =  Category::factory()->create();
 
         $response = $this->get(route('panel.categories.edit' , $category->id));
@@ -49,6 +54,7 @@ class CategoryControllerTest extends TestCase
 
     public function test_update_method()
     {
+        $this->actingAsUser();
         $category =  Category::factory()->create();
         $data =  Category::factory()->make()->toArray();
 
@@ -61,6 +67,7 @@ class CategoryControllerTest extends TestCase
 
     public function test_destroy_method()
     {
+        $this->actingAsUser();
         $category =  Category::factory()->create();
 
         $response = $this->delete(route('panel.categories.destroy' , $category->id));
@@ -73,6 +80,7 @@ class CategoryControllerTest extends TestCase
 
     public function test_validation_request_category_data_has_required()
     {
+        $this->actingAsUser();
         $data = [];
         $errors = [
             'name' => __('validation.required' , ['attribute' => 'نام']) ,
@@ -84,5 +92,11 @@ class CategoryControllerTest extends TestCase
 
         $this->patch(route('panel.categories.update' , Category::factory()->create()->id) , $data)
             ->assertSessionHasErrors($errors);
+    }
+
+    public function actingAsUser()
+    {
+        $user =  User::factory()->create();
+        $this->actingAs($user);
     }
 }

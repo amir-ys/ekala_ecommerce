@@ -5,6 +5,7 @@ namespace Modules\Attribute\Tests\Feature\Controllers;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\Attribute\Models\Attribute;
 use Modules\AttributeGroup\Models\AttributeGroup;
+use Modules\User\Models\User;
 use Tests\TestCase;
 
 class AttributeControllerTest extends TestCase
@@ -12,6 +13,7 @@ class AttributeControllerTest extends TestCase
     use RefreshDatabase;
     public function test_index_method()
     {
+        $this->actingAsUser();
         $response = $this->get(route('panel.attributes.index'));
 
         $response->assertViewIs('Attribute::index')
@@ -22,6 +24,7 @@ class AttributeControllerTest extends TestCase
 
     public function test_create_method()
     {
+        $this->actingAsUser();
         $response = $this->get(route('panel.attributes.create'));
 
         $response->assertViewIs('Attribute::create')
@@ -32,6 +35,7 @@ class AttributeControllerTest extends TestCase
 
     public function test_store_method()
     {
+        $this->actingAsUser();
         $data = Attribute::factory()->make()->toArray();
        $response =  $this->post(route('panel.attributes.store') , $data);
 
@@ -42,6 +46,7 @@ class AttributeControllerTest extends TestCase
 
     public function test_edit_method()
     {
+        $this->actingAsUser();
         $attribute = Attribute::factory()->create();
         $response = $this->get(route('panel.attributes.edit' , $attribute->id));
 
@@ -54,6 +59,7 @@ class AttributeControllerTest extends TestCase
 
     public function test_update_method()
     {
+        $this->actingAsUser();
         $attribute = Attribute::factory()->create();
         $data = Attribute::factory()->make()->toArray();
         $response =  $this->patch(route('panel.attributes.update' , $attribute->id) , $data);
@@ -65,6 +71,7 @@ class AttributeControllerTest extends TestCase
 
     public function test_destroy_method()
     {
+        $this->actingAsUser();
         $attribute = Attribute::factory()->create();
         $response =  $this->delete(route('panel.attributes.destroy' , $attribute->id));
 
@@ -73,6 +80,12 @@ class AttributeControllerTest extends TestCase
             ]);
         $this->assertDatabaseCount('attributes' , 0);
         $this->assertDatabaseMissing('attributes' , $attribute->toArray());
+    }
+
+    public function actingAsUser()
+    {
+       $user =  User::factory()->create();
+        $this->actingAs($user);
     }
 
 }

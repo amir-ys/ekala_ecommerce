@@ -6,6 +6,7 @@ use Cviebrock\EloquentSluggable\Services\SlugService;
 use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\Brand\Models\Brand;
+use Modules\User\Models\User;
 use Tests\TestCase;
 
 class BrandControllerTest extends TestCase
@@ -14,6 +15,7 @@ class BrandControllerTest extends TestCase
 
     public function test_index_method()
     {
+        $this->actingAsUser();
         $response = $this->get(route('panel.brands.index'));
 
         $response->assertViewIs('Brand::index')
@@ -22,6 +24,7 @@ class BrandControllerTest extends TestCase
 
     public function test_store_method()
     {
+        $this->actingAsUser();
         $data = Brand::factory()->make()->toArray();
         $response = $this->post(route('panel.brands.store'), $data);
 
@@ -32,6 +35,7 @@ class BrandControllerTest extends TestCase
 
     public function test_edit_method()
     {
+        $this->actingAsUser();
         $brand = Brand::factory()->create();
         $response = $this->get(route('panel.brands.edit' , $brand->id));
 
@@ -43,6 +47,7 @@ class BrandControllerTest extends TestCase
 
     public function test_update_method()
     {
+        $this->actingAsUser();
         $brand = Brand::factory()->create();
         $data = Brand::factory()->make()->toArray();
         $dataForUpdate = $data;
@@ -56,6 +61,7 @@ class BrandControllerTest extends TestCase
 
     public function test_destroy_method()
     {
+        $this->actingAsUser();
         $brand = Brand::factory()->create();
 
         $response = $this->delete(route('panel.brands.destroy' ,  $brand->id));
@@ -69,6 +75,7 @@ class BrandControllerTest extends TestCase
 
     public function test_validation_request_brand_data_has_required()
     {
+        $this->actingAsUser();
         $data = [];
         $errors = [
             'name' =>  __('validation.required' , [ 'attribute' =>  'نام']  ),
@@ -80,6 +87,12 @@ class BrandControllerTest extends TestCase
 
         $this->post(route('panel.brands.update' , Brand::factory()->create()->id) , $data)
             ->assertSessionHasErrors($errors);
+    }
+
+    public function actingAsUser()
+    {
+        $user =  User::factory()->create();
+        $this->actingAs($user);
     }
 
 }

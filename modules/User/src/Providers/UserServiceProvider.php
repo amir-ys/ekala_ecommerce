@@ -9,6 +9,7 @@ class UserServiceProvider extends ServiceProvider
     private  string $namespace = "Modules\User\Http\Controllers";
     public function register()
     {
+        $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
         $this->loadViewsFrom(__DIR__ . '/../Resources/Views' , 'User');
         $this->loadUserRoute();
         $this->loadAuthRoute();

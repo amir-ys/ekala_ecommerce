@@ -8,6 +8,7 @@ use Modules\Brand\Models\Brand;
 use Modules\Category\Models\Category;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductImage;
+use Modules\User\Models\User;
 use Tests\TestCase;
 
 class ProductControllerTest extends TestCase
@@ -16,6 +17,7 @@ class ProductControllerTest extends TestCase
 
     public function test_index_method()
     {
+        $this->actingAsUser();
         $response = $this->get(route('panel.products.index'));
 
         $response->assertViewIs('Product::index')
@@ -26,6 +28,7 @@ class ProductControllerTest extends TestCase
 
     public function test_create_method()
     {
+        $this->actingAsUser();
         $response = $this->get(route('panel.products.create'));
         $response->assertViewIs('Product::create')
             ->assertViewHas([
@@ -36,6 +39,7 @@ class ProductControllerTest extends TestCase
 
     public function test_product_can_be_store()
     {
+        $this->actingAsUser();
         $data = Product::factory()->make()->toArray();
         $dataWithoutImage = $data;
         $data['primary_image'] = UploadedFile::fake()->image('image.png');
@@ -47,6 +51,7 @@ class ProductControllerTest extends TestCase
 
     public function test_edit_method()
     {
+        $this->actingAsUser();
         $product = Product::factory()
             ->has(ProductImage::factory()->state(['is_primary' => ProductImage::IS_PRIMARY_TRUE]) , 'images')->create();
         $response = $this->get(route('panel.products.edit' , $product->id));
@@ -62,6 +67,7 @@ class ProductControllerTest extends TestCase
 
     public function test_post_can_be_update()
     {
+        $this->actingAsUser();
         $this->withoutExceptionHandling();
         $product = Product::factory()
             ->has(ProductImage::factory()->state(['is_primary' => ProductImage::IS_PRIMARY_TRUE]) , 'images')->create();
@@ -76,6 +82,7 @@ class ProductControllerTest extends TestCase
 
     public function test_product_can_be_delete()
     {
+        $this->actingAsUser();
         $this->withoutExceptionHandling();
         $product = Product::factory()->create();
         $attribute =  Attribute::factory()->create();
@@ -88,6 +95,11 @@ class ProductControllerTest extends TestCase
         $this->assertDatabaseCount('attribute_product' , 0);
         $this->assertDatabaseMissing('attribute_product' , [ 'product_id' =>$product->id ,
             'attribute_id' => $attribute->id , 'value' => $data['attributes'][$attribute->id]]);
+    }
 
+    public function actingAsUser()
+    {
+        $user =  User::factory()->create();
+        $this->actingAs($user);
     }
 }

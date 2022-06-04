@@ -46,6 +46,6 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         //todo customize redirect user
-        return redirect()->route('home');
+        return redirect()->route('panel.home');
     }
 }
