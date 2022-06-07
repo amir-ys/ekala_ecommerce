@@ -14,6 +14,7 @@ use Modules\Brand\Models\Brand;
 use Modules\Category\Models\Category;
 use Modules\Product\Database\Factories\ProductFactory;
 use Modules\Product\Enums\ProductStatus;
+use Modules\Product\Http\Controllers\ProductImageController;
 
 class Product extends Model
 {
@@ -84,5 +85,20 @@ class Product extends Model
     {
         return $this->belongsToMany(\Modules\Attribute\Models\Attribute::class  , 'attribute_product' ,
             'product_id' , 'attribute_id')->withPivot('value')->withTimestamps();
+    }
+
+    public function formattedPrice(): string
+    {
+        return number_format($this->price);
+    }
+
+    public function path()
+    {
+        return route('front.product.details' , $this->slug);
+    }
+
+    public function priceWithDiscount()
+    {
+        return '10,000' ;
     }
 }

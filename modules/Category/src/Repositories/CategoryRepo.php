@@ -5,6 +5,7 @@ namespace Modules\Category\Repositories;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
 use Modules\Category\Contracts\CategoryRepositoryInterface;
+use Modules\Category\Enums\CategoryStatus;
 use Modules\Category\Models\Category;
 use Modules\Core\Repositories\BaseRepository;
 
@@ -60,9 +61,25 @@ class CategoryRepo extends BaseRepository  implements CategoryRepositoryInterfac
         return $this->query->get();
     }
 
+    public function allParent(): array|Collection
+    {
+        return $this->query
+            ->where('parent_id' , null)
+            ->where('is_active' , CategoryStatus::ACTIVE->value)
+            ->with('childes')->get();
+    }
+
     public function detachAttributeGroupFromCategory($id)
     {
         $category = $this->findById($id);
         $category->attributeGroups()->detach();
+    }
+
+    public function findBySlug($categorySlug)
+    {
+        return  $this->query
+            ->where('is_active' , CategoryStatus::ACTIVE->value)
+            ->where('slug' , $categorySlug)
+            ->firstOrFail();
     }
 }

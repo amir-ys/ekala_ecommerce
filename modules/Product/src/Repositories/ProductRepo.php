@@ -4,6 +4,7 @@ namespace Modules\Product\Repositories;
 
 use Modules\Core\Repositories\BaseRepository;
 use Modules\Product\Contracts\ProductRepositoryInterface;
+use Modules\Product\Enums\ProductStatus;
 use Modules\Product\Models\Product;
 
 class ProductRepo extends BaseRepository implements ProductRepositoryInterface
@@ -123,6 +124,19 @@ class ProductRepo extends BaseRepository implements ProductRepositoryInterface
         $product->attributes()->detach();
         $product->allImages()->delete();
         $product->delete();
+    }
+
+    public function getSelectedProducts()
+    {
+       return $this->query->where('is_active' , ProductStatus::ACTIVE->value)->get();
+    }
+
+    public function findBySlug($slug)
+    {
+      return  $this->query
+            ->where('is_active' , ProductStatus::ACTIVE->value)
+            ->where('slug' , $slug)
+            ->firstOrFail();
     }
 
 }

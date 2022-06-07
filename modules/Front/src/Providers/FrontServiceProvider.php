@@ -4,6 +4,8 @@ namespace Modules\Front\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\View\View;
+use Modules\Category\Contracts\CategoryRepositoryInterface;
 
 class FrontServiceProvider extends ServiceProvider
 {
@@ -16,6 +18,10 @@ class FrontServiceProvider extends ServiceProvider
 
     public function boot()
     {
+        view()->composer('Front::layouts.main-navbar' , function (View $view){
+            $categories = resolve(CategoryRepositoryInterface::class)->allParent();
+            return  $view->with(['categories' => $categories ]);
+        });
 
     }
 

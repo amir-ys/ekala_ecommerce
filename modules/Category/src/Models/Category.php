@@ -68,4 +68,9 @@ class Category extends Model
     {
         return $this->hasMany(Product::class);
     }
+
+    public function path()
+    {
+        route('front.products-category.details' , $this->slug);
+    }
 }
