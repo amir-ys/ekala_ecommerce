@@ -21,6 +21,4 @@ class ProductController extends Controller
         $products = resolve(ProductRepositoryInterface::class)->getProductsOrderByRequest();
         return view('Front::products.product-list' , compact('products' , 'categories'));
     }
-
-
 }

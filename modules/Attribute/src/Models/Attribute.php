@@ -28,11 +28,6 @@ class Attribute extends Model
         return $this->belongsTo(AttributeGroup::class , 'attribute_group_id');
     }
 
-    public function values(): HasMany
-    {
-        return $this->hasMany(AttributeValue::class , 'attribute_id');
-    }
-
     public function products()
     {
         return $this->belongsToMany(Product::class , 'attribute_product' ,

@@ -99,6 +99,6 @@ class Product extends Model
 
     public function priceWithDiscount()
     {
-        return '10,000' ;
+        return '100,000' ;
     }
 }

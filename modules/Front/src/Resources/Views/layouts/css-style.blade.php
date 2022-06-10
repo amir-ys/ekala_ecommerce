@@ -7,3 +7,4 @@
 <link rel="stylesheet" href="/assets/front/assets/css/highlight.css">
 <link rel="stylesheet" href="/assets/front/assets/css/nouislider.min.css">
 <link rel="stylesheet" href="/assets/front/assets/css/style.css">
+@yield('css')
