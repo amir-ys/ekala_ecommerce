@@ -131,6 +131,38 @@ class ProductRepo extends BaseRepository implements ProductRepositoryInterface
        return $this->query->where('is_active' , ProductStatus::ACTIVE->value)->get();
     }
 
+    public function getProductsOrderByRequest()
+    {
+        $query =  $this->query->where('is_active' , ProductStatus::ACTIVE->value);
+
+        $query = $query->when(request()->order == 'newest'  , function ( $q){
+            $q->latest();
+        });
+
+        $query = $query->when(request()->order == 'most-visited'  , function ( $q){
+            $q->orderBy('view' , 'desc');
+        });
+
+        $query = $query->when(request()->order == 'best-selling'  , function ( $q){
+            $q->orderBy('sold' , 'desc');
+        });
+
+        $query = $query->when(request()->order == 'cheapest'  , function ( $q){
+            $q->orderBy('price');
+        });
+
+        $query = $query->when( request()->has('category')  , function ( $q){
+            $q->where('category_id' , request()->category);
+        });
+
+        $query = $query->when( request()->has('only-available')  , function ( $q){
+            $q->where('quantity' ,'>' , 0);
+        });
+
+        return $query->paginate();
+    }
+
+
     public function findBySlug($slug)
     {
       return  $this->query

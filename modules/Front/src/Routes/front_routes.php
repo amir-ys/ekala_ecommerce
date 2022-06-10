@@ -13,4 +13,5 @@ Route::group([] , function (){
    Route::get('product/{product:slug}' , [ProductController::class , 'show'])->name('front.product.details');
    Route::get('category/{category:slug}' , [CategoryController::class , 'products'])->name('front.products-category.details');
 
+   Route::get('products' , [ProductController::class , 'list'])->name('front.products.list');
 });

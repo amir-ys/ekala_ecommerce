@@ -6,7 +6,7 @@ use Modules\Product\Http\Controllers\ProductAttributeController;
 use Modules\Product\Http\Controllers\ProductController;
 use Modules\Product\Http\Controllers\ProductImageController;
 
-Route::group([] , function (){
+Route::group(['prefix' => 'panel'] , function (){
     //product
    Route::resource('products' , ProductController::class)->names('panel.products');
 
