@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "87d78f7013468de2a9d286a62a374d16",
+    "content-hash": "87820fa02feb0c80cbb2b73128724327",
     "packages": [
         {
             "name": "amir_ys/attribute-module",
@@ -188,6 +188,29 @@
             "autoload": {
                 "psr-4": {
                     "Modules\\Product\\": "src"
+                }
+            },
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "amir_ys/slide-module",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "modules/Slide",
+                "reference": "200cfca4f3d2b84103a080a6ec82cc956a6b3dfd"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": "Modules\\Slide\\Providers\\SlideServiceProvider"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Modules\\Slide\\": "src"
                 }
             },
             "transport-options": {
@@ -8503,6 +8526,7 @@
         "amir_ys/dashboard-module": 20,
         "amir_ys/front-module": 20,
         "amir_ys/product-module": 20,
+        "amir_ys/slide-module": 20,
         "amir_ys/user-module": 20
     },
     "prefer-stable": true,

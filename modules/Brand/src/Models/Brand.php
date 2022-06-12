@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Modules\Brand\Database\Factories\BrandFactory;
 use Modules\Brand\Enums\BrandStatus;
 use Modules\Product\Models\Product;
+use Modules\Slide\Enums\SlideStatus;
 
 class Brand extends Model
 {

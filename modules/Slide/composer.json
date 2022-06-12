@@ -1,0 +1,13 @@
+{
+    "name": "amir_ys/slide-module",
+    "autoload": {
+        "psr-4": {
+            "Modules\\Slide\\" : "src"
+        }
+    } ,
+    "extra": {
+        "laravel" : {
+            "providers" : "Modules\\Slide\\Providers\\SlideServiceProvider"
+        }
+    }
+}
