@@ -3,6 +3,8 @@
 namespace Modules\Slide\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Modules\Slide\Enums\SlideStatus;
+use Modules\Slide\Enums\SlideType;
 use Modules\Slide\Models\Slide;
 
 /**
@@ -22,8 +24,8 @@ class SlideFactory extends Factory
         return [
             'title' => $this->faker->title,
             'priority' => random_int(1, 10),
-            'status' => $this->faker->randomElement([1, 0, 2, 3]),
-            'type' => $this->faker->randomElement(['sliders', 'top-left-banner', 'bottom-middle-banner']),
+            'status' => $this->faker->randomElement([SlideStatus::ACTIVE->value , SlideStatus::INACTIVE->value]),
+            'type' => $this->faker->randomElement([SlideType::SLIDER->value , SlideType::BANNER_BOTTOM->value , SlideType::BANNER_TOP_LEFT->value]),
             'link' => $this->faker->url,
             'btn_text' => $this->faker->text,
             'photo' => $this->faker->imageUrl,

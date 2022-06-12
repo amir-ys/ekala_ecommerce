@@ -3,6 +3,7 @@
 namespace Modules\Slide\Tests\Feature\Controllers;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
 use Modules\Slide\Models\Slide;
 use Modules\User\Models\User;
 use Tests\TestCase;
@@ -18,69 +19,69 @@ class SlideControllerTest extends TestCase
 
         $response->assertViewIs('Slide::index')
             ->assertViewHasAll([
-                'slide' => Slide::query()->get() ,
+                'slides' => Slide::query()->get() ,
             ]);
     }
 
-//    public function test_create_method()
-//    {
-//        $this->actingAsUser();
-//        $response = $this->get(route('panel.attributes.create'));
-//
-//        $response->assertViewIs('Attribute::create')
-//            ->assertViewHasAll([
-//                'attributeGroups' => AttributeGroup::all(),
-//            ]);
-//    }
-//
-//    public function test_store_method()
-//    {
-//        $this->actingAsUser();
-//        $data = Attribute::factory()->make()->toArray();
-//       $response =  $this->post(route('panel.attributes.store') , $data);
-//
-//       $response->assertRedirect();
-//       $this->assertDatabaseCount('attributes' , 1);
-//       $this->assertDatabaseHas('attributes' , $data);
-//    }
-//
-//    public function test_edit_method()
-//    {
-//        $this->actingAsUser();
-//        $attribute = Attribute::factory()->create();
-//        $response = $this->get(route('panel.attributes.edit' , $attribute->id));
-//
-//        $response->assertViewIs('Attribute::edit')
-//            ->assertViewHasAll([
-//                'attribute' => $attribute ,
-//                'attributeGroups' => AttributeGroup::all(),
-//            ]);
-//    }
-//
-//    public function test_update_method()
-//    {
-//        $this->actingAsUser();
-//        $attribute = Attribute::factory()->create();
-//        $data = Attribute::factory()->make()->toArray();
-//        $response =  $this->patch(route('panel.attributes.update' , $attribute->id) , $data);
-//
-//        $response->assertRedirect();
-//        $this->assertDatabaseCount('attributes' , 1);
-//        $this->assertDatabaseHas('attributes' , $data);
-//    }
-//
-//    public function test_destroy_method()
-//    {
-//        $this->actingAsUser();
-//        $attribute = Attribute::factory()->create();
-//        $response =  $this->delete(route('panel.attributes.destroy' , $attribute->id));
-//
-//        $response->assertJson([
-//               'message' =>  "ویژگی  ". $attribute->name." با موفقیت حذف شد."
-//            ]);
-//        $this->assertDatabaseCount('attributes' , 0);
-//        $this->assertDatabaseMissing('attributes' , $attribute->toArray());
-//    }
+    public function test_create_method()
+    {
+        $this->actingAsUser();
+        $response = $this->get(route('panel.slides.create'));
+
+        $response->assertViewIs('Slide::create');
+    }
+
+    public function test_store_method()
+    {
+        $this->withoutExceptionHandling();
+        $this->actingAsUser();
+        $data = Slide::factory()->make()->toArray();
+        $dataForStore = $data;
+        $dataForStore['photo'] = UploadedFile::fake()->image('test.png');
+       $response =  $this->post(route('panel.slides.store') , $dataForStore);
+        $data['photo'] =  Slide::query()->latest()->first()->photo;
+
+       $response->assertRedirect();
+       $this->assertDatabaseCount('sliders' , 1);
+       $this->assertDatabaseHas('sliders' , $data);
+    }
+
+    public function test_edit_method()
+    {
+        $this->actingAsUser();
+        $slide = Slide::factory()->create();
+        $response = $this->get(route('panel.slides.edit' , $slide->id));
+
+        $response->assertViewIs('Slide::edit')
+            ->assertViewHasAll([
+                'slide' => $slide ,
+            ]);
+    }
+
+    public function test_update_method()
+    {
+        $this->actingAsUser();
+        $slide = Slide::factory()->create();
+        $data = Slide::factory()->make()->toArray();
+        $response =  $this->patch(route('panel.attributes.update' , $slide->id) , $data);
+
+        $response->assertRedirect();
+        $this->assertDatabaseCount('sliders' , 1);
+        $this->assertDatabaseHas('sliders' , $data);
+    }
+
+    public function test_destroy_method()
+    {
+        $this->actingAsUser();
+        $slide = Slide::factory()->create();
+        $response =  $this->delete(route('panel.slides.destroy' , $slide->id));
+
+        $response->assertJson([
+               'message' => "اسلایدر  ". $slide->title." با موفقیت حذف شد."
+            ]);
+        $this->assertDatabaseCount('sliders' , 0);
+        $this->assertDatabaseMissing('sliders' , $slide->toArray());
+    }
 
     public function actingAsUser()
     {

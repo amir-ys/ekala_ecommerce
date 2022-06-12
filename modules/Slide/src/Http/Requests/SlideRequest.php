@@ -7,6 +7,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Enum;
 use Modules\Slide\Enums\SlideStatus;
 use Modules\Slide\Enums\SlideType;
+use Modules\Slide\Models\Slide;
 
 class SlideRequest extends FormRequest
 {
@@ -18,15 +19,23 @@ class SlideRequest extends FormRequest
 
     public function rules()
     {
-        return [
+        $slide = $this->route()->parameter('side');
+        $rules =  [
             'title' => ['nullable', 'string'],
-            'priority' => ['nullable', 'numeric' , Rule::unique('sliders' , 'priority')],
+            'priority' => ['nullable' , Rule::unique('sliders' , 'priority')],
             'status' => ['required', new Enum(SlideStatus::class)],
             'type' => ['required', new Enum(SlideType::class)],
             'link' => ['required', 'url'],
             'btn_text' => ['nullable', 'string'],
             'photo' => ['required', 'image', 'mimes:png,jpeg,jpg'],
         ];
+
+        if ($this->getMethod() == 'PATCH'){
+            $rules['photo'] = ['nullable', 'image', 'mimes:png,jpeg,jpg'];
+            $rules['priority'] = ['nullable' ];
+        }
+
+        return $rules;
     }
 
     public function attributes()

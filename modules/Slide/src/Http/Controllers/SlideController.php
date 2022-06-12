@@ -38,11 +38,18 @@ class SlideController extends Controller
     public function edit($slideId)
     {
         $slide = $this->slideRepo->findById($slideId);
-        return view('Slide::edit' , compact('slide' , 'slide'));
+        return view('Slide::edit' , compact('slide'));
     }
 
     public function update(SlideRequest $request , $slideId)
     {
+        $slide = $this->slideRepo->findById($slideId);
+        if ($request->hasFile('photo')){
+            ImageService::deleteImage($slide->name , Slide::getUploadDir());
+            $request->request->add(['image_name' => ImageService::uploadImage($request->photo , Slide::getUploadDir())]);
+        }else{
+            $request->request->add(['image_name' => $slide->photo  ]);
+        }
         $this->slideRepo->update($slideId , $request->all());
         newFeedback();
         return to_route('panel.slides.index');
@@ -51,6 +58,7 @@ class SlideController extends Controller
     public function destroy($slideId)
     {
         $slide = $this->slideRepo->findById($slideId);
+        ImageService::deleteImage($slide->name , Slide::getUploadDir());
         $this->slideRepo->destroy($slideId);
         return AjaxResponse::success("اسلایدر  ". $slide->title." با موفقیت حذف شد.");
     }

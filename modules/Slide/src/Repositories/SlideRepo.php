@@ -32,7 +32,7 @@ class SlideRepo extends BaseRepository implements SlideRepositoryInterface
             'status' => $data['status'],
             'type' => $data['type'],
             'link' => $data['link'],
-            'photo' => $data['photo'],
+            'photo' => $data['image_name'],
             'btn_text' => $data['btn_text'],
         ]);
     }
