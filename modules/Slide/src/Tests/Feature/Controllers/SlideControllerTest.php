@@ -60,10 +60,12 @@ class SlideControllerTest extends TestCase
 
     public function test_update_method()
     {
+        $this->withoutExceptionHandling();
         $this->actingAsUser();
         $slide = Slide::factory()->create();
         $data = Slide::factory()->make()->toArray();
-        $response =  $this->patch(route('panel.attributes.update' , $slide->id) , $data);
+        unset($data['photo']);
+        $response =  $this->patch(route('panel.slides.update' , $slide->id) , $data);
 
         $response->assertRedirect();
         $this->assertDatabaseCount('sliders' , 1);

@@ -35,6 +35,7 @@ class SlideRequest extends FormRequest
             $rules['priority'] = ['nullable' ];
         }
 
+
         return $rules;
     }
 
