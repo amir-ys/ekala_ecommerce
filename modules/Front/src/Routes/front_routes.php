@@ -4,6 +4,7 @@ namespace Modules\Routes;
 use Illuminate\Support\Facades\Route;
 use Modules\Front\Http\Controllers\CategoryController;
 use Modules\Front\Http\Controllers\HomeController;
+use Modules\Front\Http\Controllers\ImageController;
 use Modules\Front\Http\Controllers\ProductController;
 use Modules\Product\Http\Controllers\ProductImageController;
 
@@ -15,4 +16,16 @@ Route::group([] , function (){
 
    Route::get('products' , [ProductController::class , 'list'])->name('front.products.list');
    Route::get('products/{product:slug}' , [ProductController::class , 'show'])->name('front.products.details');
+
+   //image
+    Route::get('front/image/{dir}/{image}' , [ImageController::class , 'show'])->name('front.images.show');
 });
+
+//@foreach($sliders as $slider)
+//                            <div class="carousel-item active">
+//                                <a href={{ $slider->link }}"">
+//                                    <img src="{{ route('front.images.show' , [ \Modules\Slide\Models\Slide::getUploadDir() ,  $slider->photo]) }}"
+//                                         class="d-block" alt="...">
+//                                </a>
+//                            </div>
+//@endforeach

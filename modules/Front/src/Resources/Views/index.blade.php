@@ -30,21 +30,14 @@
                 </div>
                 <div class="col-12 col-md-3 mt-2 mt-sm-1 text-center text-sm-start">
                     <div class="row row-cols-1 row-cols-sm-3 row-cols-md-1 h-100 gy-2 g-sm-1 g-md-0">
+                        @foreach($topBanners as $topBanner)
                         <div class="col align-self-start" data-aos="fade-top" data-aos-duration="1000">
-                            <a href="./products.html">
-                                <img src="/assets/front/assets/images/slider/side-slide1.jpg" alt="" width="100%">
+                            <a href="{{ $topBanner->link }}">
+                                <img src="{{ route('front.images.show' , [\Modules\Slide\Models\Slide::getUploadDir() , $topBanner->photo]) }}"
+                                     alt="" width="100%">
                             </a>
                         </div>
-                        <div class="col align-self-center" data-aos="fade-top" data-aos-duration="1100">
-                            <a href="./products.html">
-                                <img src="/assets/front/assets/images/slider/side-slide2.jpg" alt="" width="100%">
-                            </a>
-                        </div>
-                        <div class="col align-self-end" data-aos="fade-top" data-aos-duration="1200">
-                            <a href="./products.html">
-                                <img src="/assets/front/assets/images/slider/side-slide3.jpg" alt="" width="100%">
-                            </a>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -263,21 +256,19 @@
             <!-- /Products -->
         </div>
     </section>
+    <hr>
     <!-- /Most Sales Products -->
 
     <!-- Promo Images -->
     <div class="container" data-aos="fade-up" data-aos-duration="1200">
         <div class="row">
-            <div class="col-12 col-md-4 pt-2 text-center">
-                <a href="./products.html">
-                    <img src="/assets/front/assets/images/promo-image1.png" alt="">
+            @foreach($bottomBanners as $bottomBanner)
+            <div class="col-12 col-md-6 pt-2 text-center">
+                <a href="{{ $bottomBanner->link }}">
+                    <img style="height:150px;width: 700px" src="{{ route('front.images.show' , [\Modules\Slide\Models\Slide::getUploadDir() , $bottomBanner->photo]) }}" alt="">
                 </a>
             </div>
-            <div class="col-12 col-md-8 pt-2 text-center">
-                <a href="./products.html">
-                    <img src="/assets/front/assets/images/promo-image2.png" alt="">
-                </a>
-            </div>
+            @endforeach
         </div>
     </div>
     <!-- /Promo Images -->
