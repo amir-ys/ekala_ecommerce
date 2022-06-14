@@ -10,7 +10,7 @@
                     &nbsp;/&nbsp;
                     <a href="./products.html">{{ $product->brand->name }}</a>
                 </div>
-                <a href="./product.html"><h2>{{ $product->name }}</h2></a>
+                <a href="{{ $product->path() }}"><h2>{{ $product->name }}</h2></a>
                 <div class="rate">
                     <i class="fa fa-star-half-alt"></i>
                     <i class="fa fa-star"></i>

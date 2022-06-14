@@ -199,7 +199,7 @@
                                                         onclick="openTab(event,'details-tab')">جدول مشخصات
                                                 </button>
                                                 <button class="tab-item tablink px-3"
-                                                        onclick="openTab(event,'comments-tab')">دیدگاه کاربران (2)
+                                                        onclick="openTab(event,'comments-tab')">دیدگاه کاربران ({{ $product->comments()->count() }})
                                                 </button>
                                             </div>
                                         </div>

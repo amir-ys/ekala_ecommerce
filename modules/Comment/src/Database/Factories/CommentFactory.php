@@ -23,7 +23,7 @@ class CommentFactory extends Factory
     {
         return [
             'body' => $this->faker->text,
-            'parent_id' => Comment::factory(),
+//            'parent_id' => Comment::factory(),
             'user_id' => User::factory(),
             'commentable_id' => Product::factory(),
             'commentable_type' => Product::class,

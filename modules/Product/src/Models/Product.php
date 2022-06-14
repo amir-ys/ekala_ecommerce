@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Brand\Models\Brand;
 use Modules\Category\Models\Category;
+use Modules\Comment\Models\Comment;
 use Modules\Product\Database\Factories\ProductFactory;
 use Modules\Product\Enums\ProductStatus;
 use Modules\Product\Http\Controllers\ProductImageController;
@@ -76,6 +77,10 @@ class Product extends Model
       });
     }
 
+    public function comments()
+    {
+        return $this->morphMany(Comment::class , 'commentable');
+    }
     public static function getUploadDirectory() :string
     {
         return 'products';

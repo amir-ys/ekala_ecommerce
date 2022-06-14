@@ -5,6 +5,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\Attribute\Models\Attribute;
 use Modules\Brand\Models\Brand;
 use Modules\Category\Models\Category;
+use Modules\Comment\Models\Comment;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductImage;
 use Tests\TestCase;
@@ -55,5 +56,15 @@ class ProductTest extends TestCase
 
         $this->assertCount($count , $product->attributes);
         $this->assertInstanceOf(Attribute::class , $product->attributes->first());
+    }
+
+    public function test_comment_relation_with_product()
+    {
+        $count = rand(1, 9);
+        $product= Product::factory()->has(Comment::factory()->count($count) , 'comments')->create();
+
+        $this->assertCount( $count ,$product->comments);
+        $this->assertInstanceOf(Comment::class ,$product->comments()->first());
+
     }
 }
