@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "87820fa02feb0c80cbb2b73128724327",
+    "content-hash": "80a3b2f4686b4a5d59eb03612de25a9b",
     "packages": [
         {
             "name": "amir_ys/attribute-module",
@@ -93,6 +93,29 @@
             "autoload": {
                 "psr-4": {
                     "Modules\\Category\\": "src"
+                }
+            },
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "amir_ys/comment-module",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "modules/Comment",
+                "reference": "f2f65a43ca42243159a62603b34a262e96dfb422"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": "Modules\\Comment\\Providers\\CommentServiceProvider"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Modules\\Comment\\": "src"
                 }
             },
             "transport-options": {
@@ -8522,6 +8545,7 @@
         "amir_ys/attributegroup-module": 20,
         "amir_ys/brand-module": 20,
         "amir_ys/category-module": 20,
+        "amir_ys/comment-module": 20,
         "amir_ys/core-module": 20,
         "amir_ys/dashboard-module": 20,
         "amir_ys/front-module": 20,

@@ -38,6 +38,11 @@ x<div class="side-menu">
                     <span> اسلایدر </span> <span class="badge bg-danger-gradient"></span></a>
             </li>
 
+            <li><a data-attr="layout-builder-toggle" class="{{ request()->url(route('panel.comments.index')) == route('panel.comments.index') ? 'c-active' : '' }}" href="{{ route('panel.comments.index') }}">
+                    <i class="icon ti-layout"></i>
+                    <span> کامنت ها </span> <span class="badge bg-danger-gradient"></span></a>
+            </li>
+
 
         </ul>
     </div>

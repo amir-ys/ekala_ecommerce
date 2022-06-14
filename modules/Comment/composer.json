@@ -1,0 +1,14 @@
+{
+    "name": "amir_ys/comment-module",
+    "autoload": {
+        "psr-4": {
+            "Modules\\Comment\\" : "src"
+        }
+    },
+    "extra": {
+        "laravel" : {
+            "providers" : "Modules\\Comment\\Providers\\CommentServiceProvider"
+        }
+    }
+
+}
