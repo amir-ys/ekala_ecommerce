@@ -7,7 +7,7 @@ use Modules\Comment\Models\Comment;
 use Modules\Core\Repositories\BaseRepository;
 use Modules\Product\Models\Product;
 
-class CommentRepo extends BaseRepository  implements CommentRepositoryInterface
+class CommentRepo extends BaseRepository implements CommentRepositoryInterface
 {
     protected $model = Comment::class;
 
@@ -20,6 +20,18 @@ class CommentRepo extends BaseRepository  implements CommentRepositoryInterface
             'commentable_id' => $data['product_id'],
             'commentable_type' => Product::class,
         ]);
+    }
+
+    public function getParentComments()
+    {
+        return $this->query->whereNull('parent_id')->get();
+    }
+
+    public function changeStatus($id, $status)
+    {
+        $model = $this->query->where('id', $id)->firstOrFail();
+        $model->is_approved = $status;
+        $model->save();
     }
 
     public function update(int $id, array $data)

@@ -8,11 +8,8 @@
         <div class="col-lg-12">
             <div class="row mb-3">
                 <div class="col-sm-12 col-md-12 col-lg-2">
-                    <a href="{{ route('panel.comments.create') }}"
-                       class="btn btn-primary
-                        btn-rounded waves-effect waves-light mb-2 me-2">
-                        <i class="mdi mdi-plus me-1"></i>
-                        @lang('Comment::translation.create')</a>
+                    <i class="mdi mdi-plus me-1"></i>
+                    @lang('Comment::translation.create')</a>
                 </div>
             </div>
             <div class="card">
@@ -22,60 +19,83 @@
                             <thead class="thead-light">
                             <tr>
                                 <th>شناسه</th>
-                                <th>نام</th>
-                                <th>دسته پدر</th>
+                                <th>متن کامنت</th>
+                                <th> برای کاربر ؟</th>
+                                <th> برای نوع ؟</th>
                                 <th> تاریخ ایجاد</th>
-                                <th>قابل فیلتر است ؟</th>
-                                <th>وضعیت</th>
+                                <th> وضعیت تایید</th>
                                 <th> عملیات</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($comments as $comment)
+                            @foreach($parentComments as $comment)
                                 <tr>
                                     <td>{{ $loop->iteration  }}</td>
-                                    <td>{{ $comment->name }}</td>
-                                    <td>{{ $comment->parent_id ? $comment->parent->name : 'ندارد' }}</td>
+                                    <td>{{ substr($comment->body , 0 , 50) }}</td>
+                                    <td>{{ $comment->user->name }}</td>
+                                    <td>{{ $comment->commentableType }}</td>
                                     <td>{{ getJalaliDate($comment->created_at) }}</td>
                                     <td>
-                                          <span
-                                                  class="badge py-1 badge-{{ $comment->is_searchable == \Modules\Comment\Models\Comment::SEARCHABLE_TRUE
-                                                      ? 'success'  : 'danger'   }}">
-                                              {{ $comment->is_searchable == \Modules\Comment\Models\Comment::SEARCHABLE_TRUE
-                                                      ? 'بله'  : 'خیر'   }}
-                                        </span>
-                                    </td>
-                                    <td>
                                         <span
-                                                class="badge py-1 bg-{{ $comment->statusCssClass }}"> @lang($comment->is_active->name)
+                                            class="badge py-1 bg-{{ $comment->statusCssClass }}"> {{ $comment->statusName }}
                                         </span>
                                     </td>
 
                                     <td>
-                                        <a class="btn btn-sm bg-transparent d-inline"
-                                           href="{{ route('panel.comments.edit' , $comment->id) }}"><i
-                                                    class="fa fa-pencil fa-15m text-success"></i></a>
+                                        <a class="btn btn-success btn-sm bg-transparent d-inline text-black-50 ml-2"
+                                           href="#" onclick="approveStatus( event ,'{{ $comment->id }}')">
+                                            تایید
+                                        </a>
 
-                                        <a href="{{ route('panel.comments.destroy' , $comment->id) }}"
-                                           onclick="deleteItem(event ,  '{{ route('panel.comments.destroy' , $comment->id) }}')"
-                                           class="btn btn-sm bg-transparent d-inline delete-confirm"><i
-                                                    class="fa fa-trash fa-15m text-danger"></i></a>
+                                        <a class="btn btn-danger btn-sm bg-transparent d-inline text-black-50 mt-2"
+                                           href="#" onclick="rejectStatus('{{ $comment->id }}')">
+                                            رد
+                                        </a>
 
-                                        <form action="{{ route('panel.comments.destroy' , $comment->id) }}"
-                                              method="post"
-                                              id="destroy-brand-{{ $comment->id }}">
-                                            @csrf
-                                            @method('delete')
-                                        </form>
+
+
+                                        <a class="btn btn-primary btn-sm bg-transparent d-inline text-black-50 mr-2"
+                                           href="{{ route('panel.comments.replies.show' , $comment->id) }}">
+                                            پاسخ
+                                        </a>
+
                                     </td>
+
+                                    <form action="{{ route('panel.comments.rejectStatus' , $comment->id ) }}" method="post"
+                                          id="comment-reject-status-{{$comment->id}}">
+                                        @csrf
+                                        @method('patch')
+                                    </form>
+                                    <form action="{{ route('panel.comments.approveStatus' , $comment->id ) }}" method="post"
+                                          id="comment-approve-status-{{$comment->id}}">
+                                        @csrf
+                                        @method('patch')
+                                    </form>
                                 </tr>
+
                             @endforeach
                             </tbody>
                         </table>
+
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- /basic responsive table -->
+@endsection
+@section('script')
+    <script>
+        function approveStatus(event, id) {
+            event.preventDefault();
+            document.getElementById('comment-approve-status-' + id).submit()
+        }
+    </script>
+
+    <script>
+        function rejectStatus(id) {
+            document.getElementById('comment-reject-status-' + id).submit()
+        }
+    </script>
 @endsection

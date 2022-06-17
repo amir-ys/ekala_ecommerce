@@ -2,12 +2,14 @@
 
 namespace Modules\Comment\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Modules\Comment\Database\Factories\CommentFactory;
+use Modules\Product\Models\Product;
 use Modules\User\Models\User;
 
 class Comment extends Model
@@ -30,6 +32,15 @@ class Comment extends Model
         return new CommentFactory();
     }
 
+    public function commentableType(): Attribute
+    {
+        return Attribute::get(function (){
+            $this->commentable == Product::query()->first()  ?    $type = 'محصول'  : $type =   'نامعلوم' ;
+            $name = $this->commentable->name;
+            return  $type . '/' . $name ;
+        });
+    }
+
     public function commentable(): MorphTo
     {
         return $this->morphTo();
@@ -48,6 +59,24 @@ class Comment extends Model
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class , 'parent_id');
+    }
+
+    public function statusCssClass(): Attribute
+    {
+       return Attribute::get(function (){
+           if ( $this->is_approved == self::STATUS_PENDING)  return  'warning';
+           if ( $this->is_approved == self::STATUS_REJECTED)  return 'danger';
+           if ( $this->is_approved == self::STATUS_APPROVED)  return 'success';
+        });
+    }
+
+    public function statusName(): Attribute
+    {
+        return Attribute::get(function (){
+            if ( $this->is_approved == self::STATUS_PENDING)  return  'در انتظار تایید';
+            if ( $this->is_approved == self::STATUS_REJECTED)  return 'رد شده';
+            if ( $this->is_approved == self::STATUS_APPROVED)  return 'تایید شده';
+        });
     }
 }
 
