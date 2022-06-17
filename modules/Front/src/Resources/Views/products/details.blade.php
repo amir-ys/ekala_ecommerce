@@ -157,14 +157,35 @@
                                                 </div>
                                             </a>
                                             <br class="d-sm-none">
-                                            <div class="btn btn-outline-secondary btn-favorite mt-1 mt-sm-0"
-                                                 data-toggle="tooltip" data-placement="top"
-                                                 title="افزودن به علاقه‌مندی"></div>
+                                            @if($product->findProductInWishlist(auth()->id()))
+                                                <a class="btn btn-outline-secondary bg-danger btn-favorite mt-1 mt-sm-0"
+                                                   href="/" onclick="removeProductFromWishlist('{{ $product->id }}')"
+                                                   data-toggle="tooltip" data-placement="top"
+                                                   title="حذف از علاقه‌مندی"></a>
+                                            @else
+                                                <a class="btn btn-outline-secondary btn-favorite mt-1 mt-sm-0"
+                                                   href="/" onclick="addProductToWishlist('{{ $product->id }}')"
+                                                   data-toggle="tooltip" data-placement="top"
+                                                   title="افزودن به علاقه‌مندی"></a>
+                                            @endif
+
                                             <a href="#">
                                                 <div class="btn btn-outline-secondary btn-compare mt-1 mt-sm-0"
                                                      data-toggle="tooltip" data-placement="top" title="مقایسه"></div>
                                             </a>
                                         </div>
+                                        <form action="{{ route('products.wishlist.add' , $product->id) }}"
+                                              method="post" id="add-product-to-wishlist-{{$product->id}}">
+                                            @csrf
+                                            @method('post')
+                                        </form>
+
+                                        <form action="{{ route('products.wishlist.remove' , $product->id) }}"
+                                              method="post" id="remove-product-from-wishlist-{{$product->id}}">
+                                            @csrf
+                                            @method('post')
+                                        </form>
+
                                     </div>
                                 </div>
                                 <!-- Share Links -->
@@ -287,6 +308,18 @@
             $('#comment-text').html(data);
             $('#comment-parent-id').val(parent_id)
         }
+
+        function addProductToWishlist(id) {
+            event.preventDefault();
+            document.getElementById('add-product-to-wishlist-' + id).submit()
+        }
+
+        function removeProductFromWishlist(id) {
+            event.preventDefault();
+            document.getElementById('remove-product-from-wishlist-' + id).submit()
+        }
+
+
     </script>
 
 @endsection

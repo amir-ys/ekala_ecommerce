@@ -8,6 +8,7 @@ use Modules\Category\Models\Category;
 use Modules\Comment\Models\Comment;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductImage;
+use Modules\Product\Models\Wishlist;
 use Tests\TestCase;
 
 class ProductTest extends TestCase
@@ -57,14 +58,12 @@ class ProductTest extends TestCase
         $this->assertCount($count , $product->attributes);
         $this->assertInstanceOf(Attribute::class , $product->attributes->first());
     }
-
-    public function test_comment_relation_with_product()
+    public function test_product_relation_with_()
     {
         $count = rand(1, 9);
         $product= Product::factory()->has(Comment::factory()->count($count) , 'comments')->create();
 
         $this->assertCount( $count ,$product->comments);
         $this->assertInstanceOf(Comment::class ,$product->comments()->first());
-
     }
 }

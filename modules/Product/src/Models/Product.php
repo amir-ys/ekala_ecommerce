@@ -89,6 +89,11 @@ class Product extends Model
             ->where('is_approved' , Comment::STATUS_APPROVED)
             ->whereNull('parent_id');
     }
+
+    public function wishlist(): HasMany
+    {
+        return $this->hasMany(Wishlist::class , 'product_id');
+    }
     public static function getUploadDirectory() :string
     {
         return 'products';
@@ -113,5 +118,10 @@ class Product extends Model
     public function priceWithDiscount()
     {
         return '100,000' ;
+    }
+
+    public function findProductInWishlist($userId)
+    {
+        return $this->wishlist()->where('user_id' , $userId)->first();
     }
 }

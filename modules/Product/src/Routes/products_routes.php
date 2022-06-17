@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Modules\Product\Http\Controllers\ProductAttributeController;
 use Modules\Product\Http\Controllers\ProductController;
 use Modules\Product\Http\Controllers\ProductImageController;
+use Modules\Product\Http\Controllers\WishlistController;
 
 Route::group(['prefix' => 'panel'] , function (){
     //product
@@ -22,3 +23,8 @@ Route::group(['prefix' => 'panel'] , function (){
    Route::post('products/{product}/attribute-vale/save' , [ProductAttributeController::class , 'saveAttributeValue'])->name('panel.products.attributes.save') ;
 
 });
+
+//wishlist
+Route::post('products/{product}/add/wishlist' , [WishlistController::class , 'add'])->name('products.wishlist.add')->middleware(['auth']);
+Route::post('products/{product}/remove/wishlist' , [WishlistController::class , 'remove'])->name('products.wishlist.remove')->middleware(['auth']);
+
