@@ -192,14 +192,16 @@
                                     <div class="row pt-3 px-md-3">
                                         <div class="col-12">
                                             <div id="tabs-panel">
-                                                <button class="tab-item tablink px-3 @if($errors->count() == 0 ) selected @endif"
-                                                        onclick="openTab(event,'html-tab')">نقد و بررسی
+                                                <button
+                                                    class="tab-item tablink px-3 @if($errors->count() == 0 ) selected @endif"
+                                                    onclick="openTab(event,'html-tab')">نقد و بررسی
                                                 </button>
                                                 <button class="tab-item tablink px-3"
                                                         onclick="openTab(event,'details-tab')">جدول مشخصات
                                                 </button>
-                                                <button class="tab-item tablink px-3 @if($errors->count() > 0 ) selected @endif"
-                                                        onclick="openTab(event,'comments-tab')">دیدگاه کاربران
+                                                <button
+                                                    class="tab-item tablink px-3 @if($errors->count() > 0 ) selected @endif"
+                                                    onclick="openTab(event,'comments-tab')">دیدگاه کاربران
                                                     ({{ $product->comments()->count() }})
                                                 </button>
                                             </div>
@@ -216,208 +218,11 @@
                                                 <!-- /HTML Tab -->
 
                                                 <!-- Details Tab -->
-                                                <div id="details-tab" class="tabs-container px-0 px-md-3 pb-0 pb-md-3" style="display:none">
-                                               @foreach($product->category->attributeGroups as $attributeGroup)
-                                                    <!-- Detail Section -->
-                                                    <div class="row">
-                                                        <div class="col-12 my-2">
-                                                            <span class="detail-title"><i
-                                                                    class="fa fa-chevron-left small"></i> {{ $attributeGroup->name }} </span>
-                                                        </div>
-                                                    </div>
-                                                    @foreach($attributeGroup->attributes as $attribute)
-                                                    <div class="row mb-2">
-                                                        <div class="col-12 col-md-3 font-weight-bold">
-                                                            <div class="bg-light p-2">{{ $attribute->name }}</div>
-                                                        </div>
-                                                        <div class="col-12 col-md-9 pr-md-0">
-                                                            <div class="bg-light p-2">  {{ $attribute->getValueForProduct($product) }}</div>
-                                                        </div>
-                                                    </div>
-                                                    @endforeach
-                                                    <!-- /Detail Section -->
-                                                @endforeach
-                                                </div>
+                                                @include('Front::partials.product-attributes'  , ['product' => $product])
                                                 <!-- /Details Tab -->
 
                                                 <!-- Comments Tab -->
-                                                <div id="comments-tab" class="tabs-container px-0 px-md-3 pb-0 pb-md-2"
-                                                     style="display:none">
-                                                    <div class="row">
-                                                        <div class="col-12 text-justify" id="comments">
-                                                            <div class="comments-container">
-                                                                <div class="container px-0">
-                                                                    <div class="row">
-                                                                        <div class="col-12 pt-2">
-                                                                            <!-- Show Comments -->
-                                                                            <div class="comment p-3 my-2">
-                                                                                <div class="sender-details">
-                                                                                    <div class="row">
-                                                                                        <div
-                                                                                            class="col-3 col-sm-2 col-md-1 pl-md-0 pl-lg-2 pl-xl-3">
-                                                                                            <img
-                                                                                                src="/assets/front/assets/images/user-no-image.jpg"
-                                                                                                alt="" class="rounded">
-                                                                                        </div>
-                                                                                        <div
-                                                                                            class="col-9 col-sm-10 col-md-11 pr-0 pr-md-2 pr-xl-0 pt-0 pt-lg-1">
-                                                                                            <div class="name">مصطفی
-                                                                                                کلانتری
-                                                                                            </div>
-                                                                                            <div class="date">ارسال شده
-                                                                                                در 18 تیر 1400
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="col-12">
-                                                                                            <p>این یک متن آزمایشی است که
-                                                                                                به زودی توسط نویسنده این
-                                                                                                سایت، تکمیل یا حذف خواهد
-                                                                                                شد. اگر شما نویسنده‌ی
-                                                                                                این سایت هستید، برای حذف
-                                                                                                یا ویرایش این صفحه، کافی
-                                                                                                است از طریق مرکز مدیریت
-                                                                                                سایت خود وارد بخش مربوطه
-                                                                                                شده و محتوای این صفحه را
-                                                                                                ویرایش یا حذف کنید.</p>
-                                                                                            <span class="reply"><img
-                                                                                                    src="/assets/front/assets/images/comment-reply.png"
-                                                                                                    alt=""> ارسال پاسخ</span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <!-- Comment Reply -->
-                                                                                <div class="row justify-content-end">
-                                                                                    <div class="col-11 pt-2 pr-0">
-                                                                                        <div class="comment p-3">
-                                                                                            <div class="sender-details">
-                                                                                                <div class="row">
-                                                                                                    <div
-                                                                                                        class="col-3 col-sm-2 col-md-1 pl-md-0 pl-lg-2 pl-xl-3">
-                                                                                                        <img
-                                                                                                            src="/assets/front/assets/images/user-no-image.jpg"
-                                                                                                            alt=""
-                                                                                                            class="rounded">
-                                                                                                    </div>
-                                                                                                    <div
-                                                                                                        class="col-9 col-sm-10 col-md-11 pr-0 pr-md-2 pr-xl-0 pt-0 pt-lg-1">
-                                                                                                        <div
-                                                                                                            class="name">
-                                                                                                            امین کیانی
-                                                                                                        </div>
-                                                                                                        <div
-                                                                                                            class="date">
-                                                                                                            ارسال شده در
-                                                                                                            18 تیر 1400
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                    <div class="col-12">
-                                                                                                        <p>صفحات و
-                                                                                                            محتوای
-                                                                                                            آزمایشی
-                                                                                                            همیشه بخشی
-                                                                                                            از محتوای
-                                                                                                            پیش‌نمایش
-                                                                                                            قالب و
-                                                                                                            افزونه های
-                                                                                                            وب هستند که
-                                                                                                            شما بتوانید
-                                                                                                            ارتباط درستی
-                                                                                                            با پیش نمایش
-                                                                                                            قالب گرفته و
-                                                                                                            تصمیم مناسبی
-                                                                                                            بگیرید. این
-                                                                                                            صفحات معمولا
-                                                                                                            برای اطلاعات
-                                                                                                            کلی در مورد
-                                                                                                            سایت مثل
-                                                                                                            «درباره ما»،
-                                                                                                            «تماس با
-                                                                                                            ما»، «فهرست»
-                                                                                                            یا «نظرات
-                                                                                                            شما» مفید
-                                                                                                            هستند.</p>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <!-- /Comment Reply -->
-                                                                            </div>
-                                                                            <!-- /Show Comments -->
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <!-- Send Comment Form -->
-                                                            <div class="comments-container">
-                                                                <div class="row pt-4">
-                                                                    <div class="col-12"><h2>دیدگاه خود را ارسال
-                                                                            کنید</h2></div>
-                                                                </div>
-                                                                @auth
-                                                                    <div class="row">
-                                                                        <div class="col-md-12">
-                                                                            @if($errors->any())
-                                                                            <div class="alert alert-warning">
-                                                                                @foreach($errors->all() as $error)
-                                                                                    <p>{{$error}}</p>
-                                                                                @endforeach
-                                                                            </div>
-                                                                            @endif
-                                                                        </div>
-                                                                        <div class="col-12">
-                                                                            <form method="post"
-                                                                                  action="{{ route('comments.store') }}">
-                                                                                @csrf
-                                                                                <input type="hidden" name="parent_id"
-                                                                                       value>
-                                                                                <input type="hidden" name="product_id"
-                                                                                       value="{{ $product->id }}">
-                                                                                <div id="send-comment-form">
-                                                                                    <p>نظر خود را برای این محصول ارسال
-                                                                                        کنید.</p>
-                                                                                    <div class="row">
-                                                                                        <div class="col-12">
-                                                                                            <div
-                                                                                                class="form-group my-1">
-                                                                                            <textarea name="body"
-                                                                                                      class="form-control"
-                                                                                                      id="" rows="4"
-                                                                                                      placeholder="متن دیدگاه"></textarea>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="col-12">
-                                                                                            <div
-                                                                                                class="form-group my-1">
-                                                                                                <input type="submit"
-                                                                                                       value="ارسال دیدگاه"
-                                                                                                       class="btn btn-success px-5">
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </form>
-                                                                        </div>
-                                                                    </div>
-                                                                @else
-                                                                    <div class="row">
-                                                                        <p>
-                                                                            برای ثبت نظر برای این محصول لطفا ابتدا وارد
-                                                                            <a
-                                                                                href="{{ route('login') }}">
-                                                                                سایت
-                                                                            </a> شوید.
-                                                                        </p>
-                                                                    </div>
-                                                                @endauth
-                                                            </div>
-                                                            <!-- /Send Comment Form -->
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                @include('Front::partials.product-comments'  , ['product' => $product])
                                                 <!-- /Comments Tab -->
                                             </div>
                                         </div>
@@ -428,115 +233,7 @@
                         <!-- /Nav Tabs -->
 
                         <!-- Suggested Products -->
-                        <div class="col-12 pt-5" id="suggested-products">
-                            <div class="title py-3 text-center">محصولات مرتبط</div>
-                            <div class="owl-carousel products-carousel">
-                                <!-- Product Item -->
-                                <div class="product-box item">
-                                    <a href="./product.html">
-                                        <div class="image"
-                                             style="background-image: url('/assets/front/assets/images/products/p303.png')"></div>
-                                    </a>
-                                    <div class="details p-3">
-                                        <div class="category">
-                                            <a href="./products.html">گوشی موبایل</a>
-                                            &nbsp;/&nbsp;
-                                            <a href="./products.html">سامسونگ</a>
-                                        </div>
-                                        <a href="./product.html"><h2>مودم روتر ADSL2 Plus بی‌ سیم N300 دی-لینک مدل
-                                                DSL-2740U</h2></a>
-                                        <div class="price">3.000.000 تومان</div>
-                                        <div class="rate">
-                                            <i class="fa fa-star-half-alt"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <span class="reviews">(14 رای دهنده)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- /Product Item -->
-                                <!-- Product Item -->
-                                <div class="product-box item">
-                                    <a href="./product.html">
-                                        <div class="image"
-                                             style="background-image: url('/assets/front/assets/images/products/p201.png')"></div>
-                                    </a>
-                                    <div class="details p-3">
-                                        <div class="category">
-                                            <a href="./products.html">گوشی موبایل</a>
-                                            &nbsp;/&nbsp;
-                                            <a href="./products.html">سامسونگ</a>
-                                        </div>
-                                        <a href="./product.html"><h2>لپ تاپ 14 اینچی ایسوس مدل ZenBook UM433IQ -
-                                                A5023</h2></a>
-                                        <div class="price">5.000.000 تومان</div>
-                                        <div class="rate">
-                                            <i class="fa fa-star-half-alt"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <span class="reviews">(14 رای دهنده)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- /Product Item -->
-                                <!-- Product Item -->
-                                <div class="product-box item">
-                                    <a href="./product.html">
-                                        <div class="image"
-                                             style="background-image: url('/assets/front/assets/images/products/p302.png')"></div>
-                                    </a>
-                                    <div class="details p-3">
-                                        <div class="category">
-                                            <a href="./products.html">گوشی موبایل</a>
-                                            &nbsp;/&nbsp;
-                                            <a href="./products.html">سامسونگ</a>
-                                        </div>
-                                        <a href="./product.html"><h2>اسپیکر بلوتوثی قابل حمل تی اند جی مدل Tg-113</h2>
-                                        </a>
-                                        <div class="price">4.000.000 تومان</div>
-                                        <div class="rate">
-                                            <i class="fa fa-star-half-alt"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <span class="reviews">(14 رای دهنده)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- /Product Item -->
-                                <!-- Product Item -->
-                                <div class="product-box item">
-                                    <a href="./product.html">
-                                        <div class="image"
-                                             style="background-image: url('/assets/front/assets/images/products/p203.png')"></div>
-                                    </a>
-                                    <div class="details p-3">
-                                        <div class="category">
-                                            <a href="./products.html">گوشی موبایل</a>
-                                            &nbsp;/&nbsp;
-                                            <a href="./products.html">سامسونگ</a>
-                                        </div>
-                                        <a href="./product.html"><h2>لپ تاپ 15 اینچی ایسوس مدل VivoBook X543MA - A</h2>
-                                        </a>
-                                        <div class="price">3.000.000 تومان</div>
-                                        <div class="rate">
-                                            <i class="fa fa-star-half-alt"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <span class="reviews">(14 رای دهنده)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- /Product Item -->
-                            </div>
-                        </div>
+                        @include('Front::partials.suggested-products')
                         <!-- /Suggested Products -->
                     </div>
                 </div>
@@ -562,8 +259,8 @@
     <script src="/assets/front/assets/js/product-gallery.js"></script>
 
     <script src="/assets/front/assets/js/scripts.js"></script>
-    <script >
-        if("{{ $errors->count() > 0 }}"){
+    <script>
+        if ("{{ $errors->count() > 0 }}") {
             document.getElementById('comments-tab').style.display = "block";
         }
     </script>

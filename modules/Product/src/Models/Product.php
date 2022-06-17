@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Brand\Models\Brand;
 use Modules\Category\Models\Category;
@@ -80,6 +81,13 @@ class Product extends Model
     public function comments()
     {
         return $this->morphMany(Comment::class , 'commentable');
+    }
+
+    public function approvedComments(): MorphMany
+    {
+        return $this->comments()
+            ->where('is_approved' , Comment::STATUS_APPROVED)
+            ->whereNull('parent_id');
     }
     public static function getUploadDirectory() :string
     {
