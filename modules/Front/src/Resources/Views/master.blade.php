@@ -31,6 +31,7 @@
 
 <!-- Scripts -->
 @include('Front::layouts.scripts')
+@include('sweetalert::alert')
 <!-- /Scripts -->
 </body>
 </html>

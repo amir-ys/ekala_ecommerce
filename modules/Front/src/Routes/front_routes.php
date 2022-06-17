@@ -20,12 +20,3 @@ Route::group([] , function (){
    //image
     Route::get('front/image/{dir}/{image}' , [ImageController::class , 'show'])->name('front.images.show');
 });
-
-//@foreach($sliders as $slider)
-//                            <div class="carousel-item active">
-//                                <a href={{ $slider->link }}"">
-//                                    <img src="{{ route('front.images.show' , [ \Modules\Slide\Models\Slide::getUploadDir() ,  $slider->photo]) }}"
-//                                         class="d-block" alt="...">
-//                                </a>
-//                            </div>
-//@endforeach

@@ -54,12 +54,12 @@
                                 <!-- Swiper -->
                                 <div class="swiper-container gallery-thumbs">
                                     <div class="swiper-wrapper">
-                                            @foreach($product->allImages as $image)
-                                                <div class="swiper-slide">
-                                                    <img style="height:100%;width: 100%" src="{{ $image->name
+                                        @foreach($product->allImages as $image)
+                                            <div class="swiper-slide">
+                                                <img style="height:100%;width: 100%" src="{{ $image->name
                                                 ? route('image.display' , $image->name) : ''}}" alt="">
-                                                </div>
-                                            @endforeach
+                                            </div>
+                                        @endforeach
                                     </div>
                                 </div>
 
@@ -192,14 +192,15 @@
                                     <div class="row pt-3 px-md-3">
                                         <div class="col-12">
                                             <div id="tabs-panel">
-                                                <button class="tab-item tablink px-3 selected"
+                                                <button class="tab-item tablink px-3 @if($errors->count() == 0 ) selected @endif"
                                                         onclick="openTab(event,'html-tab')">نقد و بررسی
                                                 </button>
                                                 <button class="tab-item tablink px-3"
                                                         onclick="openTab(event,'details-tab')">جدول مشخصات
                                                 </button>
-                                                <button class="tab-item tablink px-3"
-                                                        onclick="openTab(event,'comments-tab')">دیدگاه کاربران ({{ $product->comments()->count() }})
+                                                <button class="tab-item tablink px-3 @if($errors->count() > 0 ) selected @endif"
+                                                        onclick="openTab(event,'comments-tab')">دیدگاه کاربران
+                                                    ({{ $product->comments()->count() }})
                                                 </button>
                                             </div>
                                         </div>
@@ -356,55 +357,62 @@
                                                                     <div class="col-12"><h2>دیدگاه خود را ارسال
                                                                             کنید</h2></div>
                                                                 </div>
-                                                                <div class="row">
-                                                                    <div class="col-12 py-3">
-                                                                        <form method="post" action="/">
-                                                                            <div id="send-comment-form">
-                                                                                <p>نظر خود را برای این مطلب ارسال کنید.
-                                                                                    نشانی ایمیل شما منتشر نخواهد شد.</p>
-                                                                                <div class="row">
-                                                                                    <div
-                                                                                        class="col-12 px-3 pl-md-1 col-md-6">
-                                                                                        <div class="form-group my-1">
-                                                                                            <input type="text"
-                                                                                                   class="form-control"
-                                                                                                   placeholder="* نام شما"
-                                                                                                   required
-                                                                                                   oninvalid="this.setCustomValidity('لطفا نام خود را وارد کنید')"
-                                                                                                   oninput="setCustomValidity('')">
+                                                                @auth
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            @if($errors->any())
+                                                                            <div class="alert alert-warning">
+                                                                                @foreach($errors->all() as $error)
+                                                                                    <p>{{$error}}</p>
+                                                                                @endforeach
+                                                                            </div>
+                                                                            @endif
+                                                                        </div>
+                                                                        <div class="col-12">
+                                                                            <form method="post"
+                                                                                  action="{{ route('comments.store') }}">
+                                                                                @csrf
+                                                                                <input type="hidden" name="parent_id"
+                                                                                       value>
+                                                                                <input type="hidden" name="product_id"
+                                                                                       value="{{ $product->id }}">
+                                                                                <div id="send-comment-form">
+                                                                                    <p>نظر خود را برای این محصول ارسال
+                                                                                        کنید.</p>
+                                                                                    <div class="row">
+                                                                                        <div class="col-12">
+                                                                                            <div
+                                                                                                class="form-group my-1">
+                                                                                            <textarea name="body"
+                                                                                                      class="form-control"
+                                                                                                      id="" rows="4"
+                                                                                                      placeholder="متن دیدگاه"></textarea>
+                                                                                            </div>
                                                                                         </div>
-                                                                                    </div>
-                                                                                    <div
-                                                                                        class="col-12 px-3 pr-md-1 col-md-6">
-                                                                                        <div class="form-group my-1">
-                                                                                            <input type="email"
-                                                                                                   class="form-control text-start"
-                                                                                                   placeholder="پست الکترونیک *"
-                                                                                                   required
-                                                                                                   oninvalid="this.setCustomValidity('لطفا پست الکترونیک خود را وارد کنید')"
-                                                                                                   oninput="setCustomValidity('')">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-12">
-                                                                                        <div class="form-group my-1">
-                                                                                            <textarea
-                                                                                                class="form-control"
-                                                                                                id="" rows="4"
-                                                                                                placeholder="متن دیدگاه"></textarea>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-12">
-                                                                                        <div class="form-group my-1">
-                                                                                            <input type="submit"
-                                                                                                   value="ارسال دیدگاه"
-                                                                                                   class="btn btn-success px-5">
+                                                                                        <div class="col-12">
+                                                                                            <div
+                                                                                                class="form-group my-1">
+                                                                                                <input type="submit"
+                                                                                                       value="ارسال دیدگاه"
+                                                                                                       class="btn btn-success px-5">
+                                                                                            </div>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
-                                                                            </div>
-                                                                        </form>
+                                                                            </form>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
+                                                                @else
+                                                                    <div class="row">
+                                                                        <p>
+                                                                            برای ثبت نظر برای این محصول لطفا ابتدا وارد
+                                                                            <a
+                                                                                href="{{ route('login') }}">
+                                                                                سایت
+                                                                            </a> شوید.
+                                                                        </p>
+                                                                    </div>
+                                                                @endauth
                                                             </div>
                                                             <!-- /Send Comment Form -->
                                                         </div>
@@ -554,4 +562,10 @@
     <script src="/assets/front/assets/js/product-gallery.js"></script>
 
     <script src="/assets/front/assets/js/scripts.js"></script>
+    <script >
+        if("{{ $errors->count() > 0 }}"){
+            document.getElementById('comments-tab').style.display = "block";
+        }
+    </script>
+
 @endsection
