@@ -263,6 +263,30 @@
         if ("{{ $errors->count() > 0 }}") {
             document.getElementById('comments-tab').style.display = "block";
         }
+
+        function defaultComment() {
+            event.preventDefault()
+            $('#reply-comment-text').remove();
+            $('#comment-parent-id').val(null)
+            $('#back-to-default').remove(null)
+        }
+
+        function replyComment(event  , username , parent_id) {
+            event.preventDefault()
+            var navigationFn = {
+                goToSection: function(id) {
+                    $('html, body').animate({
+                        scrollTop: $(id).offset().top
+                    }, 0);
+                }
+            }
+            navigationFn.goToSection('#store-comment-element');
+            $('#store-comment-textarea').focus();
+            var data = '<span id="reply-comment-text">'  + 'در پاسخ به نظر کاربر ' + username  +
+                ' <a id="back-to-default" href="/" onclick="defaultComment()" >بازگشت</a> ' + '</span>';
+            $('#comment-text').html(data);
+            $('#comment-parent-id').val(parent_id)
+        }
     </script>
 
 @endsection

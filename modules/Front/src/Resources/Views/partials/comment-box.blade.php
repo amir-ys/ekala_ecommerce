@@ -23,8 +23,9 @@
             @if(!$isReply)
                 <span class="reply">
                 <img
-                    src="/assets/front/assets/images/comment-reply.png"
-                    alt=""> ارسال پاسخ</span>
+                    src="/assets/front/assets/images/comment-reply.png" alt="">
+                    <a href="" onclick="replyComment(event , '{{ $comment->user->name }}' , '{{ $comment->id }}')"> ارسال پاسخ</a>
+                </span>
             @endif
         </div>
     </div>
