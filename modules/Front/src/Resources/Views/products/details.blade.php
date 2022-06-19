@@ -169,7 +169,7 @@
                                                    title="افزودن به علاقه‌مندی"></a>
                                             @endif
 
-                                            <a href="#">
+                                            <a href="{{ route('front.compare.add' , $product->id) }}">
                                                 <div class="btn btn-outline-secondary btn-compare mt-1 mt-sm-0"
                                                      data-toggle="tooltip" data-placement="top" title="مقایسه"></div>
                                             </a>

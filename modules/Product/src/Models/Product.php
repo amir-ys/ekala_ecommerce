@@ -94,6 +94,7 @@ class Product extends Model
     {
         return $this->hasMany(Wishlist::class , 'product_id');
     }
+
     public static function getUploadDirectory() :string
     {
         return 'products';
@@ -117,6 +118,7 @@ class Product extends Model
 
     public function priceWithDiscount()
     {
+        #todo
         return '100,000' ;
     }
 

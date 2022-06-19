@@ -185,12 +185,15 @@ class ProductRepo extends BaseRepository implements ProductRepositoryInterface
          $model->wishlist()->where('user_id' , $userId)->delete();
     }
 
-
-
     public function findProductInWishlist($productId, $userId)
     {
         $model = $this->findById($productId);
        return $model->wishlist()->where('user_id' , $userId)->first();
+    }
+
+    public function findProductByIds($ids)
+    {
+        return $this->query->whereIn('id' , $ids)->get();
     }
 
 }

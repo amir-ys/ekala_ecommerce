@@ -4,8 +4,8 @@
         <!-- Detail Section -->
         <div class="row">
             <div class="col-12 my-2">
-                                                            <span class="detail-title"><i
-                                                                    class="fa fa-chevron-left small"></i> {{ $attributeGroup->name }} </span>
+                <span class="detail-title">
+                    <i class="fa fa-chevron-left small"></i> {{ $attributeGroup->name }} </span>
             </div>
         </div>
         @foreach($attributeGroup->attributes as $attribute)

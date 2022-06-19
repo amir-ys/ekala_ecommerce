@@ -3,6 +3,7 @@ namespace Modules\Routes;
 
 use Illuminate\Support\Facades\Route;
 use Modules\Front\Http\Controllers\CategoryController;
+use Modules\Front\Http\Controllers\CompareController;
 use Modules\Front\Http\Controllers\HomeController;
 use Modules\Front\Http\Controllers\ImageController;
 use Modules\Front\Http\Controllers\ProductController;
@@ -19,4 +20,10 @@ Route::group([] , function (){
 
    //image
     Route::get('front/image/{dir}/{image}' , [ImageController::class , 'show'])->name('front.images.show');
+
+    //compare
+    Route::get('front/compare-list' , [CompareController::class , 'index'])->name('front.compare.index');
+    Route::get('front/compare/{product}/add' , [CompareController::class , 'add'])->name('front.compare.add');
+    Route::get('front/compare/{product}/remove' , [CompareController::class , 'remove'])->name('front.compare.remove');
+
 });
