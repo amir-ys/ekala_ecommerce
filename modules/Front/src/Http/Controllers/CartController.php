@@ -43,6 +43,19 @@ class CartController extends Controller
         }
     }
 
+    public function clear()
+    {
+        CartService::clearAll();
+        alert()->success('موفق آمیز', 'سبد خرید شما با موفقیت خالی شد.');
+        return back();
+    }
+
+    public function remove($id)
+    {
+        CartService::remove($id);
+        alert()->success('موفق آمیز', 'محصول با موفقیت از سبد خرید حذف شد.');
+        return back();
+    }
     private function findActiveProduct(Request $request)
     {
         return resolve(ProductRepositoryInterface::class)->findActiveById($request->product_id);

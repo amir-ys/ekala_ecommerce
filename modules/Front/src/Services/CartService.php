@@ -40,4 +40,13 @@ class CartService
        return \Cart::getContent();
     }
 
+    public static function clearAll(): void
+    {
+        \Cart::clear();
+    }
+
+    public static function remove($id): void
+    {
+        \Cart::remove($id);
+    }
 }

@@ -28,8 +28,10 @@ Route::group([] , function (){
     Route::get('/compare/{product}/remove' , [CompareController::class , 'remove'])->name('front.compare.remove');
 
     //cart
-    Route::get('/cart/add' , [CartController::class , 'add'])->name('front.cart.add');
     Route::get('/cart' , [CartController::class , 'index'])->name('front.cart.index');
+    Route::get('/cart/add' , [CartController::class , 'add'])->name('front.cart.add');
+    Route::get('/cart/clear' , [CartController::class , 'clear'])->name('front.cart.clear');
+    Route::get('/cart/{id}/remove' , [CartController::class , 'remove'])->name('front.cart.remove');
     Route::get('test' ,function (){
 //       \Cart::clear();
        dd( \Cart::getContent());
