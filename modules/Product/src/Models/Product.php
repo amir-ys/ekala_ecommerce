@@ -122,6 +122,17 @@ class Product extends Model
         return '100,000' ;
     }
 
+    public function finalPrice()
+    {
+        //todo
+        return $this->price;
+    }
+
+    public function discountAmount()
+    {
+        return 120000;
+    }
+
     public function findProductInWishlist($userId)
     {
         return $this->wishlist()->where('user_id' , $userId)->first();

@@ -73,17 +73,17 @@ class ProductRepo extends BaseRepository implements ProductRepositoryInterface
 
     }
 
-    public function storeProductImage($name, $productId, $isPrimary)
+    public function storeProductImage($name, $id, $isPrimary)
     {
-        $this->findById($productId)->images()->create([
+        $this->findById($id)->images()->create([
             'name' => $name,
             'is_primary' => $isPrimary
         ]);
     }
 
-    public function findImageById($productId, $imageId)
+    public function findImageById($id, $imageId)
     {
-        $model = $this->findById($productId);
+        $model = $this->findById($id);
         return $model->images()->where('id', $imageId)->firstOrFail();
 
     }
@@ -93,20 +93,20 @@ class ProductRepo extends BaseRepository implements ProductRepositoryInterface
         return $image->delete();
     }
 
-    public function getProductImages($productId)
+    public function getProductImages($id)
     {
-        $model = $this->findById($productId);
+        $model = $this->findById($id);
         return $model->images;
     }
 
-    public function deletePrimaryImage($productId)
+    public function deletePrimaryImage($id)
     {
-        $this->findById($productId)->primaryImage->delete();
+        $this->findById($id)->primaryImage->delete();
     }
 
-    public function attachAttributeWithValue($productId, $attributes)
+    public function attachAttributeWithValue($id, $attributes)
     {
-        $product = $this->findById($productId);
+        $product = $this->findById($id);
         $product->attributes()->detach();
         foreach ($attributes as $attributeId => $value) {
             $product->attributes()->attach($attributeId, ['value' => $value]);
@@ -171,29 +171,35 @@ class ProductRepo extends BaseRepository implements ProductRepositoryInterface
             ->firstOrFail();
     }
 
-    public function addToWishlist($productId, $userId)
+    public function addToWishlist($id, $userId)
     {
-        $model = $this->findById($productId);
+        $model = $this->findById($id);
         $model->wishlist()->create([
             'user_id' => $userId
         ]);
     }
 
-    public function removeFromWishlist($productId, $userId)
+    public function removeFromWishlist($id, $userId)
     {
-        $model = $this->findById($productId);
+        $model = $this->findById($id);
          $model->wishlist()->where('user_id' , $userId)->delete();
     }
 
-    public function findProductInWishlist($productId, $userId)
+    public function findProductInWishlist($id, $userId)
     {
-        $model = $this->findById($productId);
+        $model = $this->findById($id);
        return $model->wishlist()->where('user_id' , $userId)->first();
     }
 
     public function findProductByIds($ids)
     {
         return $this->query->whereIn('id' , $ids)->get();
+    }
+
+    public function findActiveById($id)
+    {
+        return $this->query->where('is_active' , ProductStatus::ACTIVE)
+            ->where('id' , $id)->first();
     }
 
 }

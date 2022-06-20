@@ -19,7 +19,7 @@
                         <a href="./register.html">عضویت</a>
                     </div>
                     <div class="col-12 col-md-5 col-lg-6">
-                        <a href="./cart.html">
+                        <a href="{{ route('front.cart.index') }}">
                             <div class="btn btn-warning w-100"><i class="fa fa-shopping-cart"></i>&nbsp;<span class="d-md-none d-lg-inline-block">سبد خرید</span> (2)</div>
                         </a>
                     </div>

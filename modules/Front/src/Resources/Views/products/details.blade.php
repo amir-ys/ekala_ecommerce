@@ -121,7 +121,7 @@
                                 <div class="variables">
                                     <div class="title">گزینه های موجود:</div>
                                     <div class="row">
-                                        <div class="col-12 col-sm-4 col-lg-3">
+                                        <div class="col-12 col-sm-4 col-lg-3 ">
                                             <div class="variable">
                                                 <div class="sub-title pt-2 pb-3">رنگ</div>
                                                 <span class="color-variable"><a href="#" class="red"></a></span>
@@ -140,30 +140,41 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-12 col-sm-4 col-lg-3">
-                                            <div class="variable">
-                                                <div class="sub-title pt-2 pb-2">تعداد</div>
-                                                <input type="number" min="1" max="10" class="form-control" value="1">
+                                    </div>
+
+                                    <form action="{{ route('front.cart.add') }}" method="get">
+                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                        <div class="row">
+                                            <div class="col-12 col-sm-4 col-lg-3">
+                                                <div class="variable">
+                                                    <div class="sub-title pt-3">تعداد</div>
+                                                    <input name="quantity" type="number" min="1" max="{{ $product->quantity }}" class="form-control"
+                                                           value="1">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 col-sm-4 col-lg-5  pt-2 pb-2">
+                                                <div class="variable">
+                                                    <div class="sub-title pt-4"></div>
+                                                    <button  type="submit" class="btn btn-success btn-add-to-basket">
+                                                        <i class="fa fa-shopping-cart"></i> افزودن به سبد خرید
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </form>
                                 </div>
                                 <div class="cta-container pt-3 pt-md-5">
                                     <div class="row">
                                         <div class="col-12">
-                                            <a href="./cart.html">
-                                                <div class="btn btn-success px-4 px-lg-2 px-xl-4 btn-add-to-basket"><i
-                                                        class="fa fa-shopping-cart"></i> افزودن به سبد خرید
-                                                </div>
-                                            </a>
                                             <br class="d-sm-none">
                                             @if($product->findProductInWishlist(auth()->id()))
-                                                <a class="btn btn-outline-secondary bg-danger btn-favorite mt-1 mt-sm-0"
+                                                <a class="btn btn-outline-secondary bg-danger btn-favorite mt-sm-0"
                                                    href="/" onclick="removeProductFromWishlist('{{ $product->id }}')"
                                                    data-toggle="tooltip" data-placement="top"
                                                    title="حذف از علاقه‌مندی"></a>
                                             @else
-                                                <a class="btn btn-outline-secondary btn-favorite mt-1 mt-sm-0"
+                                                <a class="btn btn-outline-secondary btn-favorite mt-sm-0"
                                                    href="/" onclick="addProductToWishlist('{{ $product->id }}')"
                                                    data-toggle="tooltip" data-placement="top"
                                                    title="افزودن به علاقه‌مندی"></a>
@@ -292,10 +303,10 @@
             $('#back-to-default').remove(null)
         }
 
-        function replyComment(event  , username , parent_id) {
+        function replyComment(event, username, parent_id) {
             event.preventDefault()
             var navigationFn = {
-                goToSection: function(id) {
+                goToSection: function (id) {
                     $('html, body').animate({
                         scrollTop: $(id).offset().top
                     }, 0);
@@ -303,7 +314,7 @@
             }
             navigationFn.goToSection('#store-comment-element');
             $('#store-comment-textarea').focus();
-            var data = '<span id="reply-comment-text">'  + 'در پاسخ به نظر کاربر ' + username  +
+            var data = '<span id="reply-comment-text">' + 'در پاسخ به نظر کاربر ' + username +
                 ' <a id="back-to-default" href="/" onclick="defaultComment()" >بازگشت</a> ' + '</span>';
             $('#comment-text').html(data);
             $('#comment-parent-id').val(parent_id)

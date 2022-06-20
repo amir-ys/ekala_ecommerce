@@ -2,6 +2,7 @@
 namespace Modules\Routes;
 
 use Illuminate\Support\Facades\Route;
+use Modules\Front\Http\Controllers\CartController;
 use Modules\Front\Http\Controllers\CategoryController;
 use Modules\Front\Http\Controllers\CompareController;
 use Modules\Front\Http\Controllers\HomeController;
@@ -22,8 +23,16 @@ Route::group([] , function (){
     Route::get('front/image/{dir}/{image}' , [ImageController::class , 'show'])->name('front.images.show');
 
     //compare
-    Route::get('front/compare-list' , [CompareController::class , 'index'])->name('front.compare.index');
-    Route::get('front/compare/{product}/add' , [CompareController::class , 'add'])->name('front.compare.add');
-    Route::get('front/compare/{product}/remove' , [CompareController::class , 'remove'])->name('front.compare.remove');
+    Route::get('/compare-list' , [CompareController::class , 'index'])->name('front.compare.index');
+    Route::get('/compare/{product}/add' , [CompareController::class , 'add'])->name('front.compare.add');
+    Route::get('/compare/{product}/remove' , [CompareController::class , 'remove'])->name('front.compare.remove');
+
+    //cart
+    Route::get('/cart/add' , [CartController::class , 'add'])->name('front.cart.add');
+    Route::get('/cart' , [CartController::class , 'index'])->name('front.cart.index');
+    Route::get('test' ,function (){
+//       \Cart::clear();
+       dd( \Cart::getContent());
+    });
 
 });
