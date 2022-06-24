@@ -12,6 +12,7 @@
         "amir_ys/category-module": "dev-master",
         "amir_ys/comment-module": "dev-master",
         "amir_ys/core-module": "dev-master",
+        "amir_ys/coupon-module": "dev-master",
         "amir_ys/dashboard-module": "dev-master",
         "amir_ys/front-module": "dev-master",
         "amir_ys/product-module": "dev-master",
@@ -87,6 +88,10 @@
         {
             "type" : "path" ,
             "url" : "modules/Comment"
+        } ,
+        {
+            "type" : "path" ,
+            "url" : "modules/Coupon"
         }
     ],
     "autoload-dev": {

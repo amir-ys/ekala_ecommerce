@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e1ed26720a437feba96b626452cd90ee",
+    "content-hash": "8886ecef92402c81d4c70e6d97763e6f",
     "packages": [
         {
             "name": "amir_ys/attribute-module",
@@ -143,6 +143,29 @@
                 "files": [
                     "src/Helpers/helpers.php"
                 ]
+            },
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "amir_ys/coupon-module",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "modules/Coupon",
+                "reference": "d2386acf0e9619400825992a6949d97503dcec3b"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": "Modules\\Coupon\\Providers\\CouponServiceProvider"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Modules\\Coupon\\": "src"
+                }
             },
             "transport-options": {
                 "relative": true
@@ -8700,6 +8723,7 @@
         "amir_ys/category-module": 20,
         "amir_ys/comment-module": 20,
         "amir_ys/core-module": 20,
+        "amir_ys/coupon-module": 20,
         "amir_ys/dashboard-module": 20,
         "amir_ys/front-module": 20,
         "amir_ys/product-module": 20,
@@ -8712,5 +8736,5 @@
         "php": "^8.0|^8.1"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.3.0"
 }

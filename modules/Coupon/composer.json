@@ -1,0 +1,13 @@
+{
+    "name": "amir_ys/coupon-module",
+    "autoload": {
+        "psr-4": {
+            "Modules\\Coupon\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": "Modules\\Coupon\\Providers\\CouponServiceProvider"
+        }
+    }
+}
