@@ -32,99 +32,120 @@
                                 <div id="cart-products">
                                     <div class="container">
                                         <div class="row">
-                                            <div class="col-12 py-3">
-                                                <div class="pb-3" id="return-to-shop">می‌خواهید محصولات دیگری اضافه
-                                                    کنید؟ <a href="/">بازگشت به فروشگاه</a></div>
-                                                <div class="d-none d-md-block">
-                                                    <div class="row my-2" id="heading">
-                                                        <div class="col-4">
-                                                            <div>کالا</div>
-                                                        </div>
-                                                        <div class="col-2">
-                                                            <div>قیمت واحد</div>
-                                                        </div>
-                                                        <div class="col-2 pl-4">
-                                                            <div>تعداد</div>
-                                                        </div>
-                                                        <div class="col-2">
-                                                            <div>تخفیف</div>
-                                                        </div>
-                                                        <div class="col-2 pr-0">
-                                                            <div class="pr-3">قیمت نهایی</div>
+                                            <div class=" mt-2" id="return-to-shop">می‌خواهید محصولات دیگری اضافه
+                                                کنید؟ <a href="/">بازگشت به فروشگاه</a></div>
+                                            @if(\Cart::getContent()->count() > 0)
+                                                <div class="col-12 py-3">
+                                                    <div class="d-none d-md-block">
+                                                        <div class="row my-2" id="heading">
+                                                            <div class="col-4">
+                                                                <div>کالا</div>
+                                                            </div>
+                                                            <div class="col-2">
+                                                                <div>قیمت واحد</div>
+                                                            </div>
+                                                            <div class="col-2 pl-4">
+                                                                <div>تعداد</div>
+                                                            </div>
+                                                            <div class="col-2">
+                                                                <div>تخفیف</div>
+                                                            </div>
+                                                            <div class="col-2 pr-0">
+                                                                <div class="pr-3">قیمت نهایی</div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <!-- Order Product Record -->
-                                                @foreach($cartItems as $cartItem)
-                                                    <div class="row product">
-                                                        <div class="col-12 col-md-4">
-                                                            <div class="row">
-                                                                <div class="col-2 col-md-4 pl-0">
-                                                                    <img src="{{ route('image.display'  , $cartItem->associatedModel->primaryImage->name) }}" alt="">
+                                                    <!-- Order Product Record -->
+                                                    @foreach($cartItems as $cartItem)
+                                                        <div class="row product">
+                                                            <div class="col-12 col-md-4">
+                                                                <div class="row">
+                                                                    <div class="col-2 col-md-4 pl-0">
+                                                                        <img src="{{ route('image.display'  , $cartItem->associatedModel->primaryImage->name) }}" alt="">
+                                                                    </div>
+                                                                    <div class="col-10 col-md-8">
+                                                                        <a href="./product.html" target="_blank">
+                                                                            <div class="title pt-2">
+                                                                                {{  $cartItem->associatedModel->name }}
+                                                                            </div>
+                                                                        </a>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="col-10 col-md-8">
-                                                                    <a href="./product.html" target="_blank">
-                                                                        <div class="title pt-2">
-                                                                            {{  $cartItem->associatedModel->name }}
+                                                            </div>
+                                                            <div class="col-6 col-md-2">
+                                                                <div class="d-md-none font-weight-bold">قیمت</div>
+                                                                <div class="pt-1"><span class="product-price">{{  number_format($cartItem->price) }} </span>
+                                                                    <span>تومان</span></div>
+                                                            </div>
+                                                            <div class="col-6 col-md-2 pl-4 pr-0 pr-md-3">
+                                                                <div class="d-md-none font-weight-bold">{{  $cartItem->quantity }} </div>
+                                                                <div class="input-group mb-3 order-number">
+                                                                    <div class="input-group-prepend">
+                                                                        <button class="btn btn-outline-secondary btn-plus"
+                                                                                type="button">+
+                                                                        </button>
+                                                                    </div>
+                                                                        <input form="update-cart" type="text"
+                                                                               name="quantity[{{ $cartItem->id }}]" value="{{ $cartItem->quantity }}"
+                                                                               class="form-control text-center order-number">
+                                                                        <div class="input-group-prepend">
+                                                                            <button
+                                                                                class="btn btn-outline-secondary btn-minus"
+                                                                                type="button">_
+                                                                            </button>
                                                                         </div>
-                                                                    </a>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="col-6 col-md-2">
-                                                            <div class="d-md-none font-weight-bold">قیمت</div>
-                                                            <div class="pt-1"><span class="product-price">{{  $cartItem->price }} </span>
-                                                                <span>تومان</span></div>
-                                                        </div>
-                                                        <div class="col-6 col-md-2 pl-4 pr-0 pr-md-3">
-                                                            <div class="d-md-none font-weight-bold">{{  $cartItem->quantity }} </div>
-                                                            <div class="input-group mb-3 order-number">
-                                                                <div class="input-group-prepend">
-                                                                    <button class="btn btn-outline-secondary btn-plus"
-                                                                            type="button">+
-                                                                    </button>
-                                                                </div>
-                                                                <input type="text" name="order-number[]" value="1"
-                                                                       class="form-control text-center order-number"
-                                                                       readonly>
-                                                                <div class="input-group-prepend">
-                                                                    <button class="btn btn-outline-secondary btn-minus"
-                                                                            type="button">_
-                                                                    </button>
-                                                                </div>
+                                                            <div class="col-6 col-md-2">
+                                                                <div class="d-md-none font-weight-bold">تخفیف</div>
+                                                                <div class="pt-1"><span
+                                                                        class="product-discount">{{  $cartItem->associatedModel->discountAmount() }} </span>
+                                                                    <span>تومان</span></div>
+                                                            </div>
+                                                            <div class="col-6 col-md-2 pr-0">
+                                                                <div class="d-md-none font-weight-bold">قیمت نهایی</div>
+                                                                <div class="pt-1 pr-2 bg-light"><span class="product-total">{{  number_format(\Cart::getSubTotal()) }}</span>
+                                                                    <span>تومان</span></div>
+                                                                <a href="{{ route('front.cart.remove' , $cartItem->id) }}" class="product-remove btn-remove-from-basket"
+                                                                   data-id="">
+                                                                    <div class="small pl-2"><i class="fa fa-times"></i> حذف
+                                                                    </div>
+                                                                </a>
                                                             </div>
                                                         </div>
-                                                        <div class="col-6 col-md-2">
-                                                            <div class="d-md-none font-weight-bold">تخفیف</div>
-                                                            <div class="pt-1"><span
-                                                                    class="product-discount">{{  $cartItem->associatedModel->discountAmount() }} </span>
-                                                                <span>تومان</span></div>
-                                                        </div>
-                                                        <div class="col-6 col-md-2 pr-0">
-                                                            <div class="d-md-none font-weight-bold">قیمت نهایی</div>
-                                                            <div class="pt-1 pr-2 bg-light"><span class="product-total">{{  $cartItem->associatedModel->finalPrice() }}</span>
-                                                                <span>تومان</span></div>
-                                                            <a href="{{ route('front.cart.remove' , $cartItem->id) }}" class="product-remove btn-remove-from-basket"
-                                                               data-id="">
-                                                                <div class="small pl-2"><i class="fa fa-times"></i> حذف
-                                                                </div>
+                                                        <form action="{{ route('front.cart.update') }}" method="get" id="update-cart">
+                                                        </form>
+                                                        <hr>
+                                                    @endforeach
+                                                    <!-- Order Product Record -->
+                                                    <div class="row product">
+                                                        <div class="col-6">
+                                                            <a href="#" class="product-remove btn-remove-from-basket"
+                                                               data-id="all">
+                                                                <a href="{{ route('front.cart.clear') }}" class="btn btn-sm btn-outline-danger float-end small pl-2 font-weight-bold">خالی کردن
+                                                                    سبد
+                                                                </a>
                                                             </a>
                                                         </div>
-                                                    </div>
-                                                    <hr>
-                                                @endforeach
-                                                <!-- Order Product Record -->
-                                                <div class="row product">
-                                                    <div class="col-12">
-                                                        <a href="#" class="product-remove btn-remove-from-basket"
-                                                           data-id="all">
-                                                            <a href="{{ route('front.cart.clear') }}" class="float-end small pl-2 font-weight-bold">خالی کردن
-                                                                سبد
+
+                                                        <div class="col-2">
+                                                            <a href="#" class=" product-remove btn-remove-from-basket"
+                                                               data-id="all">
+                                                                <button form="update-cart" href="{{ route('front.cart.clear') }}" class="btn btn-sm btn-outline-success float-end small pl-2 font-weight-bold">
+                                                                   بروزرسانی سبد
+                                                                </button>
                                                             </a>
-                                                        </a>
+                                                        </div>
+
                                                     </div>
                                                 </div>
-                                            </div>
+                                            @else
+                                                <div>
+                                                    <h5 class="text-center">
+                                                        سبد خرید شما خالی است.
+                                                    </h5>
+                                                </div>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -137,7 +158,7 @@
                                                 <div>جمع کل فاکتور:</div>
                                             </div>
                                             <div class="col-6">
-                                                <div><span id="factor-total-price">3.200.000</span> تومان</div>
+                                                <div><span id="factor-total-price">{{ number_format(\Cart::getTotal()) }}</span> تومان</div>
                                             </div>
                                         </div>
                                         <div class="row py-2 bg-light">
@@ -145,7 +166,7 @@
                                                 <div>جمع تخفیف:</div>
                                             </div>
                                             <div class="col-6">
-                                                <div><span id="factor-total-discount">200.000</span> تومان</div>
+                                                <div><span id="factor-total-discount"></span>   {{ 0 }}تومان</div>
                                             </div>
                                         </div>
                                         <div class="row py-2" id="total">

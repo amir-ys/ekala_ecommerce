@@ -5,5 +5,6 @@
 <script src="/assets/front/assets/js/droopmenu.js"></script>
 <script src="/assets/front/assets/js/nouislider.min.js"></script>
 <script src="/assets/front/assets/js/pagination.js"></script>
+<script src="/assets/front/assets/js/owl.carousel.js"></script>
 <script src="/assets/front/assets/js/scripts.js"></script>
 @yield('script')

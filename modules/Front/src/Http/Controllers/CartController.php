@@ -4,6 +4,7 @@ namespace Modules\Front\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Modules\Front\Services\CartService;
 use Modules\Product\Contracts\ProductRepositoryInterface;
 
@@ -56,6 +57,24 @@ class CartController extends Controller
         alert()->success('موفق آمیز', 'محصول با موفقیت از سبد خرید حذف شد.');
         return back();
     }
+
+    public function update(Request $request)
+    {
+        $validateData = Validator::make($request->all() , [
+            'quantity' => ['required']
+        ]);
+
+        if ($validateData->fails()){
+            alert()->warning('عملیات ناموفق' , 'تعداد وارد شده صحیح نیست');
+            return back();
+        }
+
+        CartService::update($request->quantity);
+        alert()->success('عملیات موفق' , 'سبد با موفقیت بروزرسانی شد');
+        return back();
+
+    }
+
     private function findActiveProduct(Request $request)
     {
         return resolve(ProductRepositoryInterface::class)->findActiveById($request->product_id);

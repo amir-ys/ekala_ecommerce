@@ -1,7 +1,6 @@
 <?php
 
 namespace Modules\Front\Services;
-use Darryldecode\Cart\Cart;
 
 class CartService
 {
@@ -33,6 +32,18 @@ class CartService
         ));
         return ['status' => 'add'];
 
+    }
+
+    public static function update($quantities)
+    {
+        foreach ($quantities as $rowId => $quantity) {
+            \Cart::update($rowId, [
+                    'quantity' => array(
+                        'relative' => false,
+                        'value' => $quantity
+                    ),]
+            );
+        }
     }
 
     public static function getItems()
