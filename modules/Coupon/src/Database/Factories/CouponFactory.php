@@ -24,7 +24,7 @@ class CouponFactory extends Factory
             'type' => $this->faker->randomElement(Coupon::$types),
             'amount' => $this->faker->numberBetween(100000, 2000000),
             'percent' => $this->faker->numberBetween(0, 100),
-            'expired_at' => $this->faker->dateTime('now'),
+            'expired_at' => $this->faker->dateTime()->format('Y-m-d H:i:s'),
             'description' => $this->faker->paragraph,
         ];
     }

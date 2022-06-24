@@ -10,9 +10,12 @@ class Coupon extends Model
 {
     use HasFactory;
 
+    const TYPE_AMOUNT = 'amount';
+    const TYPE_PERCENT = 'discount';
+
     public static array $types = [
-        'amount',
-        'percent'
+        self::TYPE_PERCENT,
+        self::TYPE_AMOUNT,
     ];
     protected $guarded = [];
 

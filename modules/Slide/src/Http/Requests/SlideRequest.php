@@ -19,7 +19,6 @@ class SlideRequest extends FormRequest
 
     public function rules()
     {
-        $slide = $this->route()->parameter('side');
         $rules =  [
             'title' => ['nullable', 'string'],
             'priority' => ['nullable' , Rule::unique('sliders' , 'priority')],
