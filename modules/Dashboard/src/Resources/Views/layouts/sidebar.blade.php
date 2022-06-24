@@ -8,6 +8,19 @@ x<div class="side-menu">
                     <i class="icon ti-layout"></i>
                     <span>داشبرد</span> <span class="badge bg-danger-gradient"></span></a>
             </li>
+
+            <li><a href="#"><i class="icon ti-rocket"></i> <span> کاربران</span> </a>
+                <ul>
+                    <li><a href="{{ route('panel.users.index') }}">کاربران </a></li>
+                    <li><a href="#">سطوح دسترسی </a>
+                        <ul>
+                            <li><a href="inbox.html">  نقش کاربری </a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+
+
             <li><a data-attr="layout-builder-toggle" class="{{ request()->url(route('panel.brands.index')) == route('panel.brands.index') ? 'c-active' : '' }}" href="{{ route('panel.brands.index') }}">
                     <i class="icon ti-layout"></i>
                     <span>برند ها</span> <span class="badge bg-danger-gradient"></span></a>

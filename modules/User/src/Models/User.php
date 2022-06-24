@@ -2,6 +2,7 @@
 namespace Modules\User\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -14,15 +15,25 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    const STATUS_ACTIVE = 1;
+    const STATUS_DISABLE = 0;
+    const STATUS_BANNED = -1;
+
+    public static $statuses = [
+        'فعال' => self::STATUS_ACTIVE,
+        'غیر فعال' => self::STATUS_DISABLE,
+        'بن شده' => self::STATUS_BANNED,
+    ];
+
     public static function factory(): UserFactory
     {
         return new UserFactory();
     }
 
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'username', 'full_name' ,
+        'email', 'mobile' , 'email_verified_at' ,
+        'password', 'profile' , 'status'
     ];
 
     protected $hidden = [
@@ -38,4 +49,30 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Comment::class);
     }
+
+    public static function getUploadDir()
+    {
+        return 'users\\profile';
+    }
+
+    public function StatusName() :Attribute
+    {
+      return  Attribute::get(function (){
+           if ($this->status == self::STATUS_ACTIVE) $name = 'فعال' ;
+           if ($this->status == self::STATUS_DISABLE) $name = 'غیر فعال' ;
+           if ($this->status == self::STATUS_BANNED) $name = 'بن شده' ;
+           return $name;
+        });
+    }
+
+    public function StatusCss() :Attribute
+    {
+        return  Attribute::get(function (){
+            if ($this->status == self::STATUS_ACTIVE) $name = 'success' ;
+            if ($this->status == self::STATUS_DISABLE) $name = 'warning' ;
+            if ($this->status == self::STATUS_BANNED) $name = 'danger' ;
+            return $name;
+        });
+    }
+
 }
