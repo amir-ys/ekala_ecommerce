@@ -22,11 +22,12 @@
                             <thead class="thead-light">
                             <tr>
                                 <th>شناسه</th>
-                                <th>نام</th>
-                                <th>دسته پدر</th>
-                                <th> تاریخ ایجاد</th>
-                                <th>قابل فیلتر است ؟</th>
-                                <th>وضعیت</th>
+                                <th>کد</th>
+                                <th>  نوع </th>
+                                <th>  مقدار </th>
+                                <th> درصد </th>
+                                <th>تاریخ اعتبار</th>
+                                <th>تاریخ ساخت</th>
                                 <th> عملیات</th>
                             </tr>
                             </thead>
@@ -34,23 +35,12 @@
                             @foreach($coupons as $coupon)
                                 <tr>
                                     <td>{{ $loop->iteration  }}</td>
-                                    <td>{{ $coupon->name }}</td>
-                                    <td>{{ $coupon->parent_id ? $coupon->parent->name : 'ندارد' }}</td>
+                                    <td>{{ $coupon->code }}</td>
+                                    <td> @lang($coupon->type) </td>
+                                    <td> {{  $coupon->amount ? 'تومان' . $coupon->amount : '-' }} </td>
+                                    <td> {{  $coupon->percent ? '%' . $coupon->percent : '-' }} </td>
+                                    <td>{{ $coupon->expired_at }}</td>
                                     <td>{{ getJalaliDate($coupon->created_at) }}</td>
-                                    <td>
-                                          <span
-                                              class="badge py-1 badge-{{ $coupon->is_searchable == \Modules\Coupon\Models\Coupon::SEARCHABLE_TRUE
-                                                      ? 'success'  : 'danger'   }}">
-                                              {{ $coupon->is_searchable == \Modules\Coupon\Models\Coupon::SEARCHABLE_TRUE
-                                                      ? 'بله'  : 'خیر'   }}
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span
-                                            class="badge py-1 bg-{{ $coupon->statusCssClass }}"> @lang($coupon->is_active->name)
-                                        </span>
-                                    </td>
-
                                     <td>
                                         <a class="btn btn-sm bg-transparent d-inline"
                                            href="{{ route('panel.coupons.edit' , $coupon->id) }}"><i

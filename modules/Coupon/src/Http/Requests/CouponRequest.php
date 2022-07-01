@@ -22,17 +22,27 @@ class CouponRequest extends FormRequest
                 return $this->type == Coupon::TYPE_AMOUNT;
             })],
             'percent' => [Rule::requiredIf(function () {
-                return $this->type == Coupon::TYPE_AMOUNT;
+                return $this->type == Coupon::TYPE_PERCENT;
             })],
             'expired_at' => ['required'],
             'description' => ['nullable', 'nullable'],
         ];
 
-        if ($this->getMethod() == 'patch') {
+        if ($this->getMethod() == 'PATCH') {
             $rules['code'] = ['required', Rule::unique('coupons', 'code')->ignore($this->route()->parameter('coupon'))];
         }
 
         return $rules;
+    }
 
+    public function attributes()
+    {
+        return [
+            'code' => 'کد' ,
+            'amount' => 'مقدار' ,
+            'percent' => 'درصد' ,
+            'type' => 'نوع' ,
+            'expired_at' => 'تاریخ اعتبار' ,
+        ];
     }
 }

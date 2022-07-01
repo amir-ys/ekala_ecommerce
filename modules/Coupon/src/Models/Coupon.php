@@ -14,8 +14,8 @@ class Coupon extends Model
     const TYPE_PERCENT = 'discount';
 
     public static array $types = [
-        self::TYPE_PERCENT,
-        self::TYPE_AMOUNT,
+        'درصد' =>  self::TYPE_PERCENT,
+       'قیمت' =>  self::TYPE_AMOUNT,
     ];
     protected $guarded = [];
 

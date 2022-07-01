@@ -14,6 +14,8 @@ class CouponServiceProvider extends ServiceProvider
     public function register()
     {
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
+        $this->loadTranslationsFrom(__DIR__ . '/../Resources/Lang' , 'Coupon');
+        $this->loadJsonTranslationsFrom(__DIR__ . '/../Resources/Lang');
         $this->loadViewsFrom(__DIR__ . '/../Resources/Views', 'Coupon');
         $this->defineRoutes();
     }
