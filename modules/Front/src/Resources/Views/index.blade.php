@@ -7,8 +7,10 @@
                 <div class="col-12 col-md-9" data-aos="fade-zoom-in" data-aos-duration="700">
                     <div id="carouselExampleCaptions" class="carousel slide carousel-fade" data-bs-ride="carousel">
                         <div class="carousel-indicators">
-                            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0"
+                                    class="active" aria-current="true" aria-label="Slide 1"></button>
+                            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+                                    aria-label="Slide 2"></button>
                         </div>
                         <div class="carousel-inner">
                             <div class="carousel-item active">
@@ -18,11 +20,13 @@
                                 <img src="/assets/front/assets/images/slider/slide2.jpg" class="d-block" alt="...">
                             </div>
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+                                data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Previous</span>
                         </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+                                data-bs-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Next</span>
                         </button>
@@ -31,12 +35,13 @@
                 <div class="col-12 col-md-3 mt-2 mt-sm-1 text-center text-sm-start">
                     <div class="row row-cols-1 row-cols-sm-3 row-cols-md-1 h-100 gy-2 g-sm-1 g-md-0">
                         @foreach($topBanners as $topBanner)
-                        <div class="col align-self-start" data-aos="fade-top" data-aos-duration="1000">
-                            <a href="{{ $topBanner->link }}">
-                                <img src="{{ route('front.images.show' , [\Modules\Slide\Models\Slide::getUploadDir() , $topBanner->photo]) }}"
-                                     alt="" width="100%">
-                            </a>
-                        </div>
+                            <div class="col align-self-start" data-aos="fade-top" data-aos-duration="1000">
+                                <a href="{{ $topBanner->link }}">
+                                    <img
+                                        src="{{ route('front.images.show' , [\Modules\Slide\Models\Slide::getUploadDir() , $topBanner->photo]) }}"
+                                        alt="" width="100%">
+                                </a>
+                            </div>
                         @endforeach
                     </div>
                 </div>
@@ -52,34 +57,45 @@
             <div class="row pb-2 pb-sm-4">
                 <div class="col-12 text-center">
                     <div class="btn-group" role="group" id="featured-products-nav">
-                        <button type="button" class="btn active featured-categories" data-val="featured">محصولات منتخب</button>
+                        <button type="button" class="btn active featured-categories" data-val="featured">محصولات منتخب
+                        </button>
                         <button type="button" class="btn featured-categories" data-val="on-sale">تخفیف خورده</button>
-                        <button type="button" class="btn featured-categories" data-val="most-visited">پربازدیدترین</button>
+                        <button type="button" class="btn featured-categories" data-val="most-visited">پربازدیدترین
+                        </button>
                     </div>
                 </div>
             </div>
             <!-- /Tabs -->
 
             <!-- Products -->
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-md-4 featured-product featured" data-aos="fade-up" data-aos-duration="1000">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-md-4 featured-product featured" data-aos="fade-up"
+                 data-aos-duration="1000">
                 @foreach($products as $product)
-                    <div class="col" >
-                    @include('Front::partials.product-box' , ['product' => $product , 'discount' => false])
+                    <div class="col">
+                        @include('Front::partials.product-box' , ['product' => $product , 'discount' => false])
                     </div>
                 @endforeach
             </div>
 
             <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-md-4 featured-product on-sale">
-                @foreach($products as $product)
-                <div class="col">
-                    @include('Front::partials.product-box' , ['product' => $product , 'discount' => true])
+                @if(!is_null($productWithDiscount))
+                    @foreach($productWithDiscount as $product)
+                        <div class="col">
+                            @include('Front::partials.product-box' , ['product' => $product , 'discount' => true])
+                        </div>
+                    @endforeach
+                @else
+                <div class="row">
+                    <div class="text-center justify-content-center">
+                        <p >  هیچ محصول با تخفیفی موجود نیست</p>
+                    </div>
                 </div>
-                @endforeach
+                @endif
             </div>
 
             <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-md-4 featured-product most-visited">
                 @foreach($products as $product)
-                    <div class="col" >
+                    <div class="col">
                         @include('Front::partials.product-box' , ['product' => $product , 'discount' => false])
                     </div>
                 @endforeach
@@ -99,7 +115,10 @@
                     <div class="on-sale-product-box h-100 p-3" data-aos="fade-zoom-in" data-aos-duration="800">
                         <div class="row h-100">
                             <div class="col-12 col-sm-4 col-lg-5">
-                                <a href="./product.html"><div class="image h-100" style="background-image: url('/assets/front/assets/images/products/p1000.png')"></div></a>
+                                <a href="./product.html">
+                                    <div class="image h-100"
+                                         style="background-image: url('/assets/front/assets/images/products/p1000.png')"></div>
+                                </a>
                             </div>
                             <div class="col-12 col-sm-8 col-lg-7 py-3">
                                 <div class="box-title">محصول ویژه امروز</div>
@@ -113,7 +132,8 @@
                                     <span class="pre">4.800.000 تومان</span>
                                 </div>
                                 <div class="cta pt-2">
-                                    <a href="./product.html" class="hvr-icon-back">همین حالا بخرید <i class="fa fa-arrow-left hvr-icon"></i></a>
+                                    <a href="./product.html" class="hvr-icon-back">همین حالا بخرید <i
+                                            class="fa fa-arrow-left hvr-icon"></i></a>
                                 </div>
                                 <div class="counter mt-3">
                                     <div class="time-counter">
@@ -143,7 +163,8 @@
                     <!-- Product Box -->
                     <div class="product-box">
                         <a href="./product.html">
-                            <div class="image" style="background-image: url('/assets/front/assets/images/products/p303.png')">
+                            <div class="image"
+                                 style="background-image: url('/assets/front/assets/images/products/p303.png')">
                                 <span class="badge on-sale-badge">فروش ویژه</span>
                             </div>
                         </a>
@@ -153,7 +174,8 @@
                                 &nbsp;/&nbsp;
                                 <a href="./products.html">سامسونگ</a>
                             </div>
-                            <a href="./product.html"><h2>مودم روتر ADSL2 Plus بی‌ سیم N300 دی-لینک مدل DSL-2740U</h2></a>
+                            <a href="./product.html"><h2>مودم روتر ADSL2 Plus بی‌ سیم N300 دی-لینک مدل DSL-2740U</h2>
+                            </a>
                             <div>
                                 <span class="discounted">4.500.000 تومان</span>
                                 <br class="d-sm-none">
@@ -175,7 +197,8 @@
                     <!-- Product Box -->
                     <div class="product-box">
                         <a href="./product.html">
-                            <div class="image" style="background-image: url('/assets/front/assets/images/products/p403.png')">
+                            <div class="image"
+                                 style="background-image: url('/assets/front/assets/images/products/p403.png')">
                                 <span class="badge on-sale-badge">فروش ویژه</span>
                             </div>
                         </a>
@@ -244,11 +267,11 @@
         <div class="container pt-4">
 
 
-
             <!-- Products -->
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-md-4 most-sales-product" data-aos="fade-up" data-aos-duration="1000">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-md-4 most-sales-product" data-aos="fade-up"
+                 data-aos-duration="1000">
                 @foreach($products as $product)
-                    <div class="col" >
+                    <div class="col">
                         @include('Front::partials.product-box' , ['product' => $product , 'discount' => false])
                     </div>
                 @endforeach
@@ -263,11 +286,13 @@
     <div class="container" data-aos="fade-up" data-aos-duration="1200">
         <div class="row">
             @foreach($bottomBanners as $bottomBanner)
-            <div class="col-12 col-md-6 pt-2 text-center">
-                <a href="{{ $bottomBanner->link }}">
-                    <img style="height:150px;width: 700px" src="{{ route('front.images.show' , [\Modules\Slide\Models\Slide::getUploadDir() , $bottomBanner->photo]) }}" alt="">
-                </a>
-            </div>
+                <div class="col-12 col-md-6 pt-2 text-center">
+                    <a href="{{ $bottomBanner->link }}">
+                        <img style="height:150px;width: 700px"
+                             src="{{ route('front.images.show' , [\Modules\Slide\Models\Slide::getUploadDir() , $bottomBanner->photo]) }}"
+                             alt="">
+                    </a>
+                </div>
             @endforeach
         </div>
     </div>
@@ -281,16 +306,22 @@
                 <!-- Blog Post -->
                 <div class="col">
                     <div class="blog-post-box" data-aos="fade-up" data-aos-duration="1000">
-                        <a href="./blog-post.html"><div class="post-image" style="background-image: url('/assets/front/assets/images/blog/post100.jpg')"></div></a>
+                        <a href="./blog-post.html">
+                            <div class="post-image"
+                                 style="background-image: url('/assets/front/assets/images/blog/post100.jpg')"></div>
+                        </a>
                         <div class="details py-3 px-4">
                             <div class="post-date">ارسال شده در 30 خرداد 1400</div>
                             <a href="./blog-post.html">
                                 <h2 class="post-title">بررسی آیفون 12 پرو مکس اپل</h2>
                             </a>
                             <a href="./blog-post.html">
-                                <div class="post-description">آیفون ۱۲ پرو مکس با ابعاد غول‌پیکر، دوربین توانمندتر و باتری حجمیش، تمام‌عیارترین پرچم‌دار کنونی اپل به‌حساب می‌آید.</div>
+                                <div class="post-description">آیفون ۱۲ پرو مکس با ابعاد غول‌پیکر، دوربین توانمندتر و
+                                    باتری حجمیش، تمام‌عیارترین پرچم‌دار کنونی اپل به‌حساب می‌آید.
+                                </div>
                             </a>
-                            <div class="read-more"><a href="./blog-post.html" class="hvr-icon-back">بیشتر خوانید <i class="fa fa-arrow-left hvr-icon"></i></a></div>
+                            <div class="read-more"><a href="./blog-post.html" class="hvr-icon-back">بیشتر خوانید <i
+                                        class="fa fa-arrow-left hvr-icon"></i></a></div>
                         </div>
                     </div>
                 </div>
@@ -298,16 +329,22 @@
                 <!-- /Blog Post -->
                 <div class="col">
                     <div class="blog-post-box" data-aos="fade-up" data-aos-duration="1000">
-                        <a href="./blog-post.html"><div class="post-image" style="background-image: url('/assets/front/assets/images/blog/post101.jpg')"></div></a>
+                        <a href="./blog-post.html">
+                            <div class="post-image"
+                                 style="background-image: url('/assets/front/assets/images/blog/post101.jpg')"></div>
+                        </a>
                         <div class="details py-3 px-4">
                             <div class="post-date">ارسال شده در 30 خرداد 1400</div>
                             <a href="./blog-post.html">
                                 <h2 class="post-title">سامسونگ گلکسی S21 اولترا 5G</h2>
                             </a>
                             <a href="./blog-post.html">
-                                <div class="post-description">سامسونگ برای گوشی پرچم‌دارش، یعنی گلکسی S21 اولترا 5G، علاوه‌بر رنگ‌های قبلی، رنگ جدید سرمه‌ای را معرفی کرد.</div>
+                                <div class="post-description">سامسونگ برای گوشی پرچم‌دارش، یعنی گلکسی S21 اولترا 5G،
+                                    علاوه‌بر رنگ‌های قبلی، رنگ جدید سرمه‌ای را معرفی کرد.
+                                </div>
                             </a>
-                            <div class="read-more"><a href="./blog-post.html" class="hvr-icon-back">بیشتر خوانید <i class="fa fa-arrow-left hvr-icon"></i></a></div>
+                            <div class="read-more"><a href="./blog-post.html" class="hvr-icon-back">بیشتر خوانید <i
+                                        class="fa fa-arrow-left hvr-icon"></i></a></div>
                         </div>
                     </div>
                 </div>
@@ -315,16 +352,22 @@
                 <!-- /Blog Post -->
                 <div class="col">
                     <div class="blog-post-box" data-aos="fade-up" data-aos-duration="1000">
-                        <a href="./blog-post.html"><div class="post-image" style="background-image: url('/assets/front/assets/images/blog/post102.jpg')"></div></a>
+                        <a href="./blog-post.html">
+                            <div class="post-image"
+                                 style="background-image: url('/assets/front/assets/images/blog/post102.jpg')"></div>
+                        </a>
                         <div class="details py-3 px-4">
                             <div class="post-date">ارسال شده در 30 خرداد 1400</div>
                             <a href="./blog-post.html">
                                 <h2 class="post-title">دریافت گواهی بلوتوث گلکسی A03s سامسونگ</h2>
                             </a>
                             <a href="./blog-post.html">
-                                <div class="post-description">ماه گذشته، برای اولین‌بار اطلاعاتی از گلکسی A03s فاش شد و اکنون با دریافت گواهی بلوتوث، به زمان رونمایی این گوشی نزدیک شده‌ایم.</div>
+                                <div class="post-description">ماه گذشته، برای اولین‌بار اطلاعاتی از گلکسی A03s فاش شد و
+                                    اکنون با دریافت گواهی بلوتوث، به زمان رونمایی این گوشی نزدیک شده‌ایم.
+                                </div>
                             </a>
-                            <div class="read-more"><a href="./blog-post.html" class="hvr-icon-back">بیشتر خوانید <i class="fa fa-arrow-left hvr-icon"></i></a></div>
+                            <div class="read-more"><a href="./blog-post.html" class="hvr-icon-back">بیشتر خوانید <i
+                                        class="fa fa-arrow-left hvr-icon"></i></a></div>
                         </div>
                     </div>
                 </div>

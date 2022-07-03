@@ -97,14 +97,18 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col-6 col-md-2">
+                                                                @if($cartItem->associatedModel->hasDiscount)
                                                                 <div class="d-md-none font-weight-bold">تخفیف</div>
                                                                 <div class="pt-1"><span
-                                                                        class="product-discount">{{  $cartItem->associatedModel->discountAmount() }} </span>
+                                                                        class="product-discount">{{  $cartItem->associatedModel->discountAmount() * $cartItem->quantity }} </span>
                                                                     <span>تومان</span></div>
+                                                                @else
+                                                                    ندارد
+                                                                @endif
                                                             </div>
                                                             <div class="col-6 col-md-2 pr-0">
                                                                 <div class="d-md-none font-weight-bold">قیمت نهایی</div>
-                                                                <div class="pt-1 pr-2 bg-light"><span class="product-total">{{  number_format(\Cart::getSubTotal()) }}</span>
+                                                                <div class="pt-1 pr-2 bg-light"><span class="product-total">{{  number_format($cartItem->quantity * $cartItem->price) }}</span>
                                                                     <span>تومان</span></div>
                                                                 <a href="{{ route('front.cart.remove' , $cartItem->id) }}" class="product-remove btn-remove-from-basket"
                                                                    data-id="">
@@ -155,18 +159,20 @@
                                     <div class="container">
                                         <div class="row py-2">
                                             <div class="col-6">
-                                                <div>جمع کل فاکتور:</div>
+                                                <div>مبلغ سفارش:</div>
                                             </div>
                                             <div class="col-6">
-                                                <div><span id="factor-total-price">{{ number_format(\Cart::getTotal()) }}</span> تومان</div>
+                                                <div>
+                                                    <span id="factor-total-price">{{ number_format(\Cart::getTotal()) }}</span> تومان
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="row py-2 bg-light">
                                             <div class="col-6">
-                                                <div>جمع تخفیف:</div>
+                                                <div>مبلغ تخفیف :</div>
                                             </div>
                                             <div class="col-6">
-                                                <div><span id="factor-total-discount"></span>   {{ 0 }}تومان</div>
+                                                <div><span id="factor-total-discount"></span>    {{ getDiscountAmount()  }} تومان</div>
                                             </div>
                                         </div>
                                         <div class="row py-2" id="total">

@@ -14,7 +14,9 @@ class HomeController extends Controller
         $topBanners = resolve(SlideRepositoryInterface::class)->getTopPageBanners();
         $sliders = resolve(SlideRepositoryInterface::class)->getSliders();
         $products = resolve(ProductRepositoryInterface::class)->getSelectedProducts();
-        return view('Front::index' , compact('products' , 'sliders' , 'bottomBanners' ,'topBanners'));
+        $productWithDiscount = resolve(ProductRepositoryInterface::class)->getProductWithDiscount();
+        return view('Front::index' , compact('products' , 'sliders' ,
+            'bottomBanners' ,'topBanners' , 'productWithDiscount'));
     }
 
 

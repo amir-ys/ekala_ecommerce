@@ -19,3 +19,16 @@ if (!function_exists('newFeedback')){
         session()->flash('newFeedback'  , $session ) ;
     }
 }
+
+
+if (!function_exists('getDiscountAmount')){
+    function getDiscountAmount() {
+        $discountAmount = 0;
+        foreach (\Cart::getContent() as $cartItem){
+           $discountAmount += $cartItem->associatedModel->discountAmount() * $cartItem->quantity;
+        }
+        return $discountAmount;
+    }
+
+}
+

@@ -26,6 +26,7 @@ class Product extends Model
     protected $casts = [
         'is_active' => ProductStatus::class
     ];
+    protected $with = [ 'brand' , 'category' , 'images' , 'allImages' ];
 
     public static function factory(): ProductFactory
     {
@@ -116,21 +117,37 @@ class Product extends Model
         return route('front.product.details' , $this->slug);
     }
 
+
+    public function hasDiscount() :Attribute
+    {
+       return Attribute::get(function (){
+           if (!is_null($this->special_price) && ($this->special_price_start < now() && $this->special_price_end  >  now())) return true;
+        });
+    }
+
     public function priceWithDiscount()
     {
-        #todo
-        return '100,000' ;
+       if (!is_null($this->special_price) && ($this->special_price_start < now() && $this->special_price_end  >  now())){
+           return $this->special_price;
+       }
+       return $this->price;
     }
 
     public function finalPrice()
     {
-        //todo
-        return $this->price;
+        if ($this->hasDiscount){
+           return $this->priceWithDiscount();
+        }
+        return  $this->price;
     }
 
     public function discountAmount()
     {
-        return 120000;
+        $discountAmount = 0;
+        if ($this->hasDiscount){
+            $discountAmount = $this->price - $this->priceWithDiscount() ;
+        }
+        return $discountAmount;
     }
 
     public function findProductInWishlist($userId)

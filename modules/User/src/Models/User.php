@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Modules\Comment\Models\Comment;
+use Modules\Product\Models\Wishlist;
 use Modules\User\Database\Factories\UserFactory;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -28,6 +29,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public static function factory(): UserFactory
     {
         return new UserFactory();
+    }
+
+    public function wishlist(): HasMany
+    {
+        return $this->hasMany(Wishlist::class , 'user_id');
     }
 
     protected $fillable = [

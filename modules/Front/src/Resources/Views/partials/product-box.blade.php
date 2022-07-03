@@ -11,14 +11,16 @@
                 <a >{{ $product->brand->name }}</a>
             </div>
             <a href="{{ $product->path() }}"><h2>{{ $product->name }}</h2></a>
-            @if($discount)
+            @if($product->hasDiscount)
                 <div>
-                    <span class="discounted">{{ $product->priceWithDiscount() }} تومان</span>
+                    <span class="discounted">{{ $product->formattedPrice() }} تومان</span>
                     <br class="d-sm-none">
-                    <span class="price">{{ $product->formattedPrice() }} تومان</span>
+                    <span class="price">{{ $product->priceWithDiscount() }} تومان</span>
                 </div>
             @else
-            <div class="price">{{ $product->formattedPrice() }}</div>
+                <div>
+                    <span class="price">{{ $product->priceWithDiscount() }} تومان</span>
+                </div>
             @endif
             <div class="rate">
                 <i class="fa fa-star-half-alt"></i>

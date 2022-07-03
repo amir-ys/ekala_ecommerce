@@ -191,6 +191,7 @@ class ProductRepo extends BaseRepository implements ProductRepositoryInterface
        return $model->wishlist()->where('user_id' , $userId)->first();
     }
 
+
     public function findProductByIds($ids)
     {
         return $this->query->whereIn('id' , $ids)->get();
@@ -202,4 +203,11 @@ class ProductRepo extends BaseRepository implements ProductRepositoryInterface
             ->where('id' , $id)->first();
     }
 
+    public function getProductWithDiscount()
+    {
+       return $this->query->whereNotNull('special_price')
+            ->where('special_price_start' , '<' , now())
+            ->where('special_price_end' , '>' , now())->get();
+
+    }
 }

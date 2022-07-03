@@ -16,7 +16,7 @@
                 <div class="row">
                     @auth
                         <div class="col-12 col-md-7 col-lg-6 text-center" id="btn-login-register">
-                            <a href=""> پروفایل کاربری </a> /
+                            <a href="{{ route('front.user.personalInfo.index') }}"> پروفایل کاربری </a>
                         </div>
                     @else
                         <div class="col-12 col-md-7 col-lg-6 text-center" id="btn-login-register">

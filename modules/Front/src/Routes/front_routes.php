@@ -8,7 +8,16 @@ use Modules\Front\Http\Controllers\CompareController;
 use Modules\Front\Http\Controllers\HomeController;
 use Modules\Front\Http\Controllers\ImageController;
 use Modules\Front\Http\Controllers\ProductController;
+use Modules\Front\Http\Controllers\UserController;
 use Modules\Product\Http\Controllers\ProductImageController;
+
+Route::group([ 'middleware' => 'auth' ] ,  function (){
+    //user-profile
+    Route::get('/user/profile/personal-info' , [UserController::class , 'personalInfo'])->name('front.user.personalInfo.index');
+    Route::get('/user/profile/wishlists' , [UserController::class , 'wishlists'])->name('front.user.wishlists.index');
+    Route::get('/user/profile/orders' , [UserController::class , 'orders'])->name('front.user.orders.index');
+    Route::get('/user/profile/addresses' , [UserController::class , 'addresses'])->name('front.user.addresses.index');
+});
 
 Route::group([] , function (){
    Route::get('/' , [ HomeController::class  , 'index'])->name('front.home');
@@ -33,9 +42,6 @@ Route::group([] , function (){
     Route::get('/cart/clear' , [CartController::class , 'clear'])->name('front.cart.clear');
     Route::get('/cart/{id}/remove' , [CartController::class , 'remove'])->name('front.cart.remove');
     Route::get('/cart/update' , [CartController::class , 'update'])->name('front.cart.update');
-    Route::get('test' ,function (){
-//       \Cart::clear();
-       dd( \Cart::getContent());
-    });
+
 
 });

@@ -37,7 +37,7 @@ class AuthenticatedSessionController extends Controller
         session()->regenerate();
 
         //todo customize redirect user
-        return redirect()->route('panel.home');
+        return redirect()->intended();
 
     }
 

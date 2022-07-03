@@ -72,12 +72,12 @@
                                             </ul>
                                         </li>
                                         <li class="droopmenu-parent" aria-haspopup="true">
-                                            <a href="profile/personal-info.html" aria-expanded="false">پروفایل کاربری<em class="droopmenu-topanim"></em></a><div class="dm-arrow"></div>
+                                            <a href="{{ route('front.user.personalInfo.index') }}" aria-expanded="false">پروفایل کاربری<em class="droopmenu-topanim"></em></a><div class="dm-arrow"></div>
                                             <ul style="">
-                                                <li><a href="profile/personal-info.html">مشخصات کاربری</a></li>
-                                                <li><a href="profile/factors.html">سفارشات</a></li>
-                                                <li><a href="profile/addresses.html">آدرس ها</a></li>
-                                                <li><a href="profile/favorites.html">علاقه مندی ها</a></li>
+                                                <li><a href="{{ route('front.user.personalInfo.index') }}">مشخصات کاربری</a></li>
+                                                <li><a href="{{ route('front.user.orders.index') }}">سفارشات</a></li>
+                                                <li><a href="{{ route('front.user.addresses.index') }}">آدرس ها</a></li>
+                                                <li><a href="{{ route('front.user.wishlists.index') }}">علاقه مندی ها</a></li>
                                             </ul>
                                         </li>
                                     </ul>
