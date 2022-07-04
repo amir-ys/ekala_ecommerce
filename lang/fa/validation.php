@@ -177,5 +177,6 @@ return [
         'terms'                 => 'شرایط',
         'province'              => 'استان',
         'is_active'              => 'وضعیت',
+        'code'              => 'کد',
     ],
 ];

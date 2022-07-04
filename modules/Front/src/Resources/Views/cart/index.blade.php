@@ -100,7 +100,7 @@
                                                                 @if($cartItem->associatedModel->hasDiscount)
                                                                 <div class="d-md-none font-weight-bold">تخفیف</div>
                                                                 <div class="pt-1"><span
-                                                                        class="product-discount">{{  $cartItem->associatedModel->discountAmount() * $cartItem->quantity }} </span>
+                                                                        class="product-discount">{{  $cartItem->associatedModel->discountAmount()  }} </span>
                                                                     <span>تومان</span></div>
                                                                 @else
                                                                     ندارد
@@ -169,24 +169,67 @@
                                         </div>
                                         <div class="row py-2 bg-light">
                                             <div class="col-6">
-                                                <div>مبلغ تخفیف :</div>
+                                                <div>مبلغ تخفیف (اعمال شده) :</div>
                                             </div>
                                             <div class="col-6">
-                                                <div><span id="factor-total-discount"></span>    {{ getDiscountAmount()  }} تومان</div>
+                                                <div><span id="factor-total-discount"></span>    {{ number_format(getDiscountAmount())  }} تومان</div>
                                             </div>
                                         </div>
+                                        @if(session()->has('coupon'))
+                                            <div class="row py-2 bg-light">
+                                                <div class="col-6">
+                                                    <div>کد تخفیف : </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div><span id="factor-total-discount"></span>    {{ number_format(session()->get('coupon')['amount'])  }} تومان</div>
+                                                </div>
+                                            </div>
+                                        @endif
                                         <div class="row py-2" id="total">
                                             <div class="col-6">
                                                 <div>مبلغ قابل پرداخت:</div>
                                             </div>
                                             <div class="col-6">
-                                                <div><span id="factor-total">3.000.000</span> تومان</div>
+                                                <div><span id="factor-total">
+                                                        @php
+                                                        $discountAmount = 0;
+                                                            if (session()->has('coupon')) $discountAmount += session('coupon')['amount'];
+                                                        @endphp
+                                                        {{ number_format(\Cart::getTotal() - ( $discountAmount )) }}</span> تومان</div>
                                             </div>
                                         </div>
                                         <div class="row py-2">
                                             <div class="col-12">
                                                 <a href="./checkout.html"><input type="submit" value="ادامه ثبت سفارش"
                                                                                  class="btn btn-success w-100"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 width-100">
+                                <div class="cart-products">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="cart border border-2">
+                                                <div class="cart-body mb-1 mt-1">
+                                                    <form method="get" action="{{ route('front.coupon.check') }}">
+                                                        <div class="row">
+                                                            <div class="col-lg-4">
+                                                                <div class="form-group">
+                                                                    <input type="text" class="form-control" id="code"
+                                                                           name="code" placeholder=" کد تخفیف" required value="{{old("code")}}">
+                                                                    <x-validation-error field="code" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-2 mb-1">
+                                                                <div class="form-group">
+                                                                    <button class="btn btn-primary" type="submit" > ثبت </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

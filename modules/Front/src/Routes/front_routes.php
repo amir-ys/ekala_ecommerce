@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Modules\Front\Http\Controllers\CartController;
 use Modules\Front\Http\Controllers\CategoryController;
 use Modules\Front\Http\Controllers\CompareController;
+use Modules\Front\Http\Controllers\CouponController;
 use Modules\Front\Http\Controllers\HomeController;
 use Modules\Front\Http\Controllers\ImageController;
 use Modules\Front\Http\Controllers\ProductController;
@@ -43,5 +44,7 @@ Route::group([] , function (){
     Route::get('/cart/{id}/remove' , [CartController::class , 'remove'])->name('front.cart.remove');
     Route::get('/cart/update' , [CartController::class , 'update'])->name('front.cart.update');
 
+    //coupon
+    Route::get('/coupon/check' , [CouponController::class , 'check'])->name('front.coupon.check');
 
 });

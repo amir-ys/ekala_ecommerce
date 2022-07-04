@@ -70,7 +70,7 @@
                                 <div class="form-group">
                                     <label class="text-capitalize"
                                            for="expired_at"> تاریخ اعتبار </label>
-                                    <input type="text" class="form-control" id="expired_at"
+                                    <input type="datetime-local" class="form-control" id="expired_at"
                                            name="expired_at" placeholder="تاریخ اعتبار"
                                            value="{{old("expired_at")}}">
                                     <x-validation-error field="expired_at" />
