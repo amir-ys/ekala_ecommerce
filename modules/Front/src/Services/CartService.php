@@ -60,4 +60,9 @@ class CartService
     {
         \Cart::remove($id);
     }
+
+    public static function empty()
+    {
+        return \Cart::isEmpty();
+    }
 }

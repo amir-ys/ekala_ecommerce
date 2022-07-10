@@ -195,12 +195,13 @@
                                                         $discountAmount = 0;
                                                             if (session()->has('coupon')) $discountAmount += session('coupon')['amount'];
                                                         @endphp
-                                                        {{ number_format(\Cart::getTotal() - ( $discountAmount )) }}</span> تومان</div>
+                                                        {{ number_format(\Cart::getTotal() - ( $discountAmount )) }}</span> تومان
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="row py-2">
                                             <div class="col-12">
-                                                <a href="./checkout.html"><input type="submit" value="ادامه ثبت سفارش"
+                                                <a href="{{ route('front.checkout.page')  }}"><input type="submit" value="ادامه ثبت سفارش"
                                                                                  class="btn btn-success w-100"></a>
                                             </div>
                                         </div>
@@ -224,7 +225,7 @@
                                                             </div>
                                                             <div class="col-lg-2 mb-1">
                                                                 <div class="form-group">
-                                                                    <button class="btn btn-primary" type="submit" > ثبت </button>
+                                                                    <button class="btn btn-outline-success font-weight-bold" type="submit" > ثبت </button>
                                                                 </div>
                                                             </div>
                                                         </div>

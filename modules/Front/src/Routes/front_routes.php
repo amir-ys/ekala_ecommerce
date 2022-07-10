@@ -4,6 +4,7 @@ namespace Modules\Routes;
 use Illuminate\Support\Facades\Route;
 use Modules\Front\Http\Controllers\CartController;
 use Modules\Front\Http\Controllers\CategoryController;
+use Modules\Front\Http\Controllers\CheckoutController;
 use Modules\Front\Http\Controllers\CompareController;
 use Modules\Front\Http\Controllers\CouponController;
 use Modules\Front\Http\Controllers\HomeController;
@@ -46,5 +47,8 @@ Route::group([] , function (){
 
     //coupon
     Route::get('/coupon/check' , [CouponController::class , 'check'])->name('front.coupon.check');
+
+    //checkout
+    Route::get('/checkout' , [CheckoutController::class , 'showPage'])->name('front.checkout.page');
 
 });
