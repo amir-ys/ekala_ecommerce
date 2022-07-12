@@ -50,5 +50,6 @@ Route::group([] , function (){
 
     //checkout
     Route::get('/checkout' , [CheckoutController::class , 'showPage'])->name('front.checkout.page');
+    Route::post('/checkout' , [CheckoutController::class , 'checkout'])->name('front.checkout.check');
 
 });

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8886ecef92402c81d4c70e6d97763e6f",
+    "content-hash": "49362152b47cfe81ebefe7f5883f6076",
     "packages": [
         {
             "name": "amir_ys/attribute-module",
@@ -154,7 +154,7 @@
             "dist": {
                 "type": "path",
                 "url": "modules/Coupon",
-                "reference": "d2386acf0e9619400825992a6949d97503dcec3b"
+                "reference": "a4037a32603f7a21e1642d8dff84cb594a7b8cfc"
             },
             "type": "library",
             "extra": {
@@ -211,6 +211,29 @@
             "autoload": {
                 "psr-4": {
                     "Modules\\Front\\": "src"
+                }
+            },
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "amir_ys/payment-module",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "modules/Payment",
+                "reference": "323dce65628ee14975e818ebb1979937ee9bf477"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": "Modules\\Payment\\Providers\\PaymentServiceProvider"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Modules\\Payment\\": "src"
                 }
             },
             "transport-options": {
@@ -8726,6 +8749,7 @@
         "amir_ys/coupon-module": 20,
         "amir_ys/dashboard-module": 20,
         "amir_ys/front-module": 20,
+        "amir_ys/payment-module": 20,
         "amir_ys/product-module": 20,
         "amir_ys/slide-module": 20,
         "amir_ys/user-module": 20

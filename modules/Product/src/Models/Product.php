@@ -26,7 +26,6 @@ class Product extends Model
     protected $casts = [
         'is_active' => ProductStatus::class
     ];
-    protected $with = [ 'brand' , 'category' , 'images' , 'allImages' ];
 
     public static function factory(): ProductFactory
     {

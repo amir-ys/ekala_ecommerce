@@ -158,6 +158,8 @@
                                         </div>
                                     </div>
                                     <hr>
+                                    <form action="{{ route('front.checkout.check') }}" method="post">
+                                        @csrf
                                     <div class="container">
                                         <div class="row py-2">
                                             <div class="col-12">
@@ -172,29 +174,30 @@
                                                                checked>پرداخت آنلاین
                                                     </label>
                                                 </div>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input type="radio" class="form-check-input"
-                                                               name="payment_type">ثبت فیش پرداخت/کارت به کارت
-                                                    </label>
-                                                </div>
+{{--                                                <div class="form-check">--}}
+{{--                                                    <label class="form-check-label">--}}
+{{--                                                        <input type="radio" class="form-check-input"--}}
+{{--                                                               name="payment_type">ثبت فیش پرداخت/کارت به کارت--}}
+{{--                                                    </label>--}}
+{{--                                                </div>--}}
                                             </div>
-                                            <div class="col-12 pb-2" id="rules">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input type="checkbox" class="form-check-input"
-                                                               name="accept_rules" value="1"><a href="#"
-                                                                                                target="_blank">قوانین و
-                                                            مقررات</a> را خواندم و قبول دارم.
-                                                    </label>
-                                                </div>
-                                            </div>
+{{--                                            <div class="col-12 pb-2" id="rules">--}}
+{{--                                                <div class="form-check">--}}
+{{--                                                    <label class="form-check-label">--}}
+{{--                                                        <input type="checkbox" class="form-check-input"--}}
+{{--                                                               name="accept_rules" value="1"><a href="#"--}}
+{{--                                                                                                target="_blank">قوانین و--}}
+{{--                                                            مقررات</a> را خواندم و قبول دارم.--}}
+{{--                                                    </label>--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
                                             <div class="col-12">
                                                 <input type="submit" value="پرداخت و تکمیل خرید"
                                                        class="btn btn-success w-100">
                                             </div>
                                         </div>
                                     </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
