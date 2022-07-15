@@ -30,5 +30,24 @@ if (!function_exists('getDiscountAmount')){
         return $discountAmount;
     }
 
+    //todo temprary
+    if (!function_exists('coupon')) {
+        function coupon($key = 'amount')
+        {
+            if (!Session()->has('coupon')) {
+                return null;
+            }
+            if ($key == 'amount') {
+                return session()->get('coupon')['amount'];
+            }
+
+            if ($key == 'id') {
+                dd(session()->get('coupon')['nxc']);
+                return session()->get('coupon')['coupon_id'] ?? null ;
+
+            }
+        }
+    }
+
 }
 

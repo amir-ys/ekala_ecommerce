@@ -55,11 +55,11 @@ class CouponController extends Controller
     private function storeCouponInSession($coupon)
     {
         if ($coupon->type == Coupon::TYPE_AMOUNT) {
-            session()->put('coupon', ['code' => $coupon->code, 'amount' => $coupon->amount]);
+            session()->put('coupon', ['code' => $coupon->code, 'amount' => $coupon->amount , 'coupon_id' => $coupon->id]);
         } elseif ($coupon->type == Coupon::TYPE_PERCENT) {
             $total = \Cart::getTotal();
             $amount = (($total * $coupon->percent) / 100);
-            session()->put('coupon', ['code' => $coupon->code, 'amount' => $amount]);
+            session()->put('coupon', ['code' => $coupon->code, 'amount' => $amount , 'coupon_id' => $coupon->id]);
         }
     }
 

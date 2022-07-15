@@ -3,7 +3,10 @@
     "autoload": {
         "psr-4": {
             "Modules\\Front\\" : "src"
-        }
+        },
+        "files": [
+            "src/Http/Helpers/helper.php"
+        ]
     },
 
     "extra": {
