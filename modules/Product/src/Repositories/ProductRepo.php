@@ -128,7 +128,7 @@ class ProductRepo extends BaseRepository implements ProductRepositoryInterface
 
     public function getSelectedProducts()
     {
-        return $this->query->where('is_active', ProductStatus::ACTIVE->value)->get();
+        return $this->query->with(['category' , 'brand'  , 'primaryImage'])->where('is_active', ProductStatus::ACTIVE->value)->get();
     }
 
     public function getProductsOrderByRequest()

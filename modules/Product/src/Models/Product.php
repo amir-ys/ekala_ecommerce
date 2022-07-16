@@ -70,12 +70,10 @@ class Product extends Model
             ->where('is_primary' ,ProductImage::IS_PRIMARY_FALSE );
     }
 
-    public function primaryImage() :Attribute
+    public function primaryImage() : \Illuminate\Database\Eloquent\Relations\HasOne
     {
-     return Attribute::get(function (){
-          return $this->hasMany(ProductImage::class , 'product_id')->
-          where('is_primary' , ProductImage::IS_PRIMARY_TRUE)->first();
-      });
+        return $this->hasOne(ProductImage::class , 'product_id')->
+          where('is_primary' , ProductImage::IS_PRIMARY_TRUE);
     }
 
     public function comments()
