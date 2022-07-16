@@ -4,6 +4,7 @@ namespace Modules\Payment\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Modules\Front\Services\CartService;
 use Modules\Payment\Contracts\OrderRepositoryInterface;
 use Modules\Payment\Contracts\TransactionRepositoryInterface;
@@ -24,22 +25,21 @@ class TransactionController extends Controller
     public function callback(Request $request)
     {
         $gateway = resolve(Gateway::class);
-        $token = $request->input('Authority');
+        $token = $this->getTokenFromRequest();
         $transaction = $this->checkTokenExistsInTransaction($token);
         $result = $gateway->verify($request, $transaction->amount);
 
-
         if (is_array($result)) {
-            CartService::clearAll();
             $this->orderRepo->changeStatus($transaction->order->id, Transaction::STATUS_FAILED);
             $this->transactionRepo->changeStatus($transaction->id, Transaction::STATUS_FAILED);
-            alert()->error('پرداخت ناموفق',  'سفارش شما انجام نشد.' .  $result['message'] );
+            alert()->error('پرداخت ناموفق', 'سفارش شما انجام نشد.' . $result['message']);
         } else {
-            CartService::clearAll();
             $this->orderRepo->changeStatus($transaction->order->id, Transaction::STATUS_SUCCESS);
             $this->transactionRepo->changeStatus($transaction->id, Transaction::STATUS_SUCCESS);
             alert()->success('پرداخت موفق', 'سفارش شما باموفقیت انجام شد.');
         }
+        CartService::clearAll();
+        $this->clearPaymentMethodFromCache();
         return redirect()->route('front.home');
     }
 
@@ -52,4 +52,17 @@ class TransactionController extends Controller
         }
         return $transaction;
     }
+
+    private function clearPaymentMethodFromCache()
+    {
+        Cache::pull('payment_method');
+    }
+
+    private function getTokenFromRequest()
+    {
+        $token = config('payment.' . Cache::get('payment_method') . '.callback_request_name');
+        return request()->input($token);
+    }
 }
+
+

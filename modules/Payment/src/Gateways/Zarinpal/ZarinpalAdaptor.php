@@ -7,7 +7,7 @@ namespace Modules\Payment\Gateways\Zarinpal;
 use Modules\Payment\Contracts\GatewayContract;
 use Modules\Payment\Gateways\Gateway;
 
-class ZarinpalAdaptor implements GatewayContract
+class ZarinpalAdaptor extends Gateway implements GatewayContract
 {
     private $url;
     private $client;
@@ -15,9 +15,8 @@ class ZarinpalAdaptor implements GatewayContract
     public function request($amount, $description)
     {
         $this->client = new Zarinpal();
-        $callback = route('panel.payment.pay.callback');
         $result = $this->client->request(config('payment.zarinpal.merchant'), $amount, $description,
-            '', '', $callback, true);
+            '', '', $this->callbackUrl(), true);
         if (isset($result["Status"]) && $result["Status"] == 100) {
             $this->url = $result['StartPay'];
             return $result['Authority'];

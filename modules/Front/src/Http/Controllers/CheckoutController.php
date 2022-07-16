@@ -4,6 +4,7 @@ namespace Modules\Front\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Modules\Front\Services\CartService;
 use Modules\Product\Contracts\ProductRepositoryInterface;
 
@@ -29,6 +30,7 @@ class CheckoutController extends Controller
             alert()->error('ناموفق' , $valuesStatus['message']);
             return  redirect()->route('front.cart.index');
         }
+        $this->storePaymentMethodInCache($request->payment_method);
         return redirect()->route('panel.payment.pay');
     }
 
@@ -52,6 +54,11 @@ class CheckoutController extends Controller
                 return [ 'status' => -1 , 'message' => 'موجودی محصولات تغییر پیدا کرده است.'  ];
             }
         }
+    }
+
+    private function storePaymentMethodInCache($paymentMethod)
+    {
+        Cache::put('payment_method' , $paymentMethod);
     }
 
 }

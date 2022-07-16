@@ -4,5 +4,8 @@ namespace Modules\Payment\Gateways;
 
 class Gateway
 {
-
+    public function callbackUrl(): string
+    {
+        return route('panel.payment.pay.callback');
+    }
 }

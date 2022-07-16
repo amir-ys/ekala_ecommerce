@@ -85,16 +85,19 @@
                                                 <div class="row">
                                                     <!-- Order Product Record -->
                                                     @foreach(\Modules\Front\Services\CartService::getItems() as $cartItem)
-                                                    <span class="col-6 col-sm-4 col-lg-3 px-0">
+                                                        <span class="col-6 col-sm-4 col-lg-3 px-0">
                                                     <a href="{{ $cartItem->associatedModel->path() }}" target="_blank">
                                                         <div class="product-box">
                                                             <div class="image">
                                                                 <img src="{{ $cartItem->associatedModel->primaryImage
-                                                                    ? route('image.display' , $cartItem->associatedModel->primaryImage->name) : ''}}" alt="">
+                                                                    ? route('image.display' , $cartItem->associatedModel->primaryImage->name) : ''}}"
+                                                                     alt="">
                                                             </div>
                                                             <div class="text-center px-1 px-sm-3">
-                                                                <a href="{{ $cartItem->associatedModel->path() }}" target="_blank"><h2>{{ $cartItem->associatedModel->name }}</h2></a>
-                                                                <div class="number">قیمت:  {{ $cartItem->price }}  تومان</div>
+                                                                <a href="{{ $cartItem->associatedModel->path() }}"
+                                                                   target="_blank"><h2>{{ $cartItem->associatedModel->name }}</h2></a>
+                                                                <div
+                                                                    class="number">قیمت:  {{ $cartItem->price }}  تومان</div>
                                                                 <div class="number">تعداد:  {{ $cartItem->quantity }}  عدد</div>
                                                             </div>
                                                         </div>
@@ -122,7 +125,8 @@
                                             <div class="col-6">
                                                 <div>
                                                     {{ number_format(\Cart::getTotal()) }}
-                                                    تومان</div>
+                                                    تومان
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="row py-2 bg-light">
@@ -136,7 +140,8 @@
                                                             if (session()->has('coupon')) $discountAmount += session('coupon')['amount'];
                                                     @endphp
                                                     {{ $discountAmount }}
-                                                    تومان</div>
+                                                    تومان
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="row py-2">
@@ -153,50 +158,56 @@
                                             </div>
                                             <div class="col-6">
                                                 <div>{{ number_format(\Cart::getTotal() - ( $discountAmount )) }}
-                                                    تومان</div>
+                                                    تومان
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                     <hr>
                                     <form action="{{ route('front.checkout.check') }}" method="post">
                                         @csrf
-                                    <div class="container">
-                                        <div class="row py-2">
-                                            <div class="col-12">
-                                                <div>انتخاب نحوه پرداخت</div>
-                                            </div>
-                                        </div>
-                                        <div class="row pb-2">
-                                            <div class="col-12 pb-2">
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input type="radio" class="form-check-input" name="payment_type"
-                                                               checked>پرداخت آنلاین
-                                                    </label>
+                                        <div class="container">
+                                            <div class="row py-2">
+                                                <div class="col-12">
+                                                    <div>انتخاب درگاه پرداخت</div>
                                                 </div>
-{{--                                                <div class="form-check">--}}
-{{--                                                    <label class="form-check-label">--}}
-{{--                                                        <input type="radio" class="form-check-input"--}}
-{{--                                                               name="payment_type">ثبت فیش پرداخت/کارت به کارت--}}
-{{--                                                    </label>--}}
-{{--                                                </div>--}}
                                             </div>
-{{--                                            <div class="col-12 pb-2" id="rules">--}}
-{{--                                                <div class="form-check">--}}
-{{--                                                    <label class="form-check-label">--}}
-{{--                                                        <input type="checkbox" class="form-check-input"--}}
-{{--                                                               name="accept_rules" value="1"><a href="#"--}}
-{{--                                                                                                target="_blank">قوانین و--}}
-{{--                                                            مقررات</a> را خواندم و قبول دارم.--}}
-{{--                                                    </label>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-                                            <div class="col-12">
-                                                <input type="submit" value="پرداخت و تکمیل خرید"
-                                                       class="btn btn-success w-100">
+                                            <div class="row pb-2">
+                                                <div class="col-12 pb-2">
+                                                    @foreach(config('payment') as $paymentMethod => $paymentInfo)
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input name="payment_method"  type="radio" class="form-check-input" value="{{ ($paymentMethod) }}"
+                                                                   name="payment_type"
+                                                                   @checked($paymentMethod == 'zarinpal' )>
+                                                            {{ $paymentInfo['name'] }}
+                                                        </label>
+                                                    </div>
+                                                    @endforeach
+
+                                                    {{--                                                <div class="form-check">--}}
+                                                    {{--                                                    <label class="form-check-label">--}}
+                                                    {{--                                                        <input type="radio" class="form-check-input"--}}
+                                                    {{--                                                               name="payment_type">ثبت فیش پرداخت/کارت به کارت--}}
+                                                    {{--                                                    </label>--}}
+                                                    {{--                                                </div>--}}
+                                                </div>
+                                                {{--                                            <div class="col-12 pb-2" id="rules">--}}
+                                                {{--                                                <div class="form-check">--}}
+                                                {{--                                                    <label class="form-check-label">--}}
+                                                {{--                                                        <input type="checkbox" class="form-check-input"--}}
+                                                {{--                                                               name="accept_rules" value="1"><a href="#"--}}
+                                                {{--                                                                                                target="_blank">قوانین و--}}
+                                                {{--                                                            مقررات</a> را خواندم و قبول دارم.--}}
+                                                {{--                                                    </label>--}}
+                                                {{--                                                </div>--}}
+                                                {{--                                            </div>--}}
+                                                <div class="col-12">
+                                                    <input type="submit" value="پرداخت و تکمیل خرید"
+                                                           class="btn btn-success w-100">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
                                     </form>
                                 </div>
                             </div>
