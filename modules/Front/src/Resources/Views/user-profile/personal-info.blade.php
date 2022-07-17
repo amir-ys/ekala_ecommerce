@@ -142,69 +142,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- /Profile Fields -->
-
-                                <!-- Latest Orders -->
-                                <div class="mt-2 order">
-                                    <div class="row pt-2 px-3">
-                                        <div class="col-12"><h2>آخرین سفارش ها</h2></div>
-                                    </div>
-                                </div>
-                                <div class="custom-container mt-2 order">
-                                    <div class="row pt-2 px-3">
-                                        <div class="col-12 col-sm-6"><h2>سفارش شماره #1234</h2></div>
-                                        <div class="col-12 col-sm-6 text-sm-end"><span>20 مرداد 1400</span> - <span>پرداخت شده</span>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="container">
-                                        <div class="row py-2">
-                                            <div class="col-12">
-                                                <div>
-                                                    <div class="header">
-                                                        <div class="total py-1"><span>مبلغ کل:</span> 3.000.000 تومان
-                                                        </div>
-                                                    </div>
-                                                    <div class="container products px-0">
-                                                        <div class="row">
-                                                            <!-- Order Record -->
-                                                            <span class="col-12 col-sm-6 col-lg-4 col-xl-3 px-1">
-                                                            <a href="../product.html" target="_blank">
-                                                                <div class="product-box">
-                                                                    <div class="image"
-                                                                         style="background-image: url('/assets/panel/assets/images/products/p100.png')"></div>
-                                                                    <div class="text-center px-1 px-sm-3">
-                                                                        <h2>گوشی موبایل سامسونگ مدل Galaxy A21s</h2>
-                                                                        <div class="number">تعداد: 1 عدد</div>
-                                                                        <div class="price">مبلغ: 3.000.000 عدد</div>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                        </span>
-                                                            <!-- /Order Record -->
-                                                            <!-- Order Record -->
-                                                            <span class="col-12 col-sm-6 col-lg-4 col-xl-3 px-1">
-                                                            <a href="../product.html" target="_blank">
-                                                                <div class="product-box">
-                                                                    <div class="image"
-                                                                         style="background-image: url('/assets/panel/assets/images/products/p100.png')"></div>
-                                                                    <div class="text-center px-1 px-sm-3">
-                                                                        <h2>گوشی موبایل سامسونگ مدل Galaxy A21s</h2>
-                                                                        <div class="number">تعداد: 1 عدد</div>
-                                                                        <div class="price">مبلغ: 3.000.000 عدد</div>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                        </span>
-                                                            <!-- /Order Record -->
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Latest Orders -->
                             </div>
                         </div>
                     </div>

@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Modules\Comment\Models\Comment;
+use Modules\Payment\Models\Order;
 use Modules\Product\Models\Wishlist;
 use Modules\User\Database\Factories\UserFactory;
 
@@ -54,6 +55,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class ,'user_id');
     }
 
     public static function getUploadDir()

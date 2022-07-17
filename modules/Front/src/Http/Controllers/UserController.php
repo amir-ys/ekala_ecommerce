@@ -3,9 +3,17 @@
 namespace Modules\Front\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Modules\User\Contracts\UserRepositoryInterface;
 
 class UserController extends Controller
 {
+    private UserRepositoryInterface $userRepo;
+
+    public function __construct(UserRepositoryInterface $userRepo)
+    {
+        $this->userRepo = $userRepo;
+    }
     public function personalInfo()
     {
         return view('Front::user-profile.personal-info');
@@ -16,9 +24,10 @@ class UserController extends Controller
         return view('Front::user-profile.wishlists');
     }
 
-    public function orders()
+    public function orders(Request $request)
     {
-        return view('Front::user-profile.orders');
+        $orders = $this->userRepo->getUserOrders(auth()->id() , $request->status);
+        return view('Front::user-profile.orders' , compact('orders'));
     }
 
     public function addresses()

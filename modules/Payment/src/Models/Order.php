@@ -2,6 +2,7 @@
 
 namespace Modules\Payment\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Coupon\Models\Coupon;
@@ -19,7 +20,8 @@ class Order extends Model
     }
 
     const STATUS_PENDING = 0;
-    const STATUS_SUCCESS = 1;
+    const STATUS_PAID = 1;
+    const STATUS_POSTED = 2;
     const STATUS_FAILED = -1;
 
     public function user()
@@ -36,4 +38,25 @@ class Order extends Model
     {
       return $this->hasMany(OrderItem::class , 'order_id');
     }
+
+    public function statusName() :Attribute
+    {
+        return Attribute::get(function (){
+           if ($this->status == self::STATUS_FAILED) return 'ناموفق';
+           if ($this->status == self::STATUS_POSTED) return 'پست شده';
+           if ($this->status == self::STATUS_PAID) return 'پرداخت شده';
+           if ($this->status == self::STATUS_PENDING) return 'در انتظار پرداخت';
+        });
+    }
+
+    public function statusCss() :Attribute
+    {
+        return Attribute::get(function (){
+            if ($this->status == self::STATUS_FAILED) return 'danger';
+            if ($this->status == self::STATUS_POSTED) return 'success';
+            if ($this->status == self::STATUS_PAID) return 'success';
+            if ($this->status == self::STATUS_PENDING) return 'warning';
+        });
+    }
+
 }

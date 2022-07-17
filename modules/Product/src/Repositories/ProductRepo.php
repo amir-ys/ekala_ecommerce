@@ -208,6 +208,12 @@ class ProductRepo extends BaseRepository implements ProductRepositoryInterface
        return $this->query->whereNotNull('special_price')
             ->where('special_price_start' , '<' , now())
             ->where('special_price_end' , '>' , now())->get();
+    }
 
+    public function reduceQuantity($id , $quantity)
+    {
+        $model = $this->query->find($id);
+        $model->decrement('quantity' ,$quantity);
+        $model->save();
     }
 }

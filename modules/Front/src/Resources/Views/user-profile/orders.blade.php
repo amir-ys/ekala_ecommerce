@@ -41,27 +41,24 @@
                                             <div class="col-12 px-0">
                                                 <ul class="px-3">
                                                     <li>
-                                                        <a href="#" class="active">
+                                                        <a href="{{ route('front.user.orders.index') }}?status={{ \Modules\Payment\Models\Order::STATUS_PENDING }}"
+                                                class="{{ request()->query('status') == \Modules\Payment\Models\Order::STATUS_PENDING ? 'active' : '' }}">
                                                             <span>در انتظار پرداخت</span>
                                                             <div class="badge badge-secondary">1</div>
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a href="#">
+                                                        <a href="{{ route('front.user.orders.index') }}?status={{ \Modules\Payment\Models\Order::STATUS_PAID  }}"
+                                                                  class="{{ request()->query('status') == \Modules\Payment\Models\Order::STATUS_PAID ? 'active' : '' }}"          >
                                                             <span>پرداخت شده</span>
                                                             <div class="badge badge-secondary">2</div>
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a href="#">
+                                                        <a href="{{ route('front.user.orders.index') }}?status={{ \Modules\Payment\Models\Order::STATUS_POSTED }}"
+                                                                         class="{{ request()->query('status') == \Modules\Payment\Models\Order::STATUS_POSTED ? 'active' : '' }}"           >
                                                             <span>ارسال شده</span>
                                                             <div class="badge badge-secondary">3</div>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">
-                                                            <span>تکمیل شده</span>
-                                                            <div class="badge badge-secondary">4</div>
                                                         </a>
                                                     </li>
                                                 </ul>
@@ -73,85 +70,41 @@
 
                                 <!-- Factors List -->
                                 <div class="custom-container mt-2 order">
-                                    <div class="row pt-2 px-3">
-                                        <div class="col-12 col-sm-6"><h2>سفارش شماره #1234</h2></div>
-                                        <div class="col-12 col-sm-6 text-sm-end"><span>20 مرداد 1400</span> - <span>پرداخت شده</span>
-                                        </div>
-                                    </div>
                                     <hr>
                                     <div class="container">
-                                        <div class="row py-2">
-                                            <div class="col-12">
-                                                <div>
-                                                    <div class="header">
-                                                        <div class="total py-1"><span>مبلغ کل:</span> 3.000.000 تومان
-                                                        </div>
-                                                    </div>
-                                                    <div class="container products px-0">
-                                                        <div class="row">
-                                                            <!-- Order Record -->
-                                                            <span class="col-12 col-sm-6 col-lg-4 col-xl-3 px-1">
-                                                            <a href="../product.html" target="_blank">
-                                                                <div class="product-box">
-                                                                    <div class="image"
-                                                                         style="background-image: url('../assets/images/products/p100.png')"></div>
-                                                                    <div class="text-center px-1 px-sm-3">
-                                                                        <h2>گوشی موبایل سامسونگ مدل Galaxy A21s</h2>
-                                                                        <div class="number">تعداد: 1 عدد</div>
-                                                                        <div class="price">مبلغ: 3.000.000 عدد</div>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                        </span>
-                                                            <!-- /Order Record -->
-                                                            <!-- Order Record -->
-                                                            <span class="col-12 col-sm-6 col-lg-4 col-xl-3 px-1">
-                                                            <a href="../product.html" target="_blank">
-                                                                <div class="product-box">
-                                                                    <div class="image"
-                                                                         style="background-image: url('../assets/images/products/p100.png')"></div>
-                                                                    <div class="text-center px-1 px-sm-3">
-                                                                        <h2>گوشی موبایل سامسونگ مدل Galaxy A21s</h2>
-                                                                        <div class="number">تعداد: 1 عدد</div>
-                                                                        <div class="price">مبلغ: 3.000.000 عدد</div>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                        </span>
-                                                            <!-- /Order Record -->
-                                                            <!-- Order Record -->
-                                                            <span class="col-12 col-sm-6 col-lg-4 col-xl-3 px-1">
-                                                            <a href="../product.html" target="_blank">
-                                                                <div class="product-box">
-                                                                    <div class="image"
-                                                                         style="background-image: url('../assets/images/products/p100.png')"></div>
-                                                                    <div class="text-center px-1 px-sm-3">
-                                                                        <h2>گوشی موبایل سامسونگ مدل Galaxy A21s</h2>
-                                                                        <div class="number">تعداد: 1 عدد</div>
-                                                                        <div class="price">مبلغ: 3.000.000 عدد</div>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                        </span>
-                                                            <!-- /Order Record -->
-                                                            <!-- Order Record -->
-                                                            <span class="col-12 col-sm-6 col-lg-4 col-xl-3 px-1">
-                                                            <a href="../product.html" target="_blank">
-                                                                <div class="product-box">
-                                                                    <div class="image"
-                                                                         style="background-image: url('../assets/images/products/p100.png')"></div>
-                                                                    <div class="text-center px-1 px-sm-3">
-                                                                        <h2>گوشی موبایل سامسونگ مدل Galaxy A21s</h2>
-                                                                        <div class="number">تعداد: 1 عدد</div>
-                                                                        <div class="price">مبلغ: 3.000.000 عدد</div>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                        </span>
-                                                            <!-- /Order Record -->
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                        <div class="row ">
+                                            <div class="table-responsive">
+                                                    <table id="table"  class="table table-hover table-borderless"   >
+    <thead>
+
+                                                        <tr>
+                                                            <th> شناسه سفارش </th>
+                                                            <th> تاریخ سفارش</th>
+                                                            <th>  درگاه پرداخت </th>
+                                                            <th>  کد تخفیف </th>
+                                                            <th> مبلغ </th>
+                                                            <th> وضعیت پرداخت </th>
+                                                            <th> عملیات </th>
+                                                        </tr>
+    </thead>
+    <tbody>
+    @foreach($orders as $order)
+    <tr>
+    <td> {{ $order->id }} </td>
+    <td> {{ getJalaliDate($order->created_at) }} </td>
+    <td> {{ $order->payment_type }} </td>
+    <td> {{ $order->coupon_id ? $order->coupon_amount : '-'  }} </td>
+    <td> {{ $order->paying_amount }} </td>
+    <td class="badge bg-{{ $order->status_css }}"> {{ $order->status_name }}
+    <td>
+    <a  href="#order-{{ $order->id }}" data-bs-toggle="modal" data-bs-target="#order-{{ $order->id }}" >
+    <i class="fa fa-eye"></i></a>
+    @include('Front::user-profile.partials.order-items-modal')
+    </td>
+    </tr>
+@endforeach
+    </tbody>
+                                                       </table>
                                             </div>
                                         </div>
                                     </div>
@@ -164,5 +117,10 @@
             </div>
         </div>
     </section>
-
 @endsection
+
+{{--@foreach($orders as $order)--}}
+{{--    @foreach($order->items as $orderItem)--}}
+{{--        @include('Front::partials.product-box' , ['product' => $orderItem->product  , 'discount' => false ])--}}
+{{--    @endforeach--}}
+{{--@endforeach--}}
