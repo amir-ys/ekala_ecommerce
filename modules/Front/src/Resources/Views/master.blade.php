@@ -30,8 +30,8 @@
 @include('Front::layouts.footer')
 
 <!-- Scripts -->
-@include('Front::layouts.scripts')
 @include('sweetalert::alert')
+@include('Front::layouts.scripts')
 <!-- /Scripts -->
 </body>
 </html>

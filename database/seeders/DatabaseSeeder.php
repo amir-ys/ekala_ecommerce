@@ -8,6 +8,7 @@ use Modules\AttributeGroup\Models\AttributeGroup;
 use Modules\Brand\Models\Brand;
 use Modules\Category\Models\Category;
 use Modules\Product\Models\Product;
+use Modules\User\Database\Seeders\ProvinceSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,11 +19,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Attribute::factory()->count(rand(1, 10))->create();
-        Category::factory()->count(rand(1, 10))->create();
-        AttributeGroup::factory()->count(rand(1, 10))->create();
-        Brand::factory()->count(rand(1, 10))->create();
-        Attribute::factory()->count(rand(1, 10))->create();
-        Product::factory()->count(rand(1, 10))->create();
+//        Attribute::factory()->count(rand(1, 10))->create();
+//        Category::factory()->count(rand(1, 10))->create();
+//        AttributeGroup::factory()->count(rand(1, 10))->create();
+//        Brand::factory()->count(rand(1, 10))->create();
+//        Attribute::factory()->count(rand(1, 10))->create();
+//        Product::factory()->count(rand(1, 10))->create();
+        $this->call([
+            ProvinceSeeder::class
+        ]);
     }
 }

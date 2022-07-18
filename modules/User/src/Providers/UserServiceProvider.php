@@ -3,7 +3,11 @@ namespace Modules\User\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Modules\User\Contracts\CityRepositoryInterface;
+use Modules\User\Contracts\ProvinceRepositoryInterface;
 use Modules\User\Contracts\UserRepositoryInterface;
+use Modules\User\Repositories\CityRepo;
+use Modules\User\Repositories\ProvinceRepo;
 use Modules\User\Repositories\UserRepo;
 
 class UserServiceProvider extends ServiceProvider
@@ -23,6 +27,8 @@ class UserServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->app->bind(UserRepositoryInterface::class , UserRepo::class);
+        $this->app->bind(ProvinceRepositoryInterface::class , ProvinceRepo::class);
+        $this->app->bind(CityRepositoryInterface::class , CityRepo::class);
     }
 
     private function loadUserRoute()

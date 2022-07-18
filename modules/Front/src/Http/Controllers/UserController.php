@@ -4,7 +4,9 @@ namespace Modules\Front\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Modules\User\Contracts\ProvinceRepositoryInterface;
 use Modules\User\Contracts\UserRepositoryInterface;
+use Modules\User\Repositories\UserRepo;
 
 class UserController extends Controller
 {
@@ -32,6 +34,8 @@ class UserController extends Controller
 
     public function addresses()
     {
-        return view('Front::user-profile.addresses');
+        $provinces = (resolve(ProvinceRepositoryInterface::class))->getAll();
+        $addresses = (resolve(UserRepo::class))->getAddresses(auth()->id());
+        return view('Front::user-profile.addresses' , compact('provinces' , 'addresses'));
     }
 }
