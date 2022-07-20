@@ -17,6 +17,7 @@
         "amir_ys/front-module": "dev-master",
         "amir_ys/payment-module": "dev-master",
         "amir_ys/product-module": "dev-master",
+        "amir_ys/setting-module": "dev-master",
         "amir_ys/slide-module": "dev-master",
         "amir_ys/user-module": "dev-master",
         "cviebrock/eloquent-sluggable": "^9.0",
@@ -97,6 +98,10 @@
         {
             "type" : "path" ,
             "url" : "modules/Payment"
+        } ,
+        {
+            "type" : "path" ,
+            "url" : "modules/Setting"
         }
     ],
     "autoload-dev": {

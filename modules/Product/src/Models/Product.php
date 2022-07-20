@@ -16,7 +16,6 @@ use Modules\Category\Models\Category;
 use Modules\Comment\Models\Comment;
 use Modules\Product\Database\Factories\ProductFactory;
 use Modules\Product\Enums\ProductStatus;
-use Modules\Product\Http\Controllers\ProductImageController;
 
 class Product extends Model
 {
@@ -85,7 +84,7 @@ class Product extends Model
     {
         return $this->comments()
             ->where('is_approved' , Comment::STATUS_APPROVED)
-            ->whereNull('parent_id');
+            ->whereNull('parent_id')->with([ 'comments' ,'user']);
     }
 
     public function wishlist(): HasMany
@@ -149,6 +148,6 @@ class Product extends Model
 
     public function findProductInWishlist($userId)
     {
-        return $this->wishlist()->where('user_id' , $userId)->first();
+        return $this->wishlist()->where('user_id' , $userId)->with('user')->first();
     }
 }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "49362152b47cfe81ebefe7f5883f6076",
+    "content-hash": "daed0bbae5b373d40727bfb22d95665f",
     "packages": [
         {
             "name": "amir_ys/attribute-module",
@@ -200,7 +200,7 @@
             "dist": {
                 "type": "path",
                 "url": "modules/Front",
-                "reference": "667fa29daf292458550f7050609069edd538f94e"
+                "reference": "8e74823927e1bd829b46767495b56219b33e2e32"
             },
             "type": "library",
             "extra": {
@@ -211,7 +211,10 @@
             "autoload": {
                 "psr-4": {
                     "Modules\\Front\\": "src"
-                }
+                },
+                "files": [
+                    "src/Http/Helpers/helper.php"
+                ]
             },
             "transport-options": {
                 "relative": true
@@ -257,6 +260,29 @@
             "autoload": {
                 "psr-4": {
                     "Modules\\Product\\": "src"
+                }
+            },
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "amir_ys/setting-module",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "modules/Setting",
+                "reference": "bba35446b4eb8804e727654f5f87f9b719ebae40"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": "Modules\\Setting\\Providers\\SettingServiceProvider"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Modules\\Setting\\": "src"
                 }
             },
             "transport-options": {
@@ -8751,6 +8777,7 @@
         "amir_ys/front-module": 20,
         "amir_ys/payment-module": 20,
         "amir_ys/product-module": 20,
+        "amir_ys/setting-module": 20,
         "amir_ys/slide-module": 20,
         "amir_ys/user-module": 20
     },

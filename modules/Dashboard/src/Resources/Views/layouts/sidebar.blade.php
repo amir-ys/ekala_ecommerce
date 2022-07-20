@@ -61,6 +61,11 @@ x<div class="side-menu">
                     <span> کوپن ها / کد تخفیف </span> <span class="badge bg-danger-gradient"></span></a>
             </li>
 
+            <li><a data-attr="layout-builder-toggle" class="{{ request()->url(route('panel.settings.index')) == route('panel.settings.index') ? 'c-active' : '' }}" href="{{ route('panel.settings.index') }}">
+                    <i class="icon ti-layout"></i>
+                    <span> تنظیمات </span> <span class="badge bg-danger-gradient"></span></a>
+            </li>
+
 
         </ul>
     </div>

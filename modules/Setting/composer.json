@@ -1,0 +1,13 @@
+{
+    "name": "amir_ys/setting-module",
+    "autoload": {
+        "psr-4" : {
+            "Modules\\Setting\\" :  "src"
+        }
+    } ,
+    "extra": {
+        "laravel" : {
+            "providers" : "Modules\\Setting\\Providers\\SettingServiceProvider"
+        }
+    }
+}

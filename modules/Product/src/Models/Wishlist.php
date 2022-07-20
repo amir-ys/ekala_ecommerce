@@ -4,6 +4,7 @@ namespace Modules\Product\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Modules\User\Models\User;
 
 class Wishlist extends Model
 {
@@ -15,5 +16,10 @@ class Wishlist extends Model
     public function product()
     {
         return $this->belongsTo(Product::class , 'product_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

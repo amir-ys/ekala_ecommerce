@@ -23,7 +23,7 @@ class ImageService
         return $response;
     }
 
-    public static function uploadImage(UploadedFile $file, $dir = null): string
+    public static function uploadImage(UploadedFile $file, $dir = null, $name = null): string
     {
         if (is_null($dir)) {
             $dir = "\\";
@@ -33,7 +33,10 @@ class ImageService
             }
         }
 
-        $name = uniqid();
+        if (is_null($name)) {
+            $name = uniqid();
+        }
+
         $extension = $file->getClientOriginalExtension();
         $imageName = $name . '.' . $extension;
         Storage::disk('public')->putFileAs($dir, $file, $imageName);

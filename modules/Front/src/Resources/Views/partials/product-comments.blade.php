@@ -12,7 +12,7 @@
                                     @include('Front::partials.comment-box' , ['comment' => $comment , 'isReply' => false])
                                     <!-- Comment Reply -->
                                     @if($comment->comments)
-                                        @foreach($comment->comments as $replyComment)
+                                        @foreach($comment->comments->load('user') as $replyComment)
                                             <div class="row justify-content-end">
                                                 <div class="col-11 pt-2 pr-0">
                                                     <div class="comment p-3">
