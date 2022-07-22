@@ -36,7 +36,7 @@
                                         <label for="description">توضیحات</label>
                                         <textarea name="description" id="description" class="form-control" cols="10"
                                                   rows="10">
-                                           {{ ($about ? $about->json['title'] :null )  }}
+                                           {{ ($about ? $about->json['description'] :null )  }}
                                        </textarea>
                                         <x-validation-error field="description"/>
                                     </div>
@@ -59,8 +59,9 @@
                             @endif
                         </div>
 
-                        <div class="d-flex flex-wrap mt-md-2">
-                            <button type="submit" class="btn btn-primary waves-effect waves-light">ذخیره</button>
+                        <div class="d-flex flex-wrap mt-md-2 ">
+                            <button type="submit" class="btn btn-primary waves-effect waves-light ml-md-2">ذخیره</button>
+                            <a href="{{ route('panel.settings.index') }}"  class="btn btn-secondary waves-effect waves-light">بازگشت</a>
                         </div>
                     </form>
                 </div>

@@ -30,6 +30,27 @@ class SettingRepo extends BaseRepository implements SettingRepositoryInterface
        return $this->query->where('name' , Setting::SETTING_ABOUT_US)->first();
     }
 
+    public function storeContact($data)
+    {
+        $this->query->updateOrCreate(
+            [
+                'name' => Setting::SETTING_CONTACT_US
+            ],
+            [
+                'json' => [
+                    'email' => $data['email'] ?? null,
+                    'phone_number_1' => $data['phone_number_1'],
+                    'phone_number_2' => $data['phone_number_2'],
+                    'shop_address' => $data['shop_address'] ?? null,
+                ]
+            ]);
+    }
+
+    public function getContact()
+    {
+        return $this->query->where('name' , Setting::SETTING_CONTACT_US)->first();
+    }
+
     public function store(array $data)
     {
         // TODO: Implement store() method.

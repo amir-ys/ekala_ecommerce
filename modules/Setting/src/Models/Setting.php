@@ -16,6 +16,7 @@ class Setting extends Model
     ];
 
     const SETTING_ABOUT_US = 'about-us';
+    const SETTING_CONTACT_US = 'contact-us';
 
     public static function getAboutUsDir()
     {
