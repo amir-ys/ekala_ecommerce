@@ -55,5 +55,9 @@ Route::group([] , function (){
 
     //about-us
     Route::get('/about-us' , [SiteInfoController::class , 'showAboutPage'])->name('front.aboutUs.show');
-    Route::get('/contact-us' , [SiteInfoController::class , 'showContactPage'])->name('front.contactUs.show');;
+    Route::get('/contact-us' , [SiteInfoController::class , 'showContactPage'])->name('front.contactUs.show');
+
+    //faqs
+    Route::get('/faqs' , [SiteInfoController::class , 'showFaqPage'])->name('front.faqs.show');
+
 });

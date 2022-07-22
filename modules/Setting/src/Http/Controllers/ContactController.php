@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Modules\Setting\Contracts\ContactRepositoryInterface;
 use Modules\Setting\Contracts\SettingRepositoryInterface;
 use Modules\Setting\Http\Requests\SaveContactMessageRequest;
-use function GuzzleHttp\Promise\all;
 
 class ContactController extends Controller
 {

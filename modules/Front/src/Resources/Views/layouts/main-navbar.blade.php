@@ -41,7 +41,7 @@
                                                 <li><a href="./compare.html">مقایسه محصول</a></li>
                                             </ul>
                                         </li>
-                                        <li><a href="./faq.html">سوالات متداول</a></li>
+                                        <li><a href="{{ route('front.faqs.show') }}">سوالات متداول</a></li>
                                         <li><a href="/"> وبلاگ<em class="droopmenu-topanim"></em></a></li>
 
                                        @auth()

@@ -3,9 +3,8 @@
 namespace Modules\Front\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Modules\Product\Contracts\ProductRepositoryInterface;
+use Modules\Setting\Contracts\FaqRepositoryInterface;
 use Modules\Setting\Contracts\SettingRepositoryInterface;
-use Modules\Slide\Contracts\SlideRepositoryInterface;
 
 class SiteInfoController extends Controller
 {
@@ -25,5 +24,11 @@ class SiteInfoController extends Controller
     {
         $contact = $this->settingRepo->getContact();
         return view('Front::contact-us.index' , compact('contact'));
+    }
+
+    public function showFaqPage()
+    {
+        $faqs = (resolve(FaqRepositoryInterface::class))->getPublishedFaqs();
+        return view('Front::faqs.index' , compact('faqs'));
     }
 }

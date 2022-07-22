@@ -3,10 +3,10 @@
 namespace Modules\Setting\Repositories;
 
 use Modules\Core\Repositories\BaseRepository;
-use Modules\Setting\Contracts\SettingRepositoryInterface;
+use Modules\Setting\Contracts\FaqRepositoryInterface;
 use Modules\Setting\Models\Contact;
 
-class ContactRepo extends BaseRepository implements SettingRepositoryInterface
+class ContactRepo extends BaseRepository implements FaqRepositoryInterface
 {
     protected string $model = Contact::class;
 

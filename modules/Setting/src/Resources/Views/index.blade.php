@@ -27,5 +27,17 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-md-4 text-center">
+            <div class="card border border-primary">
+                <div class="card-body">
+                    <a class="btn btn-outline-primary" href="{{ route('panel.settings.faqs.index') }}">
+                        <span>
+                            مدیریت سوالات متداول
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
