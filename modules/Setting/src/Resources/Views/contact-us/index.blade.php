@@ -33,18 +33,22 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($settings as $setting)
+                            @foreach($messages as $message)
                                 <tr>
                                     <td>{{ $loop->iteration  }}</td>
-                                    <td>{{ $setting->name  }}</td>
-                                    <td>{{ $setting->email  }}</td>
-                                    <td>{{ $setting->phone_number  }}</td>
-                                    <td>{{ $setting->subject  }}</td>
-                                    <td>{{ $setting->message  }}</td>
-                                    <td>{{ $setting->status  }}</td>
+                                    <td>{{ $message->name  }}</td>
+                                    <td>{{ $message->email  }}</td>
+                                    <td>{{ $message->phone_number  }}</td>
+                                    <td>{{ $message->subject  }}</td>
+                                    <td>{{ substr($message->message ,  0 , 40)  }}...</td>
+                                    <td>
+                                        <span class="badge bg-{{ $message->read_at ? 'light' : 'success' }}">
+                                            {{ $message->read_at ?  'خوانده شده' :  'جدید'  }}
+                                        </span>
+                                    </td>
                                     <td>
                                         <a class="btn btn-sm bg-transparent d-inline"
-                                           href="{{ route('panel.settings.contact.show' , $setting->id) }}"><i
+                                           href="{{ route('panel.settings.contact.show' , $message->id) }}"><i
                                                 class="fa fa-eye fa-15m text-primary"></i></a>
                                     </td>
                                 </tr>

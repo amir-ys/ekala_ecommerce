@@ -17,7 +17,9 @@ Route::group([], function () {
 
     //contact-us
     Route::get('settings/contact-us' , [ ContactController::class , 'index' ])->name('panel.settings.contact.index');
-    Route::get('settings/contact-us/save' , [ ContactController::class , 'savePage' ])->name('panel.settings.contact.save.page');
-    Route::post('settings/contact-us/save' , [ ContactController::class , 'save' ])->name('panel.settings.contact.save');
+    Route::get('settings/contact-us/{id}/show' , [ ContactController::class , 'show' ])->name('panel.settings.contact.show');
+    Route::get('settings/contact-us/save' , [ ContactController::class , 'saveInfoPage' ])->name('panel.settings.contact.save.page');
+    Route::post('settings/contact-us/save' , [ ContactController::class , 'saveInfo' ])->name('panel.settings.contact.save');
+    Route::post('settings/contact-us/save-message' , [ ContactController::class , 'saveContactMessage' ])->name('panel.settings.contact.saveContactMessage');
 });
 

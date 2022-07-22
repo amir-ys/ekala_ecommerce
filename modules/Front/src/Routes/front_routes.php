@@ -10,6 +10,7 @@ use Modules\Front\Http\Controllers\CouponController;
 use Modules\Front\Http\Controllers\HomeController;
 use Modules\Front\Http\Controllers\ImageController;
 use Modules\Front\Http\Controllers\ProductController;
+use Modules\Front\Http\Controllers\SiteInfoController;
 use Modules\Front\Http\Controllers\UserController;
 use Modules\Product\Http\Controllers\ProductImageController;
 
@@ -52,4 +53,7 @@ Route::group([] , function (){
     Route::get('/checkout' , [CheckoutController::class , 'showPage'])->name('front.checkout.page');
     Route::post('/checkout' , [CheckoutController::class , 'checkout'])->name('front.checkout.check');
 
+    //about-us
+    Route::get('/about-us' , [SiteInfoController::class , 'showAboutPage'])->name('front.aboutUs.show');
+    Route::get('/contact-us' , [SiteInfoController::class , 'showContactPage'])->name('front.contactUs.show');;
 });

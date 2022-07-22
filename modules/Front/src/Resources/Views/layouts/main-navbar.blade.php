@@ -35,51 +35,26 @@
                                             </ul>
                                         </li>
                                         <li class="droopmenu-parent" aria-haspopup="true">
-                                            <a href="./products.html" aria-expanded="false">صفحات فروشگاه<em class="droopmenu-topanim"></em></a><div class="dm-arrow"></div>
+                                            <a href="./products.html" aria-expanded="false"> فروشگاه<em class="droopmenu-topanim"></em></a><div class="dm-arrow"></div>
                                             <ul style="">
-                                                <li><a href="./products.html">محصولات <sup>(کاشی کاری)</sup></a></li>
-                                                <li><a href="./products-list.html">محصولات <sup>(لیست)</sup></a></li>
-                                                <li><a href="./products.html">جزئیات محصول</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="./about.html">درباره ما<em class="droopmenu-topanim"></em></a></li>
-                                        <li class="droopmenu-parent" aria-haspopup="true">
-                                            <a href="./contact.html" aria-expanded="false">تماس با فروشگاه<em class="droopmenu-topanim"></em></a><div class="dm-arrow"></div>
-                                            <ul style="">
-                                                <li><a href="./faq.html">سوالات متداول</a></li>
-                                                <li><a href="./contact.html">تماس با ما</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="droopmenu-parent" aria-haspopup="true">
-                                            <a href="./blog.html" aria-expanded="false">بلاگ آموزشی<em class="droopmenu-topanim"></em></a><div class="dm-arrow"></div>
-                                            <ul style="">
-                                                <li><a href="./blog.html">آرشیو مطالب</a></li>
-                                                <li><a href="./blog-post.html">داخلی بلاگ</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="droopmenu-parent" aria-haspopup="true">
-                                            <a href="#" aria-expanded="false">سایر صفحات<em class="droopmenu-topanim"></em></a><div class="dm-arrow"></div>
-                                            <ul style="">
+                                                <li><a href="./products.html">محصولات </a></li>
                                                 <li><a href="./compare.html">مقایسه محصول</a></li>
-                                                <li><a href="./cart.html">سبد خرید</a></li>
-                                                <li><a href="./checkout.html">پیش فاکتور</a></li>
-                                                <li class="dm-bottom-separator"></li>
-                                                <li><a href="./login.html">ورود به سایت</a></li>
-                                                <li><a href="./register.html">عضویت در سایت</a></li>
-                                                <li><a href="./reset-password.html">بازگردانی رمز عبور</a></li>
-                                                <li class="dm-bottom-separator"></li>
-                                                <li><a href="./error-404.html">خطای 404</a></li>
                                             </ul>
                                         </li>
-                                        <li class="droopmenu-parent" aria-haspopup="true">
-                                            <a href="{{ route('front.user.personalInfo.index') }}" aria-expanded="false">پروفایل کاربری<em class="droopmenu-topanim"></em></a><div class="dm-arrow"></div>
-                                            <ul style="">
-                                                <li><a href="{{ route('front.user.personalInfo.index') }}">مشخصات کاربری</a></li>
-                                                <li><a href="{{ route('front.user.orders.index') }}">سفارشات</a></li>
-                                                <li><a href="{{ route('front.user.addresses.index') }}">آدرس ها</a></li>
-                                                <li><a href="{{ route('front.user.wishlists.index') }}">علاقه مندی ها</a></li>
-                                            </ul>
-                                        </li>
+                                        <li><a href="./faq.html">سوالات متداول</a></li>
+                                        <li><a href="/"> وبلاگ<em class="droopmenu-topanim"></em></a></li>
+
+                                       @auth()
+                                            <li class="droopmenu-parent" aria-haspopup="true">
+                                                <a href="{{ route('front.user.personalInfo.index') }}" aria-expanded="false">پروفایل کاربری<em class="droopmenu-topanim"></em></a><div class="dm-arrow"></div>
+                                                <ul style="">
+                                                    <li><a href="{{ route('front.user.personalInfo.index') }}">مشخصات کاربری</a></li>
+                                                    <li><a href="{{ route('front.user.orders.index') }}">سفارشات</a></li>
+                                                    <li><a href="{{ route('front.user.addresses.index') }}">آدرس ها</a></li>
+                                                    <li><a href="{{ route('front.user.wishlists.index') }}">علاقه مندی ها</a></li>
+                                                </ul>
+                                            </li>
+                                        @endauth
                                     </ul>
                                 </div>
                             </div>

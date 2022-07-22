@@ -2,8 +2,8 @@
     <div class="container pt-1">
         <div class="row py-3 align-content-center">
             <div class="col-12 col-md-3 col-xl-2 text-center text-md-start pb-2" id="header-logo">
-                <a href="./index.html">
-                    <img src="assets/images/logo.png" alt=""> روبیک مارکت
+                <a href="/">
+                    <img src="/assets/front/assets/images/logo.png" alt=""> روبیک مارکت
                 </a>
             </div>
             <div class="col-12 col-md-5 col-xl-6">

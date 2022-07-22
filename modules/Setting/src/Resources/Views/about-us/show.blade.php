@@ -35,9 +35,7 @@
                                     <div class="col-md-12">
                                         <label for="description">توضیحات</label>
                                         <textarea name="description" id="description" class="form-control" cols="10"
-                                                  rows="10">
-                                           {{ ($about ? $about->json['description'] :null )  }}
-                                       </textarea>
+                                                  rows="10">{{ ($about ? $about->json['description'] :null )  }}</textarea>
                                         <x-validation-error field="description"/>
                                     </div>
                                 </div>
@@ -50,7 +48,7 @@
                                             <label for=""> تصویر فعلی : </label>
                                             <div class="col-md-12">
                                                 <img width="100%" style="height:100%"
-                                                     src="{{ $about->imagePath($about->json['photo']) }}"
+                                                     src="{{ $about->imagePath() }}"
                                                      class="img-fluid" alt="">
                                             </div>
                                         </div>
