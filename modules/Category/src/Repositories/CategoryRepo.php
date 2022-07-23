@@ -69,6 +69,15 @@ class CategoryRepo extends BaseRepository  implements CategoryRepositoryInterfac
             ->with('childes')->get();
     }
 
+    public function allParentLimit($limit): array|Collection
+    {
+        return $this->query
+            ->where('parent_id' , null)
+            ->where('is_active' , CategoryStatus::ACTIVE->value)
+            ->limit($limit)
+            ->with('childes')->get();
+    }
+
     public function detachAttributeGroupFromCategory($id)
     {
         $category = $this->findById($id);

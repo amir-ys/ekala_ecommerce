@@ -15,7 +15,7 @@ return new class extends Migration {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('value')->nullable();
+            $table->text('value')->nullable();
             $table->json('json')->nullable();
             $table->tinyInteger('status')->nullable();
             $table->timestamps();

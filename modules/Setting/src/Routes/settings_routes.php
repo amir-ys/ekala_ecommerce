@@ -11,6 +11,11 @@ use Modules\Setting\Http\Controllers\SettingController;
 Route::group([], function () {
     Route::get('settings' , [ SettingController::class , 'index' ])->name('panel.settings.index');
 
+    //site settings
+    Route::post('settings/site-info' , [ SettingController::class , 'siteInfoStore' ])->name('panel.settings.siteInfo.store');
+    Route::post('settings/social-media' , [ SettingController::class , 'socialMediaStore' ])->name('panel.settings.socialMedia.store');
+
+
     //about-us
     Route::get('settings/about-us' , [ AboutController::class , 'aboutPage' ])->name('panel.settings.about.page');
     Route::post('settings/about' , [ AboutController::class , 'storeAbout' ])->name('panel.settings.about.store');
@@ -30,5 +35,6 @@ Route::group([], function () {
     Route::get('settings/faqs/{id}/edit' , [ FaqController::class , 'edit' ])->name('panel.settings.faqs.edit');
     Route::patch('settings/faqs/{id}/update' , [ FaqController::class , 'update' ])->name('panel.settings.faqs.update');
     Route::delete('settings/faqs/{id}/destroy' , [ FaqController::class , 'destroy' ])->name('panel.settings.faqs.destroy');
+
 });
 

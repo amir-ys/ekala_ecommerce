@@ -16,6 +16,16 @@ class Setting extends Model
 
     const SETTING_ABOUT_US = 'about-us';
     const SETTING_CONTACT_US = 'contact-us';
+    const SETTING_SHOP_NAME = 'shop-name';
+    const SETTING_SHOP_FOOTER = 'shop-footer';
+    const SETTING_SHOP_FOOTER_CONTACT= 'footer-contact';
+
+    const SETTING_SOCIAL_MEDIA = 'social-media';
+    const SETTING_SOCIAL_FACEBOOK = 'facebook' ;
+    const SETTING_SOCIAL_TWITTER = 'twitter' ;
+    const SETTING_SOCIAL_YOUTUBE = 'youtube' ;
+    const SETTING_SOCIAL_INSTAGRAM = 'instagram' ;
+    const SETTING_SOCIAL_LINKEDIN = 'linkedin' ;
 
     public static function getAboutUsDir()
     {

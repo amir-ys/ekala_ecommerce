@@ -5,57 +5,53 @@
             <div class="col-6 col-sm-4 col-lg-2">
                 <div class="title">دسترسی سریع</div>
                 <ul>
-                    <li><a href="./blog.html">بلاگ آموزشی</a></li>
-                    <li><a href="./faq.html">راهنمای خرید</a></li>
-                    <li><a href="./faq.html">شیوه های پرداخت</a></li>
-                    <li><a href="./contact.html">پیگیری سفارش</a></li>
-                    <li><a href="./faq.html">سوالات متداول</a></li>
-                    <li><a href="./about.html">درباره ما</a></li>
-                    <li><a href="./contact.html">تماس با ما</a></li>
+                    <li><a href="/">وبلاگ </a></li>
+                    {{--                    <li><a href="./faq.html">راهنمای خرید</a></li>--}}
+                    {{--                    <li><a href="./faq.html">شیوه های پرداخت</a></li>--}}
+                    {{--                    <li><a href="./contact.html">پیگیری سفارش</a></li>--}}
+                    <li><a href="{{ route('front.faqs.show') }}">سوالات متداول</a></li>
+                    <li><a href="{{ route('front.aboutUs.show') }}">درباره ما</a></li>
+                    <li><a href="{{ route('front.contactUs.show') }}">تماس با ما</a></li>
                 </ul>
             </div>
             <div class="col-6 col-sm-4 col-lg-2">
-                <div class="title">گروه های محصولات</div>
+                <div class="title">دسته بندی های محصولات</div>
                 <ul>
-                    <li><a href="./products.html">تجهیزات کامپیوتر</a></li>
-                    <li><a href="./products.html">گوشی موبایل</a></li>
-                    <li><a href="./products.html">جانبی موبایل</a></li>
-                    <li><a href="./products.html">ساعت هوشمند</a></li>
-                    <li><a href="./products.html">جانبی کامپیوتر</a></li>
-                    <li><a href="./products.html">دوربین</a></li>
-                    <li><a href="./products.html">لپ تاپ</a></li>
+                    @foreach($categories as $category)
+                        <li><a href="{{ $category->path() }}"> {{ $category->name }}</a></li>
+                    @endforeach
                 </ul>
             </div>
             <div class="col-6 col-sm-4 col-lg-2 d-none d-sm-inline-block">
-                <div class="title">ناحیه کاربری</div>
+                <div class="title">حساب کاربری</div>
                 <ul>
-                    <li><a href="./login.html">ورود به سایت</a></li>
-                    <li><a href="./register.html">عضویت در سایت</a></li>
-                    <li><a href="./reset-password.html">بازیابی رمز عبور</a></li>
-                    <li><a href="./cart.html">سبد خرید</a></li>
-                    <li><a href="./checkout.html">پیش فاکتور</a></li>
+                    <li><a href="{{ route('login') }}">ورود به سایت</a></li>
+                    <li><a href="{{ route('register') }}">عضویت در سایت</a></li>
+                    <li><a href="{{ route('front.cart.index') }}">سبد خرید</a></li>
+                    <li><a href="{{ route('front.checkout.page')  }}">پیش فاکتور</a></li>
                 </ul>
             </div>
             <div class="col-12 col-md-12 col-lg-6">
                 <hr class="d-lg-none">
-                <img src="assets/images/logo.png" alt=""> روبیک مارکت
-                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.</p>
+                <img src="/assets/front/assets/images/logo.png" alt=""> {{ $shopName->value }}
+                <br>
+                <p>
+                    {{ $shopFooter->value }}
+                </p>
                 <div class="row">
                     <div class="col-12 col-md-6 text-center p-2" id="support-info">
-                        <div>7 روز هفته، 24 ساعت شبانه روز</div>
-                        <div>پاسخگوی شما هستیم</div>
-                        <div>09351234567</div>
+                        {!! $shopFooterContact->value !!}
                     </div>
                     <div class="col-12 col-md-6 pt-2 pt-md-0" id="certificates">
                         <div class="row">
                             <div class="col-4 text-center">
-                                <a href="#"><img src="assets/images/certificates/enamad.png" alt=""></a>
+                                <a href="#"><img src="assets/front/assets/images/certificates/enamad.png" alt=""></a>
                             </div>
                             <div class="col-4 text-center">
-                                <a href="#"><img src="assets/images/certificates/samandehi.png" alt=""></a>
+                                <a href="#"><img src="assets/front/assets/images/certificates/samandehi.png" alt=""></a>
                             </div>
                             <div class="col-4 text-center">
-                                <a href="#"><img src="assets/images/certificates/etehadiye.png" alt=""></a>
+                                <a href="#"><img src="assets/front/assets/images/certificates/etehadiye.png" alt=""></a>
                             </div>
                         </div>
                     </div>
@@ -72,11 +68,11 @@
         <div class="row">
             <div class="col-12 col-sm-6" id="social-links">
                 <span>ما را دنبال کنید</span>
-                <a href="#"><img src="assets/images/social/insta.png" alt=""></a>
-                <a href="#"><img src="assets/images/social/facebook.png" alt=""></a>
-                <a href="#"><img src="assets/images/social/linkedin.png" alt=""></a>
-                <a href="#"><img src="assets/images/social/twitter.png" alt=""></a>
-                <a href="#"><img src="assets/images/social/youtube.png" alt=""></a>
+                <a href="{{ isset($socialMedia->json['instagram']) ? $socialMedia->json['instagram'] : null  }}"><img src="/assets/front/assets/images/social/insta.png" alt=""></a>
+                <a href="{{ isset($socialMedia->json['facebook']) ? $socialMedia->json['facebook'] : null  }}"><img src="/assets/front/assets/images/social/facebook.png" alt=""></a>
+                <a href="{{ isset($socialMedia->json['linkedin']) ? $socialMedia->json['linkedin'] : null  }}"><img src="/assets/front/assets/images/social/linkedin.png" alt=""></a>
+                <a href="{{ isset($socialMedia->json['twitter']) ? $socialMedia->json['twitter'] : null  }}"><img src="/assets/front/assets/images/social/twitter.png" alt=""></a>
+                <a href="{{ isset($socialMedia->json['youtube']) ? $socialMedia->json['youtube'] : null  }}"><img src="/assets/front/assets/images/social/youtube.png" alt=""></a>
             </div>
             <div class="col-12 col-sm-6 text-sm-end pt-2 pt-sm-0">
                 <span>کلیه حقوق و مادی معنوی محفوط است.</span>
