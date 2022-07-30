@@ -1,9 +1,11 @@
     <!-- Product Box -->
     <div class="product-box" >
-        <a href="{{ $product->path() }}">
-            <img style="height:200px"  src="{{ $product->primaryImage
+        <div class="text-center">
+            <a  href="{{ $product->path() }}">
+                <img style="height:200px"  src="{{ $product->primaryImage
                                                 ? route('image.display' , $product->primaryImage->name) : ''}}" alt="">
-        </a>
+            </a>
+        </div>
         <div class="details p-3">
             <div class="category">
                 <a href="{{ $product->category->path() }}">{{ $product->category->name }}</a>

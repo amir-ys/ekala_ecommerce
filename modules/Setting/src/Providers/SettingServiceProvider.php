@@ -34,7 +34,7 @@ class SettingServiceProvider extends ServiceProvider
 
     private function loadRoutes()
     {
-        Route::middleware(['web', 'auth'])
+        Route::middleware(['web'])
             ->namespace($this->namespace)
             ->group(__DIR__ . '/../Routes/settings_routes.php');
     }

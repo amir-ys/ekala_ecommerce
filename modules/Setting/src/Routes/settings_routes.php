@@ -8,7 +8,9 @@ use Modules\Setting\Http\Controllers\ContactController;
 use Modules\Setting\Http\Controllers\FaqController;
 use Modules\Setting\Http\Controllers\SettingController;
 
-Route::group([], function () {
+Route::post('settings/contact-us/save-message' , [ ContactController::class , 'saveContactMessage' ])->name('panel.settings.contact.saveContactMessage');
+
+Route::group([ 'middleware' => 'auth'], function () {
     Route::get('settings' , [ SettingController::class , 'index' ])->name('panel.settings.index');
 
     //site settings
@@ -26,7 +28,6 @@ Route::group([], function () {
     Route::get('settings/contact-us/{id}/show' , [ ContactController::class , 'show' ])->name('panel.settings.contact.show');
     Route::get('settings/contact-us/save' , [ ContactController::class , 'saveInfoPage' ])->name('panel.settings.contact.save.page');
     Route::post('settings/contact-us/save' , [ ContactController::class , 'saveInfo' ])->name('panel.settings.contact.save');
-    Route::post('settings/contact-us/save-message' , [ ContactController::class , 'saveContactMessage' ])->name('panel.settings.contact.saveContactMessage')->middleware('guest');
 
     //faqs
     Route::get('settings/faqs' , [ FaqController::class , 'index' ])->name('panel.settings.faqs.index');

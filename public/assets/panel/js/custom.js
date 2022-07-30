@@ -183,7 +183,7 @@ function deleteItem(event , route) {
                     }
                 })
             }else{
-                swal("فایل حذف نشد.!", {
+                swal("عملیات حذف  لفو شد.", {
                     icon: "warning",
                     button: "باشه"
                 });

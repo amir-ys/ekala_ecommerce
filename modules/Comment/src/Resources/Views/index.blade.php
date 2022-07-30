@@ -6,12 +6,6 @@
 @section('content')
     <div class="row">
         <div class="col-lg-12">
-            <div class="row mb-3">
-                <div class="col-sm-12 col-md-12 col-lg-2">
-                    <i class="mdi mdi-plus me-1"></i>
-                    @lang('Comment::translation.create')</a>
-                </div>
-            </div>
             <div class="card">
                 <div class="card-body border border-5">
                     <div class="table-responsive">

@@ -1,9 +1,9 @@
 @extends('Dashboard::master')
-@section('title' ,__('Comment::translation.edit'))
+@section('title' ,__('Comment::translation.reply'))
 @section('breadcrumb')
     <li class="breadcrumb-item"><a
             href="{{ route('panel.categories.index') }}"> @lang('Comment::translation.index') </a></li>
-    <li class="breadcrumb-item active"><a> @lang('Comment::translation.edit') {{ $comment->name }}</a></li>
+    <li class="breadcrumb-item active"><a> @lang('Comment::translation.reply') {{ $comment->name }}</a></li>
 @endsection
 @section('content')
     <div class="row" id="store-comment-element">
