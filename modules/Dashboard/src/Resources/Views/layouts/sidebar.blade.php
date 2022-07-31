@@ -20,6 +20,15 @@ x<div class="side-menu">
                 </ul>
             </li>
 
+            <li class="side-menu-divider">وبلاگ</li>
+
+            <li><a href="#"><i class="icon ti-rocket"></i> <span> وبلاگ </span> </a>
+                <ul>
+                    <li><a href="{{ route('panel.blog.categories.index') }}">دسته بندی ها  </a></li>
+                </ul>
+            </li>
+
+
 
             <li><a data-attr="layout-builder-toggle" class="{{ request()->url(route('panel.brands.index')) == route('panel.brands.index') ? 'c-active' : '' }}" href="{{ route('panel.brands.index') }}">
                     <i class="icon ti-layout"></i>

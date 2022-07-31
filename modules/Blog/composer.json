@@ -1,0 +1,13 @@
+{
+    "name": "amir_ys/blog-module",
+    "autoload": {
+        "psr-4": {
+            "Modules\\Blog\\" : "src"
+        }
+    },
+    "extra": {
+        "laravel" : {
+            "providers" : "Modules\\Blog\\Providers\\BlogServiceProvider"
+        }
+    }
+}

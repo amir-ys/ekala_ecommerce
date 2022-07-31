@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "daed0bbae5b373d40727bfb22d95665f",
+    "content-hash": "7c08e204159f3b39b31ddcc2ea4bebec",
     "packages": [
         {
             "name": "amir_ys/attribute-module",
@@ -49,6 +49,29 @@
                 }
             },
             "description": "attributegroup  module",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "amir_ys/blog-module",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "modules/Blog",
+                "reference": "e7d420028ffa7a2d6b8378e4e567656ac180b3e1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": "Modules\\Blog\\Providers\\BlogServiceProvider"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Modules\\Blog\\": "src"
+                }
+            },
             "transport-options": {
                 "relative": true
             }
@@ -8768,6 +8791,7 @@
     "stability-flags": {
         "amir_ys/attribute-module": 20,
         "amir_ys/attributegroup-module": 20,
+        "amir_ys/blog-module": 20,
         "amir_ys/brand-module": 20,
         "amir_ys/category-module": 20,
         "amir_ys/comment-module": 20,
