@@ -49,7 +49,7 @@
                                             <option value>یک وضعیت را انتخاب کنید</option>
                                             @foreach(\Modules\Blog\Models\Category::$statuses as $name =>  $status)
                                                 <option value="{{ $status }}"
-                                                @selected($status == $category->status)
+                                                    @selected($status == $category->status)
                                                 >{{ $name }}</option>
                                             @endforeach
                                         </select>
@@ -61,8 +61,12 @@
                                 <div class="col-md-6">
                                     <label for="tags" class="col-form-label">تگ ها</label>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="tags" name="tags[]"
-                                               placeholder="تگ ها">
+                                        <select  class="form-control" id="tags" multiple="multiple" name="tags[]">
+                                            @foreach($category->tags as $tag)
+                                                <option selected> {{ $tag }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                         <x-validation-error field="tags"/>
                                     </div>
                                 </div>
@@ -109,14 +113,25 @@
     </div>
     <!-- end row -->
 @endsection
+@section('css')
+    <link rel="stylesheet" href="/assets/panel/vendor/select2/select2.min.css" type="text/css">
+@endsection
 @section('script')
+    <script src="/assets/panel/vendor/select2/select2.min.js"></script>
     <script src="/assets/panel/vendors/ckeditor/ckeditor.js"></script>
     <script>
+
+
+        $('#tags').select2({
+            tags: true,
+            tokenSeparators: [',', ' ']
+        })
+
         ClassicEditor
-            .create( document.querySelector( '#description' ) )
-            .catch( error => {
-                console.error( error );
-            } );
+            .create(document.querySelector('#description'))
+            .catch(error => {
+                console.error(error);
+            });
 
     </script>
 @endsection

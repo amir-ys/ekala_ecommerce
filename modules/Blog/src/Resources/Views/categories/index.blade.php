@@ -25,6 +25,7 @@
                                 <th>نام</th>
                                 <th>عکس</th>
                                 <th> تاریخ ایجاد</th>
+                                <th>تگ ها</th>
                                 <th>وضعیت</th>
                                 <th> عملیات</th>
                             </tr>
@@ -41,6 +42,10 @@
                                     </td>
                                     <td>{{ getJalaliDate($category->created_at) }}</td>
                                     <td>
+                                        {{ is_array($category->tags) ?
+                                                        implode( ' , ' , $category->tags ) :  '-'  }}
+                                    </td>
+                                    <td>
                                         <span
                                             class="badge py-1 bg-{{ $category->statusCssClass }}"> {{ $category->status_name }}
                                         </span>
@@ -52,7 +57,7 @@
                                                 class="fa fa-pencil fa-15m text-success"></i></a>
 
                                         <a href="{{ route('panel.blog.categories.destroy' , $category->id) }}"
-                                           onclick="deleteItem(event ,  '{{ route('panel.categories.destroy' , $category->id) }}')"
+                                           onclick="deleteItem(event ,  '{{ route('panel.blog.categories.destroy' , $category->id) }}')"
                                            class="btn btn-sm bg-transparent d-inline delete-confirm"><i
                                                 class="fa fa-trash fa-15m text-danger"></i></a>
 

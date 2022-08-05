@@ -22,9 +22,7 @@ class CategoryRepo extends BaseRepository implements CategoryRepositoryInterface
             'description' => $data['description'],
             'image' => $data['image'],
             'status' => $data['status'],
-            'tags' => [
-                $data['tags']
-            ],
+            'tags' => $data['tags']
         ]);
     }
 
