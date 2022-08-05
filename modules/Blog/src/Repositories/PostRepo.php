@@ -12,14 +12,14 @@ class PostRepo extends BaseRepository implements PostRepositoryInterface
 
     public function getAll()
     {
-        return $this->query->latest()->get();
+        return $this->query->latest()->with(['user' , 'category'])->get();
     }
 
     public function store(array $data)
     {
         $this->query->create([
             'title' => $data['title'],
-            'summery' => $data['summery'],
+            'summary' => $data['summary'],
             'body' => $data['body'],
             'image' => $data['image'],
             'status' => $data['status'],
@@ -35,7 +35,7 @@ class PostRepo extends BaseRepository implements PostRepositoryInterface
         $model = $this->findById($id);
         $model->update([
             'title' => $data['title'],
-            'summery' => $data['summery'],
+            'summary' => $data['summary'],
             'body' => $data['body'],
             'image' => $data['image'],
             'status' => $data['status'],

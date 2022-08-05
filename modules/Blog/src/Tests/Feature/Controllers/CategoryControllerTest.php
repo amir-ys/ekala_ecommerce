@@ -48,7 +48,8 @@ class CategoryControllerTest extends TestCase
 
         $response = $this->get(route('panel.blog.categories.edit', $category->id));
 
-        $response->assertViewIs('Blog::categories.edit');
+        $response->assertViewIs('Blog::categories.edit')
+            ->assertViewHas('category' , $category);
     }
 
     public function test_update_method()

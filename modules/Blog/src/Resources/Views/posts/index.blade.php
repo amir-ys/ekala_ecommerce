@@ -22,10 +22,14 @@
                             <thead class="thead-light">
                             <tr>
                                 <th>شناسه</th>
-                                <th>نام</th>
+                                <th>موضوع</th>
                                 <th>عکس</th>
+                                <th>نویسنده</th>
+                                <th>دسته بندی</th>
+                                <th>قابلیت درج کامنت</th>
+                                <th>زمان انتشار</th>
                                 <th> تاریخ ایجاد</th>
-                                <th>تگ ها</th>
+                                <th>متن کوتاه</th>
                                 <th>وضعیت</th>
                                 <th> عملیات</th>
                             </tr>
@@ -34,20 +38,28 @@
                             @foreach($posts as $post)
                                 <tr>
                                     <td>{{ $loop->iteration  }}</td>
-                                    <td>{{ $post->name }}</td>
+                                    <td>{{ $post->title }}</td>
                                     <td>
                                         <a href="{{ route('panel.blog.posts.showImage' , $post->image) }}">
                                             <img width="100px" src="{{ route('panel.blog.posts.showImage' , [$post->image]) }}" alt="">
                                         </a>
                                     </td>
-                                    <td>{{ getJalaliDate($post->created_at) }}</td>
+                                    <td>{{ $post->user->username }}</td>
+                                    <td>{{ $post->category->name }}</td>
+
                                     <td>
-                                        {{ is_array($post->tags) ?
-                                                        implode( ' , ' , $post->tags ) :  '-'  }}
+                                        <span class="badge py-1 bg-{{ $post->is_commentable ? 'success' : 'danger' }}">
+                                            {{ $post->is_commentable ? 'دارد' : 'ندارد' }}
+                                        </span>
                                     </td>
+
                                     <td>
-                                        <span
-                                            class="badge py-1 bg-{{ $post->statusCssClass }}"> {{ $post->status_name }}
+                                        {{ getJalaliDate($post->published_at , 'Y-m-d H:i' , 'carbon') }}
+                                    </td>
+                                    <td>{{ getJalaliDate($post->created_at) }}</td>
+                                    <td>{{ $post->summary }}</td>
+                                    <td>
+                                        <span class="badge py-1 bg-{{ $post->statusCssClass }}"> {{ $post->status_name }}
                                         </span>
                                     </td>
 

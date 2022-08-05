@@ -23,7 +23,7 @@ class PostFactory extends Factory
     {
         return [
             'title' => $this->faker->title,
-            'summery' => $this->faker->text,
+            'summary' => $this->faker->text,
             'body' => $this->faker->paragraph,
             'image' => $this->faker->imageUrl,
             'status' => $this->faker->randomElement(Post::$statuses),

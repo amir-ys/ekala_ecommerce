@@ -13,4 +13,7 @@ Route::group([
     Route::get('categories/{imageName}/showImage', [CategoryController::class , 'showImage'])->name('panel.blog.categories.showImage');
 
     Route::resource('posts', PostController::class)->names('panel.blog.posts');
+    Route::get('posts/{imageName}/showImage', [PostController::class , 'showImage'])->name('panel.blog.posts.showImage');
+
 });
+

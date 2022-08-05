@@ -17,12 +17,12 @@ class PostRequest extends FormRequest
     {
         $rules = [
             'title' => ['required', 'string', 'min:2'],
-            'summery' => ['required', 'string', 'min:2'],
-            'body' => ['nullable', 'string'],
-            'status' => ['required' , Rule::in(Post::$statuses)],
-            'is_commentable' => ['required' , Rule::in(Post::$commentable)],
-            'published_at' => ['required' , 'date'  ],
-            'category_id' => ['required' ,  Rule::exists('blog_categories' , 'id') ],
+            'summary' => ['required', 'string'],
+            'body' => ['required', 'string'],
+            'status' => ['required', Rule::in(Post::$statuses)],
+            'is_commentable' => ['required', Rule::in(Post::$commentable)],
+            'published_at' => ['required', 'date'],
+            'category_id' => ['required', Rule::exists('blog_categories', 'id')],
             'image' => ['required', 'image', 'mimes:jpeg,jpg,png'],
         ];
 
@@ -39,7 +39,10 @@ class PostRequest extends FormRequest
         return [
             'image' => 'تصویر',
             'status' => 'وضعیت',
-            'tags' => 'تگ'
+            'summery' => 'متن خلاصه',
+            'body' => 'متن اصلی',
+            'category_id' => 'دسته بندی',
+            'published_at' => ' قابلیت درج کامنت',
         ];
     }
 }

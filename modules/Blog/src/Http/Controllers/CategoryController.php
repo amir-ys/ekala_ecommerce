@@ -51,7 +51,7 @@ class CategoryController extends Controller
         $data = $request->all();
         $category = $this->categoryRepo->findById($categoryId);
 
-        $data['image'] =  $this->updateImage($request, $category);
+        $data['image'] = $this->updateImage($request, $category);
         $this->categoryRepo->update($categoryId, $data);
 
         newFeedback();
@@ -61,6 +61,7 @@ class CategoryController extends Controller
     public function destroy($categoryId)
     {
         $category = $this->categoryRepo->findById($categoryId);
+        $this->deleteImage($category->image);
         $this->categoryRepo->destroy($categoryId);
         return AjaxResponse::success("دسته بندی " . $category->name . " با موفقیت حذف شد.");
     }
@@ -74,11 +75,10 @@ class CategoryController extends Controller
     {
         if ($request->hasFile('image')) {
             $this->deleteImage($category->image);
-            $res = $this->uploadImage($request->file('image'));
-        } else {
-            $res = $category->image;
+            return $this->uploadImage($request->file('image'));
         }
-        return $res;
+        return $category->image;
+
     }
 
     private function deleteImage($file)

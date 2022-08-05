@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\UploadedFile;
 use Modules\Blog\Contracts\PostRepositoryInterface;
 use Modules\Blog\Http\Requests\PostRequest;
+use Modules\Blog\Models\Category;
 use Modules\Blog\Models\Post;
 use Modules\Core\Responses\AjaxResponse;
 use Modules\Product\Services\ImageService;
@@ -27,7 +28,8 @@ class PostController extends Controller
 
     public function create()
     {
-        return view('Blog::posts.create');
+        $categories = Category::all();
+        return view('Blog::posts.create', compact('categories'));
     }
 
     public function store(PostRequest $request)
@@ -44,7 +46,8 @@ class PostController extends Controller
     public function edit($postId)
     {
         $post = $this->postRepo->findById($postId);
-        return view('Blog::posts.edit', compact('post'));
+        $categories = Category::all();
+        return view('Blog::posts.edit', compact('post', 'categories'));
     }
 
     public function update(PostRequest $request, $postId)
@@ -63,6 +66,7 @@ class PostController extends Controller
     public function destroy($postId)
     {
         $post = $this->postRepo->findById($postId);
+        $this->deleteImage($post->image);
         $this->postRepo->destroy($postId);
         return AjaxResponse::success("پست " . $post->name . " با موفقیت حذف شد.");
     }
@@ -76,11 +80,10 @@ class PostController extends Controller
     {
         if ($request->hasFile('image')) {
             $this->deleteImage($post->image);
-            $res = $this->uploadImage($request->file('image'));
-        } else {
-            $res = $post->image;
+            return $this->uploadImage($request->file('image'));
         }
-        return $res;
+        return $post->image;
+
     }
 
     private function deleteImage($file)

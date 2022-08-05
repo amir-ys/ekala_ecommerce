@@ -3,24 +3,26 @@
 namespace Modules\Blog\Models;
 
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
 use Modules\Blog\Database\Factories\PostFactory;
+use Modules\Comment\Traits\Commentable;
 use Modules\User\Models\User;
 
 class Post extends Model
 {
-    use HasFactory , Sluggable;
+    use HasFactory , Sluggable  , Commentable ;
 
     protected $guarded = [];
 
-    const STATUS_ACTIVE = 1;
-    const STATUS_INACTIVE = 0;
+    const STATUS_ACTIVE = "1";
+    const STATUS_INACTIVE = "0";
 
-    const IS_COMMENTABLE = 1;
-    const NOT_COMMENTABLE = 0;
+    const IS_COMMENTABLE = "1";
+    const NOT_COMMENTABLE = "0";
 
     public static array $statuses = [
         'فعال' => self::STATUS_ACTIVE,
@@ -67,5 +69,21 @@ class Post extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class , 'author_id');
+    }
+
+    public function statusCssClass(): Attribute
+    {
+        return Attribute::get(function () {
+            if ($this->status == self::STATUS_ACTIVE) return 'success';
+            if ($this->status == self::STATUS_INACTIVE) return 'danger';
+        });
+    }
+
+    public function statusName(): Attribute
+    {
+        return Attribute::get(function () {
+            if ($this->status == self::STATUS_ACTIVE) return 'فعال';
+            if ($this->status == self::STATUS_INACTIVE) return 'غبر فعال';
+        });
     }
 }

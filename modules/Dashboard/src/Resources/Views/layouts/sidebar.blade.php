@@ -31,6 +31,7 @@ x
             <li><a href="#"><i class="icon ti-write"></i> <span> وبلاگ </span> </a>
                 <ul>
                     <li><a href="{{ route('panel.blog.categories.index') }}">دسته بندی ها </a></li>
+                    <li><a href="{{ route('panel.blog.posts.index') }}">پست ها  </a></li>
                 </ul>
             </li>
 

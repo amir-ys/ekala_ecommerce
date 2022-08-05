@@ -9,17 +9,16 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Brand\Models\Brand;
 use Modules\Category\Models\Category;
-use Modules\Comment\Models\Comment;
+use Modules\Comment\Traits\Commentable;
 use Modules\Product\Database\Factories\ProductFactory;
 use Modules\Product\Enums\ProductStatus;
 
 class Product extends Model
 {
-    use HasFactory , Sluggable , SoftDeletes;
+    use HasFactory , Sluggable , SoftDeletes ,Commentable ;
 
     protected $guarded = [];
     protected $casts = [
@@ -73,18 +72,6 @@ class Product extends Model
     {
         return $this->hasOne(ProductImage::class , 'product_id')->
           where('is_primary' , ProductImage::IS_PRIMARY_TRUE);
-    }
-
-    public function comments()
-    {
-        return $this->morphMany(Comment::class , 'commentable');
-    }
-
-    public function approvedComments(): MorphMany
-    {
-        return $this->comments()
-            ->where('is_approved' , Comment::STATUS_APPROVED)
-            ->whereNull('parent_id')->with([ 'comments' ,'user']);
     }
 
     public function wishlist(): HasMany
