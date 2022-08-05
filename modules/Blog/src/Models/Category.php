@@ -70,4 +70,9 @@ class Category extends Model
             if ($this->status == self::STATUS_INACTIVE) return 'غبر فعال';
         });
     }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 }

@@ -38,11 +38,4 @@ class CategoryRepo extends BaseRepository implements CategoryRepositoryInterface
         ]);
     }
 
-    public function findBySlug($categorySlug)
-    {
-        return $this->query
-            ->where('is_active', CategoryStatus::ACTIVE->value)
-            ->where('slug', $categorySlug)
-            ->firstOrFail();
-    }
 }

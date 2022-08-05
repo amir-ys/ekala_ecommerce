@@ -81,7 +81,7 @@ class CategoryController extends Controller
         return $res;
     }
 
-    private function deleteImage(UploadedFile $file)
+    private function deleteImage($file)
     {
         ImageService::deleteImage($file, Category::getUploadDir());
     }

@@ -5,7 +5,9 @@ namespace Modules\Blog\Providers;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Modules\Blog\Contracts\CategoryRepositoryInterface;
+use Modules\Blog\Contracts\PostRepositoryInterface;
 use Modules\Blog\Repositories\CategoryRepo;
+use Modules\Blog\Repositories\PostRepo;
 
 class BlogServiceProvider extends ServiceProvider
 {
@@ -24,6 +26,7 @@ class BlogServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->app->bind(CategoryRepositoryInterface::class, CategoryRepo::class);
+        $this->app->bind(PostRepositoryInterface::class, PostRepo::class);
     }
 
     private function loadRoutes()
