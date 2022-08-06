@@ -44,7 +44,7 @@
                                             <img width="100px" src="{{ route('panel.blog.posts.showImage' , [$post->image]) }}" alt="">
                                         </a>
                                     </td>
-                                    <td>{{ $post->user->username }}</td>
+                                    <td>{{ $post->author->username }}</td>
                                     <td>{{ $post->category->name }}</td>
 
                                     <td>
@@ -57,7 +57,7 @@
                                         {{ getJalaliDate($post->published_at , 'Y-m-d H:i' , 'carbon') }}
                                     </td>
                                     <td>{{ getJalaliDate($post->created_at) }}</td>
-                                    <td>{{ $post->summary }}</td>
+                                    <td> {!! substr($post->summary , 0 , 20) !!}...</td>
                                     <td>
                                         <span class="badge py-1 bg-{{ $post->statusCssClass }}"> {{ $post->status_name }}
                                         </span>

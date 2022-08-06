@@ -17,8 +17,10 @@ class StoreCommentRequest extends FormRequest
     {
         $this->redirect = url()->previous() . '#comments-tab';
         return [
-            'product_id' => ['required' , Rule::exists('products' , 'id')] ,
+            'model_id' => ['required' ] ,
+            'model_type' => ['required' ] ,
             'parent_id' => ['nullable' , 'numeric'] ,
+            'body' => ['required' , 'string'] ,
             'body' => ['required' , 'string'] ,
         ];
     }

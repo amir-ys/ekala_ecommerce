@@ -2,6 +2,7 @@
 namespace Modules\Routes;
 
 use Illuminate\Support\Facades\Route;
+use Modules\Front\Http\Controllers\BlogController;
 use Modules\Front\Http\Controllers\CartController;
 use Modules\Front\Http\Controllers\CategoryController;
 use Modules\Front\Http\Controllers\CheckoutController;
@@ -62,4 +63,11 @@ Route::group([] , function (){
     //faqs
     Route::get('/faqs' , [SiteInfoController::class , 'showFaqPage'])->name('front.faqs.show');
 
+
+    Route::prefix('blog')->controller(BlogController::class )->group(function (){
+        Route::get('/' , 'index')->name('front.blog.index');
+        Route::get('/{post:slug}' , 'postDetails')->name('front.blog.showPost');
+        Route::get('/category/{category:slug}' , 'postCategory')->name('front.blog.postCategory');
+        Route::get('image/{image}/display' , 'showImage')->name('front.blog.image.show');
+    });
 });

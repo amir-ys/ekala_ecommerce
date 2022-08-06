@@ -254,7 +254,7 @@
                                                 <!-- /Details Tab -->
 
                                                 <!-- Comments Tab -->
-                                                @include('Front::partials.product-comments'  , ['product' => $product])
+                                                @include('Front::partials.model-comments'  , ['model' => $product ,  'type' => 'محصول'])
                                                 <!-- /Comments Tab -->
                                             </div>
                                         </div>

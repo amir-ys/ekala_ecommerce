@@ -2,6 +2,7 @@
 
 namespace Modules\Blog\Repositories;
 
+use Illuminate\Database\Eloquent\Collection;
 use Modules\Blog\Contracts\CategoryRepositoryInterface;
 use Modules\Blog\Models\Category;
 use Modules\Core\Repositories\BaseRepository;
@@ -36,6 +37,12 @@ class CategoryRepo extends BaseRepository implements CategoryRepositoryInterface
             'status' => $data['status'],
             'tags' => $data['tags'],
         ]);
+    }
+
+    public function getAllWithSpecialSlug($slug): array|Collection
+    {
+        $category =  $this->query->where('slug' , $slug)->firstOrFail();
+        return  $category->posts()->with(['category' , 'author'])->get();
     }
 
 }

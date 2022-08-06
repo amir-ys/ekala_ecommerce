@@ -66,7 +66,7 @@ class Post extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function user(): BelongsTo
+    public function author(): BelongsTo
     {
         return $this->belongsTo(User::class , 'author_id');
     }
@@ -86,4 +86,11 @@ class Post extends Model
             if ($this->status == self::STATUS_INACTIVE) return 'غبر فعال';
         });
     }
+
+    public function getShowDate()
+    {
+       $date =  !is_null($this->published_at) ? $this->published_at : $this->created_at;
+       return \Morilog\Jalali\Jalalian::fromFormat( 'Y-m-d H:i:s' ,$date)->format(' %d %B %Y');
+    }
+
 }

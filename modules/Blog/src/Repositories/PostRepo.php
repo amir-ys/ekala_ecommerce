@@ -12,7 +12,7 @@ class PostRepo extends BaseRepository implements PostRepositoryInterface
 
     public function getAll()
     {
-        return $this->query->latest()->with(['user' , 'category'])->get();
+        return $this->query->latest()->with(['author' , 'category'])->get();
     }
 
     public function store(array $data)
@@ -43,6 +43,11 @@ class PostRepo extends BaseRepository implements PostRepositoryInterface
             'published_at' => $data['published_at'],
             'category_id' => $data['category_id'],
         ]);
+    }
+
+    public function findBySlug($slug)
+    {
+      return  $this->query->where('slug' , $slug)->firstOrFail();
     }
 
 }

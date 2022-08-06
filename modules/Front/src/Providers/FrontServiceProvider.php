@@ -23,12 +23,8 @@ class FrontServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->footerViewComposer();
-        view()->composer('Front::layouts.main-navbar', function (View $view) {
-            $categories = resolve(CategoryRepositoryInterface::class)->allParent();
-            return $view->with([
-                'categories' => $categories,
-            ]);
-        });
+        $this->BlogCategoriesViewComposer();
+        $this->ShopCategoriesViewComposer();
 
     }
 
@@ -67,6 +63,34 @@ class FrontServiceProvider extends ServiceProvider
             ]);
         });
 
+    }
+
+    public function BlogCategoriesViewComposer()
+    {
+        view()->composer('Front::layouts.main-navbar', function (View $view) {
+            $categories = Cache::remember('postCategories', now()->addDay(), function () {
+                return resolve(\Modules\Blog\Contracts\CategoryRepositoryInterface::class)->getAll();
+            });
+
+            return $view->with([
+                'postCategories' => $categories,
+            ]);
+        });
+
+    }
+
+    public function ShopCategoriesViewComposer(): void
+    {
+        view()->composer('Front::layouts.main-navbar', function (View $view) {
+
+            $categories = Cache::remember('categories', now()->addDay(), function () {
+               return resolve(CategoryRepositoryInterface::class)->allParent();
+            });
+
+            return $view->with([
+                'categories' => $categories,
+            ]);
+        });
     }
 
     private function loadRoutes()
