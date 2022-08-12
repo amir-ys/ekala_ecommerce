@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Modules\Blog\Models\Post;
 use Modules\Comment\Database\Factories\CommentFactory;
 use Modules\Product\Models\Product;
 use Modules\User\Models\User;
@@ -15,6 +16,7 @@ use Modules\User\Models\User;
 class Comment extends Model
 {
     use HasFactory;
+
     protected $guarded = [];
 
     const STATUS_PENDING = 0;
@@ -22,9 +24,9 @@ class Comment extends Model
     const STATUS_REJECTED = -1;
 
     public static $statuses = [
-      self::STATUS_APPROVED ,
-      self::STATUS_PENDING ,
-      self::STATUS_REJECTED ,
+        self::STATUS_APPROVED,
+        self::STATUS_PENDING,
+        self::STATUS_REJECTED,
     ];
 
     public static function factory(): CommentFactory
@@ -34,10 +36,17 @@ class Comment extends Model
 
     public function commentableType(): Attribute
     {
-        return Attribute::get(function (){
-            $this->commentable == Product::query()->first()  ?    $type = 'محصول'  : $type =   'نامعلوم' ;
-            $name = $this->commentable->name;
-            return  $type . '/' . $name ;
+        return Attribute::get(function () {
+            $info['type'] = 'نامعلوم';
+            if ($this->commentable instanceof Product) {
+                $info['type'] = 'محصول';
+                $info['name'] = $this->commentable->name;
+            }
+            if ($this->commentable instanceof Post) {
+                $info['type'] = 'وبلاگ';
+                $info['name'] = $this->commentable->title;
+            }
+            return $info['type'] . '/' . $info['name'];
         });
     }
 
@@ -53,29 +62,29 @@ class Comment extends Model
 
     public function parent(): BelongsTo
     {
-        return $this->belongsTo(Comment::class , 'parent_id');
+        return $this->belongsTo(Comment::class, 'parent_id');
     }
 
     public function comments(): HasMany
     {
-        return $this->hasMany(Comment::class , 'parent_id');
+        return $this->hasMany(Comment::class, 'parent_id');
     }
 
     public function statusCssClass(): Attribute
     {
-       return Attribute::get(function (){
-           if ( $this->is_approved == self::STATUS_PENDING)  return  'warning';
-           if ( $this->is_approved == self::STATUS_REJECTED)  return 'danger';
-           if ( $this->is_approved == self::STATUS_APPROVED)  return 'success';
+        return Attribute::get(function () {
+            if ($this->is_approved == self::STATUS_PENDING) return 'warning';
+            if ($this->is_approved == self::STATUS_REJECTED) return 'danger';
+            if ($this->is_approved == self::STATUS_APPROVED) return 'success';
         });
     }
 
     public function statusName(): Attribute
     {
-        return Attribute::get(function (){
-            if ( $this->is_approved == self::STATUS_PENDING)  return  'در انتظار تایید';
-            if ( $this->is_approved == self::STATUS_REJECTED)  return 'رد شده';
-            if ( $this->is_approved == self::STATUS_APPROVED)  return 'تایید شده';
+        return Attribute::get(function () {
+            if ($this->is_approved == self::STATUS_PENDING) return 'در انتظار تایید';
+            if ($this->is_approved == self::STATUS_REJECTED) return 'رد شده';
+            if ($this->is_approved == self::STATUS_APPROVED) return 'تایید شده';
         });
     }
 }

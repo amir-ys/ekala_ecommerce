@@ -8,10 +8,10 @@
         </a>
         <div class="details py-3 px-4">
             <div class="post-date">ارسال شده در {{ $post->getShowDate() }} </div>
-            <a href="./blog-post.html">
+            <a href="{{ route('front.blog.showPost' , $post->slug )}}">
                 <h2 class="post-title">{{ $post->title }}</h2>
             </a>
-            <a href="./blog-post.html">
+            <a href="{{ route('front.blog.showPost' , $post->slug) }}">
                 <div class="post-description">
                     {!! $post->summary !!}
                 </div>

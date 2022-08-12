@@ -2,6 +2,7 @@
 
 namespace Modules\Comment\Repositories;
 
+use Modules\Blog\Models\Post;
 use Modules\Comment\Contracts\CommentRepositoryInterface;
 use Modules\Comment\Models\Comment;
 use Modules\Core\Repositories\BaseRepository;
@@ -25,6 +26,20 @@ class CommentRepo extends BaseRepository implements CommentRepositoryInterface
     public function getParentComments()
     {
         return $this->query->whereNull('parent_id')->get();
+    }
+
+    public function getProductComments()
+    {
+        return $this->query->whereNull('parent_id')
+            ->whereMorphedTo('commentable' , Product::class )
+            ->get();
+    }
+
+    public function getBlogComments()
+    {
+        return $this->query->whereNull('parent_id')
+            ->whereMorphedTo('commentable' , Post::class )
+            ->get();
     }
 
     public function changeStatus($id, $status)

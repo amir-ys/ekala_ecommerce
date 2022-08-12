@@ -6,6 +6,8 @@ use Modules\Comment\Http\Controllers\CommentController;
 
 \Route::group([] , function (){
    Route::get('comments' , [CommentController::class , 'index'])->name('panel.comments.index');
+   Route::get('comments/blog' , [CommentController::class , 'blogCommentsIndex'])->name('panel.comments.blogIndex');
+   Route::get('comments/products' , [CommentController::class , 'productCommentsIndex'])->name('panel.comments.productIndex');
    Route::get('comments' , [CommentController::class , 'index'])->name('panel.comments.index');
    Route::patch('comments/{comment}/approve-status' , [CommentController::class , 'approveStatus'])->name('panel.comments.approveStatus');
    Route::patch('comments/{comment}/reject-status' , [CommentController::class , 'rejectStatus'])->name('panel.comments.rejectStatus');

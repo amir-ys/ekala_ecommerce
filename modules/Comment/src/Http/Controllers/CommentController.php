@@ -21,6 +21,18 @@ class CommentController extends Controller
         return view('Comment::index' , compact('parentComments'));
     }
 
+    public function productCommentsIndex()
+    {
+        $parentComments = $this->commentRepo->getProductComments();
+        return view('Comment::index' , compact('parentComments'));
+    }
+
+    public function blogCommentsIndex()
+    {
+        $parentComments = $this->commentRepo->getBlogComments();
+        return view('Comment::index' , compact('parentComments'));
+    }
+
     public function store(StoreCommentRequest $request)
     {
         $this->commentRepo->store($request->all());

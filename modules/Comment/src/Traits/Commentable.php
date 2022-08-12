@@ -9,7 +9,7 @@ use Modules\Comment\Models\Comment;
 trait Commentable
 {
     use HasRelationships;
-    public function comments()
+    public function comments(): MorphMany
     {
         return $this->morphMany(Comment::class , 'commentable');
     }

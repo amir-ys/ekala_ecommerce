@@ -1,9 +1,21 @@
 @extends('Dashboard::master')
 @section('title'  ,__('Comment::translation.index'))
 @section('breadcrumb')
-    <li class="breadcrumb-item active"><a>@lang('Comment::translation.index')</a></li>
+    <li class="breadcrumb-item active"><a>
+            @lang('Comment::translation.index')
+        </a></li>
 @endsection
 @section('content')
+    <div class="row mb-md-2">
+        <div class="col-md-12">
+            <div class="col-md-6">
+                <a href="{{ route('panel.comments.productIndex') }}"
+                        class="btn btn-outline-danger">@lang('Comment::translation.productIndex')</a>
+                <a href="{{ route('panel.comments.blogIndex') }}"
+                        class="btn btn-outline-primary">@lang('Comment::translation.blogIndex')</a>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
@@ -47,7 +59,6 @@
                                         </a>
 
 
-
                                         <a class="btn btn-primary btn-sm bg-transparent d-inline text-black-50 mr-2"
                                            href="{{ route('panel.comments.replies.show' , $comment->id) }}">
                                             پاسخ
@@ -55,12 +66,14 @@
 
                                     </td>
 
-                                    <form action="{{ route('panel.comments.rejectStatus' , $comment->id ) }}" method="post"
+                                    <form action="{{ route('panel.comments.rejectStatus' , $comment->id ) }}"
+                                          method="post"
                                           id="comment-reject-status-{{$comment->id}}">
                                         @csrf
                                         @method('patch')
                                     </form>
-                                    <form action="{{ route('panel.comments.approveStatus' , $comment->id ) }}" method="post"
+                                    <form action="{{ route('panel.comments.approveStatus' , $comment->id ) }}"
+                                          method="post"
                                           id="comment-approve-status-{{$comment->id}}">
                                         @csrf
                                         @method('patch')
@@ -70,8 +83,6 @@
                             @endforeach
                             </tbody>
                         </table>
-
-
                     </div>
                 </div>
             </div>
