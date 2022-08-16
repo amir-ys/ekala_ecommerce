@@ -24,7 +24,6 @@ class CategoryFactory extends Factory
             'description' => $this->faker->paragraph,
             'image' => $this->faker->imageUrl,
             'status' => $this->faker->randomElement([Category::STATUS_ACTIVE, Category::STATUS_INACTIVE]),
-            'tags' => '::laravel::'
         ];
     }
 }

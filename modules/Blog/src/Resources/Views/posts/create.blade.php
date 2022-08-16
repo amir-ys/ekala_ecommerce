@@ -95,6 +95,14 @@
                                     </div>
                                 </div>
 
+                                <div class="col-md-4">
+                                    <label for="tags" class="col-form-label">تگ ها</label>
+                                    <div class="form-group">
+                                        <select class="form-control" id="tags" name="tags[]" multiple="multiple">
+                                        </select>
+                                    </div>
+                                    <x-validation-error field="tags"/>
+                                </div>
 
 
 

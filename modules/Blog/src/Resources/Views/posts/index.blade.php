@@ -29,6 +29,7 @@
                                 <th>قابلیت درج کامنت</th>
                                 <th>زمان انتشار</th>
                                 <th> تاریخ ایجاد</th>
+                                <th>تگ ها</th>
                                 <th>متن کوتاه</th>
                                 <th>وضعیت</th>
                                 <th> عملیات</th>
@@ -57,6 +58,10 @@
                                         {{ getJalaliDate($post->published_at , 'Y-m-d H:i' , 'carbon') }}
                                     </td>
                                     <td>{{ getJalaliDate($post->created_at) }}</td>
+                                    <td>
+                                        {{ is_array($post->tags) ?
+                                                        implode( ' , ' , $post->tags ) :  '-'  }}
+                                    </td>
                                     <td> {!! substr($post->summary , 0 , 20) !!}...</td>
                                     <td>
                                         <span class="badge py-1 bg-{{ $post->statusCssClass }}"> {{ $post->status_name }}

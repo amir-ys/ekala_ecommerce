@@ -32,6 +32,7 @@ class PostFactory extends Factory
             'author_id' => User::factory(),
             'category_id' => Category::factory(),
             'view_count' => $this->faker->randomNumber(),
+            'tags' =>  ['php' , 'laravel' , 'js']
         ];
     }
 }

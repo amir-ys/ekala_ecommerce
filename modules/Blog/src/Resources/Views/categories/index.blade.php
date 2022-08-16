@@ -25,7 +25,6 @@
                                 <th>نام</th>
                                 <th>عکس</th>
                                 <th> تاریخ ایجاد</th>
-                                <th>تگ ها</th>
                                 <th>وضعیت</th>
                                 <th> عملیات</th>
                             </tr>
@@ -41,10 +40,6 @@
                                         </a>
                                     </td>
                                     <td>{{ getJalaliDate($category->created_at) }}</td>
-                                    <td>
-                                        {{ is_array($category->tags) ?
-                                                        implode( ' , ' , $category->tags ) :  '-'  }}
-                                    </td>
                                     <td>
                                         <span
                                             class="badge py-1 bg-{{ $category->statusCssClass }}"> {{ $category->status_name }}

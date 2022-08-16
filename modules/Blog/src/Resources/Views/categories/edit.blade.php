@@ -57,20 +57,6 @@
                                     </div>
                                 </div>
 
-
-                                <div class="col-md-6">
-                                    <label for="tags" class="col-form-label">تگ ها</label>
-                                    <div class="form-group">
-                                        <select  class="form-control" id="tags" multiple="multiple" name="tags[]">
-                                            @foreach($category->tags as $tag)
-                                                <option selected> {{ $tag }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        <x-validation-error field="tags"/>
-                                    </div>
-                                </div>
-
                                 <div class="col-md-6">
                                     <label for="description" class="col-form-label">توضیحات</label>
                                     <div class="form-group">

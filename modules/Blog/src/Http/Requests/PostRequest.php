@@ -24,6 +24,7 @@ class PostRequest extends FormRequest
             'published_at' => ['required', 'date'],
             'category_id' => ['required', Rule::exists('blog_categories', 'id')],
             'image' => ['required', 'image', 'mimes:jpeg,jpg,png'],
+            'tags' => ['required', 'array'],
         ];
 
         if ($this->method() == 'PATCH') {

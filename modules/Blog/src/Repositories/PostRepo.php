@@ -27,6 +27,8 @@ class PostRepo extends BaseRepository implements PostRepositoryInterface
             'published_at' => $data['published_at'],
             'author_id' => $data['author_id'],
             'category_id' => $data['category_id'],
+            'tags' => $data['tags'],
+
         ]);
     }
 
@@ -42,6 +44,7 @@ class PostRepo extends BaseRepository implements PostRepositoryInterface
             'is_commentable' => $data['is_commentable'],
             'published_at' => $data['published_at'],
             'category_id' => $data['category_id'],
+            'tags' => $data['tags'],
         ]);
     }
 

@@ -18,7 +18,6 @@ class CategoryRequest extends FormRequest
             'description' => ['nullable', 'string'],
             'status' => ['required'],
             'image' => ['required', 'image', 'mimes:jpeg,jpg,png'],
-            'tags' => ['required', 'array'],
         ];
 
         if ($this->method() == 'PATCH') {

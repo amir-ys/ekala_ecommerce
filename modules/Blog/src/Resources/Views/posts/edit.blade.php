@@ -63,7 +63,7 @@
                                         <select class="form-control" name="is_commentable" aria-hidden="true">
                                             @foreach(\Modules\Blog\Models\Post::$commentable as $name =>  $isCommentable)
                                                 <option value="{{ $isCommentable }}"
-                                                        @selected($isCommentable == $post->is_commentable)
+                                                    @selected($isCommentable == $post->is_commentable)
                                                 >{{ $name }}</option>
                                             @endforeach
                                         </select>
@@ -89,7 +89,8 @@
                                 <div class="col-md-4">
                                     <label for="published_at" class="col-form-label">زمان انتشار</label>
                                     <div class="form-group">
-                                        <input type="datetime-local" class="form-control" id="published_at" name="published_at"
+                                        <input type="datetime-local" class="form-control" id="published_at"
+                                               name="published_at"
                                                placeholder="زمان انتشار"
                                                value="{{ old('published_at' , $post->published_at) }}">
                                         <x-validation-error field="published_at"/>
@@ -97,12 +98,35 @@
                                 </div>
 
 
+                                <div class="col-md-6">
+                                    <label for="tags" class="col-form-label">تگ ها</label>
+                                    <div class="form-group">
+                                        <select class="form-control" id="tags" multiple="multiple" name="tags[]">
+                                            @if(!is_null($post->tags))
+                                                @foreach($post->tags as $tag)
+                                                    <option selected> {{ $tag }}
+                                                    </option>
+                                                @endforeach
+                                            @endif
+                                        </select>
+                                        <x-validation-error field="tags"/>
+                                    </div>
+                                </div>
 
+                                <div class="col-md-6">
+                                    <label class="col-form-label" >نمایش تصویر فعلی: </label>
+                                    <div class="form-group">
+                                        <a href="{{ route('panel.blog.posts.showImage' , $post->image) }}">
+                                            <img width="400px" src="{{ route('panel.blog.posts.showImage' , [$post->image]) }}" alt="">
+                                        </a>
+                                    </div>
+                                </div>
 
                                 <div class="col-md-12 mb-3">
                                     <label for="summary" class="col-form-label">متن خلاصه </label>
                                     <div class="form-group">
-                                        <textarea name="summary" class="form-control" id="summary">{{ old('body' , $post->summary) }}</textarea>
+                                        <textarea name="summary" class="form-control"
+                                                  id="summary">{{ old('body' , $post->summary) }}</textarea>
                                         <x-validation-error field="summary"/>
                                     </div>
                                 </div>
@@ -111,7 +135,8 @@
                                 <div class="col-md-12 mb-3">
                                     <label for="body" class="col-form-label">متن اصلی </label>
                                     <div class="form-group">
-                                        <textarea name="body" class="form-control" id="body">{{ old('body' , $post->body) }}</textarea>
+                                        <textarea name="body" class="form-control"
+                                                  id="body">{{ old('body' , $post->body) }}</textarea>
                                         <x-validation-error field="body"/>
                                     </div>
                                 </div>

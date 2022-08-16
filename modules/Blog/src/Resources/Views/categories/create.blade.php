@@ -55,15 +55,6 @@
                                 </div>
 
 
-                                <div class="col-md-3 mb-3">
-                                    <label for="tags" class="col-form-label">تگ ها</label>
-                                    <div class="form-group">
-                                        <select class="form-control" id="tags" name="tags[]" multiple="multiple">
-                                        </select>
-                                    </div>
-                                    <x-validation-error field="tags"/>
-                                </div>
-
                                 <div class="col-md-9 mb-3">
                                     <label for="description" class="col-form-label">توضیحات</label>
                                     <div class="form-group">
@@ -101,11 +92,6 @@
     <script src="/assets/panel/vendor/select2/select2.min.js"></script>
     <script src="/assets/panel/vendors/ckeditor/ckeditor.js"></script>
     <script>
-
-        $('#tags').select2({
-            tags: true,
-            tokenSeparators: [',', ' ']
-        })
 
         ClassicEditor
             .create(document.querySelector('#description'))

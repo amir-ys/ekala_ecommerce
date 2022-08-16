@@ -19,7 +19,6 @@ return new class extends Migration {
             $table->text('description')->nullable();
             $table->text('image');
             $table->tinyInteger('status');
-            $table->json('tags');
             $table->timestamps();
         });
     }

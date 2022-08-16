@@ -25,10 +25,6 @@ class Category extends Model
         ' غیر فعال' => self::STATUS_INACTIVE,
     ];
 
-    protected $casts = [
-        'tags' => 'array'
-    ];
-
     public static function getUploadDir(): string
     {
         $prefix = 'blog';

@@ -24,6 +24,10 @@ class Post extends Model
     const IS_COMMENTABLE = "1";
     const NOT_COMMENTABLE = "0";
 
+    protected $casts = [
+        'tags' => 'array'
+    ];
+
     public static array $statuses = [
         'فعال' => self::STATUS_ACTIVE,
         'غیر فعال' => self::STATUS_INACTIVE
