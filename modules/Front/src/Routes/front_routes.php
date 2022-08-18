@@ -68,6 +68,7 @@ Route::group([] , function (){
         Route::get('/' , 'index')->name('front.blog.index');
         Route::get('/{post:slug}' , 'postDetails')->name('front.blog.showPost');
         Route::get('/category/{category:slug}' , 'postCategory')->name('front.blog.postCategory');
+        Route::get('/tag/{tag}' , 'postTags')->name('front.blog.postTags');
         Route::get('image/{image}/display' , 'showImage')->name('front.blog.image.show');
     });
 });

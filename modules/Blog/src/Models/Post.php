@@ -97,4 +97,9 @@ class Post extends Model
        return \Morilog\Jalali\Jalalian::fromFormat( 'Y-m-d H:i:s' ,$date)->format(' %d %B %Y');
     }
 
+    public function tagPath($tag)
+    {
+        return route('front.blog.postTags' , ['tag' => $tag ]);
+    }
+
 }

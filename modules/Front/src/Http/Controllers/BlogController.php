@@ -27,11 +27,38 @@ class BlogController extends Controller
     public function postCategory($categorySlug)
     {
         $posts = resolve(CategoryRepositoryInterface::class)->getAllWithSpecialSlug($categorySlug);
-        return view('Front::blog.category-post', compact('posts'));
+        return view('Front::blog.category-posts', compact('posts'));
     }
 
     public function showImage($imageName)
     {
         return ImageService::loadImage($imageName, Post::getUploadDir());
     }
+
+    public function postTags($tag)
+    {
+        $posts = $this->findPostWithTag($tag);
+        return view('Front::blog.tag-posts', compact('posts'));
+    }
+
+    public function findPostWithTag($tag)
+    {
+        $postRepo = resolve(PostRepositoryInterface::class);
+        $allPosts = $postRepo->getAll();
+        $postIds = $this->getPostIdsByTag($allPosts , $tag);
+       return $postRepo->getPostsByTag($postIds);
+    }
+
+    public function getPostIdsByTag($posts , $tag)
+    {
+        $postIds = [];
+        foreach ($posts  as $post){
+            if (is_array($post->tags) &&  in_array($tag , $post->tags)){
+                $postIds[] = $post->id;
+            }
+        }
+        return $postIds;
+    }
+
+
 }

@@ -2,6 +2,7 @@
 
 namespace Modules\Blog\Repositories;
 
+use Illuminate\Database\Eloquent\Collection;
 use Modules\Blog\Contracts\PostRepositoryInterface;
 use Modules\Blog\Models\Post;
 use Modules\Core\Repositories\BaseRepository;
@@ -51,6 +52,11 @@ class PostRepo extends BaseRepository implements PostRepositoryInterface
     public function findBySlug($slug)
     {
       return  $this->query->where('slug' , $slug)->firstOrFail();
+    }
+
+    public function getPostsByTag($ids): array|Collection
+    {
+        return $this->query->whereIn('id' , $ids )->get();
     }
 
 }
