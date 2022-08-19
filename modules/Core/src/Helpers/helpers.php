@@ -1,16 +1,20 @@
 <?php
 
 
+use Illuminate\Support\Carbon;
+use Morilog\Jalali\CalendarUtils;
+use Morilog\Jalali\Jalalian;
+
 if (!function_exists('getJalaliDate')) {
     function getJalaliDate($date, $format = 'Y-m-d H:i', $showDate = null)
     {
         $dateFormat = is_null($showDate) ? config('core.show-date') : $showDate;
-        if (!($date instanceof DateTime)){
+        if (!($date instanceof DateTime)) {
             return '-';
         }
 
         if ($dateFormat == 'carbon') {
-            return \Morilog\Jalali\Jalalian::fromCarbon($date)->format($format);
+            return Jalalian::fromCarbon($date)->format($format);
         }
         return $date->diffForHumans();
 
@@ -56,12 +60,36 @@ if (!function_exists('getDiscountAmount')) {
         }
     }
 
-    if (!function_exists('site_name')){
-        function site_name(){
-            $site = \Modules\Setting\Models\Setting::query()->where('name' , 'shop-name')->first();
-           return $site ? $site->value : 'نا مشخص' ;
+    if (!function_exists('site_name')) {
+        function site_name()
+        {
+            $site = \Modules\Setting\Models\Setting::query()->where('name', 'shop-name')->first();
+            return $site ? $site->value : 'نا مشخص';
         }
     }
-
 }
 
+if (!function_exists('getDateFromJalali')) {
+
+    function getDateFromJalali($date, $format = 'Y/m/d')
+    {
+        $dateString = CalendarUtils::convertNumbers($date, true);
+        return CalendarUtils::createCarbonFromFormat($format, $dateString)->format('Y-m-d H:i:s');
+    }
+}
+
+if (!function_exists('getJalaliFromFormat')) {
+    function getJalaliFromFormat($date, $format = null, $outputFormat = null)
+    {
+        $format = $format ?: 'Y-m-d H:i:s';
+        $outputFormat = $outputFormat ?: 'Y/m/d';
+        return Jalalian::fromCarbon(Carbon::createFromFormat($format ,$date))->format($outputFormat ?: $format);
+    }
+}
+
+if (!function_exists('getJalaliFromCarbon')) {
+    function getJalaliFromCarbon(Carbon $date)
+    {
+        return Jalalian::fromCarbon($date);
+    }
+}

@@ -29,7 +29,7 @@ class UpdateProductRequest extends  FormRequest
             'special_price' => ['nullable' , 'numeric' ] ,
             'special_price_start' => [ 'nullable' ,  Rule::requiredIf(function (){
               return  request()->special_price != null;  })  ] ,
-            'special_price_end' => ['nullable' , 'date' , Rule::requiredIf(function (){
+            'special_price_end' => ['nullable' , Rule::requiredIf(function (){
                 return  request()->special_price != null; })  ]
         ];
     }
@@ -38,12 +38,13 @@ class UpdateProductRequest extends  FormRequest
     {
         return [
             'price' => 'قیمت' ,
+            'primary_image' => 'تصویر اصلی' ,
             'quantity' => 'موجودی' ,
             'brand_id' => 'دیته بندی' ,
             'category_id' => 'برند' ,
             'special_price' => 'قیمت تخفیف' ,
             'special_price_start' => 'تاریخ شروع' ,
-            'special_price_end' => 'تاریخ پابان' ,
+            'special_price_end' => 'تاریخ پایان' ,
         ];
     }
 

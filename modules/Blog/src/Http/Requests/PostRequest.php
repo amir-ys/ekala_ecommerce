@@ -21,7 +21,7 @@ class PostRequest extends FormRequest
             'body' => ['required', 'string'],
             'status' => ['required', Rule::in(Post::$statuses)],
             'is_commentable' => ['required', Rule::in(Post::$commentable)],
-            'published_at' => ['required', 'date'],
+            'published_at' =>  ['nullable'],
             'category_id' => ['required', Rule::exists('blog_categories', 'id')],
             'image' => ['required', 'image', 'mimes:jpeg,jpg,png'],
             'tags' => ['required', 'array'],

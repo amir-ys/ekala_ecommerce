@@ -18,7 +18,7 @@
                                 @csrf
                                 <div class="form-group">
                                     <div class="row">
-                                        <div class="col-md-3 mb-3">
+                                        <div class="col-md-6 mb-3">
                                             <label>نام</label>
                                             <input type="text" class="form-control" name="name"
                                                    placeholder="نام"
@@ -58,15 +58,15 @@
                                                 <option value>  یک وضعیت را انتخاب کنید</option>
                                                 @foreach(\Modules\Product\Enums\ProductStatus::cases() as $status)
                                                     <option value="{{ $status->value }}"
-                                                    > {{ $status->name }} </option>
+                                                    > @lang($status->name) </option>
                                                 @endforeach
                                             </select>
                                             <x-validation-error field="is_active"/>
                                         </div>
                                         <div class="col-md-3 mb-3">
-                                            <label>دسته بندی ها</label>
+                                            <label>دسته بندی </label>
                                             <select class="form-control"  name="category_id">
-                                                <option value>  انتخاب  دسته بندی </option>
+                                                <option value>  یک دسته بندی را انتخاب کنید </option>
                                                 @foreach($categories as $category)
                                                     <option value="{{ $category->id }}"
                                                             @if($category->id == old('category_id')) selected @endif
@@ -81,7 +81,7 @@
                                     <div class="row">
                                         <div class="col-md-12 mb-3" >
                                             <label>توضیحات</label>
-                                            <textarea id="ckeditor" class="form-control" name="description"> {{ old('description') }}</textarea>
+                                            <textarea id="description" class="form-control" name="description"> {{ old('description') }}</textarea>
                                             <x-validation-error field="description"/>
                                         </div>
                                     </div>
@@ -125,7 +125,7 @@
                                             <div class="col-md-9">
                                                 <label>از تاریخ</label>
                                                 <input type="text"  class="form-control"
-                                                       value="{{ old('special_price_start') }}"
+                                                       value="{{ old('special_price_start') }}" id="special_price_start"
                                                        name="special_price_start" placeholder="تاریخ شروع" />
                                                 <x-validation-error field="special_price_start"/>
                                             </div>
@@ -135,7 +135,7 @@
                                             <div class="col-md-9">
                                                 <label>تا تاریخ</label>
                                                 <input type="text"  class="form-control"
-                                                       value="{{ old('special_price_end') }}"
+                                                       value="{{ old('special_price_end') }}" id="special_price_end"
                                                        name="special_price_end" placeholder="تاریخ پایان" />
                                                 <x-validation-error field="special_price_end"/>
                                             </div>
@@ -161,4 +161,32 @@
                 </div>
             </div>
     <!-- end row -->
+@endsection
+@section('css')
+    <link rel="stylesheet" href="/assets/panel/vendor/persian-datepicker/persian-datepicker.min.css" type="text/css">
+@endsection
+@section('script')
+    <script src="/assets/panel/vendors/ckeditor/ckeditor.js"></script>
+    <script src="/assets/panel/vendor/persian-datepicker/persian-date.min.js"></script>
+    <script src="/assets/panel/vendor/persian-datepicker/persian-datepicker.min.js"></script>
+    <script>
+
+        ClassicEditor
+            .create(document.querySelector('#description'))
+            .catch(error => {
+                console.error(error);
+            });
+
+        $('#special_price_start').persianDatepicker({
+            observer : true ,
+            initialValue: false ,
+            format: 'YYYY/MM/DD',
+        });
+        $('#special_price_end').persianDatepicker({
+            observer : true ,
+            initialValue: false ,
+            format: 'YYYY/MM/DD',
+        });
+
+    </script>
 @endsection

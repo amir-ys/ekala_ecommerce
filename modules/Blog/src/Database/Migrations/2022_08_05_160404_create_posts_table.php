@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('image');
             $table->tinyInteger('status');
             $table->tinyInteger('is_commentable');
-            $table->timestamp('published_at');
+            $table->timestamp('published_at')->nullable();
             $table->foreignId('author_id')->constrained('users');
             $table->foreignId('category_id')->constrained('blog_categories');
             $table->string('view_count')->default(0);

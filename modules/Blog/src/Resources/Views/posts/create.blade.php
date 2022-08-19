@@ -86,9 +86,10 @@
                                 </div>
 
                                 <div class="col-md-4">
-                                    <label for="published_at" class="col-form-label">زمان انتشار</label>
+                                    <input  name="published_at" type="hidden" id="published_at">
+                                    <label for="published_at_field" class="col-form-label">زمان انتشار</label>
                                     <div class="form-group">
-                                        <input type="datetime-local" class="form-control" id="published_at" name="published_at"
+                                        <input type="text" class="form-control" id="published_at_field" name="published_at"
                                                placeholder="زمان انتشار"
                                                value="{{ old('published_at') }}">
                                         <x-validation-error field="published_at"/>
@@ -146,11 +147,14 @@
     <!-- end row -->
     @section('css')
         <link rel="stylesheet" href="/assets/panel/vendor/select2/select2.min.css" type="text/css">
+        <link rel="stylesheet" href="/assets/panel/vendor/persian-datepicker/persian-datepicker.min.css" type="text/css">
     @endsection
 @endsection
 @section('script')
     <script src="/assets/panel/vendor/select2/select2.min.js"></script>
     <script src="/assets/panel/vendors/ckeditor/ckeditor.js"></script>
+    <script src="/assets/panel/vendor/persian-datepicker/persian-date.min.js"></script>
+    <script src="/assets/panel/vendor/persian-datepicker/persian-datepicker.min.js"></script>
     <script>
 
         $('#tags').select2({
@@ -169,6 +173,12 @@
             .catch(error => {
                 console.error(error);
             });
+
+
+        $('#published_at_field').persianDatepicker({
+            observer: true,
+            format: 'YYYY/MM/DD',
+        });
 
     </script>
 @endsection

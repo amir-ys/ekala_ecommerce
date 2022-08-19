@@ -23,8 +23,8 @@ return new class extends Migration
             $table->bigInteger('price');
             $table->integer('quantity');
             $table->bigInteger('special_price')->nullable();
-            $table->dateTime('special_price_start')->nullable();
-            $table->dateTime('special_price_end')->nullable();
+            $table->timestamp('special_price_start')->nullable();
+            $table->timestamp('special_price_end')->nullable();
             $table->tinyInteger('is_active');
             $table->softDeletes();
             $table->timestamps();

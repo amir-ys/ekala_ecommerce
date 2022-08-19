@@ -3,6 +3,7 @@
 namespace Modules\Blog\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Http\UploadedFile;
 use Modules\Blog\Contracts\PostRepositoryInterface;
 use Modules\Blog\Http\Requests\PostRequest;
@@ -37,6 +38,7 @@ class PostController extends Controller
         $data = $request->all();
         $data['author_id'] = auth()->id();
         $data['image'] = $this->uploadImage($request->file('image'));
+        $data['published_at'] = getDateFromJalali($request->published_at);
 
         $this->postRepo->store($data);
         newFeedback();
@@ -57,6 +59,8 @@ class PostController extends Controller
 
         $data['author_id'] = auth()->id();
         $data['image'] = $this->updateImage($request, $post);
+        $data['published_at'] = getDateFromJalali($request->published_at);
+
         $this->postRepo->update($postId, $data);
 
         newFeedback();
@@ -95,5 +99,4 @@ class PostController extends Controller
     {
         return ImageService::loadImage($name, Post::getUploadDir());
     }
-
 }

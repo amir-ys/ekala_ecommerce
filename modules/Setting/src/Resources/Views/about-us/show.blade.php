@@ -67,6 +67,18 @@
         </div>
     </div>
 @endsection
+@section('script')
+    <script src="/assets/panel/vendors/ckeditor/ckeditor.js"></script>
+    <script>
+
+        ClassicEditor
+            .create(document.querySelector('#description'))
+            .catch(error => {
+                console.error(error);
+            });
+
+    </script>
+@endsection
 
 
 

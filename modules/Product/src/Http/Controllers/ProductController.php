@@ -35,7 +35,11 @@ class ProductController extends Controller
 
     public function store(StoreProductRequest $request)
     {
-        $product = $this->productRepo->store($request->all());
+        $data = $request->all();
+        $data['special_price_start'] = getDateFromJalali($request->special_price_start);
+        $data['special_price_end'] = getDateFromJalali($request->special_price_end);
+
+        $product = $this->productRepo->store($data);
 
         //upload primary image
         $imageName = ImageService::uploadImage($request->primary_image, Product::getUploadDirectory());
@@ -64,9 +68,12 @@ class ProductController extends Controller
     {
         $product =  $this->productRepo->findById($productId);
 
-        //update product
-        $this->productRepo->update($productId ,  $request->all());
+        $data = $request->all();
+        $data['special_price_start'] = getDateFromJalali($request->special_price_start);
+        $data['special_price_end'] = getDateFromJalali($request->special_price_end);
 
+        //update product
+        $this->productRepo->update($productId , $data);
 
         //upload primary image
         if ($request->hasFile('primary_image')){

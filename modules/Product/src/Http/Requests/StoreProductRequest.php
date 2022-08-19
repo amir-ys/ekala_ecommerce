@@ -38,6 +38,7 @@ class StoreProductRequest extends  FormRequest
     {
         return [
             'price' => 'قیمت' ,
+            'primary_image' => 'تصویر اصلی' ,
             'quantity' => 'موجودی' ,
             'brand_id' => 'دیته بندی' ,
             'category_id' => 'برند' ,

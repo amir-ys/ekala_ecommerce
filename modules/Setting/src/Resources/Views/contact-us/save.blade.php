@@ -77,3 +77,15 @@
     </div>
     <!-- end row -->
 @endsection
+@section('script')
+    <script src="/assets/panel/vendors/ckeditor/ckeditor.js"></script>
+    <script>
+
+        ClassicEditor
+            .create(document.querySelector('#shop_address'))
+            .catch(error => {
+                console.error(error);
+            });
+
+    </script>
+@endsection
