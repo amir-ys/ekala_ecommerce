@@ -6,6 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Enum;
 use Modules\Product\Enums\ProductStatus;
+use Modules\Product\Models\Product;
 
 class StoreProductRequest extends FormRequest
 {
@@ -23,6 +24,7 @@ class StoreProductRequest extends FormRequest
             'brand_id' => ['required', Rule::exists('brands', 'id')],
             'category_id' => ['required', Rule::exists('categories', 'id')],
             'is_active' => ['required', new Enum(ProductStatus::class)],
+            'is_marketable' => ['required', Rule::in(Product::$morketableStatuses)],
             'description' => ['required'],
             'primary_image' => ['required', 'image', 'mimes:jpeg,jpg,png'],
             'images' => ['nullable', 'array'],

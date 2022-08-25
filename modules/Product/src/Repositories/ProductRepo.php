@@ -29,6 +29,7 @@ class ProductRepo extends BaseRepository implements ProductRepositoryInterface
             'special_price_start' => $data['special_price_start'],
             'special_price_end' => $data['special_price_end'],
             'is_active' => $data['is_active'],
+            'is_marketable' => $data['is_marketable'],
         ]);
     }
 
@@ -45,6 +46,7 @@ class ProductRepo extends BaseRepository implements ProductRepositoryInterface
             'special_price_start' => $data['special_price_start'],
             'special_price_end' => $data['special_price_end'],
             'is_active' => $data['is_active'],
+            'is_marketable' => $data['is_marketable'],
         ]);
     }
 

@@ -25,6 +25,7 @@ return new class extends Migration {
             $table->timestamp('special_price_start')->nullable();
             $table->timestamp('special_price_end')->nullable();
             $table->tinyInteger('is_active');
+            $table->tinyInteger('is_marketable')->default();
             $table->softDeletes();
             $table->timestamps();
         });

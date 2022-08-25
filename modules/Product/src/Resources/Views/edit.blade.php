@@ -62,18 +62,7 @@
                                         </select>
                                         <x-validation-error field="brand_id"/>
                                     </div>
-                                    <div class="col-md-3 mb-3">
-                                        <label>وضعیت</label>
-                                        <select class="form-control" name="is_active">
-                                            <option value> یک وضعیت را انتخاب کنید</option>
-                                            @foreach(\Modules\Product\Enums\ProductStatus::cases() as $status)
-                                                <option value="{{ $status->value }}"
-                                                    @selected($status->value == $product->is_active->value)
-                                                > @lang($status->name) </option>
-                                            @endforeach
-                                        </select>
-                                        <x-validation-error field="is_active"/>
-                                    </div>
+
                                     <div class="col-md-3 mb-3">
                                         <label>دسته بندی </label>
                                         <select class="form-control" name="category_id">
@@ -86,6 +75,34 @@
                                         </select>
                                         <x-validation-error field="category_id"/>
                                     </div>
+
+                                    <div class="col-md-3 mb-3">
+                                        <label>وضعیت</label>
+                                        <select class="form-control" name="is_active">
+                                            <option value> یک وضعیت را انتخاب کنید</option>
+                                            @foreach(\Modules\Product\Enums\ProductStatus::cases() as $status)
+                                                <option value="{{ $status->value }}"
+                                                    @selected($status->value == $product->is_active->value)
+                                                > @lang($status->name) </option>
+                                            @endforeach
+                                        </select>
+                                        <x-validation-error field="is_active"/>
+                                    </div>
+
+
+                                    <div class="col-md-3 mb-3">
+                                        <label>قابل فروش بودن</label>
+                                        <select class="form-control" name="is_marketable">
+                                            <option value> یک وضعیت را انتخاب کنید</option>
+                                            @foreach(\Modules\Product\Models\Product::$morketableStatuses as $name => $status)
+                                                <option value="{{ $status }}"
+                                                        @selected($status == $product->is_marketable)
+                                                > {{ $name }} </option>
+                                            @endforeach
+                                        </select>
+                                        <x-validation-error field="is_marketable"/>
+                                    </div>
+
                                 </div>
                             </div>
                             <div class="form-group">

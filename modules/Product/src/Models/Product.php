@@ -20,6 +20,14 @@ class Product extends Model
 {
     use HasFactory, Sluggable, SoftDeletes, Commentable;
 
+    const MARKETABLE = '1';
+    const NOT_MARKETABLE = '0';
+
+    public static array $morketableStatuses = [
+       'فعال' =>  self::MARKETABLE ,
+        'غیر فعال' =>  self::NOT_MARKETABLE
+    ];
+
     protected $guarded = [];
     protected $casts = [
         'is_active' => ProductStatus::class
