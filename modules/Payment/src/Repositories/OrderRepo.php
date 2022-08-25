@@ -1,6 +1,6 @@
 <?php
 
-    namespace Modules\Payment\Repositories;
+namespace Modules\Payment\Repositories;
 
 use Modules\Core\Repositories\BaseRepository;
 use Modules\Payment\Contracts\OrderRepositoryInterface;
@@ -9,15 +9,16 @@ use Modules\Payment\Models\Order;
 class OrderRepo extends BaseRepository implements OrderRepositoryInterface
 {
     protected string $model = Order::class;
+
     public function store(array $data)
     {
-       return $this->query->create($data);
+        return $this->query->create($data);
     }
 
-    public function storeOrderItems($orderId ,$cartItems)
+    public function storeOrderItems($orderId, $cartItems)
     {
         $order = $this->findById($orderId);
-        foreach ($cartItems as $cartItem){
+        foreach ($cartItems as $cartItem) {
             $order->items()->create(
                 [
                     'product_id' => $cartItem->id,
@@ -34,11 +35,11 @@ class OrderRepo extends BaseRepository implements OrderRepositoryInterface
         // TODO: Implement update() method.
     }
 
-    public function changeStatus($id , $status)
+    public function changeStatus($id, $status)
     {
         $model = $this->findById($id);
         $model->update([
-           'status' => $status
+            'status' => $status
         ]);
     }
 }

@@ -3,27 +3,30 @@
 namespace Modules\Payment\Repositories;
 
 use Modules\Core\Repositories\BaseRepository;
-use Modules\Payment\Contracts\TransactionRepositoryInterface;
-use Modules\Payment\Models\Transaction;
+use Modules\Payment\Contracts\PaymentRepositoryInterface;
+use Modules\Payment\Models\Payment;
 
-class TransactionRepo extends BaseRepository implements TransactionRepositoryInterface
+class PaymentRepo extends BaseRepository implements PaymentRepositoryInterface
 {
-    protected string $model = Transaction::class;
+    protected string $model = Payment::class;
+
     public function store(array $data)
     {
         $this->query->create($data);
     }
 
+
+    //todo
     public function update(int $id, array $data)
     {
     }
 
     public function findByToken($token)
     {
-       return $this->query->where('token' ,$token)->first();
+        return $this->query->where('token', $token)->first();
     }
 
-    public function changeStatus($id , $status)
+    public function changeStatus($id, $status)
     {
         $model = $this->findById($id);
         $model->update([

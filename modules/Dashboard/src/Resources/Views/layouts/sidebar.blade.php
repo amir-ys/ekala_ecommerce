@@ -2,7 +2,7 @@ x
 <div class="side-menu">
     <div class="side-menu-body">
         <ul>
-            <li class="side-menu-divider">فهرست</li>
+{{--            <li class="side-menu-divider">فهرست</li>--}}
 
 
             <li><a data-attr="layout-builder-toggle"
@@ -13,7 +13,7 @@ x
             </li>
 
 
-            <li class="side-menu-divider">مدیریت کاربران</li>
+{{--            <li class="side-menu-divider">مدیریت کاربران</li>--}}
 
             <li><a href="#"><i class="icon ti-user"></i> <span> کاربران</span> </a>
                 <ul>
@@ -25,16 +25,6 @@ x
                     </li>
                 </ul>
             </li>
-
-            <li class="side-menu-divider">وبلاگ</li>
-
-            <li><a href="#"><i class="icon ti-write"></i> <span> وبلاگ </span> </a>
-                <ul>
-                    <li><a href="{{ route('panel.blog.categories.index') }}">دسته بندی ها </a></li>
-                    <li><a href="{{ route('panel.blog.posts.index') }}">پست ها  </a></li>
-                </ul>
-            </li>
-
 
             <li class="side-menu-divider">فروشگاه</li>
 
@@ -92,7 +82,7 @@ x
             </li>
 
 
-            <li class="side-menu-divider"> نظرات</li>
+{{--            <li class="side-menu-divider"> نظرات</li>--}}
 
             <li><a data-attr="layout-builder-toggle"
                    class="{{ request()->url(route('panel.comments.index')) == route('panel.comments.index') ? 'c-active' : '' }}"
@@ -101,7 +91,7 @@ x
                     <span>  نظرات</span> <span class="badge bg-danger-gradient"></span></a>
             </li>
 
-            <li class="side-menu-divider">تخفیف ها</li>
+{{--            <li class="side-menu-divider">تخفیف ها</li>--}}
 
             <li><a data-attr="layout-builder-toggle"
                    class="{{ request()->url(route('panel.coupons.index')) == route('panel.coupons.index') ? 'c-active' : '' }}"
@@ -111,8 +101,29 @@ x
             </li>
 
 
-            <li class="side-menu-divider">سایت</li>
 
+
+            <li><a href="#"><i class="icon ti-write"></i> <span> پرداخت ها </span> </a>
+                <ul>
+                    <li><a href="{{ route('panel.blog.payments.online') }}">پرداخت های آنلاین </a></li>
+                    <li><a href="{{ route('panel.blog.payments.offline') }}">پرداخت های آفلاین </a></li>
+                    <li><a href="{{ route('panel.blog.payments.cash') }}">پرداخت در محل </a></li>
+                </ul>
+            </li>
+
+
+
+            <li class="side-menu-divider">وبلاگ</li>
+
+            <li><a href="#"><i class="icon ti-write"></i> <span> وبلاگ </span> </a>
+                <ul>
+                    <li><a href="{{ route('panel.blog.categories.index') }}">دسته بندی ها </a></li>
+                    <li><a href="{{ route('panel.blog.posts.index') }}">پست ها  </a></li>
+                </ul>
+            </li>
+
+
+            {{--            <li class="side-menu-divider">سایت</li>--}}
 
             <li><a data-attr="layout-builder-toggle"
                    class="{{ request()->url(route('panel.settings.index')) == route('panel.settings.index') ? 'c-active' : '' }}"

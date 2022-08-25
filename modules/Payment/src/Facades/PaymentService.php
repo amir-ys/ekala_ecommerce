@@ -1,4 +1,5 @@
 <?php
+
 namespace Modules\Payment\Facades;
 
 use Illuminate\Support\Facades\Facade;

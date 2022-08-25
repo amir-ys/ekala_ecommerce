@@ -7,22 +7,22 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Modules\Front\Services\CartService;
 use Modules\Payment\Contracts\OrderRepositoryInterface;
-use Modules\Payment\Contracts\TransactionRepositoryInterface;
+use Modules\Payment\Contracts\PaymentRepositoryInterface;
 use Modules\Payment\Gateways\Gateway;
 use Modules\Payment\Models\Order;
-use Modules\Payment\Models\Transaction;
+use Modules\Payment\Models\Payment;
 use Modules\Product\Contracts\ProductRepositoryInterface;
 
-class TransactionController extends Controller
+class PaymentController extends Controller
 {
-    private TransactionRepositoryInterface $transactionRepo;
+    private $paymentRepo;
     private OrderRepositoryInterface $orderRepo;
     private ProductRepositoryInterface $productRepo;
 
-    public function __construct(OrderRepositoryInterface       $orderRepo,
-                                TransactionRepositoryInterface $transactionRepo, ProductRepositoryInterface $productRepo)
+    public function __construct(OrderRepositoryInterface   $orderRepo,
+                                PaymentRepositoryInterface $paymentRepo, ProductRepositoryInterface $productRepo)
     {
-        $this->transactionRepo = $transactionRepo;
+        $this->paymentRepo = $productRepo;
         $this->orderRepo = $orderRepo;
         $this->productRepo = $productRepo;
     }
@@ -31,16 +31,16 @@ class TransactionController extends Controller
     {
         $gateway = resolve(Gateway::class);
         $token = $this->getTokenFromRequest();
-        $transaction = $this->checkTokenExistsInTransaction($token);
-        $result = $gateway->verify($request, $transaction->amount);
+        $payment = $this->checkTokenExistsInPayment($token);
+        $result = $gateway->verify($request, $payment->amount);
 
         if (is_array($result)) {
-            $this->orderRepo->changeStatus($transaction->order->id, Order::STATUS_FAILED);
-            $this->transactionRepo->changeStatus($transaction->id, Transaction::STATUS_FAILED);
+            $this->orderRepo->changeStatus($payment->order->id, Order::STATUS_FAILED);
+            $this->paymentRepo->changeStatus($payment->id, Payment::STATUS_FAILED);
             alert()->error('پرداخت ناموفق', 'سفارش شما انجام نشد.' . $result['message']);
         } else {
-            $this->orderRepo->changeStatus($transaction->order->id, Order::STATUS_PAID);
-            $this->transactionRepo->changeStatus($transaction->id, Transaction::STATUS_SUCCESS);
+            $this->orderRepo->changeStatus($payment->order->id, Order::STATUS_PAID);
+            $this->paymentRepo->changeStatus($payment->id, Payment::STATUS_SUCCESS);
             $this->reduceProductQuantity();
             alert()->success('پرداخت موفق', 'سفارش شما باموفقیت انجام شد.');
         }
@@ -49,14 +49,14 @@ class TransactionController extends Controller
         return redirect()->route('front.home');
     }
 
-    public function checkTokenExistsInTransaction($token)
+    public function checkTokenExistsInPayment($token)
     {
-        $transaction = $this->transactionRepo->findByToken($token);
-        if (!$transaction) {
+        $payment = $this->paymentRepo->findByToken($token);
+        if (!$payment) {
             alert()->error('ناموفق', 'سفارش شما انجام نشد');
             redirect()->route('front.home')->throwResponse();
         }
-        return $transaction;
+        return $payment;
     }
 
     private function clearPaymentMethodFromCache()
@@ -72,8 +72,8 @@ class TransactionController extends Controller
 
     private function reduceProductQuantity()
     {
-        foreach (CartService::getItems() as $cartItem){
-            $this->productRepo->reduceQuantity($cartItem->associatedModel->id , $cartItem->quantity);
+        foreach (CartService::getItems() as $cartItem) {
+            $this->productRepo->reduceQuantity($cartItem->associatedModel->id, $cartItem->quantity);
         }
     }
 }

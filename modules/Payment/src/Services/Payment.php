@@ -4,10 +4,9 @@ namespace Modules\Payment\Services;
 
 use Modules\Front\Services\CartService;
 use Modules\Payment\Contracts\OrderRepositoryInterface;
-use Modules\Payment\Contracts\TransactionRepositoryInterface;
+use Modules\Payment\Contracts\PaymentRepositoryInterface;
 use Modules\Payment\Gateways\Gateway;
 use Modules\Payment\Models\Order;
-use Modules\Payment\Models\Transaction;
 
 class Payment
 {
@@ -18,19 +17,19 @@ class Payment
 
         $order = $orderRepo->store($this->orderData($amounts));
         if ($order) {
-            $orderRepo->storeOrderItems($order->id , $cartItems);
-            $this->completeTheTransactionProcess($order, $amounts);
+            $orderRepo->storeOrderItems($order->id, $cartItems);
+            $this->completeThePaymentProcess($order, $amounts);
         }
         $gateway = resolve(Gateway::class);
         $gateway->redirect();
     }
 
-    private function completeTheTransactionProcess($order, $amounts)
+    private function completeThePaymentProcess($order, $amounts)
     {
-        $transactionRepo = resolve(TransactionRepositoryInterface::class);
+        $paymentRepo = resolve(PaymentRepositoryInterface::class);
         $gateway = resolve(Gateway::class);
         $token = $gateway->request($amounts['paying_amount'], 'پرداخت سفارش');
-       $transactionRepo->store($this->transactionData($order , $amounts , $token));
+        $paymentRepo->store($this->paymentData($order, $amounts, $token, $gateway->getName()));
     }
 
     private function orderData($amounts)
@@ -49,7 +48,7 @@ class Payment
         ];
     }
 
-    private function transactionData($order , $amounts , $token)
+    private function paymentData($order, $amounts, $token, $gatewayName)
     {
         //todo gateway name
         return [
@@ -57,9 +56,9 @@ class Payment
             'order_id' => $order->id,
             'amount' => $amounts['paying_amount'],
             'token' => $token,
-            'gateway_name' => 'pay',
-            'description' => null,
-            'status' => Transaction::STATUS_PENDING,
+            'gateway_name' => $gatewayName,
+            'payment_type' => \Modules\Payment\Models\Payment::PAYMENT_TYPE_ONLINE,
+            'status' => \Modules\Payment\Models\Payment::STATUS_PENDING,
         ];
     }
 

@@ -28,10 +28,10 @@ class ZarinpalAdaptor extends Gateway implements GatewayContract
         }
     }
 
-    public function verify($request , $amount)
+    public function verify($request, $amount)
     {
         $this->client = new Zarinpal();
-        $result = $this->client->verify(config('payment.zarinpal.merchant'),$amount, true);
+        $result = $this->client->verify(config('payment.zarinpal.merchant'), $amount, true);
 
         if (isset($result["Status"]) && $result["Status"] == 100) {
             return $result["RefID"];

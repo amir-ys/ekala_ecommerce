@@ -5,10 +5,10 @@ namespace Modules\Payment\Providers;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Modules\Payment\Contracts\OrderRepositoryInterface;
-use Modules\Payment\Contracts\TransactionRepositoryInterface;
+use Modules\Payment\Contracts\PaymentRepositoryInterface;
 use Modules\Payment\Gateways\Gateway;
 use Modules\Payment\Repositories\OrderRepo;
-use Modules\Payment\Repositories\TransactionRepo;
+use Modules\Payment\Repositories\PaymentRepo;
 use Modules\Payment\Services\Payment;
 
 class PaymentServiceProvider extends ServiceProvider
@@ -28,7 +28,7 @@ class PaymentServiceProvider extends ServiceProvider
     {
         $this->app->bind('payment', Payment::class);
         $this->app->bind(OrderRepositoryInterface::class, OrderRepo::class);
-        $this->app->bind(TransactionRepositoryInterface::class, TransactionRepo::class);
+        $this->app->bind(PaymentRepositoryInterface::class, PaymentRepo::class);
 
         app()->singleton(Gateway::class, function () {
             $paymentMethod = cache()->get('payment_method');

@@ -5,13 +5,15 @@ namespace Modules\Payment\Models;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Coupon\Models\Coupon;
 use Modules\Payment\Database\Factories\OrderFactory;
 use Modules\User\Models\User;
 
 class Order extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
+
     protected $guarded = [];
 
     public static function factory(): OrderFactory
@@ -36,22 +38,22 @@ class Order extends Model
 
     public function items()
     {
-      return $this->hasMany(OrderItem::class , 'order_id');
+        return $this->hasMany(OrderItem::class, 'order_id');
     }
 
-    public function statusName() :Attribute
+    public function statusName(): Attribute
     {
-        return Attribute::get(function (){
-           if ($this->status == self::STATUS_FAILED) return 'ناموفق';
-           if ($this->status == self::STATUS_POSTED) return 'پست شده';
-           if ($this->status == self::STATUS_PAID) return 'پرداخت شده';
-           if ($this->status == self::STATUS_PENDING) return 'در انتظار پرداخت';
+        return Attribute::get(function () {
+            if ($this->status == self::STATUS_FAILED) return 'ناموفق';
+            if ($this->status == self::STATUS_POSTED) return 'پست شده';
+            if ($this->status == self::STATUS_PAID) return 'پرداخت شده';
+            if ($this->status == self::STATUS_PENDING) return 'در انتظار پرداخت';
         });
     }
 
-    public function statusCss() :Attribute
+    public function statusCss(): Attribute
     {
-        return Attribute::get(function (){
+        return Attribute::get(function () {
             if ($this->status == self::STATUS_FAILED) return 'danger';
             if ($this->status == self::STATUS_POSTED) return 'success';
             if ($this->status == self::STATUS_PAID) return 'success';

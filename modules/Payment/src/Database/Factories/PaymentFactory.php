@@ -5,15 +5,16 @@ namespace Modules\Payment\Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use Modules\Payment\Models\Order;
-use Modules\Payment\Models\Transaction;
+use Modules\Payment\Models\Payment;
 use Modules\User\Models\User;
 
 /**
  * @extends Factory
  */
-class TransactionFactory extends Factory
+class PaymentFactory extends Factory
 {
-    protected $model = Transaction::class;
+    protected $model = Payment::class;
+
     /**
      * Define the model's default state.
      *
@@ -29,7 +30,7 @@ class TransactionFactory extends Factory
             'token' => Str::random(12),
             'gateway_name' => $this->faker->randomElement(['pay', 'zarinpal']),
             'description' => $this->faker->text,
-            'status' => $this->faker->randomElement([Transaction::STATUS_SUCCESS, Transaction::STATUS_FAILED, Transaction::STATUS_PENDING]),
+            'status' => $this->faker->randomElement([Payment::STATUS_SUCCESS, Payment::STATUS_FAILED, Payment::STATUS_PENDING]),
         ];
     }
 }

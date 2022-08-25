@@ -6,8 +6,7 @@ use Illuminate\Support\Facades\Schema;
 use Modules\Payment\Models\Order;
 use Modules\User\Models\User;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -15,15 +14,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('transactions', function (Blueprint $table) {
+        Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class)->constrained();
             $table->foreignIdFor(Order::class)->constrained();
             $table->bigInteger('amount');
-            $table->string('ref_id')->nullable();
             $table->string('token')->nullable();
-            $table->string('gateway_name');
+            $table->string('gateway_name')->nullable()->comment('from payment type online');
+            $table->string('cash_receiver')->nullable()->comment('for payment type cash');
+            $table->string('pay_date')->nullable()->comment('for payment type offline');
             $table->string('description')->nullable();
+            $table->tinyInteger('payment_type');
             $table->tinyInteger('status');
             $table->timestamps();
         });
@@ -36,6 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transactions');
+        Schema::dropIfExists('payments');
     }
 };

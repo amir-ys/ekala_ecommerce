@@ -13,6 +13,7 @@ use Modules\User\Models\User;
 class OrderFactory extends Factory
 {
     protected $model = Order::class;
+
     /**
      * Define the model's default state.
      *
