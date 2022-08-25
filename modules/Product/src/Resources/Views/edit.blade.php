@@ -96,7 +96,7 @@
                                             <option value> یک وضعیت را انتخاب کنید</option>
                                             @foreach(\Modules\Product\Models\Product::$morketableStatuses as $name => $status)
                                                 <option value="{{ $status }}"
-                                                        @selected($status == $product->is_marketable)
+                                                    @selected($status == $product->is_marketable)
                                                 > {{ $name }} </option>
                                             @endforeach
                                         </select>

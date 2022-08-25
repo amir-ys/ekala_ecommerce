@@ -4,6 +4,7 @@ namespace Modules\Product\Routes;
 
 use Illuminate\Support\Facades\Route;
 use Modules\Product\Http\Controllers\ProductAttributeController;
+use Modules\Product\Http\Controllers\ProductColorController;
 use Modules\Product\Http\Controllers\ProductController;
 use Modules\Product\Http\Controllers\ProductImageController;
 use Modules\Product\Http\Controllers\WishlistController;
@@ -23,6 +24,11 @@ Route::group(['prefix' => 'panel'], function () {
     Route::get('products/{product}/attributes', [ProductAttributeController::class, 'show'])->name('panel.products.attributes.show');
     Route::post('products/{product}/attribute-vale/save', [ProductAttributeController::class, 'saveAttributeValue'])->name('panel.products.attributes.save');
 
+
+    //product colors
+    Route::prefix('products/{product}')->group(function () {
+        Route::resource('colors', ProductColorController::class)->names('panel.products.colors');
+    });
 });
 
 //wishlist

@@ -29,9 +29,9 @@ class ProductFactory extends Factory
             'description' => $this->faker->text,
             'price' => $this->faker->numberBetween(5000, 50000000),
             'quantity' => $this->faker->numberBetween(0, 1000),
-            'special_price' => $this->faker->numberBetween(5000, 50000000),
-            'special_price_start' => getJalaliDate($this->faker->dateTime->format('Y-m-d H:i:s')) ,
-            'special_price_end' => getJalaliFromFormat($this->faker->dateTime->format('Y-m-d H:i:s')),
+//            'special_price' => $this->faker->numberBetween(5000, 50000000),
+//            'special_price_start' => getJalaliDate($this->faker->dateTime->format('Y-m-d H:i:s')) ,
+//            'special_price_end' => getJalaliFromFormat($this->faker->dateTime->format('Y-m-d H:i:s')),
             'is_active' => $this->faker->randomElement([ProductStatus::INACTIVE->value, ProductStatus::ACTIVE->value]),
             'is_marketable' => $this->faker->randomElement(Product::$morketableStatuses),
         ];

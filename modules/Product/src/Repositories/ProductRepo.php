@@ -218,4 +218,43 @@ class ProductRepo extends BaseRepository implements ProductRepositoryInterface
         $model->decrement('quantity', $quantity);
         $model->save();
     }
+
+    public function getProductColors($id)
+    {
+        $model = $this->findById($id);
+        return $model->colors()->get();
+    }
+
+
+    public function findColorById($id, $colorId)
+    {
+        $model = $this->findById($id);
+        return $model->colors()->where('id', $colorId)->firstOrFail();
+    }
+
+    public function storeColor($id, $data)
+    {
+        $model = $this->findById($id);
+        $model->colors()->create([
+            "color_name" => $data['color_name'],
+            "color_value" => $data['color_value'],
+            "price_increase" => $data['price_increase'],
+        ]);
+    }
+
+    public function updateColor($id, $colorId, $data)
+    {
+        $model = $this->findById($id);
+        $model->colors()->where('id', $colorId)->update([
+            "color_name" => $data['color_name'],
+            "color_value" => $data['color_value'],
+            "price_increase" => $data['price_increase'],
+        ]);
+    }
+
+    public function destroyColor($id, $colorId)
+    {
+        $model = $this->findById($id);
+        return $model->colors()->where('id', $colorId)->delete();
+    }
 }

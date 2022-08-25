@@ -24,8 +24,8 @@ class Product extends Model
     const NOT_MARKETABLE = '0';
 
     public static array $morketableStatuses = [
-       'فعال' =>  self::MARKETABLE ,
-        'غیر فعال' =>  self::NOT_MARKETABLE
+        'فعال' => self::MARKETABLE,
+        'غیر فعال' => self::NOT_MARKETABLE
     ];
 
     protected $guarded = [];
@@ -96,6 +96,11 @@ class Product extends Model
     {
         return $this->belongsToMany(\Modules\Attribute\Models\Attribute::class, 'attribute_product',
             'product_id', 'attribute_id')->withPivot('value')->withTimestamps();
+    }
+
+    public function colors()
+    {
+        return $this->hasMany(ProductColor::class);
     }
 
     public function formattedPrice(): string

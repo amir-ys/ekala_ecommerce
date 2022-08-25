@@ -72,7 +72,7 @@
                                         <option value> یک وضعیت را انتخاب کنید</option>
                                         @foreach(\Modules\Product\Models\Product::$morketableStatuses as $name => $status)
                                             <option value="{{ $status }}"
-                                                    @selected(\Modules\Product\Models\Product::MARKETABLE == $status)
+                                                @selected(\Modules\Product\Models\Product::MARKETABLE == $status)
                                             > {{ $name }} </option>
                                         @endforeach
                                     </select>
