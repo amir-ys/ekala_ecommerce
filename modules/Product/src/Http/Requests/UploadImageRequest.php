@@ -1,6 +1,7 @@
 <?php
 
 namespace Modules\Product\Http\Requests;
+
 use Illuminate\Foundation\Http\FormRequest;
 
 class UploadImageRequest extends FormRequest
@@ -23,8 +24,8 @@ class UploadImageRequest extends FormRequest
     public function rules()
     {
         return [
-            'primary_image' => ['nullable' , 'mimes:jpg,jpeg,png'] ,
-            'images.*' => ['nullable' , 'mimes:jpg,jpeg,png'] ,
-            ];
+            'primary_image' => ['nullable', 'mimes:jpg,jpeg,png'],
+            'images.*' => ['nullable', 'mimes:jpg,jpeg,png'],
+        ];
     }
 }

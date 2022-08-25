@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignIdFor(\Modules\User\Models\User::class)->constrained();
             $table->foreignId('commentable_id');
             $table->string('commentable_type');
-            $table->string('is_approved')->default(\Modules\Comment\Models\Comment::STATUS_PENDING);
+            $table->tinyInteger('is_approved')->default(\Modules\Comment\Models\Comment::STATUS_PENDING);
             $table->timestamps();
         });
     }

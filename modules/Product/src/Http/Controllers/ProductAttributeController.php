@@ -16,13 +16,13 @@ class ProductAttributeController extends Controller
     public function show($productId)
     {
         $product = $this->productRepo->findByIdWithCategory($productId);
-        return view('Product::attributes.show' , compact('product'));
+        return view('Product::attributes.show', compact('product'));
     }
 
-    public function saveAttributeValue(SaveProductAttributeRequest $request , $productId)
+    public function saveAttributeValue(SaveProductAttributeRequest $request, $productId)
     {
-         $this->productRepo->attachAttributeWithValue($productId , $request->input('attributes'));
-         newFeedback();
-         return  back();
+        $this->productRepo->attachAttributeWithValue($productId, $request->input('attributes'));
+        newFeedback();
+        return back();
     }
 }

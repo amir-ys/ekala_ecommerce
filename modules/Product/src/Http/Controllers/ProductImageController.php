@@ -50,19 +50,19 @@ class ProductImageController extends Controller
         return back();
     }
 
-    public function deleteImage($productId ,  $imageId)
+    public function deleteImage($productId, $imageId)
     {
-        $image = $this->productRepo->findImageById($productId , $imageId);
+        $image = $this->productRepo->findImageById($productId, $imageId);
         $this->productRepo->deleteProductImage($image);
-        ImageService::deleteImage($image->name , Product::getUploadDirectory());
-        newFeedback(  'عملیات موفق' ,'فایل با موفقیت حذف شد');
-        return  back();
+        ImageService::deleteImage($image->name, Product::getUploadDirectory());
+        newFeedback('عملیات موفق', 'فایل با موفقیت حذف شد');
+        return back();
     }
 
     public function deleteAllImages($productId)
     {
         $images = $this->productRepo->getProductImages($productId);
-        foreach ($images as $image){
+        foreach ($images as $image) {
             $this->productRepo->deleteProductImage($image);
             ImageService::deleteImage($image->name, Product::getUploadDirectory());
         }

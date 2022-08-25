@@ -21,9 +21,9 @@ class ProductImageFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->imageUrl ,
-            'product_id' => Product::factory() ,
-            'is_primary' => $this->faker->randomElement([1 ,0])
-            ];
+            'name' => $this->faker->imageUrl,
+            'product_id' => Product::factory(),
+            'is_primary' => $this->faker->randomElement([1, 0])
+        ];
     }
 }

@@ -27,6 +27,7 @@ class UserFactory extends Factory
             'remember_token' => Str::random(10),
             'profile' => $this->faker->imageUrl,
             'status' => $this->faker->randomElement([1, 0 , -1]),
+            'is_admin' => $this->faker->randomElement([1, 0 , -1]),
         ];
     }
 

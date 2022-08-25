@@ -12,10 +12,14 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('attribute_product', function (Blueprint $table) {
-            $table->foreignIdFor(\Modules\Product\Models\Product::class)->constrained();
-            $table->foreignIdFor(\Modules\Attribute\Models\Attribute::class)->constrained();
-            $table->string('value');
+        Schema::create('delivery', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->decimal('amount');
+            $table->string('delivery_time');
+            $table->string('delivery_unit');
+            $table->tinyInteger('status')->default(\Modules\Product\Models\Delivery::STATUS_ACTIVE);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -27,6 +31,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('attribute_product');
+        Schema::dropIfExists('delivery');
     }
 };

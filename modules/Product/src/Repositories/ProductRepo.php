@@ -128,7 +128,7 @@ class ProductRepo extends BaseRepository implements ProductRepositoryInterface
 
     public function getSelectedProducts()
     {
-        return $this->query->with(['category' , 'brand'  , 'primaryImage'])->where('is_active', ProductStatus::ACTIVE->value)->get();
+        return $this->query->with(['category', 'brand', 'primaryImage'])->where('is_active', ProductStatus::ACTIVE->value)->get();
     }
 
     public function getProductsOrderByRequest()
@@ -182,38 +182,38 @@ class ProductRepo extends BaseRepository implements ProductRepositoryInterface
     public function removeFromWishlist($id, $userId)
     {
         $model = $this->findById($id);
-         $model->wishlist()->where('user_id' , $userId)->delete();
+        $model->wishlist()->where('user_id', $userId)->delete();
     }
 
     public function findProductInWishlist($id, $userId)
     {
         $model = $this->findById($id);
-       return $model->wishlist()->where('user_id' , $userId)->first();
+        return $model->wishlist()->where('user_id', $userId)->first();
     }
 
 
     public function findProductByIds($ids)
     {
-        return $this->query->whereIn('id' , $ids)->get();
+        return $this->query->whereIn('id', $ids)->get();
     }
 
     public function findActiveById($id)
     {
-        return $this->query->where('is_active' , ProductStatus::ACTIVE)
-            ->where('id' , $id)->first();
+        return $this->query->where('is_active', ProductStatus::ACTIVE)
+            ->where('id', $id)->first();
     }
 
     public function getProductWithDiscount()
     {
-       return $this->query->whereNotNull('special_price')
-            ->where('special_price_start' , '<' , now())
-            ->where('special_price_end' , '>' , now())->get();
+        return $this->query->whereNotNull('special_price')
+            ->where('special_price_start', '<', now())
+            ->where('special_price_end', '>', now())->get();
     }
 
-    public function reduceQuantity($id , $quantity)
+    public function reduceQuantity($id, $quantity)
     {
         $model = $this->query->find($id);
-        $model->decrement('quantity' ,$quantity);
+        $model->decrement('quantity', $quantity);
         $model->save();
     }
 }

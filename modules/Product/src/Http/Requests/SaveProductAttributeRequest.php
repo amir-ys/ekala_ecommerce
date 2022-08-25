@@ -1,8 +1,8 @@
 <?php
 
 namespace Modules\Product\Http\Requests;
+
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class SaveProductAttributeRequest extends FormRequest
 {
@@ -24,15 +24,15 @@ class SaveProductAttributeRequest extends FormRequest
     public function rules()
     {
         return [
-            'attributes' => [ 'array' ] ,
-            'attributes.*' => [ 'required' ]
+            'attributes' => ['array'],
+            'attributes.*' => ['required']
         ];
     }
 
     public function attributes()
     {
         return [
-            'attributes.*' =>  'مقادیر'
+            'attributes.*' => 'مقادیر'
         ];
     }
 }

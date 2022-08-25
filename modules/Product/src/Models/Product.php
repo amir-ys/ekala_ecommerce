@@ -18,7 +18,7 @@ use Modules\Product\Enums\ProductStatus;
 
 class Product extends Model
 {
-    use HasFactory , Sluggable , SoftDeletes ,Commentable ;
+    use HasFactory, Sluggable, SoftDeletes, Commentable;
 
     protected $guarded = [];
     protected $casts = [
@@ -32,18 +32,18 @@ class Product extends Model
 
     public function sluggable(): array
     {
-        return  [
-            'slug' =>[
+        return [
+            'slug' => [
                 'source' => 'name'
             ]
         ];
     }
 
-    public function statusCssClass() :Attribute
+    public function statusCssClass(): Attribute
     {
-        return  Attribute::get(function (){
-            if ($this->is_active->value == ProductStatus::ACTIVE->value) return 'success' ;
-            if ($this->is_active->value == ProductStatus::INACTIVE->value) return 'danger' ;
+        return Attribute::get(function () {
+            if ($this->is_active->value == ProductStatus::ACTIVE->value) return 'success';
+            if ($this->is_active->value == ProductStatus::INACTIVE->value) return 'danger';
         });
     }
 
@@ -59,35 +59,35 @@ class Product extends Model
 
     public function allImages(): HasMany
     {
-        return $this->hasMany(ProductImage::class , 'product_id');
+        return $this->hasMany(ProductImage::class, 'product_id');
     }
 
     public function images(): HasMany
     {
-        return $this->hasMany(ProductImage::class , 'product_id')
-            ->where('is_primary' ,ProductImage::IS_PRIMARY_FALSE );
+        return $this->hasMany(ProductImage::class, 'product_id')
+            ->where('is_primary', ProductImage::IS_PRIMARY_FALSE);
     }
 
-    public function primaryImage() : \Illuminate\Database\Eloquent\Relations\HasOne
+    public function primaryImage(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
-        return $this->hasOne(ProductImage::class , 'product_id')->
-          where('is_primary' , ProductImage::IS_PRIMARY_TRUE);
+        return $this->hasOne(ProductImage::class, 'product_id')->
+        where('is_primary', ProductImage::IS_PRIMARY_TRUE);
     }
 
     public function wishlist(): HasMany
     {
-        return $this->hasMany(Wishlist::class , 'product_id');
+        return $this->hasMany(Wishlist::class, 'product_id');
     }
 
-    public static function getUploadDirectory() :string
+    public static function getUploadDirectory(): string
     {
         return 'products';
     }
 
     public function attributes(): BelongsToMany
     {
-        return $this->belongsToMany(\Modules\Attribute\Models\Attribute::class  , 'attribute_product' ,
-            'product_id' , 'attribute_id')->withPivot('value')->withTimestamps();
+        return $this->belongsToMany(\Modules\Attribute\Models\Attribute::class, 'attribute_product',
+            'product_id', 'attribute_id')->withPivot('value')->withTimestamps();
     }
 
     public function formattedPrice(): string
@@ -97,44 +97,44 @@ class Product extends Model
 
     public function path()
     {
-        return route('front.product.details' , $this->slug);
+        return route('front.product.details', $this->slug);
     }
 
 
-    public function hasDiscount() :Attribute
+    public function hasDiscount(): Attribute
     {
-       return Attribute::get(function (){
-           if (!is_null($this->special_price) && ($this->special_price_start < now() && $this->special_price_end  >  now())) return true;
+        return Attribute::get(function () {
+            if (!is_null($this->special_price) && ($this->special_price_start < now() && $this->special_price_end > now())) return true;
         });
     }
 
     public function priceWithDiscount()
     {
-       if (!is_null($this->special_price) && ($this->special_price_start < now() && $this->special_price_end  >  now())){
-           return $this->special_price;
-       }
-       return $this->price;
+        if (!is_null($this->special_price) && ($this->special_price_start < now() && $this->special_price_end > now())) {
+            return $this->special_price;
+        }
+        return $this->price;
     }
 
     public function finalPrice()
     {
-        if ($this->hasDiscount){
-           return $this->priceWithDiscount();
+        if ($this->hasDiscount) {
+            return $this->priceWithDiscount();
         }
-        return  $this->price;
+        return $this->price;
     }
 
     public function discountAmount()
     {
         $discountAmount = 0;
-        if ($this->hasDiscount){
-            $discountAmount = $this->price - $this->priceWithDiscount() ;
+        if ($this->hasDiscount) {
+            $discountAmount = $this->price - $this->priceWithDiscount();
         }
         return $discountAmount;
     }
 
     public function findProductInWishlist($userId)
     {
-        return $this->wishlist()->where('user_id' , $userId)->with('user')->first();
+        return $this->wishlist()->where('user_id', $userId)->with('user')->first();
     }
 }

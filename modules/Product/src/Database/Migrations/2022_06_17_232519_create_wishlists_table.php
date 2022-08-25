@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -17,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(\Modules\User\Models\User::class)->constrained();
             $table->foreignIdFor(\Modules\Product\Models\Product::class)->constrained();
-            $table->index(['user_id' , 'product_id']);
+            $table->index(['user_id', 'product_id']);
             $table->timestamps();
         });
     }

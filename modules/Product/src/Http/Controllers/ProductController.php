@@ -61,30 +61,30 @@ class ProductController extends Controller
         $product = $this->productRepo->findByIdWithRelations($productId);
         $brands = (resolve(BrandRepositoryInterface::class))->all();
         $categories = (resolve(CategoryRepositoryInterface::class))->all();
-        return view('Product::edit', compact( 'product','brands', 'categories'));
+        return view('Product::edit', compact('product', 'brands', 'categories'));
     }
 
-    public function update(UpdateProductRequest $request , $productId)
+    public function update(UpdateProductRequest $request, $productId)
     {
-        $product =  $this->productRepo->findById($productId);
+        $product = $this->productRepo->findById($productId);
 
         $data = $request->all();
         $data['special_price_start'] = getDateFromJalali($request->special_price_start);
         $data['special_price_end'] = getDateFromJalali($request->special_price_end);
 
         //update product
-        $this->productRepo->update($productId , $data);
+        $this->productRepo->update($productId, $data);
 
         //upload primary image
-        if ($request->hasFile('primary_image')){
-        //delete old image
-            if (!is_null($product->primaryImage)){
-              ImageService::deleteImage($product->primaryImage->name , Product::getUploadDirectory());
+        if ($request->hasFile('primary_image')) {
+            //delete old image
+            if (!is_null($product->primaryImage)) {
+                ImageService::deleteImage($product->primaryImage->name, Product::getUploadDirectory());
                 $this->productRepo->deleteImageById($product->primaryImage->id, $product);
             }
-        //upload new image
-        $imageName = ImageService::uploadImage($request->primary_image, Product::getUploadDirectory());
-        $this->productRepo->saveProductImage($imageName, $product , ProductImage::IS_PRIMARY_TRUE);
+            //upload new image
+            $imageName = ImageService::uploadImage($request->primary_image, Product::getUploadDirectory());
+            $this->productRepo->saveProductImage($imageName, $product, ProductImage::IS_PRIMARY_TRUE);
         }
 
         //other images

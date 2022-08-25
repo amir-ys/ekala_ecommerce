@@ -178,5 +178,7 @@ return [
         'province'              => 'استان',
         'is_active'              => 'وضعیت',
         'code'              => 'کد',
+        'status'              => 'وضعیت',
+        'full_name'              => 'نام و نام خانوادگی',
     ],
 ];

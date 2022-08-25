@@ -32,7 +32,7 @@ class ProductFactory extends Factory
             'special_price' => $this->faker->numberBetween(5000, 50000000),
             'special_price_start' => $this->faker->dateTime->format('Y-m-d H:i:s'),
             'special_price_end' => $this->faker->dateTime->format('Y-m-d H:i:s'),
-            'is_active' => $this->faker->randomElement([ProductStatus::INACTIVE->value , ProductStatus::ACTIVE->value ]),
+            'is_active' => $this->faker->randomElement([ProductStatus::INACTIVE->value, ProductStatus::ACTIVE->value]),
         ];
     }
 }

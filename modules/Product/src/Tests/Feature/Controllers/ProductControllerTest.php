@@ -1,4 +1,5 @@
 <?php
+
 namespace Modules\Product\Tests\Feature\Controllers;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -32,7 +33,7 @@ class ProductControllerTest extends TestCase
         $response = $this->get(route('panel.products.create'));
         $response->assertViewIs('Product::create')
             ->assertViewHas([
-                'brands' => Brand::all() ,
+                'brands' => Brand::all(),
                 'categories' => Category::all()
             ]);
     }
@@ -43,24 +44,24 @@ class ProductControllerTest extends TestCase
         $data = Product::factory()->make()->toArray();
         $dataWithoutImage = $data;
         $data['primary_image'] = UploadedFile::fake()->image('image.png');
-        $this->post(route('panel.products.store') , $data);
+        $this->post(route('panel.products.store'), $data);
 
-        $this->assertDatabaseCount('products' , 1);
-        $this->assertDatabaseHas('products' , $dataWithoutImage);
+        $this->assertDatabaseCount('products', 1);
+        $this->assertDatabaseHas('products', $dataWithoutImage);
     }
 
     public function test_edit_method()
     {
         $this->actingAsUser();
         $product = Product::factory()
-            ->has(ProductImage::factory()->state(['is_primary' => ProductImage::IS_PRIMARY_TRUE]) , 'images')->create();
-        $response = $this->get(route('panel.products.edit' , $product->id));
+            ->has(ProductImage::factory()->state(['is_primary' => ProductImage::IS_PRIMARY_TRUE]), 'images')->create();
+        $response = $this->get(route('panel.products.edit', $product->id));
 
         $response->assertViewIs('Product::edit')
             ->assertViewHasAll([
-                'product' => $product ,
-                'categories' => Category::all() ,
-                'brands' => Brand::all() ,
+                'product' => $product,
+                'categories' => Category::all(),
+                'brands' => Brand::all(),
             ]);
 
     }
@@ -70,14 +71,14 @@ class ProductControllerTest extends TestCase
         $this->actingAsUser();
         $this->withoutExceptionHandling();
         $product = Product::factory()
-            ->has(ProductImage::factory()->state(['is_primary' => ProductImage::IS_PRIMARY_TRUE]) , 'images')->create();
+            ->has(ProductImage::factory()->state(['is_primary' => ProductImage::IS_PRIMARY_TRUE]), 'images')->create();
         $data = Product::factory()->make()->toArray();
 
-        $response =$this->patch(route('panel.products.update' , $product->id) , $data);
+        $response = $this->patch(route('panel.products.update', $product->id), $data);
 
         $response->assertRedirect();
-        $this->assertDatabaseCount('products' , 1);
-        $this->assertDatabaseHas('products' , $data);
+        $this->assertDatabaseCount('products', 1);
+        $this->assertDatabaseHas('products', $data);
     }
 
     public function test_product_can_be_delete()
@@ -85,21 +86,21 @@ class ProductControllerTest extends TestCase
         $this->actingAsUser();
         $this->withoutExceptionHandling();
         $product = Product::factory()->create();
-        $attribute =  Attribute::factory()->create();
-        $data = [ 'attributes' => [ $attribute->id => '::attribute-value::' ] ];
-        $this->post(route('panel.products.attributes.save' , $product->id) , $data);
+        $attribute = Attribute::factory()->create();
+        $data = ['attributes' => [$attribute->id => '::attribute-value::']];
+        $this->post(route('panel.products.attributes.save', $product->id), $data);
 
 
-        $this->delete(route('panel.products.destroy' , $product->id));
-        $this->isSoftDeletableModel($product->getTable() , $product->toArray());
-        $this->assertDatabaseCount('attribute_product' , 0);
-        $this->assertDatabaseMissing('attribute_product' , [ 'product_id' =>$product->id ,
-            'attribute_id' => $attribute->id , 'value' => $data['attributes'][$attribute->id]]);
+        $this->delete(route('panel.products.destroy', $product->id));
+        $this->isSoftDeletableModel($product->getTable(), $product->toArray());
+        $this->assertDatabaseCount('attribute_product', 0);
+        $this->assertDatabaseMissing('attribute_product', ['product_id' => $product->id,
+            'attribute_id' => $attribute->id, 'value' => $data['attributes'][$attribute->id]]);
     }
 
     public function actingAsUser()
     {
-        $user =  User::factory()->create();
+        $user = User::factory()->create();
         $this->actingAs($user);
     }
 }

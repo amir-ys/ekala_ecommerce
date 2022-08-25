@@ -15,7 +15,15 @@ class UserRepo extends BaseRepository implements UserRepositoryInterface
 
     public function store(array $data)
     {
-        // TODO: Implement store() method.
+        $this->query->create([
+            'username' => $data['username'],
+            'full_name' => $data['full_name'],
+            'email' => $data['email'],
+            'password' => bcrypt($data['password']),
+            'profile' => $data['uploadedProfile'],
+            'email_verified_at' => isset($data['verify_email']) ? now() : null,
+            'status' => $data['status'],
+        ]);
     }
 
     public function update(int $id, array $data)
@@ -91,10 +99,10 @@ class UserRepo extends BaseRepository implements UserRepositoryInterface
         $model->addresses()->where('id', $userAddressesId)->update(['is_active' => $status]);
     }
 
-    public function findAddressById($id , $addressId)
+    public function findAddressById($id, $addressId)
     {
         $model = $this->query->find($id);
-       return $model->addresses()->where('id' , $addressId)->first();
+        return $model->addresses()->where('id', $addressId)->first();
     }
 
 

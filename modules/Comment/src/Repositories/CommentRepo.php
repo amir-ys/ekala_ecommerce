@@ -17,7 +17,7 @@ class CommentRepo extends BaseRepository implements CommentRepositoryInterface
         $this->query->create([
             'body' => $data['body'],
             'parent_id' => $data['parent_id'],
-            'user_id' => auth()->id(),
+            'user_id' => $data['user_id'],
             'commentable_id' => $data['model_id'],
             'commentable_type' => $data['model_type'],
         ]);

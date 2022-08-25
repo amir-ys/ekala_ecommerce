@@ -67,11 +67,11 @@
                         </form>
                     </div>
                 @else
-                   <div class="text-center mb-3">
-                       <h5>
-                           هیچ ویژگی انتخاب نشده است
-                       </h5>
-                   </div>
+                    <div class="text-center mb-3">
+                        <h5>
+                            هیچ ویژگی انتخاب نشده است
+                        </h5>
+                    </div>
                 @endif
             </div>
         </div>

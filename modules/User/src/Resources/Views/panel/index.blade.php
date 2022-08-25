@@ -6,6 +6,15 @@
 @section('content')
     <div class="row">
         <div class="col-lg-12">
+            <div class="row mb-3">
+                <div class="col-sm-12 col-md-12 col-lg-2">
+                    <a href="{{ route('panel.users.create') }}"
+                       class="btn btn-primary
+                        btn-rounded waves-effect waves-light mb-2 me-2">
+                        <i class="mdi mdi-plus me-1"></i>
+                        @lang('User::translation.create')</a>
+                </div>
+            </div>
             <div class="card">
                 <div class="card-body border border-5">
                     <div class="table-responsive">
@@ -42,7 +51,7 @@
                                     <td>{{ $user->mobile ?? '-' }}</td>
                                     <td>
                                         <span class="badge badge-{{ $user->hasVerifiedEmail() ? 'success'  : 'danger' }}">
-                                            {{ $user->hasVerifiedEmail() ? 'تایید شده'  : 'تایید نشذه' }}
+                                            {{ $user->hasVerifiedEmail() ? 'تایید شده'  : 'تایید نشده' }}
                                         </span>
                                     </td>
                                     <td>
@@ -54,6 +63,11 @@
                                         <a class="btn btn-sm bg-transparent d-inline"
                                            href="{{ route('panel.users.edit' , $user->id) }}"><i
                                                 class="fa fa-pencil fa-15m text-success"></i></a>
+
+                                        <a class="btn btn-sm bg-transparent d-inline"
+                                           onclick="deleteItem(event , '{{ route('panel.users.destroy' , $user->id) }}' )"
+                                           href="{{ route('panel.users.destroy' , $user->id) }}"><i
+                                                class="fa fa-trash fa-15m text-danger"></i></a>
                                     </td>
                                 </tr>
                             @endforeach

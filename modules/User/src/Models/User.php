@@ -21,10 +21,13 @@ class User extends Authenticatable implements MustVerifyEmail
     const STATUS_DISABLE = 0;
     const STATUS_BANNED = -1;
 
+    const ROLE_USER = 0;
+    const ROLE_ADMIN = 1;
+
     public static $statuses = [
         'فعال' => self::STATUS_ACTIVE,
         'غیر فعال' => self::STATUS_DISABLE,
-        'بن شده' => self::STATUS_BANNED,
+        'بن' => self::STATUS_BANNED,
     ];
 
     public static function factory(): UserFactory

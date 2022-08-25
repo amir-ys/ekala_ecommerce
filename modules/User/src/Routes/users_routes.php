@@ -8,8 +8,11 @@ use Modules\User\Http\Controllers\UserController;
 Route::group([] ,  function (Router $router){
     //panel
     $router->get('users' , [UserController::class , 'index'])->name('panel.users.index');
+    $router->get('users/create' , [UserController::class , 'create'])->name('panel.users.create');
+    $router->post('users' , [UserController::class , 'store'])->name('panel.users.store');
     $router->get('users/{user}/edit' , [UserController::class , 'edit'])->name('panel.users.edit');
     $router->patch('users/{user}' , [UserController::class , 'update'])->name('panel.users.update');
+    $router->delete('users/{user}' , [UserController::class , 'destroy'])->name('panel.users.destroy');
     $router->get('user/{name}/profile' , [UserController::class , 'showImage'])->name('panel.users.profile.show');
 
     //front

@@ -8,7 +8,7 @@ use Modules\Core\Responses\AjaxResponse;
 use Modules\Product\Services\ImageService;
 use Modules\User\Contracts\CityRepositoryInterface;
 use Modules\User\Contracts\UserRepositoryInterface;
-use Modules\User\Http\Requests\Panel\UpdateUserRequest;
+use Modules\User\Http\Requests\Panel\UserRequest;
 use Modules\User\Http\Requests\Panel\UserAddressRequest;
 use Modules\User\Models\User;
 use Modules\User\Models\UserAddress;
@@ -28,24 +28,51 @@ class UserController extends Controller
         return view('User::panel.index', compact('users'));
     }
 
-    public function edit($userId)
+    public function create()
     {
-        $user = $this->userRepo->findById($userId);
-        return view('User::panel.edit', compact('user'));
+        return view('User::panel.create');
     }
 
-    public function update(UpdateUserRequest $request, $userId)
+    public function store(UserRequest $request)
     {
         if ($request->hasFile('profile')) {
             $request->request->add(['uploadedProfile' => ImageService::uploadImage($request->file('profile') , User::getUploadDir())]);
         }else{
             $request->request->add(['uploadedProfile' => null ]);
         }
+        $this->userRepo->store($request->all());
+
+        newFeedback();
+        return to_route('panel.users.index');
+    }
+
+    public function edit($userId)
+    {
+        $user = $this->userRepo->findById($userId);
+        return view('User::panel.edit', compact('user'));
+    }
+
+    public function update(UserRequest $request, $userId)
+    {
+        $user = $this->userRepo->findById($userId);
+        if ($request->hasFile('profile')) {
+            $request->request->add(['uploadedProfile' => ImageService::uploadImage($request->file('profile') , User::getUploadDir())]);
+        }else{
+            $request->request->add(['uploadedProfile' => $user->profile ]);
+        }
 
         $this->userRepo->update($userId, $request->all());
 
         newFeedback();
         return to_route('panel.users.index');
+    }
+
+    public function destroy($userId)
+    {
+        $user = $this->userRepo->findById($userId);
+        $this->userRepo->destroy($userId);
+        return AjaxResponse::success("کاربر  ". $user->username." با موفقیت حذف شد.");
+
     }
 
     public function showImage($name)

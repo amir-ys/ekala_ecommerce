@@ -23,13 +23,13 @@
                             <tr>
                                 <th>شناسه</th>
                                 <th>نام</th>
-                                <th> دسته بندی </th>
-                                <th> قیمت </th>
-                                <th> موجودی </th>
+                                <th> دسته بندی</th>
+                                <th> قیمت</th>
+                                <th> موجودی</th>
                                 <th> تاریخ ایجاد</th>
-                                <th> وضعیت </th>
-                                <th> گالری </th>
-                                <th> ویژگی ها </th>
+                                <th> وضعیت</th>
+                                <th> گالری</th>
+                                <th> ویژگی ها</th>
                                 <th> عملیات</th>
                             </tr>
                             </thead>
@@ -70,7 +70,8 @@
                                            class="btn btn-sm bg-transparent d-inline delete-confirm"><i
                                                 class="fa fa-trash fa-15m text-danger"></i></a>
 
-                                        <form action="{{ route('panel.products.destroy' , $product->id) }}" method="post"
+                                        <form action="{{ route('panel.products.destroy' , $product->id) }}"
+                                              method="post"
                                               id="destroy-brand-{{ $product->id }}">
                                             @csrf
                                             @method('delete')

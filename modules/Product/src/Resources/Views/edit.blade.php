@@ -77,7 +77,7 @@
                                     <div class="col-md-3 mb-3">
                                         <label>دسته بندی </label>
                                         <select class="form-control" name="category_id">
-                                            <option value>  یک دسته بندی را انتخاب کنید</option>
+                                            <option value> یک دسته بندی را انتخاب کنید</option>
                                             @foreach($categories as $category)
                                                 <option value="{{ $category->id }}"
                                                         @if($category->id == $product->category_id ) selected @endif
