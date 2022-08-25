@@ -17,6 +17,8 @@ class PaymentServiceProvider extends ServiceProvider
 
     public function register()
     {
+        $this->loadViewsFrom(__DIR__ . '/../Resources/Views' , 'Payment');
+        $this->loadTranslationsFrom(__DIR__ . '/../Resources/Lang' , 'Payment');
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
         $this->mergeConfigFrom(__DIR__ . '/../Config/payment.php', 'payment');
         $this->loadRoutes();

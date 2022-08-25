@@ -105,9 +105,9 @@ x
 
             <li><a href="#"><i class="icon ti-write"></i> <span> پرداخت ها </span> </a>
                 <ul>
-                    <li><a href="{{ route('panel.blog.payments.online') }}">پرداخت های آنلاین </a></li>
-                    <li><a href="{{ route('panel.blog.payments.offline') }}">پرداخت های آفلاین </a></li>
-                    <li><a href="{{ route('panel.blog.payments.cash') }}">پرداخت در محل </a></li>
+                    <li><a href="{{ route('panel.payments.online') }}">پرداخت های آنلاین </a></li>
+                    <li><a href="{{ route('panel.payments.offline') }}">پرداخت های آفلاین </a></li>
+                    <li><a href="{{ route('panel.payments.cash') }}">پرداخت در محل </a></li>
                 </ul>
             </li>
 

@@ -5,6 +5,7 @@ namespace Modules\Payment\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Modules\Core\Responses\AjaxResponse;
 use Modules\Front\Services\CartService;
 use Modules\Payment\Contracts\OrderRepositoryInterface;
 use Modules\Payment\Contracts\PaymentRepositoryInterface;
@@ -20,9 +21,10 @@ class PaymentController extends Controller
     private ProductRepositoryInterface $productRepo;
 
     public function __construct(OrderRepositoryInterface   $orderRepo,
-                                PaymentRepositoryInterface $paymentRepo, ProductRepositoryInterface $productRepo)
+                                PaymentRepositoryInterface $paymentRepo,
+                                ProductRepositoryInterface $productRepo)
     {
-        $this->paymentRepo = $productRepo;
+        $this->paymentRepo = $paymentRepo;
         $this->orderRepo = $orderRepo;
         $this->productRepo = $productRepo;
     }
@@ -75,5 +77,39 @@ class PaymentController extends Controller
         foreach (CartService::getItems() as $cartItem) {
             $this->productRepo->reduceQuantity($cartItem->associatedModel->id, $cartItem->quantity);
         }
+    }
+
+    public function online()
+    {
+        $payments = $this->paymentRepo->getPaymentsByType(Payment::PAYMENT_TYPE_ONLINE);
+        return view('Payment::payments.online' , compact('payments'));
+    }
+
+    public function offline()
+    {
+        $payments = $this->paymentRepo->getPaymentsByType(Payment::PAYMENT_TYPE_OFFLINE);
+        return view('Payment::payments.offline' , compact('payments'));
+    }
+
+    public function cash()
+    {
+        $payments = $this->paymentRepo->getPaymentsByType(Payment::PAYMENT_TYPE_CASH);
+        return view('Payment::payments.cash' , compact('payments'));
+    }
+
+    public function destroy($paymentId)
+    {
+        $payment = $this->paymentRepo->findById($paymentId);
+        if (!$payment){
+            return AjaxResponse::error('پرداختی با این شناسه پیدا نشد.');
+        }
+        $this->paymentRepo->destroy($paymentId);
+        return AjaxResponse::success("پرداخت با موفقیت حذف شد.");
+    }
+
+    public function getPaymentOrders($paymentId)
+    {
+        $orders = $this->paymentRepo->getPaymentOrders($paymentId);
+        return view('Payment::orders.index' , compact('orders'));
     }
 }

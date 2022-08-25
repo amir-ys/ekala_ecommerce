@@ -34,4 +34,14 @@ class PaymentRepo extends BaseRepository implements PaymentRepositoryInterface
         ]);
     }
 
+    public function getPaymentsByType($type)
+    {
+       return $this->query->where('payment_type' , $type)->get();
+    }
+
+    public function getPaymentOrders($id)
+    {
+        //todo
+    }
+
 }

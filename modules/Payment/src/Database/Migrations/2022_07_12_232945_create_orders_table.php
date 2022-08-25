@@ -19,10 +19,10 @@ return new class extends Migration {
             $table->foreignIdFor(User::class)->constrained();
 //            $table->foreignId('user_address_id')->nullable();
             $table->foreignIdFor(Coupon::class)->nullable()->constrained();
-            $table->tinyInteger('status');
             $table->bigInteger('total_amount')->default(0);
             $table->bigInteger('coupon_amount')->default(0);
             $table->bigInteger('paying_amount');
+            $table->tinyInteger('status');
             $table->string('payment_type');
             $table->timestamps();
         });

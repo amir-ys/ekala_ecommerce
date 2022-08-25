@@ -44,7 +44,7 @@ class Payment
             'total_amount' => $amounts['total_amount'],
             'coupon_amount' => $amounts['coupon_amount'],
             'paying_amount' => $amounts['paying_amount'],
-            'payment_type' => 'pay',
+            'payment_type' => \Modules\Payment\Models\Payment::PAYMENT_TYPE_ONLINE,
         ];
     }
 
