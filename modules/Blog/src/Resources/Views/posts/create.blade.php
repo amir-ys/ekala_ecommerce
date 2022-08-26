@@ -177,7 +177,15 @@
 
         $('#published_at_field').persianDatepicker({
             observer: true,
-            format: 'YYYY/MM/DD',
+            initialValue: false,
+            initialValueType: 'persian' ,
+            format: 'YYYY/MM/DD HH:mm',
+            timePicker  : {
+                enabled : true ,
+                second : {
+                    enabled : false,
+                }
+            }
         });
 
     </script>

@@ -38,7 +38,7 @@ class PostController extends Controller
         $data = $request->all();
         $data['author_id'] = auth()->id();
         $data['image'] = $this->uploadImage($request->file('image'));
-        $data['published_at'] = convertJalaliToDate($request->published_at);
+        $data['published_at'] = convertJalaliToDate($request->published_at , 'Y/m/d H:i');
 
         $this->postRepo->store($data);
         newFeedback();
@@ -59,7 +59,7 @@ class PostController extends Controller
 
         $data['author_id'] = auth()->id();
         $data['image'] = $this->updateImage($request, $post);
-        $data['published_at'] = convertJalaliToDate($request->published_at);
+        $data['published_at'] = convertJalaliToDate($request->published_at , 'Y/m/d H:i');
 
         $this->postRepo->update($postId, $data);
 

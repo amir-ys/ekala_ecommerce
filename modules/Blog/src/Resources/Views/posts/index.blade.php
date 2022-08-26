@@ -55,7 +55,7 @@
                                     </td>
 
                                     <td>
-                                        {{ getJalaliDate($post->published_at , 'Y-m-d H:i' , 'carbon') }}
+                                        {{ getJalaliDate($post->published_at , 'Y-m-d H:i:s' , 'H:i Y-m-d') }}
                                     </td>
                                     <td>{{ getJalaliDate($post->created_at) }}</td>
                                     <td>

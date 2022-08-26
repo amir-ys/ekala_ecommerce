@@ -161,7 +161,7 @@
                                         <div class="col-md-9">
                                             <label>از تاریخ</label>
                                             <input type="text" class="form-control" id="special_price_start"
-                                                   value="{{ old('special_price_end' , getJalaliFromFormat($product->special_price_start )) }}"
+                                                   value="{{ old('special_price_end' , getJalaliDate($product->special_price_start , 'Y-m-d H:i:s' , 'Y/m/d H:i')) }}"
                                                    name="special_price_start" placeholder="تاریخ شروع"/>
                                             <x-validation-error field="special_price_start"/>
                                         </div>
@@ -172,7 +172,7 @@
                                             <label>تا تاریخ</label>
                                             <input type="text" class="form-control" id="special_price_end"
                                                    data-date="1397-02-05"
-                                                   value="{{ old('special_price_end' , getJalaliFromFormat($product->special_price_end )) }}"
+                                                   value="{{ old('special_price_end' ,getJalaliDate($product->special_price_end , 'Y-m-d H:i:s' , 'Y/m/d H:i')) }}"
                                                    name="special_price_end" placeholder="تاریخ پایان"/>
                                             <x-validation-error field="special_price_end"/>
                                         </div>
@@ -218,30 +218,28 @@
 
                 $('#special_price_start').persianDatepicker({
                     observer: true,
-                    autoClose: true,
-                    format: 'YYYY/MM/DD',
-                    initialValue: true,
-                    initialValueType: 'persian',
-                    // timePicker : {
-                    //     enabled : true ,
-                    //     second : {
-                    //         enabled : false ,
-                    //     }
-                    // }
+                    initialValue: false,
+                    format: 'YYYY/MM/DD HH:mm',
+                    initialValueType: 'persian' ,
+                    timePicker  : {
+                        enabled : true ,
+                        second : {
+                            enabled : false,
+                        }
+                    }
                 });
 
                 $('#special_price_end').persianDatepicker({
                     observer: true,
-                    autoClose: true,
-                    format: 'YYYY/MM/DD',
-                    initialValue: true,
-                    initialValueType: 'persian',
-                    // timePicker : {
-                    //     enabled : true ,
-                    //     second : {
-                    //         enabled : false ,
-                    //     }
-                    // }
+                    initialValue: false,
+                    format: 'YYYY/MM/DD HH:mm',
+                    initialValueType: 'persian' ,
+                    timePicker  : {
+                        enabled : true ,
+                        second : {
+                            enabled : false,
+                        }
+                    }
                 });
 
             </script>

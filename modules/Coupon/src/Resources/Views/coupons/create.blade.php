@@ -208,6 +208,7 @@
             observer: true,
             initialValue: false,
             format: 'YYYY/MM/DD HH:mm',
+            initialValueType: 'persian' ,
             timePicker  : {
                 enabled : true ,
                 second : {

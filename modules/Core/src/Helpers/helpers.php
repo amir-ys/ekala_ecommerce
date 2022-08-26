@@ -8,6 +8,7 @@ use Morilog\Jalali\Jalalian;
 if (!function_exists('getJalaliDate')) {
     function getJalaliDate($date, $format = 'Y-m-d H:i', $showDate = null)
     {
+        if (is_null($date)) return null;
         if (!$showDate){
             $dateFormat =  config('core.show-date');
             if ($dateFormat == 'carbon') {

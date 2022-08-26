@@ -208,6 +208,7 @@
         $('#end_date').persianDatepicker({
             observer: true,
             initialValue: false,
+            initialValueType: 'persian' ,
             format: 'YYYY/MM/DD HH:mm',
             timePicker  : {
                 enabled : true ,

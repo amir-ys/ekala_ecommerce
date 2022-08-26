@@ -198,12 +198,26 @@
         $('#special_price_start').persianDatepicker({
             observer: true,
             initialValue: false,
-            format: 'YYYY/MM/DD',
+            initialValueType: 'persian' ,
+            format: 'YYYY/MM/DD HH:mm',
+            timePicker  : {
+                enabled : true ,
+                second : {
+                    enabled : false,
+                }
+            }
         });
         $('#special_price_end').persianDatepicker({
             observer: true,
             initialValue: false,
-            format: 'YYYY/MM/DD',
+            initialValueType: 'persian' ,
+            format: 'YYYY/MM/DD HH:mm',
+            timePicker  : {
+                enabled : true ,
+                second : {
+                    enabled : false,
+                }
+            }
         });
 
     </script>

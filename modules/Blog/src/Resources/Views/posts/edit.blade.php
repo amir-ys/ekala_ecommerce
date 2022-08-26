@@ -92,7 +92,7 @@
                                         <input type="text" class="form-control" id="published_at_field"
                                                name="published_at"
                                                placeholder="زمان انتشار"
-                                               value="{{ old('published_at' , getJalaliFromFormat($post->published_at)) }}">
+                                               value="{{ old('published_at' , getJalaliDate($post->published_at , 'Y-m-d H:i:s' , 'Y/m/d H:i')) }}">
                                         <x-validation-error field="published_at"/>
                                     </div>
                                 </div>
@@ -193,10 +193,15 @@
 
         $('#published_at_field').persianDatepicker({
             observer: true,
-            autoClose: true,
-            format: 'YYYY/MM/DD',
-            initialValue: true,
-            initialValueType: 'persian',
+            initialValue: false,
+            format: 'YYYY/MM/DD HH:mm',
+            initialValueType: 'persian' ,
+            timePicker  : {
+                enabled : true ,
+                second : {
+                    enabled : false,
+                }
+            }
         });
 
     </script>
