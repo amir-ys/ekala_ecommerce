@@ -18,8 +18,11 @@ class CouponRepo extends BaseRepository implements CouponRepositoryInterface
             'type' => $data['type'],
             'amount' => $data['amount'],
             'percent' => $data['percent'],
-            'expired_at' => $data['expired_at'],
-            'description' => $data['description'],
+            'use_type' => $data['use_type'],
+            'discount_ceiling' => $data['discount_ceiling'],
+            'start_date' => $data['start_date'],
+            'end_date' => $data['end_date'],
+            'status' => $data['status'],
         ]);
     }
 
@@ -31,8 +34,11 @@ class CouponRepo extends BaseRepository implements CouponRepositoryInterface
             'type' => $data['type'],
             'amount' => $data['amount'],
             'percent' => $data['percent'],
-            'expired_at' => $data['expired_at'],
-            'description' => $data['description'],
+            'use_type' => $data['use_type'],
+            'discount_ceiling' => $data['discount_ceiling'],
+            'start_date' => $data['start_date'],
+            'end_date' => $data['end_date'],
+            'status' => $data['status'],
         ]);
     }
 

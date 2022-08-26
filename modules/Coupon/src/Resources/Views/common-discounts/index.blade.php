@@ -24,11 +24,10 @@
                                 <th>شناسه</th>
                                 <th>موضوع</th>
                                 <th> درصد</th>
-                                <th> حداکثر مبلغ تخفیف</th>
+                                <th>حداکثر تخفیف مبلفی</th>
                                 <th> کمتربن مقدار سفارش</th>
                                 <th>تاریخ شروع</th>
                                 <th>تاریخ پایان</th>
-                                <th>تاریخ ایجاد</th>
                                 <th> وضعیت</th>
                                 <th> عملیات</th>
                             </tr>
@@ -41,9 +40,8 @@
                                     <td> {{ $discount->percent }} </td>
                                     <td> {{  $discount->discount_ceiling }} </td>
                                     <td>{{ $discount->minimal_order_amount }}</td>
-                                    <td>{{ getJalaliDate($discount->start_date) }}</td>
-                                    <td>{{ getJalaliDate($discount->end_date) }}</td>
-                                    <td>{{ getJalaliDate($discount->created_at) }}</td>
+                                    <td>{{ getJalaliFromFormat($discount->start_date , null , 'H:i Y-m-d') }}</td>
+                                    <td>{{ getJalaliFromFormat($discount->end_date , null , 'H:i Y-m-d') }}</td>
                                     <td>
                                         <span class="badge py-1 bg-{{ $discount->statusCssClass }}"> {{ $discount->status_name }}
                                         </span>

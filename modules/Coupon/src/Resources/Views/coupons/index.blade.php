@@ -23,11 +23,15 @@
                             <tr>
                                 <th>شناسه</th>
                                 <th>کد</th>
-                                <th> نوع</th>
+                                <th> نوع تخفیف</th>
                                 <th> مقدار</th>
                                 <th> درصد</th>
-                                <th>تاریخ اعتبار</th>
-                                <th>تاریخ ساخت</th>
+                                <th>حداکثر تخفیف مبلفی</th>
+                                <th> نوع استفاده</th>
+                                <th> کاربر؟ </th>
+                                <th>تاریخ شروع</th>
+                                <th>تاریخ پایان</th>
+                                <th> وضعیت</th>
                                 <th> عملیات</th>
                             </tr>
                             </thead>
@@ -39,8 +43,15 @@
                                     <td> @lang($coupon->type) </td>
                                     <td> {{  $coupon->amount ? 'تومان' . $coupon->amount : '-' }} </td>
                                     <td> {{  $coupon->percent ? '%' . $coupon->percent : '-' }} </td>
-                                    <td>{{ $coupon->expired_at }}</td>
-                                    <td>{{ getJalaliDate($coupon->created_at) }}</td>
+                                    <td> {{  $coupon->discount_ceiling }} </td>
+                                    <td> {{  $coupon->use_type_name }} </td>
+                                    <td> {{  $coupon->user ? $coupon->full_name : '-' }} </td>
+                                    <td>{{ getJalaliFromFormat($coupon->start_date , null , 'H:i Y-m-d') }}</td>
+                                    <td>{{ getJalaliFromFormat($coupon->end_date , null , 'H:i Y-m-d') }}</td>
+                                    <td>
+                                        <span class="badge py-1 bg-{{ $coupon->statusCssClass }}"> {{ $coupon->status_name }}
+                                        </span>
+                                    </td>
                                     <td>
                                         <a class="btn btn-sm bg-transparent d-inline"
                                            href="{{ route('panel.coupons.edit' , $coupon->id) }}"><i

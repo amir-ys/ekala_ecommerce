@@ -30,7 +30,12 @@ class CommonDiscountController extends Controller
 
     public function store(CommonDiscountRequest $request)
     {
-        $this->commonDiscountRepo->store($request->all());
+        $data = $request->all();
+        $data['start_date'] = convertJalaliToDate($request->start_date , 'Y/m/d H:i' );
+        $data['end_date'] = convertJalaliToDate($request->end_date , 'Y/m/d H:i' );
+
+
+        $this->commonDiscountRepo->store($data);
         newFeedback();
         return to_route('panel.commonDiscounts.index');
     }
@@ -43,7 +48,11 @@ class CommonDiscountController extends Controller
 
     public function update(CommonDiscountRequest $request, $discountId)
     {
-        $this->commonDiscountRepo->update($discountId, $request->all());
+        $data = $request->all();
+        $data['start_date'] = convertJalaliToDate($request->start_date , 'Y/m/d H:i' );
+        $data['end_date'] = convertJalaliToDate($request->end_date , 'Y/m/d H:i' );
+
+        $this->commonDiscountRepo->update($discountId, $data);
         newFeedback();
         return to_route('panel.commonDiscounts.index');
     }

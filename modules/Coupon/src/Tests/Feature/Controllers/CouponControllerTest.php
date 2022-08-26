@@ -16,25 +16,20 @@ class CouponControllerTest extends TestCase
         $this->actingAsUser();
         $response = $this->get(route('panel.coupons.index'));
 
-        $response->assertViewIs('Coupon::index')
+        $response->assertViewIs('Coupon::coupons.index')
             ->assertViewHas('coupons', Coupon::query()->latest()->get());
-    }
-
-    private function actingAsUser()
-    {
-        $user = User::factory()->create();
-        $this->actingAs($user);
     }
 
     public function test_create_method()
     {
         $this->actingAsUser();
         $response = $this->get(route('panel.coupons.create'));
-        $response->assertViewIs('Coupon::create');
+        $response->assertViewIs('Coupon::coupons.create');
     }
 
     public function test_store_method()
     {
+        $this->withoutExceptionHandling();
         $this->actingAsUser();
         $data = Coupon::factory()->make()->toArray();
         $response = $this->post(route('panel.coupons.store'), $data);
@@ -51,7 +46,7 @@ class CouponControllerTest extends TestCase
 
         $response = $this->get(route('panel.coupons.edit', $coupon->id));
 
-        $response->assertViewIs('Coupon::edit')
+        $response->assertViewIs('Coupon::coupons.edit')
             ->assertViewHas('coupon', $coupon);
     }
 
@@ -79,5 +74,12 @@ class CouponControllerTest extends TestCase
         ]);
         $this->assertDatabaseCount('coupons', 0);
         $this->assertDatabaseMissing('coupons', $coupon->toArray());
+    }
+
+
+    private function actingAsUser()
+    {
+        $user = User::factory()->create();
+        $this->actingAs($user);
     }
 }

@@ -18,14 +18,20 @@ class CouponRequest extends FormRequest
         $rules = [
             'code' => ['required', Rule::unique('coupons', 'code')],
             'type' => ['required', Rule::in(Coupon::$types)],
+            'use_type' => ['required', Rule::in(Coupon::$useTypes)],
+            'status' => ['required', Rule::in(Coupon::$statuses)],
             'amount' => [Rule::requiredIf(function () {
                 return $this->type == Coupon::TYPE_AMOUNT;
             })],
             'percent' => [Rule::requiredIf(function () {
                 return $this->type == Coupon::TYPE_PERCENT;
             })],
-            'expired_at' => ['required'],
-            'description' => ['nullable', 'nullable'],
+            'user_id' => [Rule::requiredIf(function () {
+                return $this->use_type == Coupon::USE_TYPE_PRIVATE;
+            })],
+            'discount_ceiling' => ['required', 'numeric'],
+            'start_date' => ['required'],
+            'end_date' => ['required'],
         ];
 
         if ($this->getMethod() == 'PATCH') {
@@ -42,7 +48,7 @@ class CouponRequest extends FormRequest
             'amount' => 'مقدار',
             'percent' => 'درصد',
             'type' => 'نوع',
-            'expired_at' => 'تاریخ اعتبار',
+            'user_id' => 'کاربر',
         ];
     }
 }

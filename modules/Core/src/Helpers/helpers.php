@@ -8,16 +8,15 @@ use Morilog\Jalali\Jalalian;
 if (!function_exists('getJalaliDate')) {
     function getJalaliDate($date, $format = 'Y-m-d H:i', $showDate = null)
     {
-        $dateFormat = is_null($showDate) ? config('core.show-date') : $showDate;
-        if (!($date instanceof DateTime)) {
-            return '-';
+        if (!$showDate){
+            $dateFormat =  config('core.show-date');
+            if ($dateFormat == 'carbon') {
+                return Jalalian::fromCarbon($date)->format($format);
+            }
+            return $date->diffForHumans();
         }
 
-        if ($dateFormat == 'carbon') {
-            return Jalalian::fromCarbon($date)->format($format);
-        }
-        return $date->diffForHumans();
-
+        return Jalalian::fromCarbon(Carbon::createFromFormat($format ,$date))->format($showDate);
     }
 }
 
@@ -69,9 +68,9 @@ if (!function_exists('getDiscountAmount')) {
     }
 }
 
-if (!function_exists('getDateFromJalali')) {
+if (!function_exists('convertJalaliToDate')) {
 
-    function getDateFromJalali($date, $format = 'Y/m/d')
+    function convertJalaliToDate($date, $format = 'Y/m/d'): string
     {
         $dateString = CalendarUtils::convertNumbers($date, true);
         return CalendarUtils::createCarbonFromFormat($format, $dateString)->format('Y-m-d H:i:s');

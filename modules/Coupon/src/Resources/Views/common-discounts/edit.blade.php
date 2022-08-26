@@ -67,11 +67,12 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label class="text-capitalize"
-                                           for="start_date"> تاریخ شروع</label>
-                                    <input type="date" class="form-control" id="start_date"
+                                           for="start_date"> تاریخ شروع </label>
+                                    <input type="text" class="form-control" id="start_date"
                                            name="start_date" placeholder="تاریخ شروع"
-                                           value="{{old("start_date" , $discount->start_date)}}">
+                                           value="{{old("start_date" , getJalaliDate($discount->start_date , 'Y-m-d H:i:s' , 'Y/m/d H:i'))}}">
                                     <x-validation-error field="start_date"/>
+
                                 </div>
                             </div>
 
@@ -79,10 +80,11 @@
                                 <div class="form-group">
                                     <label class="text-capitalize"
                                            for="end_date"> تاریخ پایان </label>
-                                    <input type="date" class="form-control" id="end_date"
-                                           name="end_date" placeholder="تاریخ پایان "
-                                           value="{{old("end_date" , $discount->end_date)}}">
+                                    <input type="text" class="form-control" id="end_date"
+                                           name="end_date" placeholder="تاریخ پایان"
+                                           value="{{old("end_date" , getJalaliDate($discount->end_date , 'Y-m-d H:i:s' , 'Y/m/d H:i'))}}">
                                     <x-validation-error field="end_date"/>
+
                                 </div>
                             </div>
 
@@ -122,3 +124,42 @@
     </div>
     <!-- end row -->
 @endsection
+@section('css')
+    <link rel="stylesheet" href="/assets/panel/vendor/persian-datepicker/persian-datepicker.min.css" type="text/css">
+@endsection
+
+@section('script')
+    <script src="/assets/panel/vendor/persian-datepicker/persian-date.min.js"></script>
+    <script src="/assets/panel/vendor/persian-datepicker/persian-datepicker.min.js"></script>
+    <script>
+
+
+        $('#start_date').persianDatepicker({
+            observer: true,
+            initialValue: false,
+            initialValueType: 'persian' ,
+            format: 'YYYY/MM/DD HH:mm',
+            timePicker  : {
+                enabled : true ,
+                second : {
+                    enabled : false,
+                }
+            }
+        });
+
+        $('#end_date').persianDatepicker({
+            observer: true,
+            initialValue: false,
+            format: 'YYYY/MM/DD HH:mm',
+            timePicker  : {
+                enabled : true ,
+                second : {
+                    enabled : false,
+                }
+            }
+        });
+
+    </script>
+
+@endsection
+

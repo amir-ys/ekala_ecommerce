@@ -4,6 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Modules\Coupon\Models\Coupon;
+use Modules\User\Models\User;
 
 return new class extends Migration {
     /**
@@ -19,8 +20,12 @@ return new class extends Migration {
             $table->enum('type', Coupon::$types);
             $table->bigInteger('amount')->nullable();
             $table->string('percent')->nullable();
-            $table->dateTime('expired_at');
-            $table->string('description')->nullable();
+            $table->unsignedBigInteger('discount_ceiling')->nullable();
+            $table->tinyInteger('use_type');
+            $table->foreignIdFor(User::class)->nullable()->constrained();
+            $table->timestamp('start_date');
+            $table->timestamp('end_date');
+            $table->tinyInteger('status');
             $table->softDeletes();
             $table->timestamps();
         });

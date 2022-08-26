@@ -36,8 +36,8 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request)
     {
         $data = $request->all();
-        $data['special_price_start'] = getDateFromJalali($request->special_price_start);
-        $data['special_price_end'] = getDateFromJalali($request->special_price_end);
+        $data['special_price_start'] = convertJalaliToDate($request->special_price_start);
+        $data['special_price_end'] = convertJalaliToDate($request->special_price_end);
 
         $product = $this->productRepo->store($data);
 
@@ -69,8 +69,8 @@ class ProductController extends Controller
         $product = $this->productRepo->findById($productId);
 
         $data = $request->all();
-        $data['special_price_start'] = getDateFromJalali($request->special_price_start);
-        $data['special_price_end'] = getDateFromJalali($request->special_price_end);
+        $data['special_price_start'] = convertJalaliToDate($request->special_price_start);
+        $data['special_price_end'] = convertJalaliToDate($request->special_price_end);
 
         //update product
         $this->productRepo->update($productId, $data);

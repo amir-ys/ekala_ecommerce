@@ -22,10 +22,13 @@ class CouponFactory extends Factory
         return [
             'code' => $this->faker->randomElement,
             'type' => $this->faker->randomElement(Coupon::$types),
+            'use_type' => Coupon::USE_TYPE_PUBLIC,
             'amount' => $this->faker->numberBetween(100000, 2000000),
             'percent' => $this->faker->numberBetween(0, 100),
-            'expired_at' => $this->faker->dateTime()->format('Y-m-d H:i:s'),
-            'description' => $this->faker->paragraph,
+            'discount_ceiling' => $this->faker->numberBetween(10000, 50000),
+            'start_date' => $this->faker->dateTime()->format('Y-m-d H:i:s'),
+            'end_date' => $this->faker->dateTime()->format('Y-m-d H:i:s'),
+            'status' => $this->faker->randomElement(Coupon::$statuses),
         ];
     }
 }
