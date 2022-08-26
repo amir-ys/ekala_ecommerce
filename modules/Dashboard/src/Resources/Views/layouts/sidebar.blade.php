@@ -91,16 +91,22 @@ x
                     <span>  نظرات</span> <span class="badge bg-danger-gradient"></span></a>
             </li>
 
-{{--            <li class="side-menu-divider">تخفیف ها</li>--}}
 
-            <li><a data-attr="layout-builder-toggle"
-                   class="{{ request()->url(route('panel.coupons.index')) == route('panel.coupons.index') ? 'c-active' : '' }}"
-                   href="{{ route('panel.coupons.index') }}">
-                    <i class="icon ti-money"></i>
-                    <span> کوپن ها / کد تخفیف </span> <span class="badge bg-danger-gradient"></span></a>
+            <li><a href="#"><i class="icon ti-write"></i> <span> تخفیف ها </span> </a>
+                <ul>
+                    <li><a href="{{ route('panel.coupons.index') }}">
+                            <i class="icon ti-money"></i>
+
+                            کد تخفیف
+                        </a></li>
+
+                    <li><a href="{{ route('panel.commonDiscounts.index') }}">
+                            <i class="icon ti-money"></i>
+                            تخفیف های عمومی
+                        </a></li>
+
+                </ul>
             </li>
-
-
 
 
             <li><a href="#"><i class="icon ti-write"></i> <span> پرداخت ها </span> </a>

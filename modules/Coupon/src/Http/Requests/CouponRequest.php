@@ -38,11 +38,11 @@ class CouponRequest extends FormRequest
     public function attributes()
     {
         return [
-            'code' => 'کد' ,
-            'amount' => 'مقدار' ,
-            'percent' => 'درصد' ,
-            'type' => 'نوع' ,
-            'expired_at' => 'تاریخ اعتبار' ,
+            'code' => 'کد',
+            'amount' => 'مقدار',
+            'percent' => 'درصد',
+            'type' => 'نوع',
+            'expired_at' => 'تاریخ اعتبار',
         ];
     }
 }

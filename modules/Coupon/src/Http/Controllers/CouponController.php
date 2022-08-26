@@ -14,12 +14,12 @@ class CouponController extends Controller
 
     public function __construct(CouponRepositoryInterface $couponRepo)
     {
-        $this->CouponRepo = $couponRepo;
+        $this->couponRepo = $couponRepo;
     }
 
     public function index()
     {
-        $coupons = $this->CouponRepo->getAll();
+        $coupons = $this->couponRepo->getAll();
         return view('Coupon::index', compact('coupons'));
     }
 
@@ -30,29 +30,29 @@ class CouponController extends Controller
 
     public function store(CouponRequest $request)
     {
-        $this->CouponRepo->store($request->all());
+        $this->couponRepo->store($request->all());
         newFeedback();
         return to_route('panel.coupons.index');
     }
 
     public function edit($couponId)
     {
-        $coupon = $this->CouponRepo->findById($couponId);
+        $coupon = $this->couponRepo->findById($couponId);
         return view('Coupon::edit', compact('coupon'));
     }
 
     public function update(CouponRequest $request, $couponId)
     {
-        $this->CouponRepo->update($couponId, $request->all());
+        $this->couponRepo->update($couponId, $request->all());
         newFeedback();
         return to_route('panel.coupons.index');
     }
 
     public function destroy($couponId)
     {
-        $coupon = $this->CouponRepo->findById($couponId);
+        $coupon = $this->couponRepo->findById($couponId);
 
-        $this->CouponRepo->destroy($couponId);
+        $this->couponRepo->destroy($couponId);
         return AjaxResponse::success("کوین " . $coupon->name . " با موفقیت حذف شد.");
     }
 }

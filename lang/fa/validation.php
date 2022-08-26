@@ -181,5 +181,10 @@ return [
         'status'              => 'وضعیت',
         'full_name'              => 'نام و نام خانوادگی',
         'is_marketable'  =>      'وضعیت قابل فروش بودن',
+        'percent'  =>      'درصد',
+        'discount_ceiling' => 'حداکثر تخفیف مبلفی' ,
+        'minimal_order_amount' => 'کمتربن مقدار سفارش' ,
+        'start_date' => 'تاریخ شروع' ,
+        'end_date' => 'تاریخ پایان' ,
     ],
 ];

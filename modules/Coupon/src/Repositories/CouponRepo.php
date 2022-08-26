@@ -38,6 +38,6 @@ class CouponRepo extends BaseRepository implements CouponRepositoryInterface
 
     public function checkIfExist($code)
     {
-       return $this->query->where('code' , $code)->where('expired_at' , '>' , now())->first();
+        return $this->query->where('code', $code)->where('expired_at', '>', now())->first();
     }
 }

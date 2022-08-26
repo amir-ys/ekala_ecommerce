@@ -4,25 +4,25 @@ namespace Modules\Coupon\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Modules\Coupon\Contracts\CouponRepositoryInterface;
-use Modules\Coupon\Repositories\CouponRepo;
+use Modules\Coupon\Contracts\CommonDiscountRepositoryInterface;
+use Modules\Coupon\Repositories\CommonDiscountRepo;
 
-class CouponServiceProvider extends ServiceProvider
+class DiscountServiceProvider extends ServiceProvider
 {
     protected $namespace = "Modules\\Coupon\\Http\\Controllers";
 
     public function register()
     {
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
-        $this->loadTranslationsFrom(__DIR__ . '/../Resources/Lang', 'Coupon');
+        $this->loadTranslationsFrom(__DIR__ . '/../Resources/Lang', 'Discount');
         $this->loadJsonTranslationsFrom(__DIR__ . '/../Resources/Lang');
-        $this->loadViewsFrom(__DIR__ . '/../Resources/Views', 'Coupon');
+        $this->loadViewsFrom(__DIR__ . '/../Resources/Views', 'Discount');
         $this->defineRoutes();
     }
 
     public function boot()
     {
-        $this->app->bind(CouponRepositoryInterface::class, CouponRepo::class);
+        $this->app->bind(CommonDiscountRepositoryInterface::class, CommonDiscountRepo::class);
 
     }
 
@@ -30,7 +30,7 @@ class CouponServiceProvider extends ServiceProvider
     {
         Route::middleware(['web', 'auth'])
             ->namespace($this->namespace)
-            ->group(__DIR__ . '/../Routes/coupons_routes.php');
+            ->group(__DIR__ . '/../Routes/discounts_routes.php');
     }
 
 }

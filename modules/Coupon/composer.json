@@ -7,7 +7,10 @@
     },
     "extra": {
         "laravel": {
-            "providers": "Modules\\Coupon\\Providers\\CouponServiceProvider"
+            "providers": [
+                "Modules\\Coupon\\Providers\\CouponServiceProvider",
+                "Modules\\Coupon\\Providers\\DiscountServiceProvider"
+            ]
         }
     }
 }

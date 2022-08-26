@@ -24,7 +24,7 @@
                                            for="code"> کد </label>
                                     <input type="text" class="form-control" id="code"
                                            name="code" placeholder="کد" value="{{old("code")}}">
-                                    <x-validation-error field="code" />
+                                    <x-validation-error field="code"/>
                                 </div>
                             </div>
 
@@ -36,11 +36,11 @@
                                         <option value> نوع تخفیف را انتخاب کنید</option>
                                         @foreach(\Modules\Coupon\Models\Coupon::$types as $name => $value)
                                             <option value="{{ $value }}"
-                                            @selected(old('type') == $value)
+                                                @selected(old('type') == $value)
                                             > {{ $name }} </option>
                                         @endforeach
                                     </select>
-                                    <x-validation-error field="type" />
+                                    <x-validation-error field="type"/>
                                 </div>
                             </div>
 
@@ -50,7 +50,7 @@
                                            for="amount"> قیمت </label>
                                     <input type="text" class="form-control" id="amount"
                                            name="amount" placeholder="قیمت" value="{{old("amount")}}">
-                                    <x-validation-error field="amount" />
+                                    <x-validation-error field="amount"/>
 
                                 </div>
                             </div>
@@ -61,7 +61,7 @@
                                            for="percent"> درصد </label>
                                     <input type="text" class="form-control" id="percent"
                                            name="percent" placeholder="درصد" value="{{old("percent")}}">
-                                    <x-validation-error field="percent" />
+                                    <x-validation-error field="percent"/>
 
                                 </div>
                             </div>
@@ -73,7 +73,7 @@
                                     <input type="datetime-local" class="form-control" id="expired_at"
                                            name="expired_at" placeholder="تاریخ اعتبار"
                                            value="{{old("expired_at")}}">
-                                    <x-validation-error field="expired_at" />
+                                    <x-validation-error field="expired_at"/>
 
                                 </div>
                             </div>

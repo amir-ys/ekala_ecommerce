@@ -25,7 +25,7 @@
                                            for="code"> کد </label>
                                     <input type="text" class="form-control" id="code"
                                            name="code" placeholder="کد" value="{{old("code" , $coupon->code)}}">
-                                    <x-validation-error field="code" />
+                                    <x-validation-error field="code"/>
                                 </div>
                             </div>
 
@@ -42,7 +42,7 @@
                                             > {{ $name }} </option>
                                         @endforeach
                                     </select>
-                                    <x-validation-error field="type" />
+                                    <x-validation-error field="type"/>
                                 </div>
                             </div>
 
@@ -52,7 +52,7 @@
                                            for="amount"> قیمت </label>
                                     <input type="text" class="form-control" id="amount"
                                            name="amount" placeholder="قیمت" value="{{old("amount" , $coupon->amount)}}">
-                                    <x-validation-error field="amount" />
+                                    <x-validation-error field="amount"/>
 
                                 </div>
                             </div>
@@ -62,8 +62,9 @@
                                     <label class="text-capitalize"
                                            for="percent"> درصد </label>
                                     <input type="text" class="form-control" id="percent"
-                                           name="percent" placeholder="درصد" value="{{old("percent" , $coupon->percent)}}">
-                                    <x-validation-error field="percent" />
+                                           name="percent" placeholder="درصد"
+                                           value="{{old("percent" , $coupon->percent)}}">
+                                    <x-validation-error field="percent"/>
 
                                 </div>
                             </div>
@@ -75,7 +76,7 @@
                                     <input type="text" class="form-control" id="expired_at"
                                            name="expired_at" placeholder="تاریخ اعتبار"
                                            value="{{old("expired_at" , $coupon->expired_at)}}">
-                                    <x-validation-error field="expired_at" />
+                                    <x-validation-error field="expired_at"/>
 
                                 </div>
                             </div>
