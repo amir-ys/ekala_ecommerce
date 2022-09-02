@@ -1,11 +1,14 @@
 <?php
+
 namespace Modules\User\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Modules\User\Database\Factories\UserAddressFactory;
 
-class UserAddress extends Model {
+class UserAddress extends Model
+{
     use HasFactory;
 
     const STATUS_ACTIVE = 1;
@@ -32,4 +35,22 @@ class UserAddress extends Model {
         return new UserAddressFactory();
 
     }
+
+    public function getFullAddress(): Attribute
+    {
+        return new Attribute(function () {
+            return $this->province->name . '|' . $this->city->name . '|آدرس: ' . $this->address;
+        });
+    }
+
+    public function getAddressReceiver(): Attribute
+    {
+        return new Attribute(function () {
+            return 'کد پستی: ' . $this->postal_code .
+                ' | دریافت کننده: ' . $this->receiver .
+                ' | شماره تماس دریافت کننده: ' . $this->phone_number;
+        });
+    }
+
+
 }

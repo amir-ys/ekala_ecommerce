@@ -7,7 +7,10 @@
     },
     "extra": {
         "laravel": {
-            "providers": "Modules\\Payment\\Providers\\PaymentServiceProvider"
+            "providers": [
+                "Modules\\Payment\\Providers\\PaymentServiceProvider" ,
+                "Modules\\Payment\\Providers\\OrderServiceProvider"
+            ]
         }
     },
     "description": ""

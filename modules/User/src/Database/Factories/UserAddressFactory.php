@@ -2,6 +2,9 @@
 namespace Modules\User\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Modules\User\Models\City;
+use Modules\User\Models\Province;
+use Modules\User\Models\User;
 use Modules\User\Models\UserAddress;
 
 /**
@@ -18,9 +21,9 @@ class UserAddressFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => UserAddress::factory(),
-            'province_id' => $this->faker->city,
-            'city_id' => $this->faker->city,
+            'user_id' => User::factory(),
+            'province_id' => $province = Province::query()->create(['name' => 'tehran']),
+            'city_id' => City::query()->create(['name' => 'eslam shahr' , 'province_id' => $province->id]),
             'phone_number' => $this->faker->phoneNumber,
             'address' => $this->faker->address ,
             'postal_code' => $this->faker->postcode ,

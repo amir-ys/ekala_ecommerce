@@ -14,6 +14,7 @@ return new class extends Migration {
      */
     public function up()
     {
+        //todo warranty  constrained
         Schema::create('order_items', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Order::class)->constrained();
@@ -21,6 +22,9 @@ return new class extends Migration {
             $table->bigInteger('price');
             $table->integer('quantity');
             $table->bigInteger('total');
+            $table->foreignId('color_id')->constrained('product_colors');
+            $table->foreignId('warranty_id');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

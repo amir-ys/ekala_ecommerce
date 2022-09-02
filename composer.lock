@@ -177,7 +177,7 @@
             "dist": {
                 "type": "path",
                 "url": "modules/Coupon",
-                "reference": "5c3986eb279c56ad34afb3e70c7590ccc267af2a"
+                "reference": "aa48647619ae168ba710b1e3cbb6474af6c5cf0d"
             },
             "type": "library",
             "extra": {
@@ -252,12 +252,15 @@
             "dist": {
                 "type": "path",
                 "url": "modules/Payment",
-                "reference": "55a84cce34a00c330e13cb1dcc38ded8323a9f77"
+                "reference": "9f9fafba2cfeb46db8a4142e83ae868c73dc462d"
             },
             "type": "library",
             "extra": {
                 "laravel": {
-                    "providers": "Modules\\Payment\\Providers\\PaymentServiceProvider"
+                    "providers": [
+                        "Modules\\Payment\\Providers\\PaymentServiceProvider",
+                        "Modules\\Payment\\Providers\\OrderServiceProvider"
+                    ]
                 }
             },
             "autoload": {

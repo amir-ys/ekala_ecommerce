@@ -117,6 +117,16 @@ x
                 </ul>
             </li>
 
+            <li><a href="#"><i class="icon ti-write"></i> <span>  سفارشات  </span> </a>
+                <ul>
+                    <li><a href="{{ route('panel.orders.index') }}"> همه سفارشات </a></li>
+                    <li><a href="{{ route('panel.orders.sending.index') }}"> در حال ارسال </a></li>
+                    <li><a href="{{ route('panel.orders.unpaid.index') }}">پرداخت نشده </a></li>
+                    <li><a href="{{ route('panel.orders.canceled.index') }}"> باطل شده </a></li>
+                    <li><a href="{{ route('panel.orders.returned.index') }}"> مرجوعی </a></li>
+                </ul>
+            </li>
+
 
 
             <li class="side-menu-divider">وبلاگ</li>

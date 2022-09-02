@@ -1,7 +1,7 @@
 @extends('Dashboard::master')
-@section('title'  ,__('Order::translation.order.index'))
+@section('title'  ,__('Order::translation.order.canceledIndex'))
 @section('breadcrumb')
-    <li class="breadcrumb-item active"><a>@lang('Order::translation.order.index')</a></li>
+    <li class="breadcrumb-item active"><a>@lang('Order::translation.order.canceledIndex')</a></li>
 @endsection
 @section('content')
     <div class="row">

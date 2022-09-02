@@ -4,7 +4,6 @@ namespace Modules\Payment\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use Modules\Payment\Models\Order;
 use Modules\Payment\Models\Payment;
 use Modules\User\Models\User;
 
@@ -24,12 +23,13 @@ class PaymentFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            'order_id' => Order::factory(),
             'amount' => $this->faker->numberBetween(10000, 10000000),
-            'ref_id' => Str::random(12),
             'token' => Str::random(12),
             'gateway_name' => $this->faker->randomElement(['pay', 'zarinpal']),
+            'cash_receiver' => $this->faker->randomElement(['ali parvane', 'amir yousefi']),
+            'pay_date' => $this->faker->dateTime->format('Y-m-d H:i:s'),
             'description' => $this->faker->text,
+            'payment_type' => $this->faker->randomElement([Payment::PAYMENT_TYPE_CASH, Payment::PAYMENT_TYPE_OFFLINE, Payment::PAYMENT_TYPE_ONLINE]),
             'status' => $this->faker->randomElement([Payment::STATUS_SUCCESS, Payment::STATUS_FAILED, Payment::STATUS_PENDING]),
         ];
     }
