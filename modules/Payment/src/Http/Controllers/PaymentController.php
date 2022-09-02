@@ -79,6 +79,12 @@ class PaymentController extends Controller
         }
     }
 
+    public function index()
+    {
+        $payments = $this->paymentRepo->getAll();
+        return view('Payment::payments.index' , compact('payments'));
+    }
+
     public function online()
     {
         $payments = $this->paymentRepo->getPaymentsByType(Payment::PAYMENT_TYPE_ONLINE);

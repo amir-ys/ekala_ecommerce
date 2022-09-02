@@ -111,6 +111,7 @@ x
 
             <li><a href="#"><i class="icon ti-write"></i> <span> پرداخت ها </span> </a>
                 <ul>
+                    <li><a href="{{ route('panel.payments.index') }}">همه پرداخت ها </a></li>
                     <li><a href="{{ route('panel.payments.online') }}">پرداخت های آنلاین </a></li>
                     <li><a href="{{ route('panel.payments.offline') }}">پرداخت های آفلاین </a></li>
                     <li><a href="{{ route('panel.payments.cash') }}">پرداخت در محل </a></li>

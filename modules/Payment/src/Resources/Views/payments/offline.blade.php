@@ -14,7 +14,6 @@
                             <tr>
                                 <th>شناسه</th>
                                 <th>کاربر</th>
-                                <th>  سفارشات </th>
                                 <th>  مقدار </th>
                                 <th> زمان پرداخت </th>
                                 <th>روش پرداخت </th>
@@ -27,8 +26,7 @@
                             @foreach($payments as $payment)
                                 <tr>
                                     <td>{{ $loop->iteration  }}</td>
-                                    <td>{{ $payment->user?->full_name  }}</td>
-                                    <td> - </td>
+                                    <td>{{ $payment->user?->username  }}</td>
                                     <td> {{  $payment->amount }} </td>
                                     <td> {{  $payment->pay_date ?: '-' }} </td>
                                     <td>
