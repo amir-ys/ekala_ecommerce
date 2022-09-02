@@ -3,6 +3,8 @@ namespace Modules\Dashboard\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\View\View;
+use Modules\Comment\Contracts\CommentRepositoryInterface;
 
 class DashboardServiceProvider extends ServiceProvider
 {
@@ -18,6 +20,7 @@ class DashboardServiceProvider extends ServiceProvider
 
     public function boot()
     {
+        $this->unseenCommentViewComposer();
 
     }
 
@@ -26,5 +29,13 @@ class DashboardServiceProvider extends ServiceProvider
         Route::middleware(['web' , 'auth' , 'verified'])
             ->namespace($this->namespace)
             ->group(__DIR__ . '/../Routes/dashboards_routes.php');
+    }
+
+    public function unseenCommentViewComposer()
+    {
+        view()->composer('Dashboard::layouts.top-sidebar' , function (View $view){
+            $unseenComments = (resolve(CommentRepositoryInterface::class))->getUnseenComments();
+           return $view->with('unseenComments' , $unseenComments);
+        });
     }
 }

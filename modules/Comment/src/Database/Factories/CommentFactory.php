@@ -23,11 +23,12 @@ class CommentFactory extends Factory
     {
         return [
             'body' => $this->faker->text,
-//            'parent_id' => Comment::factory(),
+            'parent_id' => null,
             'user_id' => User::factory(),
             'commentable_id' => Product::factory(),
             'commentable_type' => Product::class,
             'is_approved' => $this->faker->randomElement(Comment::$statuses),
+            'is_seen' => $this->faker->randomElement([Comment::SEEN , Comment::NOT_SEEN]),
         ];
     }
 }

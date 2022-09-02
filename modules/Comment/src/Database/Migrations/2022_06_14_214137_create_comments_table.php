@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreignId('commentable_id');
             $table->string('commentable_type');
             $table->tinyInteger('is_approved')->default(\Modules\Comment\Models\Comment::STATUS_PENDING);
+            $table->tinyInteger('is_seen')->default(\Modules\Comment\Models\Comment::NOT_SEEN);
             $table->timestamps();
         });
     }

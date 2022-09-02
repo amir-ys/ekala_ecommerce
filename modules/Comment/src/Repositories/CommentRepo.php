@@ -2,6 +2,7 @@
 
 namespace Modules\Comment\Repositories;
 
+use Illuminate\Database\Eloquent\Collection;
 use Modules\Blog\Models\Post;
 use Modules\Comment\Contracts\CommentRepositoryInterface;
 use Modules\Comment\Models\Comment;
@@ -31,14 +32,14 @@ class CommentRepo extends BaseRepository implements CommentRepositoryInterface
     public function getProductComments()
     {
         return $this->query->whereNull('parent_id')
-            ->whereMorphedTo('commentable' , Product::class )
+            ->whereMorphedTo('commentable', Product::class)
             ->get();
     }
 
     public function getBlogComments()
     {
         return $this->query->whereNull('parent_id')
-            ->whereMorphedTo('commentable' , Post::class )
+            ->whereMorphedTo('commentable', Post::class)
             ->get();
     }
 
@@ -52,5 +53,22 @@ class CommentRepo extends BaseRepository implements CommentRepositoryInterface
     public function update(int $id, array $data)
     {
         // TODO: Implement update() method.
+    }
+
+    public function getUnseenComments(): array|Collection
+    {
+        return $this->query->where('is_seen', Comment::NOT_SEEN)->get();
+    }
+
+    public function changeSeen($id = null, $type = null)
+    {
+        $type ? $query = $this->query->whereMorphedTo('commentable', $type)
+            : $query = $this->query;
+
+        if (!is_null($id)) {
+            $query->where('id', $id)->update(['is_seen' => Comment::SEEN]);
+        } else {
+            $query->getQuery()->update(['is_seen' => Comment::SEEN]);
+        }
     }
 }

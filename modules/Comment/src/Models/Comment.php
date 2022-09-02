@@ -23,6 +23,9 @@ class Comment extends Model
     const STATUS_APPROVED = 1;
     const STATUS_REJECTED = -1;
 
+    const SEEN = 1;
+    const NOT_SEEN = 0;
+
     public static $statuses = [
         self::STATUS_APPROVED,
         self::STATUS_PENDING,
@@ -34,7 +37,7 @@ class Comment extends Model
         return new CommentFactory();
     }
 
-    public function commentableType(): Attribute
+    public function commentableTypeName(): Attribute
     {
         return Attribute::get(function () {
             $info['type'] = 'نامعلوم';

@@ -39,7 +39,7 @@
                                     <td>{{ $loop->iteration  }}</td>
                                     <td>{{ substr($comment->body , 0 , 50) }}</td>
                                     <td>{{ $comment->user->name }}</td>
-                                    <td>{{ $comment->commentableType }}</td>
+                                    <td>{{ $comment->commentable_type_name }}</td>
                                     <td>{{ getJalaliDate($comment->created_at) }}</td>
                                     <td>
                                         <span

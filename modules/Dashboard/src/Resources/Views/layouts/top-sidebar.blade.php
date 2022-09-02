@@ -5,11 +5,20 @@
                 <i class="fa fa-envelope"></i>
             </a>
         </li>
+
+        <li class="nav-item">
+            <a class="nav-link" id="comments-tab" data-toggle="pill" href="#comments" role="tab" aria-controls="comments" aria-selected="false">
+                <span> {{ $unseenComments->count() }}  </span>
+                <i class="fa fa-comment"></i>
+            </a>
+        </li>
+
         <li class="nav-item">
             <a class="nav-link" id="notifications-tab" data-toggle="pill" href="#notifications" role="tab" aria-controls="notifications" aria-selected="false">
                 <i class="fa fa-bell"></i>
             </a>
         </li>
+
         <li class="nav-item">
             <a class="nav-link" id="settings-tab" data-toggle="pill" href="#settings" role="tab" aria-controls="settings" aria-selected="false">
                 <i class="ti-settings"></i>
@@ -85,6 +94,44 @@
 {{--                <a href="#" class="btn btn-primary btn-block">گفتگوی جدید</a>--}}
 {{--            </div>--}}
 {{--        </div>--}}
+        <div class="tab-pane" id="comments" role="tabpanel" aria-labelledby="comments-tab">
+            <div class="tab-pane-body">
+                <h5 class="font-weight-bold m-b-20">نظرات جدید</h5>
+                <div>
+                    <p class="text-muted">امروز</p>
+                    <ul class="list-group list-group-flush m-b-10">
+                        @foreach($unseenComments as $unseenComment)
+                        <li class="list-group-item d-flex p-l-r-0">
+                            <div>
+                                <figure class="avatar avatar-xs m-l-10">
+                                    <span class="avatar-title rounded-circle">
+                                        <i class="fa fa-commenting-o"></i>
+                                    </span>
+                                </figure>
+                            </div>
+                            <div>
+                                <p class="m-b-0">یک نظر جدید</p>
+                                <p class="m-b-0">{{ str($unseenComment->body)->limit(15 , '...') }}</p>
+                                <ul class="list-inline small">
+                                    <li class="list-inline-item text-muted">{{ getJalaliDate($unseenComment->created_at) }}</li>
+                                    <li class="list-inline-item">
+                                        <a href="{{ route('panel.comments.changeSeenStatus' , $unseenComment->id) }}">علامت خوانده شده</a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="{{ route('panel.comments.index') }}">مشاهده</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+            <div class="tab-pane-footer">
+                <a href="{{ route('panel.comments.changeSeenStatus') }}" class="btn btn-primary btn-block">علامت خوانده شده به همه</a>
+            </div>
+        </div>
+
         <div class="tab-pane" id="notifications" role="tabpanel" aria-labelledby="notifications-tab">
             <div class="tab-pane-body">
                 <h5 class="font-weight-bold m-b-20">اعلان ها</h5>
