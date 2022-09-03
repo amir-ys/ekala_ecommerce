@@ -28,13 +28,19 @@
                                            value="{{ old('color_name') }}">
                                     <x-validation-error field="color_name"/>
                                 </div>
-                                <div class="col-md-4 mb-3">
-                                    <label>کد رنگ (hex)</label>
-                                    <input type="text" class="form-control" name="color_value"
-                                           placeholder="کد رنگ (hex)"
-                                           value="{{ old('color_value') }}">
-                                    <x-validation-error field="color_value"/>
+
+                                <div class="col-md-4">
+                                        <label>کد رنگ (hex)</label>
+                                    <div class="input-group sample-selector colorpicker-element">
+                                        <input type="text" class="form-control text-right" dir="ltr" name="color_value"
+                                               placeholder="کد رنگ (hex)" id="color_name"
+                                               value="{{ old('color_value') }}">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"><i style="background-color: rgb(225, 72, 72);"></i></span>
+                                        </div>
+                                    </div>
                                 </div>
+
                                 <div class="col-md-4 mb-3">
                                     <label>مقدار افزایش قیمت </label>
                                     <input type="number" class="form-control" name="price_increase"
@@ -65,4 +71,16 @@
         </div>
     </div>
     <!-- end row -->
+@endsection
+@section('css')
+    <link rel="stylesheet" href="/assets/panel/vendors/colorpicker/css/bootstrap-colorpicker.min.css" type="text/css">
+@endsection
+@section('script')
+    <script src="/assets/panel/vendors/colorpicker/js/bootstrap-colorpicker.min.js"></script>
+    <script src="/assets/panel/js/examples/colorpicker.js"></script>
+    <script>
+        $('.sample-selector').colorpicker().on('changeColor', function(e) {
+            $('#color_name').attr( 'value' ,e.color.toString('rgba'));
+        });
+    </script>
 @endsection

@@ -121,25 +121,31 @@
                                 <div class="variables">
                                     <div class="title">گزینه های موجود:</div>
                                     <div class="row">
-                                        <div class="col-12 col-sm-4 col-lg-3 ">
-                                            <div class="variable">
-                                                <div class="sub-title pt-2 pb-3">رنگ</div>
-                                                <span class="color-variable"><a href="#" class="red"></a></span>
-                                                <span class="color-variable"><a href="#" class="yellow"></a></span>
-                                                <span class="color-variable"><a href="#" class="blue"></a></span>
-                                                <span class="color-variable"><a href="#" class="black"></a></span>
+                                        @if($product->colors()->count() > 0 )
+                                            <div class="col-12 col-sm-4 col-lg-3 ">
+                                                <div class="variable">
+                                                    <div class="sub-title pt-2 pb-3">رنگ</div>
+                                                    @foreach($product->colors()->get()  as $color)
+                                                        <span class="color-variable"><a href="#"
+                                                                                        style="background-color:{{ $color->color_value }};"></a></span>
+                                                    @endforeach
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-12 col-sm-4 col-lg-3">
-                                            <div class="variable">
-                                                <div class="sub-title pt-2 pb-2">گارانتی</div>
-                                                <select name="" class="form-select">
-                                                    <option value="">بدون گارانتی</option>
-                                                    <option value="">گارانتی 6 ماهه</option>
-                                                    <option value="">گارانت 12 ماهه</option>
-                                                </select>
+                                        @endif
+                                        @if($product->warranties()->count() > 0 )
+                                            <div class="col-12 col-sm-4 col-lg-3">
+                                                <div class="variable">
+                                                    <div class="sub-title pt-2 pb-2">گارانتی</div>
+                                                    <select name="" class="form-select">
+                                                            <option value>بدون گارانتی</option>
+                                                        @foreach($product->warranties()->get()  as $warranty)
+                                                            <option value="{{ $warranty->id }}">{{ $warranty->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
                                             </div>
-                                        </div>
+                                        @endif
+
                                     </div>
 
                                     <form action="{{ route('front.cart.add') }}" method="get">
@@ -148,7 +154,8 @@
                                             <div class="col-12 col-sm-4 col-lg-3">
                                                 <div class="variable">
                                                     <div class="sub-title pt-3">تعداد</div>
-                                                    <input name="quantity" type="number" min="1" max="{{ $product->quantity }}" class="form-control"
+                                                    <input name="quantity" type="number" min="1"
+                                                           max="{{ $product->quantity }}" class="form-control"
                                                            value="1">
                                                 </div>
                                             </div>
@@ -156,7 +163,7 @@
                                             <div class="col-12 col-sm-4 col-lg-5  pt-2 pb-2">
                                                 <div class="variable">
                                                     <div class="sub-title pt-4"></div>
-                                                    <button  type="submit" class="btn btn-success btn-add-to-basket">
+                                                    <button type="submit" class="btn btn-success btn-add-to-basket">
                                                         <i class="fa fa-shopping-cart"></i> افزودن به سبد خرید
                                                     </button>
                                                 </div>
