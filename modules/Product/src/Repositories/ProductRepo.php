@@ -257,4 +257,42 @@ class ProductRepo extends BaseRepository implements ProductRepositoryInterface
         $model = $this->findById($id);
         return $model->colors()->where('id', $colorId)->delete();
     }
+
+
+    public function getProductWarranties($id)
+    {
+        $model = $this->findById($id);
+        return $model->warranties()->get();
+    }
+
+
+    public function findWarrantyById($id, $warrantyId)
+    {
+        $model = $this->findById($id);
+        return $model->warranties()->where('id', $warrantyId)->firstOrFail();
+    }
+
+    public function storeWarranty($id, $data)
+    {
+        $model = $this->findById($id);
+        $model->warranties()->create([
+            "name" => $data['name'],
+            "price_increase" => $data['price_increase'],
+        ]);
+    }
+
+    public function updateWarranty($id, $warrantyId, $data)
+    {
+        $model = $this->findById($id);
+        $model->warranties()->where('id', $warrantyId)->update([
+            "name" => $data['name'],
+            "price_increase" => $data['price_increase'],
+        ]);
+    }
+
+    public function destroyWarranty($id, $warrantyId)
+    {
+        $model = $this->findById($id);
+        return $model->warranties()->where('id', $warrantyId)->delete();
+    }
 }

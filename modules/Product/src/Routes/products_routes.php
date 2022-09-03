@@ -7,6 +7,7 @@ use Modules\Product\Http\Controllers\ProductAttributeController;
 use Modules\Product\Http\Controllers\ProductColorController;
 use Modules\Product\Http\Controllers\ProductController;
 use Modules\Product\Http\Controllers\ProductImageController;
+use Modules\Product\Http\Controllers\ProductWarrantyController;
 use Modules\Product\Http\Controllers\WishlistController;
 
 Route::group(['prefix' => 'panel'], function () {
@@ -25,10 +26,14 @@ Route::group(['prefix' => 'panel'], function () {
     Route::post('products/{product}/attribute-vale/save', [ProductAttributeController::class, 'saveAttributeValue'])->name('panel.products.attributes.save');
 
 
-    //product colors
     Route::prefix('products/{product}')->group(function () {
+        //product colors
         Route::resource('colors', ProductColorController::class)->names('panel.products.colors');
+
+        //product warranties
+        Route::resource('warranties', ProductWarrantyController::class)->names('panel.products.warranties');
     });
+
 });
 
 //wishlist

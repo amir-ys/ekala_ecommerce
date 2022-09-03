@@ -98,9 +98,14 @@ class Product extends Model
             'product_id', 'attribute_id')->withPivot('value')->withTimestamps();
     }
 
-    public function colors()
+    public function colors(): HasMany
     {
         return $this->hasMany(ProductColor::class);
+    }
+
+    public function warranties(): HasMany
+    {
+        return $this->hasMany(ProductWarranty::class);
     }
 
     public function formattedPrice(): string
