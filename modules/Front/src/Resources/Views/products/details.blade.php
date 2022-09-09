@@ -6,8 +6,7 @@
                 <div class="col-12">
                     <div class="container">
                         <div class="row">
-                            <div class="col-12 px-0">
-                                <h1>{{ $product->name }} </h1>
+                            <div class="col-12 ">
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="./index.html">صفحه نخست</a></li>
@@ -108,7 +107,7 @@
                                                     <div class="row">
                                                         <div class="d-flex justify-content-between">
                                                             <div>
-                                                                <a href="./product.html">
+                                                                <a >
                                                                     <h5>{{$product->name}}</h5>
                                                                 </a>
                                                             </div>
@@ -175,7 +174,7 @@
                                                                         <label class="color-variable" for="color_input_{{ $color->id }}"
                                                                             style="background-color:{{ $color->color_value }};
                                                                             height: 30px ; width: 30px" ></label>
-                                                                        <input class="d-none" type="radio" name="color_id"  id="color_input_{{ $color->id }}"
+                                                                        <input class="d-none" form="add_to_card" type="radio" name="color_id"  id="color_input_{{ $color->id }}"
                                                                                value="{{ $color->id }}" data-color-price="{{ $color->price_increase }}"
                                                                                data-color-name="{{ $color->color_name }}"
                                                                         @if($key == 0) checked @endif
@@ -187,7 +186,7 @@
                                                         <div class="col-12 col-sm-4 col-lg-6">
                                                             <div class="variable">
                                                                 <div class="sub-title pt-2 pb-2">گارانتی</div>
-                                                                <select name="warranty_id" class="form-select">
+                                                                <select name="warranty_id" class="form-select" form="add_to_card">
                                                                     @if($product->warranties()->get()->count() > 0)
                                                                     @foreach($product->warranties()->get()  as $warranty)
                                                                         <option
@@ -363,7 +362,16 @@
                         <!-- /Nav Tabs -->
 
                         <!-- Suggested Products -->
-                        @include('Front::partials.suggested-products')
+                        <div class="col-12 pt-5" id="suggested-products">
+                            <div class="title py-3 text-center">محصولات مرتبط</div>
+                            <div class="owl-carousel products-carousel">
+                                <!-- Product Item -->
+                                @foreach($relatedProducts as $product)
+                                    @include('Front::partials.product-box' , ['product' => $product])
+                                @endforeach
+                                <!-- /Product Item -->
+                            </div>
+                        </div>
                         <!-- /Suggested Products -->
                     </div>
                 </div>

@@ -40,7 +40,7 @@
                                                         @foreach($categories as $category)
                                                             <div class="droopmenu-tabsection" id="droopmenutab10">
                                                                 <a class="droopmenu-tabheader"
-                                                                   href="/po">{{ $category->name }}</a>
+                                                                   href="{{ $category->path() }}">{{ $category->name }}</a>
                                                                 <div class="droopmenu-tabcontent">
                                                                     <div class="droopmenu-row">
                                                                         @foreach($category->childes as $childCategory)
@@ -60,8 +60,7 @@
                                                         class="droopmenu-topanim"></em></a>
                                                 <div class="dm-arrow"></div>
                                                 <ul style="">
-                                                    <li><a href="./products.html">محصولات </a></li>
-                                                    <li><a href="./compare.html">مقایسه محصول</a></li>
+                                                    <li><a href="{{ route('front.products.list') }}">محصولات </a></li>
                                                 </ul>
                                             </li>
                                             <li><a href="{{ route('front.faqs.show') }}">سوالات متداول</a></li>

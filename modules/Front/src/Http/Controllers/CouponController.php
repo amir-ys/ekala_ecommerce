@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Coupon\Contracts\CouponRepositoryInterface;
 use Modules\Coupon\Models\Coupon;
+use Modules\Front\Services\CartService;
 
 class CouponController extends Controller
 {
@@ -57,7 +58,7 @@ class CouponController extends Controller
         if ($coupon->type == Coupon::TYPE_AMOUNT) {
             session()->put('coupon', ['code' => $coupon->code, 'amount' => $coupon->amount , 'coupon_id' => $coupon->id]);
         } elseif ($coupon->type == Coupon::TYPE_PERCENT) {
-            $total = \Cart::getTotal();
+            $total = CartService::getTotal();
             $amount = (($total * $coupon->percent) / 100);
             session()->put('coupon', ['code' => $coupon->code, 'amount' => $amount , 'coupon_id' => $coupon->id]);
         }

@@ -151,8 +151,37 @@ class Product extends Model
         return $discountAmount;
     }
 
+    public function calcProductPrice($colorId = null , $warrantyId = null , $withoutDiscount = false)
+    {
+        $selectedColorPrice = 0;
+        $selectedWarrantyPrice = 0;
+
+        $withoutDiscount ?$price = $this->price :  $price = $this->price - $this->discountAmount();
+        if ($color = $this->colors()->where('id', $colorId)->first()) {
+            $selectedColorPrice = $color->price_increase;
+        }
+
+        if ($warranty = $this->warranties()->where('id', $warrantyId)->first()) {
+            $selectedWarrantyPrice = $warranty->price_increase;
+        }
+
+        return $price + $selectedColorPrice + $selectedWarrantyPrice;
+    }
+
     public function findProductInWishlist($userId)
     {
         return $this->wishlist()->where('user_id', $userId)->with('user')->first();
+    }
+
+    public function colorName($colorId)
+    {
+        $color =  $this->colors()->where('id' , $colorId)->first();
+        return $color ?  $color->color_name : '-';
+    }
+
+    public function warrantyName($warrantyId)
+    {
+        $warranty =  $this->warranties()->where('id' , $warrantyId)->first();
+        return $warranty ? $warranty->name : '-';
     }
 }

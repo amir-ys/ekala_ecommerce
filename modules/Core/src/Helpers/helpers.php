@@ -2,6 +2,7 @@
 
 
 use Illuminate\Support\Carbon;
+use Modules\Front\Services\CartService;
 use Morilog\Jalali\CalendarUtils;
 use Morilog\Jalali\Jalalian;
 
@@ -35,7 +36,7 @@ if (!function_exists('getDiscountAmount')) {
     function getDiscountAmount()
     {
         $discountAmount = 0;
-        foreach (\Cart::getContent() as $cartItem) {
+        foreach (CartService::getItems() as $cartItem) {
             $discountAmount += $cartItem->associatedModel->discountAmount() * $cartItem->quantity;
         }
         return $discountAmount;

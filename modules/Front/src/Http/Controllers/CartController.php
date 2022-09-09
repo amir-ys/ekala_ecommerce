@@ -5,6 +5,7 @@ namespace Modules\Front\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Modules\Front\Services\CartService;
 use Modules\Product\Contracts\ProductRepositoryInterface;
 
@@ -14,11 +15,15 @@ class CartController extends Controller
     public function index()
     {
         $cartItems = CartService::getItems();
-        return view('Front::cart.index' , compact('cartItems'));
+        //todo $suggestionProduct
+        $suggestionProducts = resolve(ProductRepositoryInterface::class)->getAll();
+        return view('Front::cart.index' , compact('cartItems' , 'suggestionProducts'));
     }
 
     public function add(Request $request)
     {
+        $this->validateInputs();
+
         $product = $this->findActiveProduct($request);
         if (!$product) {
             alert()->error('ناموفق', 'محصولی با این شناسه پیدا نشد.');
@@ -31,8 +36,8 @@ class CartController extends Controller
             return back();
         }
 
-
-        $result = CartService::add($product, $request->quantity);
+        $attributes = ['quantity' => $request->quantity , 'color_id' => $request->color_id , 'warranty_id' => $request->warranty_id ,];
+        $result = CartService::add($product, $attributes);
 
         if ($result['status'] == 'invalid-quantity'){
             alert()->error('دقت کنید', 'تعداد انتخابی محصول بیش از موجودی فروشگاه است.');
@@ -73,6 +78,25 @@ class CartController extends Controller
         alert()->success('عملیات موفق' , 'سبد با موفقیت بروزرسانی شد');
         return back();
 
+    }
+
+
+    public function validateInputs()
+    {
+        $data = Validator::make(\request()->all()  , [
+            'color_id' => [ 'nullable' ,'numeric' , Rule::exists('product_colors' , 'id')] ,
+            'warranty_id' => [ 'nullable' ,'numeric' , Rule::exists('product_warranties' , 'id')] ,
+            'quantity' => [ 'required' ,'numeric' , 'min:1'] ,
+        ] , [] , [ 'color_id' => 'رنگ'  , 'warranty_id' => 'گارانتی']);
+
+        if ($data->fails()){
+            if ($data->errors()->has('quantity')){
+                alert()->warning('ناموفق' ,  'تعداد محصول انتخاب شده صحیح نیست.' );
+                back()->throwResponse();
+            }
+            alert()->warning('ناموفق' ,  $data->errors()->first() );
+             back()->throwResponse();
+        }
     }
 
     private function findActiveProduct(Request $request)

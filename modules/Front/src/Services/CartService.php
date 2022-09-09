@@ -4,30 +4,68 @@ namespace Modules\Front\Services;
 
 class CartService
 {
-    public static function add($product, $quantity)
+    /**
+     * @throws \Darryldecode\Cart\Exceptions\InvalidConditionException
+     */
+    public static function add($product, $attributes)
     {
+        $rowId = $product->id . $attributes['color_id'] . $attributes['warranty_id'];
+        $originalPrice =$product->calcProductPrice($attributes['color_id'] , $attributes['warranty_id'] , true);
+        $productPriceWithAttributes =$product->calcProductPrice($attributes['color_id'] , $attributes['warranty_id']);
+        $colorName = $product->colorName($attributes['color_id']);
+        $warrantyName = $product->warrantyName($attributes['warranty_id']);
+
         $currentItem = \Cart::get($product->id);
+
+
         if (!$currentItem) {
             \Cart::add(array(
-                'id' => $product->id,
+                'id' => $rowId ,
                 'name' => $product->name,
-                'price' => $product->finalPrice(),
-                'quantity' => $quantity,
-                'attributes' => array(),
+                'price' => $originalPrice,
+                'attributes' => [
+                    'color' => $colorName ,
+                    'warranty' => $warrantyName ,
+                    'price_with_discount' => $productPriceWithAttributes
+                ],
+                'quantity' => $attributes['quantity'],
                 'associatedModel' => $product,
             ));
             return ['status' => 'add' ];
         }
 
-        if (($currentItem->quantity + $quantity) > $product->quantity) {
+
+        $colorNameStatus = $attributes['color_id'] != $currentItem['attributes']['color'];
+        $warrantyNameStatus = $attributes['warranty_id'] == $currentItem['attributes']['warranty'];
+        if ($colorNameStatus || $warrantyNameStatus) {
+            \Cart::add(array(
+                'id' => $rowId,
+                'name' => $product->name,
+                'price' => $originalPrice,
+                'attributes' => [
+                    'color' => $colorName ,
+                    'warranty' => $warrantyName ,
+                    'price_with_discount' => $productPriceWithAttributes
+                ],
+                'quantity' => $attributes['quantity'],
+                'associatedModel' => $product,
+            ));
+            return ['status' => 'add' ];
+        }
+
+        if (($currentItem->quantity + $attributes['quantity']) > $product->quantity) {
             return ['status' => 'invalid-quantity'];
         }
 
-        \Cart::update($product->id, array(
+        \Cart::update($rowId, array(
             'name' => $product->name,
-            'price' => $product->finalPrice(),
-            'quantity' => $quantity,
-            'attributes' => array(),
+            'price' => $originalPrice,
+            'attributes' => [
+                'color' => $colorName ,
+                'warranty' => $warrantyName ,
+                'price_with_discount' => $productPriceWithAttributes
+            ],
+            'quantity' => $attributes['quantity'],
             'associatedModel' => $product,
         ));
         return ['status' => 'add'];
