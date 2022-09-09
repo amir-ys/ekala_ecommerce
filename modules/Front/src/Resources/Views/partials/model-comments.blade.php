@@ -1,4 +1,4 @@
-<div id="comments-tab" class="tabs-container px-0 px-md-3 pb-0 pb-md-2">
+<div id="comments-tab" class="tabs-container px-0 px-md-3 pb-0 pb-md-2" style="display: none">
     <div class="row" id="store-comment-element">
         <div class="col-12 text-justify" id="comments">
             <div class="comments-container">

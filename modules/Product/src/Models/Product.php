@@ -129,7 +129,7 @@ class Product extends Model
     public function priceWithDiscount()
     {
         if (!is_null($this->special_price) && ($this->special_price_start < now() && $this->special_price_end > now())) {
-            return $this->special_price;
+            return $this->price - $this->special_price;
         }
         return $this->price;
     }
@@ -137,7 +137,7 @@ class Product extends Model
     public function finalPrice()
     {
         if ($this->hasDiscount) {
-            return $this->priceWithDiscount();
+          return  $this->priceWithDiscount();
         }
         return $this->price;
     }
@@ -146,7 +146,7 @@ class Product extends Model
     {
         $discountAmount = 0;
         if ($this->hasDiscount) {
-            $discountAmount = $this->price - $this->priceWithDiscount();
+            $discountAmount = $this->special_price;
         }
         return $discountAmount;
     }

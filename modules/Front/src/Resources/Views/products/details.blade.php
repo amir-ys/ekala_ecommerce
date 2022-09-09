@@ -27,7 +27,7 @@
                 <div class="col-12">
                     <div class="content">
                         <div class="row">
-                            <div class="col-12 col-lg-5 px-lg-0">
+                            <div class="col-12 col-lg-4 px-lg-0">
                                 <div class="swiper-container gallery-top">
                                     <!-- Additional required wrapper -->
                                     <ul class="swiper-wrapper">
@@ -99,130 +99,220 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 col-lg-7 mt-5 mt-lg-0 pl-lg-0" id="product-intro">
-                                <a href="./product.html">
-                                    <h1>{{$product->name}}</h1>
-                                </a>
-                                <div class="stars-container">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <a href="#tabs-panel"><span>(نقد و بررسی)</span></a>
-                                </div>
-                                <div class="price-container py-2">
-                                    <span class="pre-price">{{ $product->formattedPrice() }}</span>
-                                    <span class="price">{{ $product->priceWithDiscount() }} <span>تومان</span></span>
-                                    <div class="badge badge-danger font-weight-light m-1 py-1 px-2">10%</div>
-                                </div>
-                                <p>{{ $product->description }}</p>
-                                <hr>
-                                <div class="variables">
-                                    <div class="title">گزینه های موجود:</div>
-                                    <div class="row">
-                                        @if($product->colors()->count() > 0 )
-                                            <div class="col-12 col-sm-4 col-lg-3 ">
-                                                <div class="variable">
-                                                    <div class="sub-title pt-2 pb-3">رنگ</div>
-                                                    @foreach($product->colors()->get()  as $color)
-                                                        <span class="color-variable"><a href="#"
-                                                                                        style="background-color:{{ $color->color_value }};"></a></span>
-                                                    @endforeach
-                                                </div>
-                                            </div>
-                                        @endif
-                                        @if($product->warranties()->count() > 0 )
-                                            <div class="col-12 col-sm-4 col-lg-3">
-                                                <div class="variable">
-                                                    <div class="sub-title pt-2 pb-2">گارانتی</div>
-                                                    <select name="" class="form-select">
-                                                            <option value>بدون گارانتی</option>
-                                                        @foreach($product->warranties()->get()  as $warranty)
-                                                            <option value="{{ $warranty->id }}">{{ $warranty->name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        @endif
+                            <div class="col-12 col-lg-8 mt-5 mt-lg-0 pl-lg-0" id="product-intro">
+                                <div class="row">
+                                    <div class="col-md-7 mr-md-5">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="cta-container">
+                                                    <div class="row">
+                                                        <div class="d-flex justify-content-between">
+                                                            <div>
+                                                                <a href="./product.html">
+                                                                    <h5>{{$product->name}}</h5>
+                                                                </a>
+                                                            </div>
+                                                            <div>
+                                                                <br class="d-sm-none">
+                                                                @if($product->findProductInWishlist(auth()->id()))
+                                                                    <a class="wishlist-item btn btn-outline-secondary bg-danger btn-favorite mt-sm-0"
+                                                                       href="/"
+                                                                       onclick="addOrRemoveProductFromWishlist('{{ route('products.wishlist.add' , $product->id) }}')"
+                                                                       data-toggle="tooltip" data-placement="top"
+                                                                       title="حذف از علاقه‌مندی"></a>
+                                                                @else
+                                                                    <a class="wishlist-item btn btn-outline-secondary btn-favorite mt-sm-0"
+                                                                       href="/"
+                                                                       onclick="addOrRemoveProductFromWishlist('{{ route('products.wishlist.add' , $product->id) }}')"
+                                                                       data-toggle="tooltip" data-placement="top"
+                                                                       title="افزودن به علاقه‌مندی"></a>
+                                                                @endif
 
+
+                                                                <form action="{{ route('products.wishlist.checkUserIsLogin') }}" id='check-user-is-login'>
+                                                                    @csrf
+                                                                </form>
+
+{{--                                                                <a href="{{ route('front.compare.add' , $product->id) }}">--}}
+{{--                                                                    <div--}}
+{{--                                                                        class="btn btn-outline-secondary btn-compare mt-1 mt-sm-0"--}}
+{{--                                                                        data-toggle="tooltip" data-placement="top"--}}
+{{--                                                                        title="مقایسه"></div>--}}
+{{--                                                                </a>--}}
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                {{--                                                <div class="stars-container">--}}
+                                                {{--                                                    <i class="fa fa-star"></i>--}}
+                                                {{--                                                    <i class="fa fa-star"></i>--}}
+                                                {{--                                                    <i class="fa fa-star"></i>--}}
+                                                {{--                                                    <i class="fa fa-star"></i>--}}
+                                                {{--                                                    <i class="fa fa-star"></i>--}}
+                                                {{--                                                    <a href="#tabs-panel"><span>(نقد و بررسی)</span></a>--}}
+                                                {{--                                                </div>--}}
+                                                <hr>
+
+                                              <div class="card border">
+                                                  <div class="card-body">
+                                                      <div  class="row">
+                                                          <div class="col-md-6">رنگ انتخابی: <span id="selected_color"> </span></div>
+                                                          <div class="col-md-6">گارانتی انتخابی: <span id="selected_warranty"></span></div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                                <div class="variables">
+                                                    <div class="title">گزینه های موجود:</div>
+                                                    <div class="row">
+                                                        @if($product->colors()->count() > 0 )
+                                                            <div class="col-12 col-sm-4 col-lg-6 mb-md-2 ">
+                                                                <div class="variable">
+                                                                    <div class="sub-title pt-2 pb-2">رنگ</div>
+                                                                    @foreach($product->colors()->get()  as $key =>  $color)
+                                                                        <label class="color-variable" for="color_input_{{ $color->id }}"
+                                                                            style="background-color:{{ $color->color_value }};
+                                                                            height: 30px ; width: 30px" ></label>
+                                                                        <input class="d-none" type="radio" name="color_id"  id="color_input_{{ $color->id }}"
+                                                                               value="{{ $color->id }}" data-color-price="{{ $color->price_increase }}"
+                                                                               data-color-name="{{ $color->color_name }}"
+                                                                        @if($key == 0) checked @endif
+                                                                        >
+                                                                    @endforeach
+                                                                </div>
+                                                            </div>
+                                                        @endif
+                                                        <div class="col-12 col-sm-4 col-lg-6">
+                                                            <div class="variable">
+                                                                <div class="sub-title pt-2 pb-2">گارانتی</div>
+                                                                <select name="warranty_id" class="form-select">
+                                                                    @if($product->warranties()->get()->count() > 0)
+                                                                    @foreach($product->warranties()->get()  as $warranty)
+                                                                        <option
+                                                                            id="warranty_item"
+                                                                            value="{{ $warranty->id }}"
+                                                                            data-warranty-name="{{ $warranty->name }}"
+                                                                            data-warranty-price="{{ $warranty->price_increase }}"
+                                                                        >{{ $warranty->name }}</option>
+                                                                    @endforeach
+                                                                    @else
+                                                                        <option value>بدون گارانتی</option>
+                                                                    @endif
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <form action="{{ route('front.cart.add') }}" method="get"
+                                                          id="add_to_card">
+                                                        <input type="hidden" name="product_id"
+                                                               value="{{ $product->id }}">
+                                                        <div class="row">
+                                                            <div class="col-12 col-sm-6 col-lg-6">
+                                                                <div class="variable">
+                                                                    <div class="sub-title pt-3 mb-md-2">تعداد</div>
+                                                                    <div class="input-group mb-3 order-number">
+                                                                        <div class="input-group-prepend">
+                                                                            <button class="btn btn-outline-secondary btn-inc btn-change-quantity"
+                                                                                type="button">+
+                                                                            </button>
+                                                                        </div>
+                                                                        <input type="text" value="1"
+                                                                               class="form-control text-center order-number"
+                                                                               readonly id="quantity"
+                                                                               name="quantity" min="1"
+                                                                               max="{{ $product->quantity }}">
+                                                                        <div class="input-group-prepend">
+                                                                            <button class="btn btn-outline-secondary btn-dec btn-change-quantity"
+                                                                                type="button">_
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <p>{!! $product->description !!} </p>
+
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <!-- Share Links -->
+                                                <div id="share-links">
+                                                    <span>اشتراک گذاری: </span>
+                                                    <a href="#" target="_blank"><span class="share-link"><img
+                                                                src="/assets/front/assets/images/social/twitter.png"
+                                                                alt="توئیتر"
+                                                                width="18px"></span></a>
+                                                    <a href="#" target="_blank"><span class="share-link"><img
+                                                                src="/assets/front/assets/images/social/insta.png"
+                                                                alt="اینستاگرام"
+                                                                width="18px"></span></a>
+                                                    <a href="#" target="_blank"><span class="share-link"><img
+                                                                src="/assets/front/assets/images/social/linkedin.png"
+                                                                alt="لینکدین"
+                                                                width="18px"></span></a>
+                                                    <a href="#" target="_blank"><span class="share-link"><img
+                                                                src="/assets/front/assets/images/social/facebook.png"
+                                                                alt="فیس بوک"
+                                                                width="18px"></span></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Share Links -->
                                     </div>
-
-                                    <form action="{{ route('front.cart.add') }}" method="get">
-                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                        <div class="row">
-                                            <div class="col-12 col-sm-4 col-lg-3">
-                                                <div class="variable">
-                                                    <div class="sub-title pt-3">تعداد</div>
-                                                    <input name="quantity" type="number" min="1"
-                                                           max="{{ $product->quantity }}" class="form-control"
-                                                           value="1">
+                                    <div class="col-md-5">
+                                        <div class="card border border-2">
+                                            <div class="card-body">
+                                                <div class="bg-light d-flex justify-content-between">
+                                                    <div>قیمت کالا:</div>
+                                                    <div>
+                                                        <span id="product_original_price"
+                                                              data-product-original-price="{{ $product->price }}"
+                                                            class="price text-left">{{ $product->formattedPrice() }}
+                                                        </span>
+                                                        <span>تومان</span>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                                <hr>
+                                                <div class="bg-light d-flex justify-content-between">
+                                                    <div> تخفیف کالا:</div>
+                                                    <div>
+                                                        @if($product->hasDiscount)
+                                                            <span class="pre-price" id="product_discount_price" data-product-discount-price="{{ $product->discountAmount() }}"
+                                                            >{{ number_format($product->discountAmount()) }}
+                                                            </span>
+                                                        @else
+                                                            0
+                                                        @endif
+                                                                <span>تومان</span>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="bg-light d-flex justify-content-between">
+                                                    <div><span>جمع نهایی:</span></div>
+                                                    <div>
+                                                            <span class="pre-price" id="product_final_price">{{ number_format($product->finalPrice()) }}
+                                                            </span>
+                                                        <span>تومان</span>
+                                                    </div>
+                                                </div>
 
-                                            <div class="col-12 col-sm-4 col-lg-5  pt-2 pb-2">
-                                                <div class="variable">
-                                                    <div class="sub-title pt-4"></div>
-                                                    <button type="submit" class="btn btn-success btn-add-to-basket">
+                                                @if($product->quantity > 0)
+                                                <div class="col-md-12 w-100 mt-md-3">
+                                                    <button type="submit" form="add_to_card"
+                                                            class="btn btn-success btn-add-to-basket btn-sm btn-block w-100">
                                                         <i class="fa fa-shopping-cart"></i> افزودن به سبد خرید
-                                                    </button>
                                                 </div>
+                                                @else
+
+                                                @endif
                                             </div>
                                         </div>
-                                    </form>
-                                </div>
-                                <div class="cta-container pt-3 pt-md-5">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <br class="d-sm-none">
-                                            @if($product->findProductInWishlist(auth()->id()))
-                                                <a class="btn btn-outline-secondary bg-danger btn-favorite mt-sm-0"
-                                                   href="/" onclick="removeProductFromWishlist('{{ $product->id }}')"
-                                                   data-toggle="tooltip" data-placement="top"
-                                                   title="حذف از علاقه‌مندی"></a>
-                                            @else
-                                                <a class="btn btn-outline-secondary btn-favorite mt-sm-0"
-                                                   href="/" onclick="addProductToWishlist('{{ $product->id }}')"
-                                                   data-toggle="tooltip" data-placement="top"
-                                                   title="افزودن به علاقه‌مندی"></a>
-                                            @endif
-
-                                            <a href="{{ route('front.compare.add' , $product->id) }}">
-                                                <div class="btn btn-outline-secondary btn-compare mt-1 mt-sm-0"
-                                                     data-toggle="tooltip" data-placement="top" title="مقایسه"></div>
-                                            </a>
-                                        </div>
-                                        <form action="{{ route('products.wishlist.add' , $product->id) }}"
-                                              method="post" id="add-product-to-wishlist-{{$product->id}}">
-                                            @csrf
-                                            @method('post')
-                                        </form>
-
-                                        <form action="{{ route('products.wishlist.remove' , $product->id) }}"
-                                              method="post" id="remove-product-from-wishlist-{{$product->id}}">
-                                            @csrf
-                                            @method('post')
-                                        </form>
-
                                     </div>
                                 </div>
-                                <!-- Share Links -->
-                                <div class="pt-5" id="share-links">
-                                    <span>اشتراک گذاری: </span>
-                                    <a href="#" target="_blank"><span class="share-link"><img
-                                                src="/assets/front/assets/images/social/twitter.png" alt="توئیتر"
-                                                width="18px"></span></a>
-                                    <a href="#" target="_blank"><span class="share-link"><img
-                                                src="/assets/front/assets/images/social/insta.png" alt="اینستاگرام"
-                                                width="18px"></span></a>
-                                    <a href="#" target="_blank"><span class="share-link"><img
-                                                src="/assets/front/assets/images/social/linkedin.png" alt="لینکدین"
-                                                width="18px"></span></a>
-                                    <a href="#" target="_blank"><span class="share-link"><img
-                                                src="/assets/front/assets/images/social/facebook.png" alt="فیس بوک"
-                                                width="18px"></span></a>
-                                </div>
-                                <!-- Share Links -->
                             </div>
 
                             <!-- Nav Tabs -->
@@ -251,7 +341,8 @@
                                         <div class="row">
                                             <div class="col-12 pt-2 px-0 px-lg-0">
                                                 <!-- HTML Tab -->
-                                                <div id="html-tab" class="tabs-container text-justify p-0 p-md-3">
+                                                <div id="html-tab" class="tabs-container text-justify p-0 p-md-3"
+                                                @if($errors->count() > 0) style="display: none" @endif>
                                                     {!! $product->description !!}
                                                 </div>
                                                 <!-- /HTML Tab -->
@@ -299,6 +390,98 @@
 
     <script src="/assets/front/assets/js/scripts.js"></script>
     <script>
+
+        $(document).ready(function () {
+            bill();
+
+            $('input[name="color_id"]').change(function (){
+                bill();
+            })
+
+            $('select[name="warranty_id"]').change(function (){
+                bill();
+            })
+
+            $('.btn-inc').click(function () {
+                bill();
+            })
+
+            $('.btn-dec').click(function () {
+                bill();
+            })
+        })
+
+        function bill() {
+            //color
+            let color_name = $("input[name='color_id']:checked").attr('data-color-name');
+            $('#selected_color').html(color_name);
+
+            //warranty
+            let warranty_name = $("select[name='warranty_id'] option:selected").text();
+            if(warranty_name){
+                $('#selected_warranty').html(warranty_name);
+            }else{
+                $('#selected_warranty').html('بدون گارانتی');
+
+            }
+
+            let product_original_price =  parseFloat($("#product_original_price").attr('data-product-original-price'));
+            let product_discount_price = 0;
+            let selected_color_price = 0;
+            let selected_warranty_price = 0;
+            let quantity = 0;
+
+
+            if($("input[name='color_id']:checked").length > 0){
+                selected_color_price = parseFloat($("input[name='color_id']:checked").attr('data-color-price'))
+            }
+
+            if($("select[name='warranty_id'] option:selected option[id='warranty_item']").length > 0){
+                selected_warranty_price = parseFloat($("select[name='warranty_id'] option:selected").attr('data-warranty-price'))
+            }
+
+            if($("input[name='quantity']").val() > 0){
+                quantity = parseFloat($("input[name='quantity']").val())
+            }
+
+            if($("#product_discount_price").length > 0){
+                product_discount_price = parseFloat($("#product_discount_price").attr('data-product-discount-price'))
+            }
+
+            // console.log(
+            //     product_original_price ,
+            // product_discount_price ,
+            // selected_color_price ,
+            // selected_warranty_price ,
+            // quantity ,)
+
+            let product_price = product_original_price + selected_warranty_price + selected_color_price;
+            let final_price = quantity * ( product_price - product_discount_price )
+
+            $('#product_original_price').html(formatter.format(product_price))
+            $('#product_final_price').html(formatter.format(final_price))
+
+        }
+
+
+        var formatter = new Intl.NumberFormat('fa-IR');
+
+
+
+        $('.btn-inc').click(function () {
+            var current_q = $('#quantity').attr('value');
+            $('#quantity').attr('value', parseInt(current_q) + 1)
+        })
+
+        $('.btn-dec').click(function () {
+            var current_q = $('#quantity').attr('value');
+            if (current_q == 0) {
+                $('#quantity').attr('value', 0)
+            } else {
+                $('#quantity').attr('value', parseInt(current_q) - 1)
+            }
+        })
+
         if ("{{ $errors->count() > 0 }}") {
             document.getElementById('comments-tab').style.display = "block";
         }
@@ -327,14 +510,24 @@
             $('#comment-parent-id').val(parent_id)
         }
 
-        function addProductToWishlist(id) {
+        function addOrRemoveProductFromWishlist(route) {
             event.preventDefault();
-            document.getElementById('add-product-to-wishlist-' + id).submit()
-        }
-
-        function removeProductFromWishlist(id) {
-            event.preventDefault();
-            document.getElementById('remove-product-from-wishlist-' + id).submit()
+            if("{{ auth()->check() }}"){
+            $.ajax({
+                url : route ,
+                type : 'POST' ,
+                data : { _token : "{{ csrf_token() }}" } ,
+                 success : function (response) {
+                    if (response.data == true){
+                        $('.wishlist-item').addClass('bg-danger')
+                    }else if(response.data == false){
+                        $('.wishlist-item').removeClass('bg-danger')
+                    }
+                }
+            })
+            }else{
+                document.getElementById('check-user-is-login').submit()
+            }
         }
 
 

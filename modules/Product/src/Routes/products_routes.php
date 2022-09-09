@@ -37,6 +37,7 @@ Route::group(['prefix' => 'panel'], function () {
 });
 
 //wishlist
-Route::post('products/{product}/add/wishlist', [WishlistController::class, 'add'])->name('products.wishlist.add')->middleware(['auth']);
-Route::post('products/{product}/remove/wishlist', [WishlistController::class, 'remove'])->name('products.wishlist.remove')->middleware(['auth']);
+Route::post('products/{product}/add-or-remove-from-wishlist', [WishlistController::class, 'addOrRemove'])->name('products.wishlist.add')->middleware(['auth']);
+Route::get('products/wishlist/check-user-is-login', [WishlistController::class, 'checkUserIsLogin'])->name('products.wishlist.checkUserIsLogin')
+    ->middleware(['guest'])->withoutMiddleware(['auth']);
 

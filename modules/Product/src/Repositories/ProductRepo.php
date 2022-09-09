@@ -173,6 +173,17 @@ class ProductRepo extends BaseRepository implements ProductRepositoryInterface
             ->firstOrFail();
     }
 
+
+    public function addOrRemoveProductFromWishlist($productId , $userId)
+    {
+        if ($this->findProductInWishlist($productId , $userId)){
+            $this->removeFromWishlist($productId , $userId);
+        }else{
+            $this->addToWishlist($productId , $userId);
+        }
+        return !! $this->findProductInWishlist($productId , $userId);
+    }
+
     public function addToWishlist($id, $userId)
     {
         $model = $this->findById($id);
