@@ -127,7 +127,7 @@
                                         @foreach($users as  $user)
                                             <option value="{{ $user->id }}"
                                                 @selected(old('user_id') == $value)
-                                            > {{ $user->full_name ?: $user->username }}({{ $user->id }})</option>
+                                            > {{ empty($user->email) ? $user->username : $user->email  }}({{ $user->id }})</option>
                                         @endforeach
                                     </select>
                                     <x-validation-error field="user_id"/>

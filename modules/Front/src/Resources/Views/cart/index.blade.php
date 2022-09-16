@@ -54,7 +54,7 @@
                                                                 <div>تعداد</div>
                                                             </div>
                                                             <div class="col-2">
-                                                                <div>تخفیف</div>
+                                                                <div>تخفیف </div>
                                                             </div>
                                                             <div class="col-2 pr-0">
                                                                 <div class="pr-3">قیمت نهایی</div>
@@ -221,34 +221,34 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-9 width-100">
-                                <div class="cart-products">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="cart border border-2">
-                                                <div class="cart-body mb-1 mt-1">
-                                                    <form method="get" action="{{ route('front.coupon.check') }}">
-                                                        <div class="row">
-                                                            <div class="col-lg-4">
-                                                                <div class="form-group">
-                                                                    <input type="text" class="form-control" id="code"
-                                                                           name="code" placeholder=" کد تخفیف" required value="{{old("code")}}">
-                                                                    <x-validation-error field="code" />
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-2 mb-1">
-                                                                <div class="form-group">
-                                                                    <button class="btn btn-outline-success font-weight-bold" type="submit" > ثبت </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+{{--                            <div class="col-lg-9 width-100">--}}
+{{--                                <div class="cart-products">--}}
+{{--                                    <div class="container">--}}
+{{--                                        <div class="row">--}}
+{{--                                            <div class="cart border border-2">--}}
+{{--                                                <div class="cart-body mb-1 mt-1">--}}
+{{--                                                    <form method="get" action="{{ route('front.coupon.check') }}">--}}
+{{--                                                        <div class="row">--}}
+{{--                                                            <div class="col-lg-4">--}}
+{{--                                                                <div class="form-group">--}}
+{{--                                                                    <input type="text" class="form-control" id="code"--}}
+{{--                                                                           name="code" placeholder=" کد تخفیف" required value="{{old("code")}}">--}}
+{{--                                                                    <x-validation-error field="code" />--}}
+{{--                                                                </div>--}}
+{{--                                                            </div>--}}
+{{--                                                            <div class="col-lg-2 mb-1">--}}
+{{--                                                                <div class="form-group">--}}
+{{--                                                                    <button class="btn btn-outline-success font-weight-bold" type="submit" > ثبت </button>--}}
+{{--                                                                </div>--}}
+{{--                                                            </div>--}}
+{{--                                                        </div>--}}
+{{--                                                    </form>--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
 
                             <!-- Suggested Products -->
                             <div class="col-12 pt-5" id="suggested-products">

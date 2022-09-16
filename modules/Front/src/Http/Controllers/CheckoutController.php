@@ -16,6 +16,11 @@ class CheckoutController extends Controller
             alert()->error('ناموفق', 'سبد خرید شما خالی است.');
             return back();
         }
+
+        if ($this->checkUserInfo()){
+            return redirect()->route('front.checkout.profile.complete.page');
+        }
+
         return view('Front::checkout.checkout');
     }
 
@@ -59,6 +64,17 @@ class CheckoutController extends Controller
     private function storePaymentMethodInCache($paymentMethod)
     {
         Cache::put('payment_method' , $paymentMethod);
+    }
+
+    public function checkUserInfo()
+    {
+        if (empty(auth()->user()->first_name)
+            || empty(auth()->user()->last_name)
+            || empty(auth()->user()->mobile)
+            || empty(auth()->user()->email)
+        ){
+           return true;
+        }
     }
 
 }

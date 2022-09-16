@@ -18,7 +18,6 @@ class UserRequest extends FormRequest
     {
         $rules = [
             'username' => ['required', 'string', Rule::unique('users', 'username')->ignore($this->route()->parameter('user'))],
-            'full_name' => ['nullable', 'string'],
             'email' => ['required', 'email', Rule::unique('users', 'email')->ignore($this->route()->parameter('user'))],
             'password' => ['required', Password::min(8)],
             'profile' => ['nullable', 'mimes:jpeg,jpg,png'],

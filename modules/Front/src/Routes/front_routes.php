@@ -11,6 +11,7 @@ use Modules\Front\Http\Controllers\CouponController;
 use Modules\Front\Http\Controllers\HomeController;
 use Modules\Front\Http\Controllers\ImageController;
 use Modules\Front\Http\Controllers\ProductController;
+use Modules\Front\Http\Controllers\ProfileController;
 use Modules\Front\Http\Controllers\SiteInfoController;
 use Modules\Front\Http\Controllers\UserController;
 use Modules\Product\Http\Controllers\ProductImageController;
@@ -21,6 +22,13 @@ Route::group([ 'middleware' => 'auth' ] ,  function (){
     Route::get('/user/profile/wishlists' , [UserController::class , 'wishlists'])->name('front.user.wishlists.index');
     Route::get('/user/profile/orders' , [UserController::class , 'orders'])->name('front.user.orders.index');
     Route::get('/user/profile/addresses' , [UserController::class , 'addresses'])->name('front.user.addresses.index');
+
+
+    //checkout
+    Route::get('/checkout' , [CheckoutController::class , 'showPage'])->name('front.checkout.page');
+    Route::post('/checkout' , [CheckoutController::class , 'checkout'])->name('front.checkout.check');
+    Route::get('/profile/complete' , [ProfileController::class , 'profileCompletePage'])->name('front.checkout.profile.complete.page');
+    Route::post('/profile/complete' , [ProfileController::class , 'profileCompleteSave'])->name('front.checkout.profile.complete.save');
 });
 
 Route::group([] , function (){
@@ -50,9 +58,6 @@ Route::group([] , function (){
     //coupon
     Route::get('/coupon/check' , [CouponController::class , 'check'])->name('front.coupon.check');
 
-    //checkout
-    Route::get('/checkout' , [CheckoutController::class , 'showPage'])->name('front.checkout.page');
-    Route::post('/checkout' , [CheckoutController::class , 'checkout'])->name('front.checkout.check');
 
     //about-us
     Route::get('/about-us' , [SiteInfoController::class , 'showAboutPage'])->name('front.aboutUs.show');

@@ -45,7 +45,7 @@
                                     <td> {{  $coupon->percent ? '%' . $coupon->percent : '-' }} </td>
                                     <td> {{  $coupon->discount_ceiling }} </td>
                                     <td> {{  $coupon->use_type_name }} </td>
-                                    <td> {{  $coupon->user ? $coupon->full_name : '-' }} </td>
+                                    <td> {{  $coupon->user ? $coupon->user->email : '-' }} </td>
                                     <td>{{ getJalaliFromFormat($coupon->start_date , null , 'H:i Y-m-d') }}</td>
                                     <td>{{ getJalaliFromFormat($coupon->end_date , null , 'H:i Y-m-d') }}</td>
                                     <td>

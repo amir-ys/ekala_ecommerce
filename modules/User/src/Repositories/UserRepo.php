@@ -17,7 +17,6 @@ class UserRepo extends BaseRepository implements UserRepositoryInterface
     {
         $this->query->create([
             'username' => $data['username'],
-            'full_name' => $data['full_name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'profile' => $data['uploadedProfile'],
@@ -30,7 +29,6 @@ class UserRepo extends BaseRepository implements UserRepositoryInterface
     {
         $this->query->findOrFail($id)->update([
             'username' => $data['username'],
-            'full_name' => $data['full_name'],
             'email' => $data['email'],
             'password' => !isset($data['password']) ?: bcrypt($data['password']),
             'profile' => $data['uploadedProfile'],
@@ -111,5 +109,10 @@ class UserRepo extends BaseRepository implements UserRepositoryInterface
         return $query->when($request == $status, function ($q) use ($status) {
             $q->where('status', $status);
         });
+    }
+
+    public function updateFields($id , $data)
+    {
+       return $this->query->where('id' , $id)->update($data);
     }
 }
