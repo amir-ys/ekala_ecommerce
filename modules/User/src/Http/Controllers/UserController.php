@@ -100,13 +100,6 @@ class UserController extends Controller
         return back();
     }
 
-    public function UserAddressUpdate(UserAddressRequest $request , $userAddressesId)
-    {
-        $this->userRepo->updateUserAddress(auth()->id() ,$userAddressesId  ,$request->all());
-        alert()->success('آدرس با موفقیت بروزرسانی شد.');
-        return back();
-    }
-
     public function UserAddressFind($addressId)
     {
        $address =  $this->userRepo->findAddressById(auth()->id() , $addressId );

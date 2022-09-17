@@ -2,6 +2,7 @@
 
 namespace Modules\Product\Repositories;
 
+use Illuminate\Database\Eloquent\Collection;
 use Modules\Core\Repositories\BaseRepository;
 use Modules\Product\Contracts\DeliveryRepositoryInterface;
 use Modules\Product\Models\Delivery;
@@ -31,6 +32,11 @@ class DeliveryRepo extends BaseRepository implements DeliveryRepositoryInterface
             'delivery_time' => $data['delivery_time'],
             'status' => $data['status'],
         ]);
+    }
+
+    public function getActiveADelivery(): array|Collection
+    {
+       return $this->query->where('status' , Delivery::STATUS_ACTIVE)->get();
     }
 
 }

@@ -55,32 +55,45 @@ class OrderRepo extends BaseRepository implements OrderRepositoryInterface
 
     public function getSending(): array|Collection
     {
-        return $this->getAllWhere('delivery_status' , Order::DELIVERY_STATUS_SENDING);
+        return $this->getAllWhere('delivery_status', Order::DELIVERY_STATUS_SENDING);
     }
 
     public function getUnpaid(): array|Collection
     {
-        return $this->query->whereRelation('payment' , 'status' , Payment::STATUS_SUCCESS)->get();
+        return $this->query->whereRelation('payment', 'status', Payment::STATUS_SUCCESS)->get();
     }
 
     public function getCanceled(): array|Collection
     {
-        return $this->getAllWhere('status' , Order::STATUS_CANCELED);
+        return $this->getAllWhere('status', Order::STATUS_CANCELED);
     }
 
     public function getReturned(): array|Collection
     {
-        return $this->getAllWhere('status' , Order::STATUS_RETURNED);
+        return $this->getAllWhere('status', Order::STATUS_RETURNED);
     }
 
-    public function getAllWhere($column , $value): array|Collection
+    public function getAllWhere($column, $value): array|Collection
     {
-        return $this->query->where($column , $value)->get();
+        return $this->query->where($column, $value)->get();
     }
 
     public function getItems($id)
     {
-       $model =  $this->findById($id);
+        $model = $this->findById($id);
         return $model->items()->with('product')->get();
+    }
+
+    public function saveAddressAndDelivery($userId, $data)
+    {
+        $this->query->updateOrCreate(
+            [
+                'user_id' => $userId,
+                'status' => Order::STATUS_PENDING
+            ],
+            [
+                'user_address_id' => $data['address_id'] ,
+                'delivery_id' => $data['delivery_id']
+            ]);
     }
 }

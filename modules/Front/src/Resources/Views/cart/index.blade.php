@@ -214,7 +214,7 @@
                                         </div>
                                         <div class="row py-2">
                                             <div class="col-12">
-                                                <a href="{{ route('front.checkout.page')  }}"><input type="submit" value="ادامه ثبت سفارش"
+                                                <a href="{{ route('front.checkout.addressAndDeliveryPage')  }}"><input type="submit" value="ادامه ثبت سفارش"
                                                                                  class="btn btn-success w-100"></a>
                                             </div>
                                         </div>

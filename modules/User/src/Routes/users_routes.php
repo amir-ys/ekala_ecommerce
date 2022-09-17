@@ -20,7 +20,6 @@ Route::group([] ,  function (Router $router){
     Route::post('users/address/store' , [UserController::class , 'UserAddressStore'])->name('panel.users.address.store');
     Route::any('users/address/{id}/destroy' , [UserController::class , 'UserAddressDelete'])->name('panel.users.address.destroy');
     Route::any('users/address/{id}/changeStatus' , [UserController::class , 'UserAddressChangeStatus'])->name('panel.users.address.changeStatus');
-    Route::any('users/address/{id}/update' , [UserController::class , 'UserAddressUpdate'])->name('panel.users.address.update');
     Route::any('users/address/{id}/find' , [UserController::class , 'UserAddressFind'])->name('panel.users.address.find');
 
 });

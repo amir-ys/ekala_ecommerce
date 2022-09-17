@@ -63,21 +63,6 @@ class UserRepo extends BaseRepository implements UserRepositoryInterface
         ]);
     }
 
-    public function updateUserAddress($id, $addressId, $data)
-    {
-        $model = $this->query->find($id);
-        $model->addresses()->where('id', $addressId)->update(
-            [
-                'province_id' => $data['province_id'],
-                'city_id' => $data['city_id'],
-                'address' => $data['address'],
-                'receiver' => $data['receiver'],
-                'postal_code' => $data['postal_code'],
-                'phone_number' => $data['phone_number'],
-            ]
-        );
-    }
-
     public function getAddresses($id)
     {
         $model = $this->query->findOrFail($id);
@@ -114,5 +99,11 @@ class UserRepo extends BaseRepository implements UserRepositoryInterface
     public function updateFields($id , $data)
     {
        return $this->query->where('id' , $id)->update($data);
+    }
+
+    public function getActiveAddresses($id)
+    {
+        $model = $this->query->where('id' , $id)->firstOrFail();
+       return $model->addresses()->get();
     }
 }

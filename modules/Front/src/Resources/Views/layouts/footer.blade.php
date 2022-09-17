@@ -28,7 +28,7 @@
                     <li><a href="{{ route('login') }}">ورود به سایت</a></li>
                     <li><a href="{{ route('register') }}">عضویت در سایت</a></li>
                     <li><a href="{{ route('front.cart.index') }}">سبد خرید</a></li>
-                    <li><a href="{{ route('front.checkout.page')  }}">پیش فاکتور</a></li>
+                    <li><a href="{{ route('front.checkout.addressAndDeliveryPage')  }}">پیش فاکتور</a></li>
                 </ul>
             </div>
             <div class="col-12 col-md-12 col-lg-6">

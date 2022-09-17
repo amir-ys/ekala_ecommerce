@@ -135,7 +135,7 @@
                                                             <div
                                                                 class="title">{{ $address->province->name  . ',' .  $address->city->name  }}</div>
                                                             <div class="sub-title"> آدرس: {{ $address->address }}</div>
-                                                            <div class="sub-title"> نام تحوبل
+                                                            <div class="sub-title"> نام تحویل
                                                                 گیرنده: {{ $address->receiver }}</div>
                                                             <div class="sub-title"> شماره تحویل
                                                                 گیرنده: {{ $address->phone_number }}</div>
@@ -149,13 +149,6 @@
                                                                     class="fa fa-trash-alt font-weight-normal"></i>
                                                             </a>
 
-                                                            <a href="#" onclick="updateItem(event ,
-                                                             '{{ route('panel.users.address.find' , $address->id) }}' ,
-                                                             '{{ route('panel.users.address.update' , $address->id) }}'
-                                                             )"
-                                                               class="float-right float-sm-left"><i
-                                                                    class="fa fa-edit font-weight-normal"></i>
-                                                            </a>
 
                                                             @if($address->is_active == \Modules\User\Models\UserAddress::STATUS_ACTIVE)
                                                                 <a href="#" class="float-right float-sm-left ml-2"
@@ -196,10 +189,10 @@
                     type: 'GET',
                     data: {province_id: province_id},
                     success: function (response) {
-                        $('#city_id').html(null)
-                        $.each(response.data, function (key, value) {
-                            $('#city_id').append('<option value=" ' + value.id + ' "  >' + value.name + '</option>')
-                        })
+                        $('#city_id').empty()
+                        response.data.map((city) =>  {
+                            $('#city_id').append($('<option/>').val(city.id).text(city.name))
+                    })
                     }
                 })
             })

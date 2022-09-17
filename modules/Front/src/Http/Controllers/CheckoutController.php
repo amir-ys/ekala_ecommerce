@@ -5,28 +5,45 @@ namespace Modules\Front\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Modules\Front\Http\Requests\saveAddressAndDeliveryRequest;
 use Modules\Front\Services\CartService;
+use Modules\Payment\Contracts\OrderRepositoryInterface;
+use Modules\Product\Contracts\DeliveryRepositoryInterface;
 use Modules\Product\Contracts\ProductRepositoryInterface;
+use Modules\User\Contracts\UserRepositoryInterface;
 
 class CheckoutController extends Controller
 {
-    public function showPage()
+    public function addressAndDeliveryPage()
     {
         if ($this->cartIsEmpty()) {
             alert()->error('ناموفق', 'سبد خرید شما خالی است.');
             return back();
         }
 
-        if ($this->checkUserInfo()){
+        if (self::checkUserInfo()){
             return redirect()->route('front.checkout.profile.complete.page');
         }
+        $userAddresses = resolve(UserRepositoryInterface::class)->getActiveAddresses(auth()->id());
+        $deliveryMethods = resolve(DeliveryRepositoryInterface::class)->getActiveADelivery();
+        return view('Front::checkout.checkout' , compact('userAddresses' , 'deliveryMethods'));
+    }
 
-        return view('Front::checkout.checkout');
+    public function addressAndDeliverySave(SaveAddressAndDeliveryRequest $request)
+    {
+         resolve(OrderRepositoryInterface::class)->saveAddressAndDelivery(auth()->id() , $request->validated());
+        return route('front.checkout.page');
+    }
+
+    public function checkoutPage(Request $request)
+    {
+
+
     }
 
     public function checkout(Request $request)
     {
-        if (CartService::empty()) {
+        if ($this->cartIsEmpty()) {
             alert()->error('ناموفق' , 'سبد خرید شما خالی است.');
             return back();
         }
@@ -66,7 +83,7 @@ class CheckoutController extends Controller
         Cache::put('payment_method' , $paymentMethod);
     }
 
-    public function checkUserInfo()
+    public static function checkUserInfo()
     {
         if (empty(auth()->user()->first_name)
             || empty(auth()->user()->last_name)
