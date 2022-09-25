@@ -10,7 +10,6 @@ class CommonDiscountRepo extends BaseRepository implements CommonDiscountReposit
 {
     protected $model = CommonDiscount::class;
 
-
     public function store(array $data)
     {
         $this->query->create([
@@ -36,6 +35,15 @@ class CommonDiscountRepo extends BaseRepository implements CommonDiscountReposit
             'end_date' => $data['end_date'],
             'status' => $data['status'],
         ]);
+    }
+
+    public function findTheFirstDiscount()
+    {
+       return $this->query->where([
+            [ 'status' ,  CommonDiscount::STATUS_ACTIVE] ,
+            [ 'start_date' , '<=' , now()] ,
+            [ 'end_date' , '>=' , now()]
+        ])->latest()->first();
     }
 
 }

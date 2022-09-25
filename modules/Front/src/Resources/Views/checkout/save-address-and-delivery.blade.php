@@ -84,7 +84,7 @@
                                                                         <input id="address-id-{{ $address->id }}"
                                                                                name="address_id" type="radio"  @if($address->is_active) checked @endif
                                                                                value="{{ $address->id }}" form="save-address-delivery-form"
-                                                                               class="">
+                                                                               class="d-none">
                                                                     </div>
                                                                 </label>
                                                             </div>
@@ -202,12 +202,7 @@
                                             </div>
                                             <div class="col-6">
                                                 <div>
-                                                    @php
-                                                        $discountAmount = 0;
-                                                            if (session()->has('coupon')) $discountAmount += session('coupon')['amount'];
-                                                    @endphp
-                                                    {{ $discountAmount }}
-                                                    تومان
+                                                    {{ number_format( $discountAmount = $getDiscountAmount = getDiscountAmount())  }}                                                    تومان
                                                 </div>
                                             </div>
                                         </div>

@@ -108,4 +108,9 @@ class CartService
     {
         return \Cart::getTotal();
     }
+
+    public static function getFinalAmount(): float|int
+    {
+       return self::getTotal() - getDiscountAmount();
+    }
 }

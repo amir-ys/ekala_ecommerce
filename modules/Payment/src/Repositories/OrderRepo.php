@@ -86,14 +86,31 @@ class OrderRepo extends BaseRepository implements OrderRepositoryInterface
 
     public function saveAddressAndDelivery($userId, $data)
     {
-        $this->query->updateOrCreate(
+       return $this->query->updateOrCreate(
             [
                 'user_id' => $userId,
                 'status' => Order::STATUS_PENDING
             ],
             [
                 'user_address_id' => $data['address_id'] ,
-                'delivery_id' => $data['delivery_id']
+                'delivery_id' => $data['delivery_id'] ,
             ]);
+    }
+
+    public function saveOrderAmounts($userId, $data)
+    {
+        $this->query->updateOrCreate(
+            [
+                'user_id' => $userId,
+                'status' => Order::STATUS_PENDING
+            ],
+            [
+                'discount_amount' => $data['discount_amount'],
+                'common_discount_id' => $data['common_discount_id'],
+                'common_discount_amount' => $data['common_discount_amount'],
+                'final_amount' => $data['final_amount'],
+                'total_products_discount_amount' => $data['total_products_discount_amount'],
+            ]);
+
     }
 }

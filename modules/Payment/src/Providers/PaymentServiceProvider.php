@@ -5,9 +5,11 @@ namespace Modules\Payment\Providers;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Modules\Payment\Contracts\PaymentRepositoryInterface;
+use Modules\Payment\Facades\PaymentServiceFacade;
 use Modules\Payment\Gateways\Gateway;
 use Modules\Payment\Repositories\PaymentRepo;
 use Modules\Payment\Services\Payment;
+use Modules\Payment\Services\PaymentService;
 
 class PaymentServiceProvider extends ServiceProvider
 {
@@ -26,7 +28,7 @@ class PaymentServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $this->app->bind('payment', Payment::class);
+        $this->app->bind(PaymentServiceFacade::class, PaymentService::class);
         $this->app->bind(PaymentRepositoryInterface::class, PaymentRepo::class);
 
         app()->singleton(Gateway::class, function () {

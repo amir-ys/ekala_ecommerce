@@ -3,11 +3,12 @@
 namespace Modules\Front\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
-use Modules\Front\Http\Requests\saveAddressAndDeliveryRequest;
+use Illuminate\Support\Facades\Validator;
 use Modules\Front\Services\CartService;
-use Modules\Payment\Contracts\OrderRepositoryInterface;
+use Modules\Payment\Facades\PaymentServiceFacade;
 use Modules\Product\Contracts\DeliveryRepositoryInterface;
 use Modules\Product\Contracts\ProductRepositoryInterface;
 use Modules\User\Contracts\UserRepositoryInterface;
@@ -26,13 +27,18 @@ class CheckoutController extends Controller
         }
         $userAddresses = resolve(UserRepositoryInterface::class)->getActiveAddresses(auth()->id());
         $deliveryMethods = resolve(DeliveryRepositoryInterface::class)->getActiveADelivery();
-        return view('Front::checkout.checkout' , compact('userAddresses' , 'deliveryMethods'));
+        return view('Front::checkout.save-address-and-delivery' , compact('userAddresses' , 'deliveryMethods'));
     }
 
-    public function addressAndDeliverySave(SaveAddressAndDeliveryRequest $request)
+    public function addressAndDeliverySave(): RedirectResponse
     {
-         resolve(OrderRepositoryInterface::class)->saveAddressAndDelivery(auth()->id() , $request->validated());
-        return route('front.checkout.page');
+        $this->validateInputs();
+
+        $paymentService = resolve( PaymentServiceFacade::class);
+        $paymentService->saveAddressAndDelivery(auth()->id());
+        $paymentService->saveOrderAmounts(auth()->id());
+
+        return redirect()->route('front.checkout.page');
     }
 
     public function checkoutPage(Request $request)
@@ -91,6 +97,29 @@ class CheckoutController extends Controller
             || empty(auth()->user()->email)
         ){
            return true;
+        }
+    }
+
+    private function validateInputs(){
+        $validated = Validator::make(\request()->all(),
+            [
+                'address_id' => ['required', 'exists:user_addresses,id'],
+                'delivery_id' => ['required', 'exists:delivery,id']
+            ],
+            [],
+            [
+                'delivery_id' => 'روش ارسال',
+                'address_id' => 'آدرس '
+            ]);
+
+        if ($validated->fails()) {
+            if ($validated->errors()->has('delivery_id')) {
+                alert()->warning('خطا', $validated->errors()->get('delivery_id'));
+                back()->throwResponse();
+            } elseif ($validated->errors()->has('address_id')) {
+                alert()->warning('خطا', $validated->errors()->get('address_id'));
+                back()->throwResponse();
+            }
         }
     }
 
