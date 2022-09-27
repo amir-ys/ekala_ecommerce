@@ -109,8 +109,36 @@ class OrderRepo extends BaseRepository implements OrderRepositoryInterface
                 'common_discount_id' => $data['common_discount_id'],
                 'common_discount_amount' => $data['common_discount_amount'],
                 'final_amount' => $data['final_amount'],
-                'total_products_discount_amount' => $data['total_products_discount_amount'],
+                'total_discount_amount' => $data['total_discount_amount'],
             ]);
 
+    }
+
+    public function getCurrentOrder($userId)
+    {
+        return $this->query->where([
+            ['user_id' ,  $userId,] ,
+            ['status' , Order::STATUS_PENDING] ,
+        ])->first();
+    }
+
+    public function getLatestOrderWithoutCoupon($userId)
+    {
+       return $this->query->where([
+           ['user_id' ,  $userId,] ,
+           ['status' , Order::STATUS_PENDING] ,
+           [ 'coupon_id' , null] ,
+       ])->first();
+    }
+
+    public function updateOrderCouponDiscountInfo($userId , $data)
+    {
+        $order = $this->getLatestOrderWithoutCoupon($userId);
+        $order->update([
+            'coupon_id' => $data['id'] ,
+            'coupon_discount_amount' => $data['amount'] ,
+            'final_amount' => $data['final_amount'] ,
+            'total_discount_amount' => $data['total_discount_amount'] ,
+        ]);
     }
 }

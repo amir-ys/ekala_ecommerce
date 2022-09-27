@@ -7,61 +7,82 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Coupon\Contracts\CouponRepositoryInterface;
 use Modules\Coupon\Models\Coupon;
+use Modules\Front\Http\Requests\CouponCodeRequest;
 use Modules\Front\Services\CartService;
+use Modules\Payment\Contracts\OrderRepositoryInterface;
 
 class CouponController extends Controller
 {
-    public function check(Request $request)
+    public function check(CouponCodeRequest $request)
     {
-        $this->validateCoupon($request);
-        $this->checkUserLoggedIn();
         $coupon = $this->checkCouponExist($request->code);
+        $couponInfo = $this->getCouponInfo($coupon);
+        $this->storeCouponInSession($couponInfo);
 
-        #todo check coupon in order
-        //...
-
-        $this->storeCouponInSession($coupon);
-
-        newFeedback('موفقیت آمیز', 'کد تخفیف با موفقیت اعمال شد.');
+        alert()->success('موفقیت آمیز', 'کد تخفیف با موفقیت اعمال شد.');
         return back();
 
-    }
-
-    private function validateCoupon(Request $request)
-    {
-        $request->validate([
-            'code' => 'required'
-        ]);
     }
 
     private function checkCouponExist($code)
     {
         $couponRepo = resolve(CouponRepositoryInterface::class);
         $coupon = $couponRepo->checkIfExist($code);
+
         if (!$coupon) {
             alert()->error('ناموفق', 'کد تخفیف  صحیح نمی باشد.');
             back()->throwResponse();
         }
+
+        if (!is_null($coupon->user_id)){
+            $coupon = $couponRepo->checkIfExistForUser($code , \auth()->id());
+        }
+
+        if (!$coupon) {
+            alert()->error('ناموفق', 'کد تخفیف  صحیح نمی باشد.');
+            back()->throwResponse();
+        }
+
         return $coupon;
     }
 
-    private function checkUserLoggedIn()
+    public function getCouponInfo($coupon)
     {
-        if (!Auth::check()) {
-            alert()->error('ناموفق', 'برای استفاده از کد تخفیف باید وارد سایت شوید.');
-            back()->throwResponse();
-        }
+        $orderRepo = resolve(OrderRepositoryInterface::class);
+        $order =  $orderRepo->getLatestOrderWithoutCoupon(\auth()->id());
+
+        if ($order){
+            if ($coupon->type == Coupon::TYPE_PERCENT){
+                $couponDiscountAmount = ($coupon->percent / 100) * $order->final_amount;
+
+                if ($couponDiscountAmount > $coupon->discount_ceiling){
+                    $couponDiscountAmount = $coupon->discount_ceiling;
+                }
+
+            }elseif ($coupon->type == Coupon::TYPE_AMOUNT){
+                $couponDiscountAmount = $coupon->amount;
+            }
+
+            $couponInfo = [
+                'id' => $coupon->id ,
+                'amount' => $couponDiscountAmount ,
+                'code' => $coupon->code ,
+                'final_amount' => $order->final_amount - $couponDiscountAmount ,
+                'total_discount_amount' => $order->total_discount_amount + $couponDiscountAmount ,
+            ];
+
+             $orderRepo->updateOrderCouponDiscountInfo(\auth()->id() , $couponInfo);
+
+             return $couponInfo;
+
+        }else{
+            alert()->error('ناموفق', 'شما سفارشی ندارید. یک سفارش ثبت کنید  ویا کد تخفیف از قبل اعمال شده است..');
+            back()->throwResponse();        }
     }
 
-    private function storeCouponInSession($coupon)
+    private function storeCouponInSession($couponInfo)
     {
-        if ($coupon->type == Coupon::TYPE_AMOUNT) {
-            session()->put('coupon', ['code' => $coupon->code, 'amount' => $coupon->amount , 'coupon_id' => $coupon->id]);
-        } elseif ($coupon->type == Coupon::TYPE_PERCENT) {
-            $total = CartService::getTotal();
-            $amount = (($total * $coupon->percent) / 100);
-            session()->put('coupon', ['code' => $coupon->code, 'amount' => $amount , 'coupon_id' => $coupon->id]);
-        }
+        session()->put('coupon', ['code' => $couponInfo['code'], 'amount' => $couponInfo['amount'] , 'id' => $couponInfo['id'] ]);
     }
 
 }

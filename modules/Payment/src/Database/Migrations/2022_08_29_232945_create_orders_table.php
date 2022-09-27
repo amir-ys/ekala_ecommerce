@@ -24,7 +24,7 @@ return new class extends Migration {
             $table->tinyInteger('delivery_status')->nullable();
             $table->decimal('final_amount' , 20 , 3)->default(0);
             $table->decimal('discount_amount' , 20 , 3)->default(0);
-            $table->decimal('total_products_discount_amount' , 20 , 3)->default(0);
+            $table->decimal('total_discount_amount' , 20 , 3)->default(0);
             $table->foreignIdFor(Coupon::class)->nullable()->constrained('coupons');
             $table->decimal('coupon_discount_amount' , 20 , 3)->nullable();
             $table->foreignIdFor(\Modules\Coupon\Models\CommonDiscount::class)->nullable()->constrained('common_discounts');

@@ -31,6 +31,9 @@ Route::group([ 'middleware' => 'auth' ] ,  function (){
     Route::post('/checkout/save' , [CheckoutController::class , 'checkout'])->name('front.checkout.check');
     Route::get('/profile/complete' , [ProfileController::class , 'profileCompletePage'])->name('front.checkout.profile.complete.page');
     Route::post('/profile/complete' , [ProfileController::class , 'profileCompleteSave'])->name('front.checkout.profile.complete.save');
+
+    //coupon discount
+    Route::post('/coupon/check' , [CouponController::class , 'check'])->name('front.coupon.check');
 });
 
 Route::group([] , function (){
@@ -56,9 +59,6 @@ Route::group([] , function (){
     Route::get('/cart/clear' , [CartController::class , 'clear'])->name('front.cart.clear');
     Route::get('/cart/{id}/remove' , [CartController::class , 'remove'])->name('front.cart.remove');
     Route::get('/cart/update' , [CartController::class , 'update'])->name('front.cart.update');
-
-    //coupon
-    Route::get('/coupon/check' , [CouponController::class , 'check'])->name('front.coupon.check');
 
 
     //about-us

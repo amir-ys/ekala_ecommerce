@@ -87,7 +87,7 @@ class PaymentService
             'common_discount_id' => $commonDiscount['common_discount_id'],
             'common_discount_amount' => $commonDiscount['common_discount_amount'],
             'final_amount' => $commonDiscount['final_price'],
-            'total_products_discount_amount' => $discountAmount + $commonDiscount['common_discount_amount'],
+            'total_discount_amount' => $discountAmount + $commonDiscount['common_discount_amount'],
         ];
 
     }
@@ -105,6 +105,8 @@ class PaymentService
 
             if ((empty($commonDiscount->minimal_order_amount)) || ($finalPrice >= $commonDiscount->minimal_order_amount)) {
                 $finalPrice = $finalPrice - $commonDiscountAmount;
+            }else{
+                $commonDiscountAmount = 0;
             }
 
         } else {

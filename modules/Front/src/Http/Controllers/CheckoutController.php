@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 use Modules\Front\Services\CartService;
+use Modules\Payment\Contracts\OrderRepositoryInterface;
 use Modules\Payment\Facades\PaymentServiceFacade;
 use Modules\Product\Contracts\DeliveryRepositoryInterface;
 use Modules\Product\Contracts\ProductRepositoryInterface;
@@ -43,8 +44,17 @@ class CheckoutController extends Controller
 
     public function checkoutPage(Request $request)
     {
+        if ($this->cartIsEmpty()) {
+            alert()->error('ناموفق', 'سبد خرید شما خالی است.');
+            return back();
+        }
 
+        if (self::checkUserInfo()){
+            return redirect()->route('front.checkout.profile.complete.page');
+        }
 
+        $order = resolve(OrderRepositoryInterface::class)->getCurrentOrder(auth()->id());
+        return view('Front::checkout.checkout' , compact('order'));
     }
 
     public function checkout(Request $request)
