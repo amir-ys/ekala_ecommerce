@@ -24,11 +24,11 @@ class Payment extends Model
     const STATUS_PENDING = 0;
     const STATUS_FAILED = -1;
     const STATUS_SUCCESS = 1;
+    const STATUS_PENDING_APPROVAL = 5;
 
 
     const PAYMENT_TYPE_ONLINE = 1;
     const PAYMENT_TYPE_OFFLINE = 2;
-    const PAYMENT_TYPE_CASH = 3;
 
     public function order(): BelongsTo
     {
@@ -67,7 +67,6 @@ class Payment extends Model
             get :
             if ($this->payment_type == self::PAYMENT_TYPE_ONLINE) return 'آنلاین';
             if ($this->payment_type == self::PAYMENT_TYPE_OFFLINE) return 'آفلاین(کارت به کارت)';
-            if ($this->payment_type == self::PAYMENT_TYPE_CASH) return 'پرداخت در محل';
         });
     }
 
@@ -77,7 +76,6 @@ class Payment extends Model
             get :
             if ($this->payment_type == self::PAYMENT_TYPE_ONLINE) return 'light';
             if ($this->payment_type == self::PAYMENT_TYPE_OFFLINE) return 'light';
-            if ($this->payment_type == self::PAYMENT_TYPE_CASH) return 'light';
         });
     }
 

@@ -39,9 +39,9 @@ class PaymentRepo extends BaseRepository implements PaymentRepositoryInterface
        return $this->query->where('payment_type' , $type)->with('user')->get();
     }
 
-    public function getPaymentOrders($id)
+    public function storeOfflinePayment($data)
     {
-        //todo
-    }
+        $this->query->updateOrCreate($data , []);
+   }
 
 }

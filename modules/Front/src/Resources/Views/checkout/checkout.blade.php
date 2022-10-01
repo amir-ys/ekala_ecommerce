@@ -70,7 +70,7 @@
                                                         <div class="card-body">
                                                             <div class="row">
                                                                   <div id="payment_type_online_box" class="col-md-6 border  border-2 bg-sky-blue">
-                                                                      <input type="radio" name="payment_type" class="d-none" checked
+                                                                      <input type="radio" name="payment_type" class="d-none" checked form="checkout-form"
                                                                              value="{{ Modules\Payment\Models\Payment::PAYMENT_TYPE_ONLINE }}" id="payment_type_online">
                                                                       <label for="payment_type_online" class="col-md-12  mt-md-2">
                                                                           <section class="mb-2">
@@ -85,7 +85,7 @@
 
                                                                   </div>
                                                                   <div id="payment_type_offline_box" class="col-md-6 border   mr-md-2">
-                                                                      <input type="radio" name="payment_type"  class="d-none"
+                                                                      <input type="radio" name="payment_type"  class="d-none" form="checkout-form"
                                                                              value="{{ Modules\Payment\Models\Payment::PAYMENT_TYPE_OFFLINE }}" id="payment_type_offline">
                                                                       <label for="payment_type_offline" class="col-md-12 mt-md-2">
                                                                           <section class="mb-2">
@@ -218,11 +218,11 @@
                                             </div>
                                         </div>
                                     <hr>
-                                    <form method="post" action="{{ route('front.checkout.saveAddressAndDelivery') }}"
-                                            id="save-address-delivery-form">
+                                    <form method="post" action="{{ route('front.checkout.check') }}"
+                                            id="checkout-form">
                                         @csrf
                                     </form>
-                                    <a class="btn btn-success w-100 mb-3" onclick="event.preventDefault();document.getElementById('save-address-delivery-form').submit()" >
+                                    <a class="btn btn-success w-100 mb-3" onclick="event.preventDefault();document.getElementById('checkout-form').submit()" >
                                         ادامه فرایند خرید
                                     </a>
                                     </div>

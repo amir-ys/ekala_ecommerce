@@ -5,11 +5,11 @@ namespace Modules\Payment\Providers;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Modules\Payment\Contracts\PaymentRepositoryInterface;
-use Modules\Payment\Facades\PaymentServiceFacade;
 use Modules\Payment\Gateways\Gateway;
+use Modules\Payment\Models\Payment;
 use Modules\Payment\Repositories\PaymentRepo;
-use Modules\Payment\Services\Payment;
-use Modules\Payment\Services\PaymentService;
+use Modules\Payment\Services\Payment\OfflinePaymentService;
+use Modules\Payment\Services\Payment\OnlinePaymentService;
 
 class PaymentServiceProvider extends ServiceProvider
 {
@@ -28,18 +28,21 @@ class PaymentServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $this->app->bind(PaymentServiceFacade::class, PaymentService::class);
         $this->app->bind(PaymentRepositoryInterface::class, PaymentRepo::class);
 
-        app()->singleton(Gateway::class, function () {
-            $paymentMethod = cache()->get('payment_method');
-            $gatewayMethods = array_keys(config('payment'));
-            foreach ($gatewayMethods as $gatewayMethod) {
-                if ($paymentMethod == $gatewayMethod) {
-                    $className = config('payment.' . $gatewayMethod . '.class');
-                    return new $className();
-                }
+        $this->app->bind( 'Payment_service', function (){
+
+            if (session()->get('payment_type') == Payment::PAYMENT_TYPE_ONLINE){
+                return new OnlinePaymentService();
+            }else if(session()->get('payment_type') == Payment::PAYMENT_TYPE_OFFLINE){
+                return new OfflinePaymentService();
             }
+
+        });
+
+        //todo payment class
+        app()->singleton(Gateway::class, function () {
+            return new  \Modules\Payment\Gateways\Zarinpal\ZarinpalAdaptor();
         });
     }
 

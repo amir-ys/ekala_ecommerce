@@ -10,6 +10,7 @@ use Modules\Front\Http\Controllers\CompareController;
 use Modules\Front\Http\Controllers\CouponController;
 use Modules\Front\Http\Controllers\HomeController;
 use Modules\Front\Http\Controllers\ImageController;
+use Modules\Front\Http\Controllers\PaymentController;
 use Modules\Front\Http\Controllers\ProductController;
 use Modules\Front\Http\Controllers\ProfileController;
 use Modules\Front\Http\Controllers\SiteInfoController;
@@ -34,6 +35,10 @@ Route::group([ 'middleware' => 'auth' ] ,  function (){
 
     //coupon discount
     Route::post('/coupon/check' , [CouponController::class , 'check'])->name('front.coupon.check');
+
+    //payment
+    Route::get('pay', [PaymentController::class, 'generate'])->name('front.payment.pay');
+    Route::get('pay/callback', [PaymentController::class, 'callback'])->name('front.payment.callback');
 });
 
 Route::group([] , function (){

@@ -12,7 +12,7 @@ class ZarinpalAdaptor extends Gateway implements GatewayContract
     private $url;
     private $client;
 
-    public function request($amount, $description)
+    public function request($amount, $description = 'خرید کالا')
     {
         $this->client = new Zarinpal();
         $result = $this->client->request(config('payment.zarinpal.merchant'), $amount, $description,

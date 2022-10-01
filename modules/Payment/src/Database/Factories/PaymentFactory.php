@@ -26,10 +26,9 @@ class PaymentFactory extends Factory
             'amount' => $this->faker->numberBetween(10000, 10000000),
             'token' => Str::random(12),
             'gateway_name' => $this->faker->randomElement(['pay', 'zarinpal']),
-            'cash_receiver' => $this->faker->randomElement(['ali parvane', 'amir yousefi']),
             'pay_date' => $this->faker->dateTime->format('Y-m-d H:i:s'),
             'description' => $this->faker->text,
-            'payment_type' => $this->faker->randomElement([Payment::PAYMENT_TYPE_CASH, Payment::PAYMENT_TYPE_OFFLINE, Payment::PAYMENT_TYPE_ONLINE]),
+            'payment_type' => $this->faker->randomElement([ Payment::PAYMENT_TYPE_OFFLINE, Payment::PAYMENT_TYPE_ONLINE]),
             'status' => $this->faker->randomElement([Payment::STATUS_SUCCESS, Payment::STATUS_FAILED, Payment::STATUS_PENDING]),
         ];
     }

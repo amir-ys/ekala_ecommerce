@@ -5,13 +5,11 @@ namespace Modules\Front\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 use Modules\Front\Services\CartService;
 use Modules\Payment\Contracts\OrderRepositoryInterface;
-use Modules\Payment\Facades\PaymentServiceFacade;
+use Modules\Payment\Facades\OrderServiceFacade;
 use Modules\Product\Contracts\DeliveryRepositoryInterface;
-use Modules\Product\Contracts\ProductRepositoryInterface;
 use Modules\User\Contracts\UserRepositoryInterface;
 
 class CheckoutController extends Controller
@@ -23,53 +21,66 @@ class CheckoutController extends Controller
             return back();
         }
 
-        if (self::checkUserInfo()){
+        if (self::checkUserInfo()) {
             return redirect()->route('front.checkout.profile.complete.page');
         }
         $userAddresses = resolve(UserRepositoryInterface::class)->getActiveAddresses(auth()->id());
         $deliveryMethods = resolve(DeliveryRepositoryInterface::class)->getActiveADelivery();
-        return view('Front::checkout.save-address-and-delivery' , compact('userAddresses' , 'deliveryMethods'));
+        return view('Front::checkout.save-address-and-delivery', compact('userAddresses', 'deliveryMethods'));
     }
 
     public function addressAndDeliverySave(): RedirectResponse
     {
         $this->validateInputs();
 
-        $paymentService = resolve( PaymentServiceFacade::class);
-        $paymentService->saveAddressAndDelivery(auth()->id());
-        $paymentService->saveOrderAmounts(auth()->id());
+        OrderServiceFacade::saveAddressAndDelivery(auth()->id());
+        OrderServiceFacade::saveOrderAndOrderItems(auth()->id());
 
         return redirect()->route('front.checkout.page');
     }
 
-    public function checkoutPage(Request $request)
+    public function checkoutPage()
     {
         if ($this->cartIsEmpty()) {
             alert()->error('ناموفق', 'سبد خرید شما خالی است.');
             return back();
         }
 
-        if (self::checkUserInfo()){
+        if (self::checkUserInfo()) {
             return redirect()->route('front.checkout.profile.complete.page');
         }
-
-        $order = resolve(OrderRepositoryInterface::class)->getCurrentOrder(auth()->id());
-        return view('Front::checkout.checkout' , compact('order'));
+        $orderRepo = resolve(OrderRepositoryInterface::class);
+        $orderRepo->removeAllBeforeCouponAmountInCurrentOrder(auth()->id());
+        $order = $orderRepo->getCurrentOrder(auth()->id());
+        return view('Front::checkout.checkout', compact('order'));
     }
 
     public function checkout(Request $request)
     {
         if ($this->cartIsEmpty()) {
-            alert()->error('ناموفق' , 'سبد خرید شما خالی است.');
+            alert()->error('ناموفق', 'سبد خرید شما خالی است.');
             return back();
         }
-        $valuesStatus = $this->checkForCorrectValues();
-        if ($valuesStatus && $valuesStatus['status'] == -1){
-            alert()->error('ناموفق' , $valuesStatus['message']);
-            return  redirect()->route('front.cart.index');
+
+
+        if (self::checkUserInfo()) {
+            return redirect()->route('front.checkout.profile.complete.page');
         }
-        $this->storePaymentMethodInCache($request->payment_method);
-        return redirect()->route('panel.payment.pay');
+
+        //todo check quantity of product and price of product after add marketable number
+
+//        $valuesStatus = $this->checkForCorrectValues();
+//        if ($valuesStatus && $valuesStatus['status'] == -1){
+//            alert()->error('ناموفق' , $valuesStatus['message']);
+//            return  redirect()->route('front.cart.index');
+//        }
+        $this->savePaymentTypeInSession($request->payment_type);
+        return redirect()->route('front.payment.pay');
+    }
+
+    public function savePaymentTypeInSession($paymentType)
+    {
+        session()->put(['payment_type' => $paymentType]);
     }
 
     private function cartIsEmpty()
@@ -79,24 +90,21 @@ class CheckoutController extends Controller
 
     public function checkForCorrectValues()
     {
-        $productRepository = resolve(ProductRepositoryInterface::class);
-        foreach (CartService::getItems() as $cartItem) {
-            $product = $productRepository->findById($cartItem->id);
-            if ($product && ($cartItem->price != $product->finalPrice() )){
-                CartService::clearAll();
-                return [ 'status' => -1 , 'message' => 'قیمت محصولات تغییر پیدا کرده است.'  ];
-            }
-
-            if ($product && ($cartItem->quantity > $product->quantity )){
-                CartService::clearAll();
-                return [ 'status' => -1 , 'message' => 'موجودی محصولات تغییر پیدا کرده است.'  ];
-            }
-        }
-    }
-
-    private function storePaymentMethodInCache($paymentMethod)
-    {
-        Cache::put('payment_method' , $paymentMethod);
+        //todo check quantity of product and price of product after add marketable number
+//        $productRepository = resolve(ProductRepositoryInterface::class);
+//        foreach (CartService::getItems() as $cartItem) {
+//            $product = $productRepository->findById($cartItem->id);
+//            if ($product && ($cartItem->price != $product->finalPrice() )){
+//                CartService::clearAll();
+//                return [ 'status' => -1 , 'message' => 'قیمت محصولات تغییر پیدا کرده است.'  ];
+//            }
+//
+//            if ($product && ($cartItem->quantity > $product->quantity )){
+//                CartService::clearAll();
+//                return [ 'status' => -1 , 'message' => 'موجودی محصولات تغییر پیدا کرده است.'  ];
+//            }
+//        }
+        return false;
     }
 
     public static function checkUserInfo()
@@ -105,12 +113,13 @@ class CheckoutController extends Controller
             || empty(auth()->user()->last_name)
             || empty(auth()->user()->mobile)
             || empty(auth()->user()->email)
-        ){
-           return true;
+        ) {
+            return true;
         }
     }
 
-    private function validateInputs(){
+    private function validateInputs()
+    {
         $validated = Validator::make(\request()->all(),
             [
                 'address_id' => ['required', 'exists:user_addresses,id'],

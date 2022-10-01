@@ -19,7 +19,6 @@ return new class extends Migration {
             $table->bigInteger('amount');
             $table->string('token')->nullable();
             $table->string('gateway_name')->nullable()->comment('from payment type online');
-            $table->string('cash_receiver')->nullable()->comment('for payment type cash');
             $table->string('pay_date')->nullable()->comment('for payment type offline');
             $table->string('description')->nullable();
             $table->tinyInteger('payment_type');

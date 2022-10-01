@@ -6,6 +6,6 @@ class Gateway
 {
     public function callbackUrl(): string
     {
-        return route('panel.payment.pay.callback');
+        return route('front.payment.callback');
     }
 }

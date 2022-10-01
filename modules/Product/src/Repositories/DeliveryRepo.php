@@ -39,4 +39,10 @@ class DeliveryRepo extends BaseRepository implements DeliveryRepositoryInterface
        return $this->query->where('status' , Delivery::STATUS_ACTIVE)->get();
     }
 
+    public function getAmount($id)
+    {
+        $model = $this->query->where('id' , $id)->first();
+        return $model ?  $model->amount : 0 ;
+    }
+
 }

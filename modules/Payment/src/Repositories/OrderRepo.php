@@ -86,7 +86,7 @@ class OrderRepo extends BaseRepository implements OrderRepositoryInterface
 
     public function saveAddressAndDelivery($userId, $data)
     {
-       return $this->query->updateOrCreate(
+        $model = $this->query->updateOrCreate(
             [
                 'user_id' => $userId,
                 'status' => Order::STATUS_PENDING
@@ -95,13 +95,17 @@ class OrderRepo extends BaseRepository implements OrderRepositoryInterface
                 'user_address_id' => $data['address_id'] ,
                 'delivery_id' => $data['delivery_id'] ,
             ]);
+
+
+       $model->final_amount +=  $data['delivery_amount'];
+       $model->save();
     }
 
-    public function saveOrderAmounts($userId, $data)
+    public function saveOrderAmounts($data)
     {
         $this->query->updateOrCreate(
             [
-                'user_id' => $userId,
+                'user_id' => $data['user_id'],
                 'status' => Order::STATUS_PENDING
             ],
             [
@@ -112,6 +116,23 @@ class OrderRepo extends BaseRepository implements OrderRepositoryInterface
                 'total_discount_amount' => $data['total_discount_amount'],
             ]);
 
+    }
+
+    public function saveOrderItemsAmounts($data)
+    {
+        //todo save itmes
+        foreach ($data as $item) {
+            $this->query->updateOrCreate(
+                [
+                    'order_id' => $data['order_id'],
+                ],
+                [
+                    'product_id' => $item->associatedModel->id ,
+                    'price' => $item->attributes[''] ,
+                    'quantity' => $item->attributes[''] ,
+
+                ]);
+        }
     }
 
     public function getCurrentOrder($userId)
@@ -141,4 +162,15 @@ class OrderRepo extends BaseRepository implements OrderRepositoryInterface
             'total_discount_amount' => $data['total_discount_amount'] ,
         ]);
     }
+
+    public function removeAllBeforeCouponAmountInCurrentOrder($userId)
+    {
+        return $this->query->where([
+            ['user_id' ,  $userId,] ,
+            ['status' , Order::STATUS_PENDING] ,
+        ])->update([
+            'coupon_id' =>  null ,
+            'coupon_discount_amount' =>  null ,
+         ]);
+     }
 }
