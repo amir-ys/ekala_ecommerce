@@ -84,10 +84,10 @@
                                                                     <span>تومان</span></div>
                                                             </div>
                                                             <div class="col-md-1">
-                                                                <div class="pt-1"><span class="product-price">{{  $cartItem->attributes['color'] }} </span></div>
+                                                                <div class="pt-1"><span class="product-price">{{  $cartItem->attributes['color']['name'] }} </span></div>
                                                             </div>
                                                             <div class="col-md-1">
-                                                                <div class="pt-1"><span class="product-price">{{  $cartItem->attributes['warranty'] }} </span></div>
+                                                                <div class="pt-1"><span class="product-price">{{  $cartItem->attributes['warranty']['name'] }} </span></div>
 
                                                             </div>
                                                             <div class="col-6 col-md-2 pl-4 pr-0 pr-md-3">
@@ -214,7 +214,7 @@
                                         </div>
                                         <div class="row py-2">
                                             <div class="col-12">
-                                                <a href="{{ route('front.checkout.addressAndDeliveryPage')  }}"><input type="submit" value="ادامه ثبت سفارش"
+                                                <a href="{{ route('front.checkout.addressPage')  }}"><input type="submit" value="ادامه ثبت سفارش"
                                                                                  class="btn btn-success w-100"></a>
                                             </div>
                                         </div>

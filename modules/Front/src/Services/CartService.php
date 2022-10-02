@@ -24,8 +24,14 @@ class CartService
                 'name' => $product->name,
                 'price' => $originalPrice,
                 'attributes' => [
-                    'color' => $colorName ,
-                    'warranty' => $warrantyName ,
+                    'color' =>  [
+                        'id' =>  $attributes['color_id'] ,
+                        'name' =>  $colorName
+                    ],
+                    'warranty' => [
+                        'id' => $attributes['warranty_id'] ,
+                        'name' => $warrantyName
+                    ],
                     'price_with_discount' => $productPriceWithAttributes
                 ],
                 'quantity' => $attributes['quantity'],

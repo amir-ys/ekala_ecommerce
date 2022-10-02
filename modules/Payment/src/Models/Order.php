@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Coupon\Models\CommonDiscount;
 use Modules\Coupon\Models\Coupon;
 use Modules\Payment\Database\Factories\OrderFactory;
-use Modules\Product\Models\Delivery;
 use Modules\User\Models\User;
 use Modules\User\Models\UserAddress;
 
@@ -67,11 +66,6 @@ class Order extends Model
     public function userAddress(): BelongsTo
     {
         return $this->belongsTo(UserAddress::class);
-    }
-
-    public function delivery(): BelongsTo
-    {
-        return $this->belongsTo(Delivery::class);
     }
 
     public function coupon()

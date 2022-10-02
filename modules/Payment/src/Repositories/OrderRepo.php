@@ -84,21 +84,16 @@ class OrderRepo extends BaseRepository implements OrderRepositoryInterface
         return $model->items()->with('product')->get();
     }
 
-    public function saveAddressAndDelivery($userId, $data)
+    public function saveAddress($userId, $data)
     {
-        $model = $this->query->updateOrCreate(
+        return $this->query->updateOrCreate(
             [
                 'user_id' => $userId,
                 'status' => Order::STATUS_PENDING
             ],
             [
                 'user_address_id' => $data['address_id'] ,
-                'delivery_id' => $data['delivery_id'] ,
             ]);
-
-
-       $model->final_amount +=  $data['delivery_amount'];
-       $model->save();
     }
 
     public function saveOrderAmounts($data)
@@ -120,16 +115,25 @@ class OrderRepo extends BaseRepository implements OrderRepositoryInterface
 
     public function saveOrderItemsAmounts($data)
     {
-        //todo save itmes
-        foreach ($data as $item) {
-            $this->query->updateOrCreate(
+        $order = $this->query->where('id' , $data['order_id'])->first();
+        foreach ($data['cart'] as $item) {
+            $order->items()->updateOrCreate(
                 [
                     'order_id' => $data['order_id'],
+                    'price' => $price = $item->attributes['price_with_discount'] ,
+                    'quantity' => $quantity = $item->quantity ,
+                    'total' => $price * $quantity ,
+                    'product_id' => $item->associatedModel->id ,
+                    'color_id' => $item->attributes['color']['id'] ,
+                    'warranty_id' => $item->attributes['warranty']['id'] ,
                 ],
                 [
+                    'price' => $price = $item->attributes['price_with_discount'] ,
+                    'quantity' => $quantity = $item->quantity ,
+                    'total' => $price * $quantity ,
                     'product_id' => $item->associatedModel->id ,
-                    'price' => $item->attributes[''] ,
-                    'quantity' => $item->attributes[''] ,
+                    'color_id' => $item->attributes['color']['id'] ,
+                    'warranty_id' => $item->attributes['warranty']['id'] ,
 
                 ]);
         }

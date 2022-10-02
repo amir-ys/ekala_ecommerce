@@ -9,12 +9,11 @@ use Illuminate\Support\Facades\Validator;
 use Modules\Front\Services\CartService;
 use Modules\Payment\Contracts\OrderRepositoryInterface;
 use Modules\Payment\Facades\OrderServiceFacade;
-use Modules\Product\Contracts\DeliveryRepositoryInterface;
 use Modules\User\Contracts\UserRepositoryInterface;
 
 class CheckoutController extends Controller
 {
-    public function addressAndDeliveryPage()
+    public function addressPage()
     {
         if ($this->cartIsEmpty()) {
             alert()->error('ناموفق', 'سبد خرید شما خالی است.');
@@ -25,15 +24,14 @@ class CheckoutController extends Controller
             return redirect()->route('front.checkout.profile.complete.page');
         }
         $userAddresses = resolve(UserRepositoryInterface::class)->getActiveAddresses(auth()->id());
-        $deliveryMethods = resolve(DeliveryRepositoryInterface::class)->getActiveADelivery();
-        return view('Front::checkout.save-address-and-delivery', compact('userAddresses', 'deliveryMethods'));
+        return view('Front::checkout.save-address', compact('userAddresses'));
     }
 
-    public function addressAndDeliverySave(): RedirectResponse
+    public function addressSave(): RedirectResponse
     {
         $this->validateInputs();
 
-        OrderServiceFacade::saveAddressAndDelivery(auth()->id());
+        OrderServiceFacade::saveAddress(auth()->id());
         OrderServiceFacade::saveOrderAndOrderItems(auth()->id());
 
         return redirect()->route('front.checkout.page');
@@ -123,19 +121,14 @@ class CheckoutController extends Controller
         $validated = Validator::make(\request()->all(),
             [
                 'address_id' => ['required', 'exists:user_addresses,id'],
-                'delivery_id' => ['required', 'exists:delivery,id']
             ],
             [],
             [
-                'delivery_id' => 'روش ارسال',
                 'address_id' => 'آدرس '
             ]);
 
         if ($validated->fails()) {
-            if ($validated->errors()->has('delivery_id')) {
-                alert()->warning('خطا', $validated->errors()->get('delivery_id'));
-                back()->throwResponse();
-            } elseif ($validated->errors()->has('address_id')) {
+            if ($validated->errors()->has('address_id')) {
                 alert()->warning('خطا', $validated->errors()->get('address_id'));
                 back()->throwResponse();
             }

@@ -65,7 +65,7 @@
                             <tr>
                                 <th> مبلغ و تاریخ ارسال </th>
                                 <td class="text-left">
-                                    <span CLASS="badge bg-{{ $order->delivery->amount }}"> {{  $order->delivery->amount }} </span>  |
+
                                     <span> {{  getJalaliDate($order->delivery_date , 'Y-m-d H:i:s' , 'H:i Y-m-d') }} </span>
                                 </td>
                             </tr>

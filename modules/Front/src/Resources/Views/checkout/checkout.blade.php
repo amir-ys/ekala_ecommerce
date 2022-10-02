@@ -1,6 +1,5 @@
 @extends('Front::master')
 @section('content')
-
     <section class="inner-page" id="checkout-page">
         <div class="container-fluid" id="page-hero">
             <div class="row">
@@ -8,12 +7,11 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-12 px-0">
-                                <h1>پیش فاکتور</h1>
-                                <p>با تکیمل پرداخت فاکتور، خرید خود را تکمیل کنید.</p>
+                                <h1> پرداخت </h1>
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="/">صفحه نخست</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">پیش فاکتور</li>
+                                        <li class="breadcrumb-item active" aria-current="page"> پرداخت</li>
                                     </ol>
                                 </nav>
                             </div>

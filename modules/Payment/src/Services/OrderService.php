@@ -5,17 +5,14 @@ namespace Modules\Payment\Services;
 use Modules\Coupon\Contracts\CommonDiscountRepositoryInterface;
 use Modules\Front\Services\CartService;
 use Modules\Payment\Contracts\OrderRepositoryInterface;
-use Modules\Payment\Gateways\Gateway;
-use Modules\Product\Contracts\DeliveryRepositoryInterface;
 
 class OrderService
 {
 
-    public function saveAddressAndDelivery($userId): void
+    public function saveAddress($userId): void
     {
         $data = request()->all();
-        $data['delivery_amount'] = resolve(DeliveryRepositoryInterface::class)->getAmount(request('delivery_id'));
-         resolve(OrderRepositoryInterface::class)->saveAddressAndDelivery(auth()->id(), $data);
+         resolve(OrderRepositoryInterface::class)->saveAddress(auth()->id(), $data);
     }
 
 
@@ -26,7 +23,7 @@ class OrderService
         $orderData = $this->getOrderData();
         $orderRepo->saveOrderAmounts($orderData);
 
-        $order = $orderRepo->getCurrentOrder();
+        $order = $orderRepo->getCurrentOrder(auth()->id());
         $orderItemsData = $this->getOrderItemsData($order);
         $orderRepo->saveOrderItemsAmounts($orderItemsData);
     }

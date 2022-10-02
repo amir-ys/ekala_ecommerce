@@ -17,7 +17,7 @@ class OfflinePaymentService
 
     public function getPaymentData()
     {
-        $currentOrder =   resolve(OrderRepositoryInterface::class)->getCurrentOrder();
+        $currentOrder =   resolve(OrderRepositoryInterface::class)->getCurrentOrder(auth()->id());
         return [
             'user_id' =>  auth()->id() ,
             'amount' => $currentOrder->final_amount ,

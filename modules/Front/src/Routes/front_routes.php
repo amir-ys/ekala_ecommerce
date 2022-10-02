@@ -26,8 +26,8 @@ Route::group([ 'middleware' => 'auth' ] ,  function (){
 
 
     //checkout
-    Route::get('/checkout/save-address-and-delivery' , [CheckoutController::class , 'addressAndDeliveryPage'])->name('front.checkout.addressAndDeliveryPage');
-    Route::post('/checkout/save-address-and-delivery' , [CheckoutController::class , 'addressAndDeliverySave'])->name('front.checkout.saveAddressAndDelivery');
+    Route::get('/checkout/save-address' , [CheckoutController::class , 'addressPage'])->name('front.checkout.addressPage');
+    Route::post('/checkout/save-address' , [CheckoutController::class , 'addressSave'])->name('front.checkout.saveAddress');
     Route::get('/checkout' , [CheckoutController::class , 'checkoutPage'])->name('front.checkout.page');
     Route::post('/checkout/save' , [CheckoutController::class , 'checkout'])->name('front.checkout.check');
     Route::get('/profile/complete' , [ProfileController::class , 'profileCompletePage'])->name('front.checkout.profile.complete.page');

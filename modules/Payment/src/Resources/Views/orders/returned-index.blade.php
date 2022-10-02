@@ -21,7 +21,6 @@
                                 <th> وضعیت پرداخت  </th>
                                 <th> شیوه پرداخت  </th>
                                 <th> وضعیت ارسال  </th>
-                                <th> شیوه ارسال  </th>
                                 <th> وضعیت سفارش  </th>
                                 <th> عملیات</th>
                             </tr>
@@ -44,7 +43,6 @@
                                     <td>
                                         <span CLASS="badge bg-{{ $order->delivery_status_css }}"> {{  $order->delivery_status_name }} </span>
                                     </td>
-                                    <td>{{ $order->delivery->name }}</td>
                                     <td>
                                         <span CLASS="badge bg-{{ $order->status_css }}"> {{  $order->status_name }} </span>
                                     </td>

@@ -8,12 +8,11 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-12 px-0">
-                                <h1>پیش فاکتور</h1>
-                                <p>با تکیمل پرداخت فاکتور، خرید خود را تکمیل کنید.</p>
+                                <h1>انتخاب آدرس </h1>
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="./index.html">صفحه نخست</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">پیش فاکتور</li>
+                                        <li class="breadcrumb-item"><a href="/">صفحه نخست</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">انتخاب آدرس </li>
                                     </ol>
                                 </nav>
                             </div>
@@ -83,7 +82,7 @@
                                                                     <div class="col-md-1">
                                                                         <input id="address-id-{{ $address->id }}"
                                                                                name="address_id" type="radio"  @if($address->is_active) checked @endif
-                                                                               value="{{ $address->id }}" form="save-address-delivery-form"
+                                                                               value="{{ $address->id }}" form="save-address-form"
                                                                                class="d-none">
                                                                     </div>
                                                                 </label>
@@ -95,91 +94,6 @@
                                         </div>
                                     </div>
                                 </section>
-                                <!-- /Choose Address -->
-
-                                <!-- Orders List -->
-                                {{--                                <section class="mt-3" id="orders">--}}
-                                {{--                                    <div class="container mt-2">--}}
-                                {{--                                        <div class="row">--}}
-                                {{--                                            <div class="col-12">--}}
-                                {{--                                                <div class="pb-1 title">سفارشات شما</div>--}}
-                                {{--                                                <div class="row">--}}
-                                {{--                                                    <!-- Order Product Record -->--}}
-                                {{--                                                    @foreach(\Modules\Front\Services\CartService::getItems() as $cartItem)--}}
-                                {{--                                                        <span class="col-6 col-sm-4 col-lg-3 px-0">--}}
-                                {{--                                                    <a href="{{ $cartItem->associatedModel->path() }}" target="_blank">--}}
-                                {{--                                                        <div class="product-box">--}}
-                                {{--                                                            <div class="image">--}}
-                                {{--                                                                <img src="{{ $cartItem->associatedModel->primaryImage--}}
-                                {{--                                                                    ? route('image.display' , $cartItem->associatedModel->primaryImage->name) : ''}}"--}}
-                                {{--                                                                     alt="">--}}
-                                {{--                                                            </div>--}}
-                                {{--                                                            <div class="text-center px-1 px-sm-3">--}}
-                                {{--                                                                <a href="{{ $cartItem->associatedModel->path() }}"--}}
-                                {{--                                                                   target="_blank"><h2>{{ $cartItem->associatedModel->name }}</h2></a>--}}
-                                {{--                                                                <div--}}
-                                {{--                                                                    class="number">قیمت:  {{ $cartItem->price }}  تومان</div>--}}
-                                {{--                                                                <div class="number">تعداد:  {{ $cartItem->quantity }}  عدد</div>--}}
-                                {{--                                                            </div>--}}
-                                {{--                                                        </div>--}}
-                                {{--                                                    </a>--}}
-                                {{--                                                </span>--}}
-                                {{--                                                    @endforeach--}}
-                                {{--                                                    <!-- /Order Product Record -->--}}
-
-                                {{--                                                </div>--}}
-                                {{--                                            </div>--}}
-                                {{--                                        </div>--}}
-                                {{--                                    </div>--}}
-                                {{--                                </section>--}}
-                                <section class="mt-3" id="orders">
-                                    <div class="container mt-2">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="pb-1 title">روش ارسال</div>
-                                                <hr>
-                                                <div class="row">
-                                                    <div class="col-12 col-md-12 pl-0" id="delivery-detail">
-                                                        @foreach($deliveryMethods as $delivery)
-                                                            <div class="row d-flex justify-content-between">
-                                                                <label for="delivery-id-{{ $delivery->id }}"
-                                                                       onclick="setDeliveryClass('{{ $delivery->id }}')">
-                                                                    <div id="division-{{ $delivery->id }}"
-                                                                         class="col-md-11 border rounded-5 mb-1 address-to-send">
-                                                                        <div class="address-title mb-2">
-                                                                                <span id="delivery">
-                                                                                <li class="fas fa-car ml-1"></li>
-                                                                                    نام:
-                                                                                    {{ $delivery->name }}
-                                                                                </span>
-                                                                            <br>
-                                                                            <span class="ml-md-2">
-                                                                                    ارسال کالا پس از
-                                                                                    {{ $delivery->delivery_time  }}
-                                                                                {{   $delivery->delivery_unit }}
-                                                                                    کاری
-                                                                                </span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="col-md-1">
-                                                                        <input id="delivery-id-{{ $delivery->id }}"
-                                                                               name="delivery_id" type="radio"
-                                                                               value="{{ $delivery->id }}" form="save-address-delivery-form"
-                                                                               class="d-none">
-                                                                    </div>
-                                                                </label>
-                                                            </div>
-                                                        @endforeach
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </section>
-
-                                <!-- /Orders List -->
-
 
                             </div>
                             <div class="col-12 col-lg-3 mt-2 mt-lg-0 pr-3 pr-lg-0">
@@ -225,11 +139,11 @@
                                             </div>
                                         </div>
                                     <hr>
-                                    <form method="post" action="{{ route('front.checkout.saveAddressAndDelivery') }}"
-                                            id="save-address-delivery-form">
+                                    <form method="post" action="{{ route('front.checkout.saveAddress') }}"
+                                            id="save-address-form">
                                         @csrf
                                     </form>
-                                    <a class="btn btn-success w-100 mb-3" onclick="event.preventDefault();document.getElementById('save-address-delivery-form').submit()" >
+                                    <a class="btn btn-success w-100 mb-3" onclick="event.preventDefault();document.getElementById('save-address-form').submit()" >
                                         ادامه فرایند خرید
                                     </a>
                                     </div>
@@ -296,15 +210,6 @@
             var addresses = {!! $userAddresses !!};
             addresses.map((address) => {
                 $('#division-' + address.id).removeClass('bg-sky-blue')
-            })
-            $('#division-' + id).addClass('bg-sky-blue')
-        }
-
-
-        function setDeliveryClass(id) {
-            var deliveries = {!! $deliveryMethods !!};
-            deliveries.map((delivery) => {
-                $('#division-' + delivery.id).removeClass('bg-sky-blue')
             })
             $('#division-' + id).addClass('bg-sky-blue')
         }
