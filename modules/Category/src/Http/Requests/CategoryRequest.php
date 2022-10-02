@@ -4,7 +4,6 @@ namespace Modules\Category\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use Modules\Category\Enums\CategoryStatus;
 
 class CategoryRequest extends FormRequest
 {

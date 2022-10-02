@@ -4,7 +4,6 @@ namespace Modules\Product\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Modules\Product\Models\Product;
-use Modules\Product\Models\ProductColor;
 use Modules\Product\Models\ProductWarranty;
 
 /**

@@ -3,7 +3,6 @@
 namespace Modules\Blog\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Carbon\Carbon;
 use Illuminate\Http\UploadedFile;
 use Modules\Blog\Contracts\PostRepositoryInterface;
 use Modules\Blog\Http\Requests\PostRequest;

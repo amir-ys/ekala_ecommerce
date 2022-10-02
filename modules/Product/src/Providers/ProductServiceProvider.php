@@ -4,9 +4,7 @@ namespace Modules\Product\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Modules\Product\Contracts\DeliveryRepositoryInterface;
 use Modules\Product\Contracts\ProductRepositoryInterface;
-use Modules\Product\Repositories\DeliveryRepo;
 use Modules\Product\Repositories\ProductRepo;
 
 class ProductServiceProvider extends ServiceProvider

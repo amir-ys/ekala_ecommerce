@@ -8,8 +8,8 @@ use Modules\Core\Responses\AjaxResponse;
 use Modules\Product\Services\ImageService;
 use Modules\User\Contracts\CityRepositoryInterface;
 use Modules\User\Contracts\UserRepositoryInterface;
-use Modules\User\Http\Requests\Panel\UserRequest;
 use Modules\User\Http\Requests\Panel\UserAddressRequest;
+use Modules\User\Http\Requests\Panel\UserRequest;
 use Modules\User\Models\User;
 use Modules\User\Models\UserAddress;
 

@@ -3,12 +3,9 @@
 namespace Modules\Front\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Modules\Coupon\Contracts\CouponRepositoryInterface;
 use Modules\Coupon\Models\Coupon;
 use Modules\Front\Http\Requests\CouponCodeRequest;
-use Modules\Front\Services\CartService;
 use Modules\Payment\Contracts\OrderRepositoryInterface;
 
 class CouponController extends Controller

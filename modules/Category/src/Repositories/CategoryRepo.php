@@ -2,7 +2,6 @@
 
 namespace Modules\Category\Repositories;
 
-use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
 use Modules\Category\Contracts\CategoryRepositoryInterface;
 use Modules\Category\Enums\CategoryStatus;

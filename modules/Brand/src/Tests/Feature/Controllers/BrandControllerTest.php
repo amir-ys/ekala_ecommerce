@@ -2,8 +2,6 @@
 
 namespace Modules\Brand\Tests\Feature\Controllers;
 
-use Cviebrock\EloquentSluggable\Services\SlugService;
-use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\Brand\Models\Brand;
 use Modules\User\Models\User;

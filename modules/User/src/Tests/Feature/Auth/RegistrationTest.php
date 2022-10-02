@@ -2,7 +2,6 @@
 
 namespace Modules\User\Tests\Feature\Auth\Auth;
 
-use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 

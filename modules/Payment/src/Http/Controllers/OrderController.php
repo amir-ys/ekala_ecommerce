@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
-use Modules\Front\Services\CartService;
 use Modules\Payment\Contracts\OrderRepositoryInterface;
 use Modules\Payment\Facades\PaymentService;
 use Modules\Payment\Models\Order;

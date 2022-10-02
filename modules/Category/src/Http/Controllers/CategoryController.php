@@ -3,7 +3,6 @@
 namespace Modules\Category\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Modules\AttributeGroup\Contracts\AttributeGroupRepositoryInterface;
 use Modules\Category\Contracts\CategoryRepositoryInterface;
 use Modules\Category\Http\Requests\CategoryRequest;
 use Modules\Category\Repositories\CategoryRepo;

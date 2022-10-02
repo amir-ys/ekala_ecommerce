@@ -65,12 +65,7 @@ x
                             <span>ویژگی ها</span> <span class="badge bg-danger-gradient"></span></a>
                     </li>
 
-                    <li><a data-attr="layout-builder-toggle"
-                           class="{{ request()->url(route('panel.delivery.index')) == route('panel.delivery.index') ? 'c-active' : '' }}"
-                           href="{{ route('panel.delivery.index') }}">
 
-                            <span> روش های ارسال </span> <span class="badge bg-danger-gradient"></span></a>
-                    </li>
 
                     <li><a data-attr="layout-builder-toggle"
                            class="{{ request()->url(route('panel.slides.index')) == route('panel.slides.index') ? 'c-active' : '' }}"

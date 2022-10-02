@@ -5,7 +5,6 @@ namespace Modules\Attribute\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Modules\Attribute\Database\Factories\AttributeFactory;
 use Modules\AttributeGroup\Models\AttributeGroup;
 use Modules\Product\Models\Product;

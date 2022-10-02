@@ -7,7 +7,6 @@ use Modules\Coupon\Models\CommonDiscount;
 use Modules\Coupon\Models\Coupon;
 use Modules\Payment\Models\Order;
 use Modules\Payment\Models\Payment;
-use Modules\Product\Models\Delivery;
 use Modules\User\Models\User;
 use Modules\User\Models\UserAddress;
 
@@ -29,7 +28,6 @@ class OrderFactory extends Factory
             'user_id' => User::factory(),
             'user_address_id' => UserAddress::factory(),
             'payment_id' => Payment::factory(),
-            'delivery_id' => Delivery::factory(),
             'final_amount' => $this->faker->numberBetween(10000, 5000000),
             'discount_amount' => $this->faker->numberBetween(10000, 500000),
             'coupon_id' => Coupon::factory(),

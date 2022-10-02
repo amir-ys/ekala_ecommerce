@@ -4,7 +4,6 @@ namespace Modules\Product\Tests\Feature\Models;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\Product\Models\Product;
-use Modules\Product\Models\ProductColor;
 use Modules\Product\Models\ProductWarranty;
 use Tests\TestCase;
 

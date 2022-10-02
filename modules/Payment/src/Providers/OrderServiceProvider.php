@@ -5,7 +5,6 @@ namespace Modules\Payment\Providers;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Modules\Payment\Contracts\OrderRepositoryInterface;
-use Modules\Payment\Facades\OrderServiceFacade;
 use Modules\Payment\Repositories\OrderRepo;
 use Modules\Payment\Services\OrderService;
 

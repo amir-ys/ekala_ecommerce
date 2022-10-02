@@ -19,7 +19,6 @@ return new class extends Migration {
             $table->foreignIdFor(User::class)->constrained();
             $table->foreignId('user_address_id')->nullable()->constrained('user_addresses');
             $table->foreignIdFor(Modules\Payment\Models\Payment::class)->nullable()->constrained();
-            $table->foreignIdFor(\Modules\Product\Models\Delivery::class)->nullable()->constrained('delivery');
             $table->timestamp('delivery_date')->nullable();
             $table->tinyInteger('delivery_status')->nullable();
             $table->decimal('final_amount' , 20 , 3)->default(0);

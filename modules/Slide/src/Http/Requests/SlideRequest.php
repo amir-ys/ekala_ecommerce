@@ -7,7 +7,6 @@ use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Enum;
 use Modules\Slide\Enums\SlideStatus;
 use Modules\Slide\Enums\SlideType;
-use Modules\Slide\Models\Slide;
 
 class SlideRequest extends FormRequest
 {

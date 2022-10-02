@@ -3,7 +3,6 @@
 namespace Modules\Payment\Routes;
 
 use Illuminate\Support\Facades\Route;
-use Modules\Payment\Http\Controllers\OrderController;
 use Modules\Payment\Http\Controllers\PaymentController;
 
 Route::group(['prefix' => 'payments'], function () {

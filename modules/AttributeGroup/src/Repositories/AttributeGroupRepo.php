@@ -7,7 +7,6 @@ use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
 use Modules\AttributeGroup\Contracts\AttributeGroupRepositoryInterface;
 use Modules\AttributeGroup\Models\AttributeGroup;
-use Modules\Brand\Models\Brand;
 use Modules\Core\Repositories\BaseRepository;
 
 class AttributeGroupRepo extends BaseRepository implements AttributeGroupRepositoryInterface
