@@ -306,4 +306,12 @@ class ProductRepo extends BaseRepository implements ProductRepositoryInterface
         $model = $this->findById($id);
         return $model->warranties()->where('id', $warrantyId)->delete();
     }
+
+    public function incrementVisit($id)
+    {
+        $model = $this->findById($id);
+        $model->vzt()->increment();
+        return $model->vzt()->count();
+
+    }
 }

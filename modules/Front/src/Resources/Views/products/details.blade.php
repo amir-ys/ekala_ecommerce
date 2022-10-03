@@ -114,7 +114,7 @@
                                                             <div>
                                                                 <br class="d-sm-none">
                                                                 @if($product->findProductInWishlist(auth()->id()))
-                                                                    <a class="wishlist-item btn btn-outline-secondary bg-danger btn-favorite mt-sm-0"
+                                                                    <a class="wishlist-item btn btn-outline-secondary bg-danger btn-favorite mt-sm-0 "
                                                                        href="/"
                                                                        onclick="addOrRemoveProductFromWishlist('{{ route('products.wishlist.add' , $product->id) }}')"
                                                                        data-toggle="tooltip" data-placement="top"
@@ -127,6 +127,11 @@
                                                                        title="افزودن به علاقه‌مندی"></a>
                                                                 @endif
 
+                                                                <p class="border border-1 p-1 px-2 mt-2">
+                                                                    بازدید :
+                                                                 {{ $viewCount }}
+
+                                                                </p>
 
                                                                 <form action="{{ route('products.wishlist.checkUserIsLogin') }}" id='check-user-is-login'>
                                                                     @csrf

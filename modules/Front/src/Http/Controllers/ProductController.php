@@ -11,10 +11,12 @@ class ProductController extends Controller
 {
     public function show($productSlug)
     {
+
         $product = resolve(ProductRepositoryInterface::class)->findBySlug($productSlug);
         //todo $relatedProduct
         $relatedProducts = resolve(ProductRepositoryInterface::class)->getAll();
-        return view('Front::products.details' , compact('product' , 'relatedProducts'));
+        $viewCount = resolve(ProductRepositoryInterface::class)->incrementVisit($product->id);
+        return view('Front::products.details' , compact('product' , 'relatedProducts' , 'viewCount'));
     }
 
     public function list(Request $request)

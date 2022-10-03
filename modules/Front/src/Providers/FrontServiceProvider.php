@@ -17,6 +17,7 @@ class FrontServiceProvider extends ServiceProvider
     public function register()
     {
         $this->loadViewsFrom(__DIR__ . '/../Resources/Views', 'Front');
+        $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
         $this->loadRoutes();
     }
 

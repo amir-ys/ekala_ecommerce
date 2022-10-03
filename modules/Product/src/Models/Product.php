@@ -2,6 +2,7 @@
 
 namespace Modules\Product\Models;
 
+
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -85,6 +86,11 @@ class Product extends Model
     public function wishlist(): HasMany
     {
         return $this->hasMany(Wishlist::class, 'product_id');
+    }
+
+    public function vzt()
+    {
+        return visits($this);
     }
 
     public static function getUploadDirectory(): string

@@ -3,6 +3,7 @@
 namespace Modules\Front\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Modules\Blog\Contracts\PostRepositoryInterface;
 use Modules\Product\Contracts\ProductRepositoryInterface;
 use Modules\Slide\Contracts\SlideRepositoryInterface;
 
@@ -15,8 +16,9 @@ class HomeController extends Controller
         $sliders = resolve(SlideRepositoryInterface::class)->getSliders();
         $products = resolve(ProductRepositoryInterface::class)->getSelectedProducts();
         $productWithDiscount = resolve(ProductRepositoryInterface::class)->getProductWithDiscount();
+        $posts = resolve(PostRepositoryInterface::class)->getLatest();
         return view('Front::index' , compact('products' , 'sliders' ,
-            'bottomBanners' ,'topBanners' , 'productWithDiscount'));
+            'bottomBanners' ,'topBanners' , 'productWithDiscount' , 'posts'));
     }
 
 

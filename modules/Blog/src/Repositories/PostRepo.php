@@ -59,4 +59,17 @@ class PostRepo extends BaseRepository implements PostRepositoryInterface
         return $this->query->whereIn('id' , $ids )->get();
     }
 
+    public function getLatest(): array|Collection
+    {
+        return $this->query->latest()->limit(3)->get();
+    }
+
+    public function incrementVisit($id)
+    {
+        $model = $this->findById($id);
+        $model->vzt()->increment();
+        return $model->vzt()->count();
+
+    }
+
 }

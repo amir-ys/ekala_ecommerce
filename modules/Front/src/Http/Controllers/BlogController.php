@@ -21,7 +21,8 @@ class BlogController extends Controller
     public function postDetails($postSlug)
     {
         $post = resolve(PostRepositoryInterface::class)->findBySlug($postSlug);
-        return view('Front::blog.single', compact('post'));
+        $viewCount = resolve(PostRepositoryInterface::class)->incrementVisit($post->id);
+        return view('Front::blog.single', compact('post' , 'viewCount'));
     }
 
     public function postCategory($categorySlug)

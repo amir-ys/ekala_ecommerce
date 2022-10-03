@@ -43,7 +43,13 @@
                                                 <div class="col-8">
                                                     <span>دسته بندی: <a href="{{ route('front.blog.postCategory' , $post->category->slug) }}">{{ $post->category->name }}</a></span>
                                                 </div>
-                                                <div class="col-4 text-end"><span>{{ $post->view_count }} بازدید | {{ $post->approvedComments()->count() }} نظر</span></div>
+                                                <div class="col-4 text-end"><span>
+                                                        بازدید :
+                                                        {{ $viewCount }}
+                                                        |
+                                                        نظر :
+                                                        {{ $post->approvedComments()->count() }}
+                                                    </span></div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-12 pt-2 text-justify" id="post-html">

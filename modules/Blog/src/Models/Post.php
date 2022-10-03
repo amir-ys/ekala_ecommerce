@@ -75,6 +75,11 @@ class Post extends Model
         return $this->belongsTo(User::class , 'author_id');
     }
 
+    public function vzt()
+    {
+        return visits($this);
+    }
+
     public function statusCssClass(): Attribute
     {
         return Attribute::get(function () {
