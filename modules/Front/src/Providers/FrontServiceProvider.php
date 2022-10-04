@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\View;
 use Modules\Category\Contracts\CategoryRepositoryInterface;
+use Modules\Front\Http\Middleware\FillingCart;
+use Modules\Front\Http\Middleware\ProfileComplete;
 use Modules\Setting\Contracts\SettingRepositoryInterface;
 use Modules\Setting\Models\Setting;
 
@@ -19,6 +21,9 @@ class FrontServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__ . '/../Resources/Views', 'Front');
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
         $this->loadRoutes();
+        app()->make('router')->aliasMiddleware('filling_cart' , FillingCart::class );
+        app()->make('router')->aliasMiddleware('profile_complete' , ProfileComplete::class );
+
     }
 
     public function boot()

@@ -25,11 +25,11 @@ class CartService
                 'price' => $originalPrice,
                 'attributes' => [
                     'color' =>  [
-                        'id' =>  $attributes['color_id'] ,
+                        'id' =>  $attributes['color_id'] ?? null ,
                         'name' =>  $colorName
                     ],
                     'warranty' => [
-                        'id' => $attributes['warranty_id'] ,
+                        'id' => $attributes['warranty_id'] ?? null ,
                         'name' => $warrantyName
                     ],
                     'price_with_discount' => $productPriceWithAttributes

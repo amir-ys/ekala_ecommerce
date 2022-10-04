@@ -171,6 +171,7 @@ class Product extends Model
             $selectedWarrantyPrice = $warranty->price_increase;
         }
 
+
         return $price + $selectedColorPrice + $selectedWarrantyPrice;
     }
 

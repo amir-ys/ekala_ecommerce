@@ -9,20 +9,13 @@ use Illuminate\Support\Facades\Validator;
 use Modules\Front\Services\CartService;
 use Modules\Payment\Contracts\OrderRepositoryInterface;
 use Modules\Payment\Facades\OrderServiceFacade;
+use Modules\Product\Contracts\ProductRepositoryInterface;
 use Modules\User\Contracts\UserRepositoryInterface;
 
 class CheckoutController extends Controller
 {
     public function addressPage()
     {
-        if ($this->cartIsEmpty()) {
-            alert()->error('ناموفق', 'سبد خرید شما خالی است.');
-            return back();
-        }
-
-        if (self::checkUserInfo()) {
-            return redirect()->route('front.checkout.profile.complete.page');
-        }
         $userAddresses = resolve(UserRepositoryInterface::class)->getActiveAddresses(auth()->id());
         return view('Front::checkout.save-address', compact('userAddresses'));
     }
@@ -39,14 +32,6 @@ class CheckoutController extends Controller
 
     public function checkoutPage()
     {
-        if ($this->cartIsEmpty()) {
-            alert()->error('ناموفق', 'سبد خرید شما خالی است.');
-            return back();
-        }
-
-        if (self::checkUserInfo()) {
-            return redirect()->route('front.checkout.profile.complete.page');
-        }
         $orderRepo = resolve(OrderRepositoryInterface::class);
         $orderRepo->removeAllBeforeCouponAmountInCurrentOrder(auth()->id());
         $order = $orderRepo->getCurrentOrder(auth()->id());
@@ -55,23 +40,11 @@ class CheckoutController extends Controller
 
     public function checkout(Request $request)
     {
-        if ($this->cartIsEmpty()) {
-            alert()->error('ناموفق', 'سبد خرید شما خالی است.');
-            return back();
+        $valuesStatus = $this->checkForCorrectValues();
+        if ($valuesStatus && $valuesStatus['status'] == -1){
+            alert()->error('ناموفق' , $valuesStatus['message']);
+            return  redirect()->route('front.cart.index');
         }
-
-
-        if (self::checkUserInfo()) {
-            return redirect()->route('front.checkout.profile.complete.page');
-        }
-
-        //todo check quantity of product and price of product after add marketable number
-
-//        $valuesStatus = $this->checkForCorrectValues();
-//        if ($valuesStatus && $valuesStatus['status'] == -1){
-//            alert()->error('ناموفق' , $valuesStatus['message']);
-//            return  redirect()->route('front.cart.index');
-//        }
         $this->savePaymentTypeInSession($request->payment_type);
         return redirect()->route('front.payment.pay');
     }
@@ -81,39 +54,39 @@ class CheckoutController extends Controller
         session()->put(['payment_type' => $paymentType]);
     }
 
-    private function cartIsEmpty()
+    public function checkForCorrectValues(): bool|array
     {
-        return CartService::empty();
-    }
+        $productRepository = resolve(ProductRepositoryInterface::class);
 
-    public function checkForCorrectValues()
-    {
-        //todo check quantity of product and price of product after add marketable number
-//        $productRepository = resolve(ProductRepositoryInterface::class);
-//        foreach (CartService::getItems() as $cartItem) {
-//            $product = $productRepository->findById($cartItem->id);
-//            if ($product && ($cartItem->price != $product->finalPrice() )){
-//                CartService::clearAll();
-//                return [ 'status' => -1 , 'message' => 'قیمت محصولات تغییر پیدا کرده است.'  ];
-//            }
-//
-//            if ($product && ($cartItem->quantity > $product->quantity )){
-//                CartService::clearAll();
-//                return [ 'status' => -1 , 'message' => 'موجودی محصولات تغییر پیدا کرده است.'  ];
-//            }
-//        }
-        return false;
-    }
+        foreach (CartService::getItems() as $cartItem) {
 
-    public static function checkUserInfo()
-    {
-        if (empty(auth()->user()->first_name)
-            || empty(auth()->user()->last_name)
-            || empty(auth()->user()->mobile)
-            || empty(auth()->user()->email)
-        ) {
-            return true;
+            //check product exists or is marketable
+            $product = $productRepository->isAvailability($cartItem->associatedModel->id);
+            if (!$product){
+                CartService::clearAll();
+                return [ 'status' => -1 , 'message' => 'محصول از فروشگاه حذف شده یا غیرقابل قابل فروش شده است.'  ];
+            }
+
+            //check color attribute
+            if (!is_null($cartItem->attributes['color']['id'])  && $color = $this->findColor($cartItem->associatedModel->id , $cartItem->attributes['color']['id'] )){
+                $productQuantity = $color->quantity;
+            }else{
+                $productQuantity = $cartItem->associatedModel->quantity;
+            }
+
+            //check changes of price
+            if ($cartItem->price !=  $product->calcProductPrice($cartItem->attributes['color']['id'] , $cartItem->attributes['warranty']['id'] ,true )){
+                CartService::clearAll();
+                return [ 'status' => -1 , 'message' => 'قیمت محصولات تغییر پیدا کرده است.'  ];
+            }
+
+            //check changes of quantity
+            if ($cartItem->quantity > $productQuantity){
+                CartService::clearAll();
+                return [ 'status' => -1 , 'message' => 'موجودی محصولات تغییر پیدا کرده است.'  ];
+            }
         }
+        return false;
     }
 
     private function validateInputs()
@@ -133,6 +106,11 @@ class CheckoutController extends Controller
                 back()->throwResponse();
             }
         }
+    }
+
+    private function findColor($productId , $colorId)
+    {
+      return resolve( ProductRepositoryInterface::class)->checkColorExists($productId , $colorId);
     }
 
 }

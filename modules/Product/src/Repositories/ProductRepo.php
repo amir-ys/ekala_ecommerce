@@ -314,4 +314,20 @@ class ProductRepo extends BaseRepository implements ProductRepositoryInterface
         return $model->vzt()->count();
 
     }
+
+    public function isAvailability($id)
+    {
+        return $this->query->where([
+            ['id' , $id] ,
+            ['is_active' , ProductStatus::ACTIVE] ,
+            ['is_marketable' , Product::MARKETABLE] ,
+        ])->first();
+    }
+
+    public function checkColorExists($id , $colorId)
+    {
+        $model = $this->findById($id);
+        return $model->colors()->where('id' , $colorId)->first();
+
+    }
 }

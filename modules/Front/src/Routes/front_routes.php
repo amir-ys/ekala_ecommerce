@@ -25,20 +25,26 @@ Route::group([ 'middleware' => 'auth' ] ,  function (){
     Route::get('/user/profile/addresses' , [UserController::class , 'addresses'])->name('front.user.addresses.index');
 
 
-    //checkout
-    Route::get('/checkout/save-address' , [CheckoutController::class , 'addressPage'])->name('front.checkout.addressPage');
-    Route::post('/checkout/save-address' , [CheckoutController::class , 'addressSave'])->name('front.checkout.saveAddress');
-    Route::get('/checkout' , [CheckoutController::class , 'checkoutPage'])->name('front.checkout.page');
-    Route::post('/checkout/save' , [CheckoutController::class , 'checkout'])->name('front.checkout.check');
-    Route::get('/profile/complete' , [ProfileController::class , 'profileCompletePage'])->name('front.checkout.profile.complete.page');
-    Route::post('/profile/complete' , [ProfileController::class , 'profileCompleteSave'])->name('front.checkout.profile.complete.save');
+    Route::group([ 'middleware' =>  ['filling_cart'  , 'profile_complete']], function () {
+
+        //checkout
+        Route::get('/checkout/save-address', [CheckoutController::class, 'addressPage'])->name('front.checkout.addressPage');
+        Route::post('/checkout/save-address', [CheckoutController::class, 'addressSave'])->name('front.checkout.saveAddress');
+        Route::get('/checkout', [CheckoutController::class, 'checkoutPage'])->name('front.checkout.page');
+        Route::post('/checkout/save', [CheckoutController::class, 'checkout'])->name('front.checkout.check');
+
+        //payment
+        Route::get('pay', [PaymentController::class, 'generate'])->name('front.payment.pay');
+        Route::get('pay/callback', [PaymentController::class, 'callback'])->name('front.payment.callback');
+    });
+
+    Route::get('/profile/complete', [ProfileController::class, 'profileCompletePage'])->name('front.checkout.profile.complete.page');
+    Route::post('/profile/complete', [ProfileController::class, 'profileCompleteSave'])->name('front.checkout.profile.complete.save');
 
     //coupon discount
     Route::post('/coupon/check' , [CouponController::class , 'check'])->name('front.coupon.check');
 
-    //payment
-    Route::get('pay', [PaymentController::class, 'generate'])->name('front.payment.pay');
-    Route::get('pay/callback', [PaymentController::class, 'callback'])->name('front.payment.callback');
+
 });
 
 Route::group([] , function (){
