@@ -10,7 +10,6 @@ use Modules\Product\Database\Factories\ProductColorFactory;
 class ProductColor extends Model
 {
     use HasFactory, SoftDeletes;
-
     protected $guarded = [];
 
 

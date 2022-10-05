@@ -41,12 +41,11 @@ class PaymentController extends Controller
         if (is_array($result)) {
             $this->orderRepo->changeStatus($payment->order->id, Order::STATUS_FAILED);
             $this->paymentRepo->changeStatus($payment->id, Payment::STATUS_FAILED);
+            $this->incrementProductQuantity();
             alert()->error('پرداخت ناموفق', 'سفارش شما انجام نشد.' . $result['message']);
         } else {
             $this->orderRepo->changeStatus($payment->order->id, Order::STATUS_PAID);
             $this->paymentRepo->changeStatus($payment->id, Payment::STATUS_SUCCESS);
-            //todo reduce quantity
-//            $this->reduceProductQuantity();
             alert()->success('پرداخت موفق', 'سفارش شما باموفقیت انجام شد.');
         }
         CartService::clearAll();
@@ -91,6 +90,19 @@ class PaymentController extends Controller
     public function clearPaymentTypeFromSession()
     {
         session()->forget('payment_type');
+    }
+
+    public function incrementProductQuantity()
+    {
+        $productRepo = resolve(ProductRepositoryInterface::class);
+        foreach (CartService::getItems() as $cartItem) {
+            if (!is_null($cartItem->attributes['color']['id'])  && $this->findColor($cartItem->associatedModel->id , $cartItem->attributes['color']['id'] )){
+                $productRepo->incrementQuantity($cartItem->associatedModel->id , $cartItem->attributes['color']['id'] );
+            }else{
+                $productRepo->incrementQuantity($cartItem->associatedModel->id);
+            }
+        }
+
     }
 
 }

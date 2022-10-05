@@ -46,6 +46,7 @@ class CheckoutController extends Controller
             return  redirect()->route('front.cart.index');
         }
         $this->savePaymentTypeInSession($request->payment_type);
+        $this->decrementProductQuantity();
         return redirect()->route('front.payment.pay');
     }
 
@@ -106,6 +107,19 @@ class CheckoutController extends Controller
                 back()->throwResponse();
             }
         }
+    }
+
+    public function decrementProductQuantity()
+    {
+        $productRepo = resolve(ProductRepositoryInterface::class);
+        foreach (CartService::getItems() as $cartItem) {
+            if (!is_null($cartItem->attributes['color']['id'])  && $color = $this->findColor($cartItem->associatedModel->id , $cartItem->attributes['color']['id'] )){
+                 $productRepo->decrementQuantity($cartItem->associatedModel->id , $cartItem->attributes['color']['id'] );
+            }else{
+                 $productRepo->decrementQuantity($cartItem->associatedModel->id);
+            }
+        }
+
     }
 
     private function findColor($productId , $colorId)

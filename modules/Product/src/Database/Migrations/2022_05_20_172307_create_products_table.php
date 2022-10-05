@@ -21,7 +21,7 @@ return new class extends Migration {
             $table->text('description')->nullable();
             $table->bigInteger('price');
             $table->integer('quantity');
-            $table->integer('sold_number');
+            $table->integer('sold_number')->default(0);
             $table->bigInteger('special_price')->nullable();
             $table->timestamp('special_price_start')->nullable();
             $table->timestamp('special_price_end')->nullable();

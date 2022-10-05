@@ -10,7 +10,6 @@ class OnlinePaymentService
 {
     public function generate()
     {
-
         $data = $this->getPaymentData();
         resolve(PaymentRepositoryInterface::class)->storeOfflinePayment($data);
     }
@@ -28,7 +27,7 @@ class OnlinePaymentService
 
     private function getPaymentData()
     {
-        $currentOrder =   resolve(OrderRepositoryInterface::class)->getCurrentOrder(auth()->id());
+        $currentOrder = resolve(OrderRepositoryInterface::class)->getCurrentOrder(auth()->id());
         $token = $this->getToken($currentOrder->final_amount);
         $gatewayName = $this->getGatewayName();
         return [

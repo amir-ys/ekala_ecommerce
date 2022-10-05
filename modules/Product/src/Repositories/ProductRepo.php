@@ -130,7 +130,10 @@ class ProductRepo extends BaseRepository implements ProductRepositoryInterface
 
     public function getSelectedProducts()
     {
-        return $this->query->with(['category', 'brand', 'primaryImage'])->where('is_active', ProductStatus::ACTIVE->value)->get();
+        return $this->query->with(['category', 'brand', 'primaryImage'])
+            ->where('is_active', ProductStatus::ACTIVE->value)
+            ->where('is_marketable', Product::MARKETABLE)
+            ->get();
     }
 
     public function getProductsOrderByRequest()
@@ -329,5 +332,33 @@ class ProductRepo extends BaseRepository implements ProductRepositoryInterface
         $model = $this->findById($id);
         return $model->colors()->where('id' , $colorId)->first();
 
+    }
+
+    public function decrementQuantity($id, $colorId = null)
+    {
+        $model = $this->findById($id);
+        if (is_null($colorId)) {
+            $model->decrement('quantity');
+            $model->increment('sold_number');
+        } else {
+            $model = $model->colors()->where('id', $colorId)->first();
+            $model->decrement('quantity');
+            $model->increment('sold_number');
+        }
+        $model->save();
+    }
+
+    public function incrementQuantity($id, $colorId = null)
+    {
+        $model = $this->findById($id);
+        if (is_null($colorId)) {
+            $model->increment('quantity');
+            $model->decrement('sold_number');
+        } else {
+            $model = $model->colors()->where('id', $colorId)->first();
+            $model->increment('quantity');
+            $model->decrement('sold_number');
+        }
+        $model->save();
     }
 }
