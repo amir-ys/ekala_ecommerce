@@ -278,7 +278,7 @@
             "dist": {
                 "type": "path",
                 "url": "modules/Product",
-                "reference": "f63c6f3b156404f72eb0054d2fcc27af4bf7053d"
+                "reference": "3fb0b82b403ebf136c70c0d6ef10b2eddf4293e7"
             },
             "type": "library",
             "extra": {
@@ -289,7 +289,10 @@
             "autoload": {
                 "psr-4": {
                     "Modules\\Product\\": "src"
-                }
+                },
+                "files": [
+                    "src/Http/helpers.php"
+                ]
             },
             "transport-options": {
                 "relative": true

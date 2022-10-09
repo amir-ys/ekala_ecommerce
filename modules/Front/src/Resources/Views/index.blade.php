@@ -60,7 +60,8 @@
                         <button type="button" class="btn active featured-categories" data-val="featured">محصولات منتخب
                         </button>
                         <button type="button" class="btn featured-categories" data-val="on-sale">تخفیف خورده</button>
-                        <button type="button" class="btn featured-categories" data-val="most-visited">پربازدیدترین
+                        <button type="button" class="btn featured-categories" data-val="best-selling"> پرفروش ترین </button>
+                        <button type="button" class="btn featured-categories" data-val="most-visited">پربازدید ترین
                         </button>
                     </div>
                 </div>
@@ -93,8 +94,17 @@
                 @endif
             </div>
 
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-md-4 featured-product best-selling ">
+                @foreach($bestSellingProducts as $product)
+                    <div class="col">
+                        @include('Front::partials.product-box' , ['product' => $product , 'discount' => false])
+                    </div>
+                @endforeach
+            </div>
+
+
             <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-md-4 featured-product most-visited">
-                @foreach($products as $product)
+                @foreach(getMostVisitedProductFromRedis() as $product)
                     <div class="col">
                         @include('Front::partials.product-box' , ['product' => $product , 'discount' => false])
                     </div>
@@ -261,24 +271,24 @@
     </section>
     <!-- /Benefits Section -->
 
-    <!-- Most Sales Products -->
-    <section id="most-sales-products" class="pt-4">
-        <h1 class="section-title">پرفروش ترین محصولات</h1>
-        <div class="container pt-4">
+{{--    <!-- Most Sales Products -->--}}
+{{--    <section id="most-sales-products" class="pt-4">--}}
+{{--        <h1 class="section-title">پرفروش ترین محصولات</h1>--}}
+{{--        <div class="container pt-4">--}}
 
 
-            <!-- Products -->
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-md-4 most-sales-product" data-aos="fade-up"
-                 data-aos-duration="1000">
-                @foreach($products as $product)
-                    <div class="col">
-                        @include('Front::partials.product-box' , ['product' => $product , 'discount' => false])
-                    </div>
-                @endforeach
-            </div>
-            <!-- /Products -->
-        </div>
-    </section>
+{{--            <!-- Products -->--}}
+{{--            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-md-4 most-sales-product" data-aos="fade-up"--}}
+{{--                 data-aos-duration="1000">--}}
+{{--                @foreach($products as $product)--}}
+{{--                    <div class="col">--}}
+{{--                        @include('Front::partials.product-box' , ['product' => $product , 'discount' => false])--}}
+{{--                    </div>--}}
+{{--                @endforeach--}}
+{{--            </div>--}}
+{{--            <!-- /Products -->--}}
+{{--        </div>--}}
+{{--    </section>--}}
     <hr>
     <!-- /Most Sales Products -->
 

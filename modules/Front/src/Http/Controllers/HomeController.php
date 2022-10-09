@@ -16,9 +16,10 @@ class HomeController extends Controller
         $sliders = resolve(SlideRepositoryInterface::class)->getSliders();
         $products = resolve(ProductRepositoryInterface::class)->getSelectedProducts();
         $productWithDiscount = resolve(ProductRepositoryInterface::class)->getProductWithDiscount();
+        $bestSellingProducts = resolve(ProductRepositoryInterface::class)->getBestSelling();
         $posts = resolve(PostRepositoryInterface::class)->getLatest();
         return view('Front::index' , compact('products' , 'sliders' ,
-            'bottomBanners' ,'topBanners' , 'productWithDiscount' , 'posts'));
+            'bottomBanners' ,'topBanners' , 'productWithDiscount' , 'posts' , 'bestSellingProducts'));
     }
 
 

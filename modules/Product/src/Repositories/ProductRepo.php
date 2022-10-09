@@ -2,12 +2,14 @@
 
 namespace Modules\Product\Repositories;
 
+use Illuminate\Database\Eloquent\Collection;
 use Modules\Core\Repositories\BaseRepository;
 use Modules\Product\Contracts\ProductRepositoryInterface;
 use Modules\Product\Enums\ProductStatus;
 use Modules\Product\Models\Product;
+use Modules\Product\Models\ProductColor;
 
-class ProductRepo extends BaseRepository implements ProductRepositoryInterface
+class  ProductRepo extends BaseRepository implements ProductRepositoryInterface
 {
     protected $model = Product::class;
 
@@ -128,17 +130,24 @@ class ProductRepo extends BaseRepository implements ProductRepositoryInterface
         $product->delete();
     }
 
+
+    private function active()
+    {
+         $this->query->where('is_active' , ProductStatus::ACTIVE);
+        return  $this->query;
+    }
+
     public function getSelectedProducts()
     {
-        return $this->query->with(['category', 'brand', 'primaryImage'])
-            ->where('is_active', ProductStatus::ACTIVE->value)
+        return $this->active()->with(['category', 'brand', 'primaryImage'])
             ->where('is_marketable', Product::MARKETABLE)
+            ->limit(6)
             ->get();
     }
 
     public function getProductsOrderByRequest()
     {
-        $query = $this->query->where('is_active', ProductStatus::ACTIVE->value);
+        $query = $this->active();
 
         $query = $query->when(request()->order == 'newest', function ($q) {
             $q->latest();
@@ -170,21 +179,20 @@ class ProductRepo extends BaseRepository implements ProductRepositoryInterface
 
     public function findBySlug($slug)
     {
-        return $this->query
-            ->where('is_active', ProductStatus::ACTIVE->value)
+        return $this->active()
             ->where('slug', $slug)
             ->firstOrFail();
     }
 
 
-    public function addOrRemoveProductFromWishlist($productId , $userId)
+    public function addOrRemoveProductFromWishlist($productId, $userId)
     {
-        if ($this->findProductInWishlist($productId , $userId)){
-            $this->removeFromWishlist($productId , $userId);
-        }else{
-            $this->addToWishlist($productId , $userId);
+        if ($this->findProductInWishlist($productId, $userId)) {
+            $this->removeFromWishlist($productId, $userId);
+        } else {
+            $this->addToWishlist($productId, $userId);
         }
-        return !! $this->findProductInWishlist($productId , $userId);
+        return !!$this->findProductInWishlist($productId, $userId);
     }
 
     public function addToWishlist($id, $userId)
@@ -215,15 +223,25 @@ class ProductRepo extends BaseRepository implements ProductRepositoryInterface
 
     public function findActiveById($id)
     {
-        return $this->query->where('is_active', ProductStatus::ACTIVE)
+        return $this->active()
             ->where('id', $id)->first();
     }
 
     public function getProductWithDiscount()
     {
-        return $this->query->whereNotNull('special_price')
+        return $this->active()->whereNotNull('special_price')
             ->where('special_price_start', '<', now())
-            ->where('special_price_end', '>', now())->get();
+            ->where('special_price_end', '>', now())
+            ->limit(6)
+            ->get();
+    }
+
+    public function getBestSelling(): array|Collection
+    {
+        return $this->query
+            ->where('is_active' , ProductStatus::ACTIVE)
+            ->orderBy('products.sold_number', 'Desc')
+            ->get();
     }
 
     public function reduceQuantity($id, $quantity)
@@ -321,16 +339,16 @@ class ProductRepo extends BaseRepository implements ProductRepositoryInterface
     public function isAvailability($id)
     {
         return $this->query->where([
-            ['id' , $id] ,
-            ['is_active' , ProductStatus::ACTIVE] ,
-            ['is_marketable' , Product::MARKETABLE] ,
+            ['id', $id],
+            ['is_active', ProductStatus::ACTIVE],
+            ['is_marketable', Product::MARKETABLE],
         ])->first();
     }
 
-    public function checkColorExists($id , $colorId)
+    public function checkColorExists($id, $colorId)
     {
         $model = $this->findById($id);
-        return $model->colors()->where('id' , $colorId)->first();
+        return $model->colors()->where('id', $colorId)->first();
 
     }
 

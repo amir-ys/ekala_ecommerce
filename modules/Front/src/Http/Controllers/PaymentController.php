@@ -64,11 +64,6 @@ class PaymentController extends Controller
         return $payment;
     }
 
-//    private function clearPaymentMethodFromCache()
-//    {
-//        Cache::pull('payment_method');
-//    }
-
     private function getTokenFromRequest()
     {
         //todo
