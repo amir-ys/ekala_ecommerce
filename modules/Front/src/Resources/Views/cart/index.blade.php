@@ -113,7 +113,7 @@
                                                                 @if($cartItem->associatedModel->hasDiscount)
                                                                 <div class="d-md-none font-weight-bold">تخفیف</div>
                                                                 <div class="pt-1"><span
-                                                                        class="product-discount">{{  $cartItem->associatedModel->discountAmount()  }} </span>
+                                                                        class="product-discount">{{  number_format($cartItem->associatedModel->discountAmount())  }} </span>
                                                                     <span>تومان</span></div>
                                                                 @else
                                                                     ندارد

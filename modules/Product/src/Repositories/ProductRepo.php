@@ -26,7 +26,6 @@ class  ProductRepo extends BaseRepository implements ProductRepositoryInterface
             'brand_id' => $data['brand_id'],
             'description' => $data['description'],
             'price' => $data['price'],
-            'quantity' => $data['quantity'],
             'special_price' => $data['special_price'],
             'special_price_start' => $data['special_price_start'],
             'special_price_end' => $data['special_price_end'],
@@ -37,19 +36,22 @@ class  ProductRepo extends BaseRepository implements ProductRepositoryInterface
 
     public function update(int $id, array $data)
     {
-        return $this->query->where('id', $id)->update([
+        $model =  $this->findById($id);
+
+        $model->update([
             'name' => $data['name'],
             'category_id' => $data['category_id'],
             'brand_id' => $data['brand_id'],
             'description' => $data['description'],
             'price' => $data['price'],
-            'quantity' => $data['quantity'],
             'special_price' => $data['special_price'],
             'special_price_start' => $data['special_price_start'],
             'special_price_end' => $data['special_price_end'],
             'is_active' => $data['is_active'],
             'is_marketable' => $data['is_marketable'],
         ]);
+
+        return $model;
     }
 
     public function saveProductImage($imageName, Product $product, $isPrimary)
@@ -224,6 +226,8 @@ class  ProductRepo extends BaseRepository implements ProductRepositoryInterface
     public function findActiveById($id)
     {
         return $this->active()
+            ->where('is_active' ,ProductStatus::ACTIVE)
+            ->where('is_marketable' ,Product::MARKETABLE)
             ->where('id', $id)->first();
     }
 
@@ -264,24 +268,31 @@ class  ProductRepo extends BaseRepository implements ProductRepositoryInterface
         return $model->colors()->where('id', $colorId)->firstOrFail();
     }
 
-    public function storeColor($id, $data)
+    public function storeColor($id, $data , $isPrimary = false)
     {
         $model = $this->findById($id);
+        $model->colors()->update(['is_primary' => false]);
         $model->colors()->create([
             "color_name" => $data['color_name'],
             "color_value" => $data['color_value'],
             "price_increase" => $data['price_increase'],
+            'quantity' => $data['quantity'],
+            "is_primary" => $isPrimary,
         ]);
     }
 
-    public function updateColor($id, $colorId, $data)
+    public function updateColor($id, $colorId, $data , $isPrimary =  false)
     {
         $model = $this->findById($id);
+        $model->colors()->update(['is_primary' => false]);
         $model->colors()->where('id', $colorId)->update([
             "color_name" => $data['color_name'],
             "color_value" => $data['color_value'],
             "price_increase" => $data['price_increase'],
+            'quantity' => $data['quantity'],
+            "is_primary" => $isPrimary,
         ]);
+
     }
 
     public function destroyColor($id, $colorId)
@@ -352,31 +363,33 @@ class  ProductRepo extends BaseRepository implements ProductRepositoryInterface
 
     }
 
-    public function decrementQuantity($id, $colorId = null)
+    public function decrementQuantity($id, $colorId)
     {
         $model = $this->findById($id);
-        if (is_null($colorId)) {
-            $model->decrement('quantity');
-            $model->increment('sold_number');
-        } else {
-            $model = $model->colors()->where('id', $colorId)->first();
-            $model->decrement('quantity');
-            $model->increment('sold_number');
-        }
-        $model->save();
+        $color = $model->colors()->where('id', $colorId)->first();
+        $color->decrement('quantity');
+        $color->increment('sold_number');
+        $color->save();
     }
 
-    public function incrementQuantity($id, $colorId = null)
+    public function incrementQuantity($id, $colorId)
     {
         $model = $this->findById($id);
-        if (is_null($colorId)) {
-            $model->increment('quantity');
-            $model->decrement('sold_number');
-        } else {
-            $model = $model->colors()->where('id', $colorId)->first();
-            $model->increment('quantity');
-            $model->decrement('sold_number');
-        }
-        $model->save();
+        $color = $model->colors()->where('id', $colorId)->first();
+        $color->increment('quantity');
+        $color->decrement('sold_number');
+        $color->save();
+    }
+
+    public function findPrimaryProductColor($id)
+    {
+        $model = $this->findById($id);
+        return $model->colors()->where('is_primary' , true)->first();
+    }
+
+    public function findDefaultProductColor($id)
+    {
+        $model = $this->findById($id);
+        return $model->colors()->where('is_primary' , true)->first();
     }
 }

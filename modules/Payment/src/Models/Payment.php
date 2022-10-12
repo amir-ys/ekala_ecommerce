@@ -44,6 +44,7 @@ class Payment extends Model
     {
         return new Attribute(function () {
             get :
+            if ($this->status == self::STATUS_PENDING_APPROVAL) return 'در انتظار  تایید پرداخت';
             if ($this->status == self::STATUS_PENDING) return 'در انتظار پرداخت';
             if ($this->status == self::STATUS_FAILED) return 'لفو شده';
             if ($this->status == self::STATUS_SUCCESS) return 'پرداخت شده';
@@ -54,6 +55,7 @@ class Payment extends Model
     {
         return new Attribute(function () {
             get :
+            if ($this->status == self::STATUS_PENDING_APPROVAL) return 'warning';
             if ($this->status == self::STATUS_PENDING) return 'warning';
             if ($this->status == self::STATUS_FAILED) return 'danger';
             if ($this->status == self::STATUS_SUCCESS) return 'success';

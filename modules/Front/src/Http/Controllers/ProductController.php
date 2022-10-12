@@ -13,10 +13,11 @@ class ProductController extends Controller
     {
 
         $product = resolve(ProductRepositoryInterface::class)->findBySlug($productSlug);
+        $defaultProductColor = resolve(ProductRepositoryInterface::class)->findDefaultProductColor($product->id);
         //todo $relatedProduct
         $relatedProducts = resolve(ProductRepositoryInterface::class)->getAll();
         $viewCount = resolve(ProductRepositoryInterface::class)->incrementVisit($product->id);
-        return view('Front::products.details' , compact('product' , 'relatedProducts' , 'viewCount'));
+        return view('Front::products.details' , compact('product' , 'relatedProducts' , 'viewCount' , 'defaultProductColor'));
     }
 
     public function list(Request $request)

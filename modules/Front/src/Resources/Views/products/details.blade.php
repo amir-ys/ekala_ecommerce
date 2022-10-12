@@ -180,9 +180,11 @@
                                                                             style="background-color:{{ $color->color_value }};
                                                                             height: 30px ; width: 30px" ></label>
                                                                         <input class="d-none" form="add_to_card" type="radio" name="color_id"  id="color_input_{{ $color->id }}"
-                                                                               value="{{ $color->id }}" data-color-price="{{ $color->price_increase }}"
+                                                                               value="{{ $color->id }}"
+                                                                               data-color-price="{{ $color->price_increase }}"
                                                                                data-color-name="{{ $color->color_name }}"
-                                                                        @if($key == 0) checked @endif
+                                                                               data-color-quantity="{{ $color->quantity }}"
+                                                                        @if($color->is_primary) checked @endif
                                                                         >
                                                                     @endforeach
                                                                 </div>
@@ -193,12 +195,13 @@
                                                                 <div class="sub-title pt-2 pb-2">گارانتی</div>
                                                                 <select name="warranty_id" class="form-select" form="add_to_card">
                                                                     @if($product->warranties()->get()->count() > 0)
-                                                                    @foreach($product->warranties()->get()  as $warranty)
+                                                                    @foreach($product->warranties()->get() as $key => $warranty)
                                                                         <option
                                                                             id="warranty_item"
                                                                             value="{{ $warranty->id }}"
                                                                             data-warranty-name="{{ $warranty->name }}"
                                                                             data-warranty-price="{{ $warranty->price_increase }}"
+                                                                            @selected($key == 0 )
                                                                         >{{ $warranty->name }}</option>
                                                                     @endforeach
                                                                     @else
@@ -228,7 +231,7 @@
                                                                                class="form-control text-center order-number"
                                                                                readonly id="quantity"
                                                                                name="quantity" min="1"
-                                                                               max="{{ $product->quantity }}">
+                                                                               max="{{ $defaultProductColor->quantity }}">
                                                                         <div class="input-group-prepend">
                                                                             <button class="btn btn-outline-secondary btn-dec btn-change-quantity"
                                                                                 type="button">_
@@ -304,14 +307,20 @@
                                                     </div>
                                                 </div>
 
-                                                @if($product->quantity > 0)
-                                                <div class="col-md-12 w-100 mt-md-3">
+                                                @if($defaultProductColor->quantity > 0)
+                                                <div class="col-md-12 w-100 mt-md-3" id="btn-add-to-card">
                                                     <button type="submit" form="add_to_card"
                                                             class="btn btn-success btn-add-to-basket btn-sm btn-block w-100">
-                                                        <i class="fa fa-shopping-cart"></i> افزودن به سبد خرید
+                                                        <i class="fa fa-shopping-cart"></i>
+                                                        افزودن به سبد خرید
+                                                    </button>
                                                 </div>
                                                 @else
-
+                                                    <div class="col-md-12 w-100 mt-md-3" id="btn-add-to-card">
+                                                        <span class="btn btn-secondary  btn-sm btn-block w-100">
+                                                            ناموجود
+                                                        </span>
+                                                    </div>
                                                 @endif
                                             </div>
                                         </div>
@@ -427,6 +436,18 @@
         function bill() {
             //color
             let color_name = $("input[name='color_id']:checked").attr('data-color-name');
+            if($("input[name='color_id']:checked").attr('data-color-quantity') <= 0){
+                $('#btn-add-to-card').empty()
+                $('#btn-add-to-card').html(
+                    '<span class="btn btn-secondary  btn-sm btn-block w-100">ناموجود </span>'
+                )
+            }else{
+                $('#btn-add-to-card').empty()
+                $('#btn-add-to-card').html(
+                '<button type="submit" form="add_to_card" class="btn btn-success btn-add-to-basket btn-sm btn-block w-100"><i class="fa fa-shopping-cart"></i>افزودن به سبد خرید</button>'
+                )
+            }
+
             $('#selected_color').html(color_name);
 
             //warranty
@@ -435,7 +456,6 @@
                 $('#selected_warranty').html(warranty_name);
             }else{
                 $('#selected_warranty').html('بدون گارانتی');
-
             }
 
             let product_original_price =  parseFloat($("#product_original_price").attr('data-product-original-price'));
@@ -470,6 +490,7 @@
 
             let product_price = product_original_price + selected_warranty_price + selected_color_price;
             let final_price = quantity * ( product_price - product_discount_price )
+
 
             $('#product_original_price').html(formatter.format(product_price))
             $('#product_final_price').html(formatter.format(final_price))

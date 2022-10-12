@@ -8,24 +8,27 @@ use Modules\Payment\Contracts\OrderRepositoryInterface;
 
 class OrderService
 {
-
-    public function saveAddress($userId): void
+    public $orderRepo;
+    public function __construct(OrderRepositoryInterface $orderRepo)
     {
-        $data = request()->all();
-         resolve(OrderRepositoryInterface::class)->saveAddress(auth()->id(), $data);
+        $this->orderRepo = $orderRepo;
     }
 
+    public function saveAddress($userId , $data): void
+    {
+        $this->orderRepo->saveAddress(auth()->id(), $data);
+    }
 
     public function saveOrderAndOrderItems($userId): void
     {
-        $orderRepo = resolve(OrderRepositoryInterface::class);
-
+        //save order
         $orderData = $this->getOrderData();
-        $orderRepo->saveOrderAmounts($orderData);
+        $this->orderRepo->saveOrderAmounts($orderData);
 
-        $order = $orderRepo->getCurrentOrder(auth()->id());
+        //save order items
+        $order = $this->orderRepo->getCurrentOrder(auth()->id());
         $orderItemsData = $this->getOrderItemsData($order);
-        $orderRepo->saveOrderItemsAmounts($orderItemsData);
+        $this->orderRepo->saveOrderItemsAmounts($orderItemsData);
     }
 
     private function getOrderData(): array

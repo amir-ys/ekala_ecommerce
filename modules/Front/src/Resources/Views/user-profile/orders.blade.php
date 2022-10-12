@@ -55,8 +55,8 @@
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a href="{{ route('front.user.orders.index') }}?status={{ \Modules\Payment\Models\Order::STATUS_POSTED }}"
-                                                                         class="{{ request()->query('status') == \Modules\Payment\Models\Order::STATUS_POSTED ? 'active' : '' }}"           >
+                                                        <a href="{{ route('front.user.orders.index') }}?status={{ \Modules\Payment\Models\Order::DELIVERY_STATUS_POSTED }}"
+                                                                         class="{{ request()->query('status') == \Modules\Payment\Models\Order::DELIVERY_STATUS_POSTED ? 'active' : '' }}"           >
                                                             <span>ارسال شده</span>
                                                             <div class="badge badge-secondary">3</div>
                                                         </a>
@@ -80,10 +80,11 @@
                                                         <tr>
                                                             <th> شناسه سفارش </th>
                                                             <th> تاریخ سفارش</th>
-                                                            <th>  درگاه پرداخت </th>
+                                                            <th> نوع پرداخت </th>
                                                             <th>  کد تخفیف </th>
                                                             <th> مبلغ </th>
                                                             <th> وضعیت پرداخت </th>
+                                                            <th> وضعیت ارسال </th>
                                                             <th> عملیات </th>
                                                         </tr>
     </thead>
@@ -92,13 +93,12 @@
     <tr>
     <td> {{ $order->id }} </td>
     <td> {{ getJalaliDate($order->created_at) }} </td>
-    <td> {{ $order->payment_type }} </td>
+    <td> {{ $order->payment?->payment_type_name }} </td>
     <td> {{ $order->coupon_id ? $order->coupon_amount : '-'  }} </td>
-    <td> {{ $order->paying_amount }} </td>
-    <td class="badge bg-{{ $order->status_css }}"> {{ $order->status_name }}
-    <td>
-    <a  href="#order-{{ $order->id }}" data-bs-toggle="modal" data-bs-target="#order-{{ $order->id }}" >
-    <i class="fa fa-eye"></i></a>
+    <td> {{ $order->final_amount }} </td>
+    <td class="badge bg-{{ $order->status_css }}"> {{ $order->status_name }} </td>
+    <td class="border text-{{ $order->delivery_status_css }}" > {{ $order->delivery_status_name }} </td>
+        <td><a  href="#order-{{ $order->id }}" data-bs-toggle="modal" data-bs-target="#order-{{ $order->id }}" ><i class="fa fa-eye"></i></a>
     @include('Front::user-profile.partials.order-items-modal')
     </td>
     </tr>

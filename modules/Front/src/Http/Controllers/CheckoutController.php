@@ -11,6 +11,7 @@ use Modules\Payment\Contracts\OrderRepositoryInterface;
 use Modules\Payment\Facades\OrderServiceFacade;
 use Modules\Product\Contracts\ProductRepositoryInterface;
 use Modules\User\Contracts\UserRepositoryInterface;
+use function GuzzleHttp\Promise\all;
 
 class CheckoutController extends Controller
 {
@@ -24,7 +25,8 @@ class CheckoutController extends Controller
     {
         $this->validateInputs();
 
-        OrderServiceFacade::saveAddress(auth()->id());
+        $data = \request()->all();
+        OrderServiceFacade::saveAddress(auth()->id() , $data);
         OrderServiceFacade::saveOrderAndOrderItems(auth()->id());
 
         return redirect()->route('front.checkout.page');
@@ -45,6 +47,7 @@ class CheckoutController extends Controller
             alert()->error('ناموفق' , $valuesStatus['message']);
             return  redirect()->route('front.cart.index');
         }
+
         $this->savePaymentTypeInSession($request->payment_type);
         $this->decrementProductQuantity();
         return redirect()->route('front.payment.pay');
@@ -60,23 +63,20 @@ class CheckoutController extends Controller
         $productRepository = resolve(ProductRepositoryInterface::class);
 
         foreach (CartService::getItems() as $cartItem) {
-
             //check product exists or is marketable
             $product = $productRepository->isAvailability($cartItem->associatedModel->id);
             if (!$product){
                 CartService::clearAll();
-                return [ 'status' => -1 , 'message' => 'محصول از فروشگاه حذف شده یا غیرقابل قابل فروش شده است.'  ];
+                return [ 'status' => -1 , 'message' => 'محصول از فروشگاه حذف شده یا غیرقابل فروش شده است.'  ];
             }
 
             //check color attribute
-            if (!is_null($cartItem->attributes['color']['id'])  && $color = $this->findColor($cartItem->associatedModel->id , $cartItem->attributes['color']['id'] )){
+            if ($color = $this->findColor($cartItem->associatedModel->id , $cartItem->attributes['color']['id'] )){
                 $productQuantity = $color->quantity;
-            }else{
-                $productQuantity = $cartItem->associatedModel->quantity;
             }
 
             //check changes of price
-            if ($cartItem->price !=  $product->calcProductPrice($cartItem->attributes['color']['id'] , $cartItem->attributes['warranty']['id'] ,true )){
+            if ($cartItem->price !=  $product->priceWithAttributes($cartItem->attributes['color']['id'] , $cartItem->attributes['warranty']['id'] )){
                 CartService::clearAll();
                 return [ 'status' => -1 , 'message' => 'قیمت محصولات تغییر پیدا کرده است.'  ];
             }
@@ -113,13 +113,8 @@ class CheckoutController extends Controller
     {
         $productRepo = resolve(ProductRepositoryInterface::class);
         foreach (CartService::getItems() as $cartItem) {
-            if (!is_null($cartItem->attributes['color']['id'])  && $color = $this->findColor($cartItem->associatedModel->id , $cartItem->attributes['color']['id'] )){
-                 $productRepo->decrementQuantity($cartItem->associatedModel->id , $cartItem->attributes['color']['id'] );
-            }else{
-                 $productRepo->decrementQuantity($cartItem->associatedModel->id);
-            }
+            $productRepo->decrementQuantity($cartItem->associatedModel->id, $cartItem->attributes['color']['id']);
         }
-
     }
 
     private function findColor($productId , $colorId)

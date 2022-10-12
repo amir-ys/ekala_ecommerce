@@ -74,14 +74,6 @@ class PaymentController extends Controller
         return request()->input($token);
     }
 
-    private function reduceProductQuantity()
-    {
-        //todo reduce quantitiy
-        foreach (CartService::getItems() as $cartItem) {
-            $this->productRepo->reduceQuantity($cartItem->associatedModel->id, $cartItem->quantity);
-        }
-    }
-
     public function clearPaymentTypeFromSession()
     {
         session()->forget('payment_type');
@@ -91,13 +83,7 @@ class PaymentController extends Controller
     {
         $productRepo = resolve(ProductRepositoryInterface::class);
         foreach (CartService::getItems() as $cartItem) {
-            if (!is_null($cartItem->attributes['color']['id'])  && $this->findColor($cartItem->associatedModel->id , $cartItem->attributes['color']['id'] )){
-                $productRepo->incrementQuantity($cartItem->associatedModel->id , $cartItem->attributes['color']['id'] );
-            }else{
-                $productRepo->incrementQuantity($cartItem->associatedModel->id);
-            }
+            $productRepo->incrementQuantity($cartItem->associatedModel->id, $cartItem->attributes['color']['id']);
         }
-
     }
-
 }

@@ -33,12 +33,13 @@
                                         <label>کد رنگ (hex)</label>
                                     <div class="input-group sample-selector colorpicker-element">
                                         <input type="text" class="form-control text-right" dir="ltr" name="color_value"
-                                               placeholder="کد رنگ (hex)" id="color_name"
+                                               placeholder="کد رنگ (hex)" id="color_value"
                                                value="{{ old('color_value') }}">
                                         <div class="input-group-append">
                                             <span class="input-group-text"><i style="background-color: rgb(225, 72, 72);"></i></span>
                                         </div>
                                     </div>
+                                    <x-validation-error field="color_value"/>
                                 </div>
 
                                 <div class="col-md-4 mb-3">
@@ -48,6 +49,21 @@
                                            value="{{ old('price_increase') }}">
                                     <x-validation-error field="price_increase"/>
                                 </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <label class="col-form-label">موجودی</label>
+                                    <input type="text" class="form-control" name="quantity"
+                                           placeholder="موجودی"
+                                           value="{{ old('quantity') }}">
+                                    <x-validation-error field="quantity"/>
+                                </div>
+
+                              <div class="col-md-12">
+                                  <div class="custom-control custom-checkbox">
+                                      <input type="checkbox" name="is_primary" class="custom-control-input" id="customCheck">
+                                      <label class="custom-control-label" for="customCheck"> انتخاب این رنگ  به  عنوان رنگ پیش فرض</label>
+                                  </div>
+                              </div>
 
                             </div>
                         </div>

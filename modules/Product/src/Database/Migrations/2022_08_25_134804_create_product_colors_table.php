@@ -18,7 +18,9 @@ return new class extends Migration {
             $table->string('color_name');
             $table->string('color_value');
             $table->string('price_increase');
+            $table->integer('quantity');
             $table->integer('sold_number')->default(0);
+            $table->boolean('is_primary')->default(false);
             $table->foreignIdFor(Product::class)->constrained();
             $table->softDeletes();
             $table->timestamps();

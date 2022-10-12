@@ -157,22 +157,23 @@ class Product extends Model
         return $discountAmount;
     }
 
-    public function calcProductPrice($colorId = null , $warrantyId = null , $withoutDiscount = false)
+    public function priceWithAttributes($colorId , $warrantyId = null , $withDiscount = false)
     {
-        $selectedColorPrice = 0;
-        $selectedWarrantyPrice = 0;
+        $increaseColorPrice = 0;
+        $increaseWarrantyPrice = 0;
 
-        $withoutDiscount ?$price = $this->price :  $price = $this->price - $this->discountAmount();
+        $withDiscount ?   $price = $this->price - $this->discountAmount() :  $price = $this->price;
+
         if ($color = $this->colors()->where('id', $colorId)->first()) {
-            $selectedColorPrice = $color->price_increase;
+            $increaseColorPrice = $color->price_increase;
         }
 
         if ($warranty = $this->warranties()->where('id', $warrantyId)->first()) {
-            $selectedWarrantyPrice = $warranty->price_increase;
+            $increaseWarrantyPrice = $warranty->price_increase;
         }
 
 
-        return $price + $selectedColorPrice + $selectedWarrantyPrice;
+        return $price + $increaseColorPrice + $increaseWarrantyPrice;
     }
 
     public function findProductInWishlist($userId)
@@ -190,5 +191,10 @@ class Product extends Model
     {
         $warranty =  $this->warranties()->where('id' , $warrantyId)->first();
         return $warranty ? $warranty->name : '-';
+    }
+
+    public function findColorById($colorId)
+    {
+       return $this->colors()->where('id' , $colorId)->first();
     }
 }

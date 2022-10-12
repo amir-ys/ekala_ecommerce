@@ -23,30 +23,24 @@ class CartController extends Controller
     public function add(Request $request)
     {
         $this->validateInputs();
-
         $product = $this->findActiveProduct($request);
         if (!$product) {
-            alert()->error('ناموفق', 'محصولی با این شناسه پیدا نشد.');
+            alert()->error('ناموفق', 'اطلاعات محصول تعییر پیدا کرده است.');
             return back();
         }
 
-        $isInvalidQuantity = $this->isInvalidateQuantity($product, $request->quantity);
-        if ($isInvalidQuantity) {
-            alert()->error('ناموفق', 'تعداد وارد شده از محصول صحیح نمی باشد.');
-            return back();
-        }
+       $this->checkRequestQuantity($product, $request->quantity , $request->color_id);
 
-        $attributes = ['quantity' => $request->quantity , 'color_id' => $request->color_id , 'warranty_id' => $request->warranty_id ,];
-        $result = CartService::add($product, $attributes);
+        $inputs = ['quantity' => $request->quantity , 'color_id' => $request->color_id , 'warranty_id' => $request->warranty_id ,];
+        $result = CartService::add($product, $inputs);
 
         if ($result['status'] == 'invalid-quantity'){
             alert()->error('دقت کنید', 'تعداد انتخابی محصول بیش از موجودی فروشگاه است.');
             return back();
         }
-        if ($result['status'] == 'add') {
-            alert()->success('موفق آمیز', 'محصول با موفقیت به سبد خرید شما اضافه شد.');
-            return back();
-        }
+
+        alert()->success('موفق آمیز', 'محصول با موفقیت به سبد خرید شما اضافه شد.');
+        return back();
     }
 
     public function clear()
@@ -84,7 +78,7 @@ class CartController extends Controller
     public function validateInputs()
     {
         $data = Validator::make(\request()->all()  , [
-            'color_id' => [ 'nullable' ,'numeric' , Rule::exists('product_colors' , 'id')] ,
+            'color_id' => [ 'required' ,'numeric' , Rule::exists('product_colors' , 'id')] ,
             'warranty_id' => [ 'nullable' ,'numeric' , Rule::exists('product_warranties' , 'id')] ,
             'quantity' => [ 'required' ,'numeric' , 'min:1'] ,
         ] , [] , [ 'color_id' => 'رنگ'  , 'warranty_id' => 'گارانتی']);
@@ -104,11 +98,11 @@ class CartController extends Controller
         return resolve(ProductRepositoryInterface::class)->findActiveById($request->product_id);
     }
 
-    private function isInvalidateQuantity($product, $quantity): bool
+    private function checkRequestQuantity($product, $quantity , $colorId): void
     {
-        if (!empty($quantity) && $quantity > $product->quantity) {
-            return true;
+        if (!empty($quantity) && $quantity > $product->findColorById($colorId)->quantity) {
+            alert()->error('ناموفق',  'تعداد انتخابی محصول بیش از موجودی فروشگاه است.');
+            back()->throwResponse();
         }
-        return false;
     }
 }

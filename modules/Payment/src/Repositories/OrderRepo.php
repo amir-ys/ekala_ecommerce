@@ -60,7 +60,10 @@ class OrderRepo extends BaseRepository implements OrderRepositoryInterface
 
     public function getUnpaid(): array|Collection
     {
-        return $this->query->whereRelation('payment', 'status', Payment::STATUS_SUCCESS)->get();
+        return $this->query->whereHas('payment', function ($q){
+            $q->where('status' , Payment::STATUS_PENDING)
+                ->orWhere('status' , Payment::STATUS_PENDING_APPROVAL);
+        })->get();
     }
 
     public function getCanceled(): array|Collection
@@ -128,8 +131,8 @@ class OrderRepo extends BaseRepository implements OrderRepositoryInterface
                     'warranty_id' => $item->attributes['warranty']['id'] ,
                 ],
                 [
-                    'price' => $price = $item->attributes['price_with_discount'] ,
-                    'quantity' => $quantity = $item->quantity ,
+                    'price' =>  $item->attributes['price_with_discount'] ,
+                    'quantity' =>  $item->quantity ,
                     'total' => $price * $quantity ,
                     'product_id' => $item->associatedModel->id ,
                     'color_id' => $item->attributes['color']['id'] ,
@@ -176,5 +179,13 @@ class OrderRepo extends BaseRepository implements OrderRepositoryInterface
             'coupon_id' =>  null ,
             'coupon_discount_amount' =>  null ,
          ]);
+     }
+
+    public function savePaymentId($userId , $paymentId)
+    {
+        $model = $this->getCurrentOrder($userId);
+        $model->update([
+           'payment_id' =>  $paymentId
+        ]);
      }
 }

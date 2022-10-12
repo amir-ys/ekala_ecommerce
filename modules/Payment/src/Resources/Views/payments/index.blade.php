@@ -18,7 +18,6 @@
                                 <th>روش پرداخت </th>
                                 <th> زمان پرداخت </th>
                                 <th> نام درگاه </th>
-                                <th> نام دریافت کننده </th>
                                 <th>وضعیت</th>
                                 <th>تاریخ ساخت</th>
                                 <th> عملیات</th>
@@ -35,7 +34,6 @@
                                     </td>
                                     <td> {{  $payment->pay_date ?: '-' }} </td>
                                     <td> {{  $payment->gateway_name ?: '-' }} </td>
-                                    <td> {{  $payment->cash_receiver ?: '-' }} </td>
                                     <td>
                                         <span CLASS="badge bg-{{ $payment->status_css }}"> {{  $payment->status_name }} </span>
                                     </td>

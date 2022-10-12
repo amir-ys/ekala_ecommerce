@@ -41,6 +41,13 @@ class ProductController extends Controller
 
         $product = $this->productRepo->store($data);
 
+        //store primary color
+        $this->productRepo->storeColor($product->id , [
+            "color_name" => $request->color_name,
+            "color_value" => $request->color_value,
+            "price_increase" => 0] ,
+            true);
+
         //upload primary image
         $imageName = ImageService::uploadImage($request->primary_image, Product::getUploadDirectory());
         $this->productRepo->saveProductImage($imageName, $product, ProductImage::IS_PRIMARY_TRUE);
@@ -59,9 +66,10 @@ class ProductController extends Controller
     public function edit($productId)
     {
         $product = $this->productRepo->findByIdWithRelations($productId);
+        $productColor = $this->productRepo->findPrimaryProductColor($productId);
         $brands = (resolve(BrandRepositoryInterface::class))->all();
         $categories = (resolve(CategoryRepositoryInterface::class))->all();
-        return view('Product::edit', compact('product', 'brands', 'categories'));
+        return view('Product::edit', compact('product', 'brands', 'categories' , 'productColor'));
     }
 
     public function update(UpdateProductRequest $request, $productId)
@@ -73,7 +81,14 @@ class ProductController extends Controller
         $data['special_price_end'] = convertJalaliToDate($request->special_price_end , 'Y/m/d H:i');
 
         //update product
-        $this->productRepo->update($productId, $data);
+        $product = $this->productRepo->update($productId, $data);
+
+        //update primary color
+        $this->productRepo->updateColor($product->id , $request->color_id ,[
+            "color_name" => $request->color_name,
+            "color_value" => $request->color_value,
+            "price_increase" => 0] ,
+            true);
 
         //upload primary image
         if ($request->hasFile('primary_image')) {

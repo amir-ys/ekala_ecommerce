@@ -31,7 +31,7 @@ class ProductColorController extends Controller
 
     public function store(ProductColorRequest $request, $productId)
     {
-        $this->productRepo->storeColor($productId, $request->all());
+        $this->productRepo->storeColor($productId, $request->all() , isset($request->is_primary));
         newFeedback();
         return redirect()->route('panel.products.colors.index', $productId);
     }
@@ -45,7 +45,7 @@ class ProductColorController extends Controller
 
     public function update(ProductColorRequest $request, $productId, $colorId)
     {
-        $this->productRepo->updateColor($productId, $colorId, $request->all());
+        $this->productRepo->updateColor($productId, $colorId, $request->all() , isset($request->is_primary));
         newFeedback();
         return redirect()->route('panel.products.colors.index', $productId);
     }

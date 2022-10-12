@@ -23,19 +23,25 @@
                             <tr>
                                 <th>شناسه</th>
                                 <th>نام</th>
-                                <th>مقدار</th>
+                                <th>رنگ </th>
                                 <th>افزابش قیمت</th>
+                                <th> موجودی</th>
                                 <th>تاریخ ایجاد</th>
                                 <th> عملیات</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($colors as $color)
-                                <tr>
+                                <tr >
                                     <td>{{ $loop->iteration  }}</td>
-                                    <td>{{ $color->color_name }}</td>
-                                    <td>{{ $color->color_value }}</td>
+                                    <td>{{ $color->color_name }} @if($color->is_primary) (پیش فرض) @endif </td>
+                                    <td>
+                                        <span class="badge w-25 h-25" style="background-color: {{ $color->color_value }}">
+                                        </span>
+                                    </td>
                                     <td>{{  number_format($color->price_increase) }} تومان</td>
+                                    <td>{{  $color->quantity }} عدد
+                                    </td>
                                     <td>{{ getJalaliDate($color->created_at) }}</td>
                                     <td>
                                         <a class="btn btn-sm bg-transparent d-inline"

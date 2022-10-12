@@ -17,6 +17,7 @@ class ProductColorRequest extends FormRequest
             'color_name' => ['required', 'string'],
             'color_value' => ['required', 'string'],
             'price_increase' => ['required', 'numeric'],
+            'quantity' => ['required', 'numeric'],
         ];
     }
 
@@ -26,6 +27,7 @@ class ProductColorRequest extends FormRequest
             'color_name' => 'نام',
             'color_value' => 'کد رنگ ',
             'price_increase' => 'افزایش قیمت',
+            'quantity' => 'موجودی',
         ];
     }
 

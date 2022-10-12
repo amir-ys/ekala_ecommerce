@@ -35,10 +35,10 @@
                                     <td> {{  $order->discount_amount }} </td>
                                     <td> {{  $order->final_amount - $order->discount_amount   }} </td>
                                     <td>
-                                        <span CLASS="badge bg-{{ $order->payment->status_css }}"> {{  $order->payment->status_name }} </span>
+                                        <span CLASS="badge bg-{{ $order->payment?->status_css }}"> {{  $order->payment?->status_name }} </span>
                                     </td>
                                     <td>
-                                        <span CLASS="badge bg-{{ $order->payment->payment_type_css }}"> {{  $order->payment->payment_type_name }} </span>
+                                        <span CLASS="badge bg-{{ $order->payment?->payment_type_css }}"> {{  $order->payment?->payment_type_name }} </span>
                                     </td>
                                     <td>
                                         <span CLASS="badge bg-{{ $order->delivery_status_css }}"> {{  $order->delivery_status_name }} </span>

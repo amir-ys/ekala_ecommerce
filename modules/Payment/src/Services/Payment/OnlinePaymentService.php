@@ -11,7 +11,8 @@ class OnlinePaymentService
     public function generate()
     {
         $data = $this->getPaymentData();
-        resolve(PaymentRepositoryInterface::class)->storeOfflinePayment($data);
+       $payment = resolve(PaymentRepositoryInterface::class)->storePayment($data);
+        resolve(OrderRepositoryInterface::class)->savePaymentId(auth()->id() , $payment->id);
     }
 
     public function redirect()

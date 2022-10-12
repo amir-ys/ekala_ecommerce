@@ -35,7 +35,9 @@ class UpdateProductRequest extends FormRequest
             })],
             'special_price_end' => ['nullable', Rule::requiredIf(function () {
                 return request()->special_price != null;
-            })]
+            })] ,
+            'color_name' => ['required'] ,
+            'color_value' => ['required'] ,
         ];
     }
 
@@ -50,6 +52,8 @@ class UpdateProductRequest extends FormRequest
             'special_price' => 'قیمت تخفیف',
             'special_price_start' => 'تاریخ شروع',
             'special_price_end' => 'تاریخ پایان',
+            'color_name' => 'رنگ',
+            'color_value' => 'کد رنگ',
         ];
     }
 

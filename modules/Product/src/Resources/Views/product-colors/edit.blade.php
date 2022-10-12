@@ -40,6 +40,7 @@
                                         <div class="input-group-append">
                                             <span class="input-group-text"><i style="background-color: {{ $color->color_value }} ;"></i></span>
                                         </div>
+                                        <x-validation-error field="color_value"/>
                                     </div>
                                 </div>
 
@@ -49,6 +50,23 @@
                                            placeholder="مقدار افزایش قیمت "
                                            value="{{ old('price_increase'  , $color->price_increase) }}">
                                     <x-validation-error field="price_increase"/>
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <label>موجودی</label>
+                                    <input type="text" class="form-control" name="quantity"
+                                           placeholder="موجودی"
+                                           value="{{ old('quantity' , $color->quantity) }}">
+                                    <x-validation-error field="quantity"/>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" name="is_primary" class="custom-control-input" id="customCheck"
+                                               @checked($color->is_primary)
+                                        >
+                                        <label class="custom-control-label" for="customCheck"> انتخاب این رنگ  به  عنوان رنگ پیش فرض</label>
+                                    </div>
                                 </div>
 
                             </div>
