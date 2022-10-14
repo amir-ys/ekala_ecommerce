@@ -4,6 +4,7 @@ namespace Modules\Product\Models;
 
 
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -16,6 +17,11 @@ use Modules\Category\Models\Category;
 use Modules\Comment\Traits\Commentable;
 use Modules\Product\Database\Factories\ProductFactory;
 use Modules\Product\Enums\ProductStatus;
+
+/**
+ * @method  Builder active()
+ * @method  Builder marketable()
+ */
 
 class Product extends Model
 {
@@ -34,6 +40,16 @@ class Product extends Model
         'is_active' => ProductStatus::class
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        self::deleting(function ($product){
+            $product->attributes()->detach();
+            $product->allImages()->delete();
+        });
+
+    }
+
     public static function factory(): ProductFactory
     {
         return new ProductFactory();
@@ -46,14 +62,6 @@ class Product extends Model
                 'source' => 'name'
             ]
         ];
-    }
-
-    public function statusCssClass(): Attribute
-    {
-        return Attribute::get(function () {
-            if ($this->is_active->value == ProductStatus::ACTIVE->value) return 'success';
-            if ($this->is_active->value == ProductStatus::INACTIVE->value) return 'danger';
-        });
     }
 
     public function brand(): BelongsTo
@@ -193,8 +201,13 @@ class Product extends Model
         return $warranty ? $warranty->name : '-';
     }
 
-    public function findColorById($colorId)
+    public function statusCssClass(): Attribute
     {
-       return $this->colors()->where('id' , $colorId)->first();
+        return Attribute::get(function () {
+            if ($this->is_active->value == ProductStatus::ACTIVE->value) return 'success';
+            if ($this->is_active->value == ProductStatus::INACTIVE->value) return 'danger';
+        });
     }
+
 }
+

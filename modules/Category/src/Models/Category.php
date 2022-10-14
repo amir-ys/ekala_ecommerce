@@ -71,6 +71,6 @@ class Category extends Model
 
     public function path()
     {
-        route('front.products-category.details' , $this->slug);
+       return route('front.categoryProducts.show' , $this->slug);
     }
 }

@@ -90,6 +90,9 @@
             <div class="card border border-primary">
                 <div class="card-header">
                     شبکه های اجتماعی
+                    <br>
+                <small>*
+                    لینک باید با https وارد شود</small>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('panel.settings.socialMedia.store') }}" method="post">

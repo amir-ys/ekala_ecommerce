@@ -37,8 +37,8 @@
                             @foreach($parentComments as $comment)
                                 <tr>
                                     <td>{{ $loop->iteration  }}</td>
-                                    <td>{{ substr($comment->body , 0 , 50) }}</td>
-                                    <td>{{ $comment->user->name }}</td>
+                                    <td>{{ str($comment->body)->limit(20) }}</td>
+                                    <td>{{ $comment->user->username }}</td>
                                     <td>{{ $comment->commentable_type_name }}</td>
                                     <td>{{ getJalaliDate($comment->created_at) }}</td>
                                     <td>
@@ -48,15 +48,18 @@
                                     </td>
 
                                     <td>
-                                        <a class="btn btn-success btn-sm bg-transparent d-inline text-black-50 ml-2"
-                                           href="#" onclick="approveStatus( event ,'{{ $comment->id }}')">
-                                            تایید
-                                        </a>
+                                        @if($comment->is_approved)
+                                            <a class="btn btn-danger btn-sm bg-transparent d-inline text-black-50 ml-2 w-100"
+                                               href="#" onclick="rejectStatus('{{ $comment->id }}')">
+                                                رد
+                                            </a>
 
-                                        <a class="btn btn-danger btn-sm bg-transparent d-inline text-black-50 mt-2"
-                                           href="#" onclick="rejectStatus('{{ $comment->id }}')">
-                                            رد
-                                        </a>
+                                        @else
+                                            <a class="btn btn-success btn-sm bg-transparent d-inline text-black-50 ml-1 w-100"
+                                               href="#" onclick="approveStatus( event ,'{{ $comment->id }}')">
+                                                تایید
+                                            </a>
+                                        @endif
 
 
                                         <a class="btn btn-primary btn-sm bg-transparent d-inline text-black-50 mr-2"

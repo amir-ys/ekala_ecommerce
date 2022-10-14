@@ -2,7 +2,10 @@
 
 namespace Modules\Product\Repositories;
 
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 use Modules\Core\Repositories\BaseRepository;
 use Modules\Product\Contracts\ProductRepositoryInterface;
 use Modules\Product\Enums\ProductStatus;
@@ -12,10 +15,27 @@ use Modules\Product\Models\ProductColor;
 class  ProductRepo extends BaseRepository implements ProductRepositoryInterface
 {
     protected $model = Product::class;
+    public function activeAndMarketable()
+    {
+        $this->active()->marketable();
+        return $this->query;
+    }
+
+    private function active(): static
+    {
+        $this->query->where('is_active' , ProductStatus::ACTIVE);
+        return $this;
+    }
+
+    private function marketable(): static
+    {
+        $this->query->where('is_marketable' , Product::MARKETABLE);
+       return $this;
+    }
 
     public function getAll()
     {
-        return $this->query->latest()->with(['brand', 'category'])->get();
+        return $this->activeAndMarketable()->latest()->with(['brand', 'category'])->get();
     }
 
     public function store(array $data)
@@ -127,44 +147,33 @@ class  ProductRepo extends BaseRepository implements ProductRepositoryInterface
     public function destroy($id): void
     {
         $product = $this->findById($id);
-        $product->attributes()->detach();
-        $product->allImages()->delete();
         $product->delete();
     }
 
-
-    private function active()
+    public function getProductsOrderByRequest($category = null): LengthAwarePaginator
     {
-         $this->query->where('is_active' , ProductStatus::ACTIVE);
-        return  $this->query;
-    }
+        $query = $this->activeAndMarketable();
 
-    public function getSelectedProducts()
-    {
-        return $this->active()->with(['category', 'brand', 'primaryImage'])
-            ->where('is_marketable', Product::MARKETABLE)
-            ->limit(6)
-            ->get();
-    }
-
-    public function getProductsOrderByRequest()
-    {
-        $query = $this->active();
+        if (!is_null($category)){
+            $query = $query->where('category_id' , $category);
+        }
 
         $query = $query->when(request()->order == 'newest', function ($q) {
             $q->latest();
         });
 
         $query = $query->when(request()->order == 'most-visited', function ($q) {
-            $q->orderBy('view', 'desc');
-        });
-
-        $query = $query->when(request()->order == 'best-selling', function ($q) {
-            $q->orderBy('sold', 'desc');
+           $query =  getMostVisitedProductFromRedis();
         });
 
         $query = $query->when(request()->order == 'cheapest', function ($q) {
             $q->orderBy('price');
+        });
+
+        $query = $query->when(request()->order == 'best-selling', function ($q) {
+            $q->with(['colors'])
+                ->withSum('colors', 'sold_number')
+                ->orderByDesc('colors_sum_sold_number');
         });
 
         $query = $query->when(request()->has('category'), function ($q) {
@@ -181,7 +190,7 @@ class  ProductRepo extends BaseRepository implements ProductRepositoryInterface
 
     public function findBySlug($slug)
     {
-        return $this->active()
+        return $this->activeAndMarketable()
             ->where('slug', $slug)
             ->firstOrFail();
     }
@@ -225,15 +234,21 @@ class  ProductRepo extends BaseRepository implements ProductRepositoryInterface
 
     public function findActiveById($id)
     {
-        return $this->active()
-            ->where('is_active' ,ProductStatus::ACTIVE)
-            ->where('is_marketable' ,Product::MARKETABLE)
+        return $this->activeAndMarketable()
             ->where('id', $id)->first();
     }
 
-    public function getProductWithDiscount()
+    public function getLatest(): array|Collection
     {
-        return $this->active()->whereNotNull('special_price')
+        return $this->activeAndMarketable()->with(['category', 'brand', 'primaryImage'])
+            ->limit(6)
+            ->latest()
+            ->get();
+    }
+
+    public function getDiscounted(): array|Collection
+    {
+        return $this->activeAndMarketable()->whereNotNull('special_price')
             ->where('special_price_start', '<', now())
             ->where('special_price_end', '>', now())
             ->limit(6)
@@ -242,18 +257,16 @@ class  ProductRepo extends BaseRepository implements ProductRepositoryInterface
 
     public function getBestSelling(): array|Collection
     {
-        return $this->query
-            ->where('is_active' , ProductStatus::ACTIVE)
-            ->orderBy('products.sold_number', 'Desc')
+        return $this->activeAndMarketable()
+            ->withSum('colors', 'sold_number')
+            ->orderByDesc('colors_sum_sold_number')
+            ->limit(6)
             ->get();
     }
 
-    public function reduceQuantity($id, $quantity)
-    {
-        $model = $this->query->find($id);
-        $model->decrement('quantity', $quantity);
-        $model->save();
-    }
+    /**
+     * start product colors process
+     */
 
     public function getProductColors($id)
     {
@@ -262,10 +275,11 @@ class  ProductRepo extends BaseRepository implements ProductRepositoryInterface
     }
 
 
-    public function findColorById($id, $colorId)
+    public function findColorById($id, $colorId , $fail = false)
     {
         $model = $this->findById($id);
-        return $model->colors()->where('id', $colorId)->firstOrFail();
+        $model = $model->colors()->where('id', $colorId);
+        return $fail ? $model->firstOrFail() : $model->first();
     }
 
     public function storeColor($id, $data , $isPrimary = false)
@@ -301,7 +315,14 @@ class  ProductRepo extends BaseRepository implements ProductRepositoryInterface
         return $model->colors()->where('id', $colorId)->delete();
     }
 
+    /**
+     * end product colors process
+     */
 
+
+    /**
+     * start product warranties process
+     */
     public function getProductWarranties($id)
     {
         $model = $this->findById($id);
@@ -339,30 +360,15 @@ class  ProductRepo extends BaseRepository implements ProductRepositoryInterface
         return $model->warranties()->where('id', $warrantyId)->delete();
     }
 
+    /**
+     * end product warranties process
+     */
+
     public function incrementVisit($id)
     {
         $model = $this->findById($id);
         $model->vzt()->increment();
-        return $model->vzt()->count();
-
     }
-
-    public function isAvailability($id)
-    {
-        return $this->query->where([
-            ['id', $id],
-            ['is_active', ProductStatus::ACTIVE],
-            ['is_marketable', Product::MARKETABLE],
-        ])->first();
-    }
-
-    public function checkColorExists($id, $colorId)
-    {
-        $model = $this->findById($id);
-        return $model->colors()->where('id', $colorId)->first();
-
-    }
-
     public function decrementQuantity($id, $colorId)
     {
         $model = $this->findById($id);
@@ -379,12 +385,6 @@ class  ProductRepo extends BaseRepository implements ProductRepositoryInterface
         $color->increment('quantity');
         $color->decrement('sold_number');
         $color->save();
-    }
-
-    public function findPrimaryProductColor($id)
-    {
-        $model = $this->findById($id);
-        return $model->colors()->where('is_primary' , true)->first();
     }
 
     public function findDefaultProductColor($id)

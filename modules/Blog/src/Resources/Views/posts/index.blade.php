@@ -59,10 +59,9 @@
                                     </td>
                                     <td>{{ getJalaliDate($post->created_at) }}</td>
                                     <td>
-                                        {{ is_array($post->tags) ?
-                                                        implode( ' , ' , $post->tags ) :  '-'  }}
+                                        {{ is_array($post->tags) ? str(implode( ' , ' , $post->tags ))->limit(20) :  '-'  }}
                                     </td>
-                                    <td> {!! substr($post->summary , 0 , 20) !!}...</td>
+                                    <td> {!! str($post->summary)->limit(20) !!}...</td>
                                     <td>
                                         <span class="badge py-1 bg-{{ $post->statusCssClass }}"> {{ $post->status_name }}
                                         </span>

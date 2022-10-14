@@ -28,8 +28,8 @@ class ProductController extends Controller
 
     public function create()
     {
-        $brands = (resolve(BrandRepositoryInterface::class))->all();
-        $categories = (resolve(CategoryRepositoryInterface::class))->all();
+        $brands = (resolve(BrandRepositoryInterface::class))->getActive();
+        $categories = (resolve(CategoryRepositoryInterface::class))->getActive();
         return view('Product::create', compact('brands', 'categories'));
     }
 
@@ -45,6 +45,7 @@ class ProductController extends Controller
         $this->productRepo->storeColor($product->id , [
             "color_name" => $request->color_name,
             "color_value" => $request->color_value,
+            "quantity" => $request->quantity,
             "price_increase" => 0] ,
             true);
 
@@ -66,9 +67,9 @@ class ProductController extends Controller
     public function edit($productId)
     {
         $product = $this->productRepo->findByIdWithRelations($productId);
-        $productColor = $this->productRepo->findPrimaryProductColor($productId);
-        $brands = (resolve(BrandRepositoryInterface::class))->all();
-        $categories = (resolve(CategoryRepositoryInterface::class))->all();
+        $productColor = $this->productRepo->findDefaultProductColor($productId);
+        $brands = (resolve(BrandRepositoryInterface::class))->getActive();
+        $categories = (resolve(CategoryRepositoryInterface::class))->getActive();
         return view('Product::edit', compact('product', 'brands', 'categories' , 'productColor'));
     }
 
@@ -87,6 +88,7 @@ class ProductController extends Controller
         $this->productRepo->updateColor($product->id , $request->color_id ,[
             "color_name" => $request->color_name,
             "color_value" => $request->color_value,
+            "quantity" => $request->quantity,
             "price_increase" => 0] ,
             true);
 

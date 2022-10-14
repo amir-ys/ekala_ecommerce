@@ -12,6 +12,4 @@ class CategoryController extends Controller
         $category = resolve(CategoryRepositoryInterface::class)->findBySlug($productSlug);
         return view('Front::products.categories' , compact('category'));
     }
-
-
 }

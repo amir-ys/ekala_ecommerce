@@ -50,11 +50,6 @@ class CommentRepo extends BaseRepository implements CommentRepositoryInterface
         $model->save();
     }
 
-    public function update(int $id, array $data)
-    {
-        // TODO: Implement update() method.
-    }
-
     public function getUnseenComments(): array|Collection
     {
         return $this->query->where('is_seen', Comment::NOT_SEEN)->get();

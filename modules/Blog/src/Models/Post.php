@@ -46,6 +46,11 @@ class Post extends Model
         return $prefix . DIRECTORY_SEPARATOR . $type . DIRECTORY_SEPARATOR . $date . DIRECTORY_SEPARATOR;
     }
 
+    public function path()
+    {
+        return route('front.blog.showPost' , $this->slug);
+    }
+
     public static function getImageName(): string
     {
         return now()->format('YmdHis') . '_' . Str::random(4);
@@ -99,7 +104,7 @@ class Post extends Model
     public function getShowDate()
     {
        $date =  !is_null($this->published_at) ? $this->published_at : $this->created_at;
-       return \Morilog\Jalali\Jalalian::fromFormat( 'Y-m-d H:i:s' ,$date)->format(' %d %B %Y');
+       return \Morilog\Jalali\Jalalian::fromFormat( 'Y-m-d H:i:s' ,$date)->format('%d %B %Y');
     }
 
     public function tagPath($tag)

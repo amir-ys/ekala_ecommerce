@@ -64,7 +64,7 @@ class CheckoutController extends Controller
 
         foreach (CartService::getItems() as $cartItem) {
             //check product exists or is marketable
-            $product = $productRepository->isAvailability($cartItem->associatedModel->id);
+            $product = $productRepository->findActiveById($cartItem->associatedModel->id);
             if (!$product){
                 CartService::clearAll();
                 return [ 'status' => -1 , 'message' => 'محصول از فروشگاه حذف شده یا غیرقابل فروش شده است.'  ];
@@ -119,7 +119,7 @@ class CheckoutController extends Controller
 
     private function findColor($productId , $colorId)
     {
-      return resolve( ProductRepositoryInterface::class)->checkColorExists($productId , $colorId);
+      return resolve( ProductRepositoryInterface::class)->findColorById($productId , $colorId , true);
     }
 
 }

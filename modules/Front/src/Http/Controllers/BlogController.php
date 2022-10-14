@@ -47,7 +47,7 @@ class BlogController extends Controller
         $postRepo = resolve(PostRepositoryInterface::class);
         $allPosts = $postRepo->getAll();
         $postIds = $this->getPostIdsByTag($allPosts , $tag);
-       return $postRepo->getPostsByTag($postIds);
+       return $postRepo->getPostsByIds($postIds);
     }
 
     public function getPostIdsByTag($posts , $tag)

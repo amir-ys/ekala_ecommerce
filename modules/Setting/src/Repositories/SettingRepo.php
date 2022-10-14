@@ -90,14 +90,4 @@ class SettingRepo extends BaseRepository implements SettingRepositoryInterface
                 ]
             ]);
     }
-
-    public function store(array $data)
-    {
-        // TODO: Implement store() method.
-    }
-
-    public function update(int $id, array $data)
-    {
-        // TODO: Implement update() method.
-    }
 }

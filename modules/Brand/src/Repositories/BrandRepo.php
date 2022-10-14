@@ -3,6 +3,7 @@
 namespace Modules\Brand\Repositories;
 
 use Modules\Brand\Contracts\BrandRepositoryInterface;
+use Modules\Brand\Enums\BrandStatus;
 use Modules\Brand\Models\Brand;
 use Modules\Core\Repositories\BaseRepository;
 
@@ -24,6 +25,13 @@ class BrandRepo extends BaseRepository implements BrandRepositoryInterface
             'name' => $data['name'] ,
             'is_active' => $data['is_active']
         ]);
+    }
+
+    public function getActive(): array|\Illuminate\Database\Eloquent\Collection
+    {
+        return $this->query
+            ->where('is_active' , BrandStatus::ACTIVE)
+            ->get();
     }
 
     public function all()

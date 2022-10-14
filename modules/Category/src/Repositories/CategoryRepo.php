@@ -60,6 +60,13 @@ class CategoryRepo extends BaseRepository  implements CategoryRepositoryInterfac
         return $this->query->get();
     }
 
+    public function getActive(): array|Collection
+    {
+        return $this->query
+            ->where('is_active' , CategoryStatus::ACTIVE)
+            ->get();
+    }
+
     public function allParent(): array|Collection
     {
         return $this->query
@@ -86,7 +93,7 @@ class CategoryRepo extends BaseRepository  implements CategoryRepositoryInterfac
     public function findBySlug($categorySlug)
     {
         return  $this->query
-            ->where('is_active' , CategoryStatus::ACTIVE->value)
+            ->where('is_active' , CategoryStatus::ACTIVE)
             ->where('slug' , $categorySlug)
             ->firstOrFail();
     }

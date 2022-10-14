@@ -51,7 +51,7 @@ Route::group([] , function (){
    Route::get('/' , [ HomeController::class  , 'index'])->name('front.home');
    Route::get('image/{image}/display' , [ProductImageController::class , 'display'])->name('image.display');
    Route::get('product/{product:slug}' , [ProductController::class , 'show'])->name('front.product.details');
-   Route::get('category/{category:slug}' , [CategoryController::class , 'products'])->name('front.products-category.details');
+   Route::get('products/category/{category:slug}' , [ProductController::class , 'categoryProducts'])->name('front.categoryProducts.show');
 
    Route::get('products' , [ProductController::class , 'list'])->name('front.products.list');
    Route::get('products/{product:slug}' , [ProductController::class , 'show'])->name('front.products.details');

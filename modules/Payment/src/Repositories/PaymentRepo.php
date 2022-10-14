@@ -9,18 +9,6 @@ use Modules\Payment\Models\Payment;
 class PaymentRepo extends BaseRepository implements PaymentRepositoryInterface
 {
     protected string $model = Payment::class;
-
-    public function store(array $data)
-    {
-        $this->query->create($data);
-    }
-
-
-    //todo
-    public function update(int $id, array $data)
-    {
-    }
-
     public function findByToken($token)
     {
         return $this->query->where('token', $token)->first();

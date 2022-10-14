@@ -3,7 +3,10 @@
     "autoload": {
         "psr-4": {
             "Modules\\Blog\\" : "src"
-        }
+        } ,
+        "files": [
+            "src/Http/helpers.php"
+        ]
     },
     "extra": {
         "laravel" : {

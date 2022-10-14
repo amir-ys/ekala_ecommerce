@@ -129,7 +129,7 @@
 
                                                                 <p class="border border-1 p-1 px-2 mt-2">
                                                                     بازدید :
-                                                                 {{ $viewCount }}
+                                                                 {{ productVisitCount($product->id) }}
 
                                                                 </p>
 

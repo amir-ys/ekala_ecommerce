@@ -54,7 +54,7 @@ class PostRepo extends BaseRepository implements PostRepositoryInterface
       return  $this->query->where('slug' , $slug)->firstOrFail();
     }
 
-    public function getPostsByTag($ids): array|Collection
+    public function getPostsByIds($ids): array|Collection
     {
         return $this->query->whereIn('id' , $ids )->get();
     }

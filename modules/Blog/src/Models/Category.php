@@ -52,6 +52,11 @@ class Category extends Model
         ];
     }
 
+    public function path()
+    {
+        return route('front.blog.postCategory' , $this->slug);
+    }
+
     public function statusCssClass(): Attribute
     {
         return Attribute::get(function () {

@@ -36,8 +36,4 @@ class ContactRepo extends BaseRepository implements FaqRepositoryInterface
         }
     }
 
-    public function update(int $id, array $data)
-    {
-        // TODO: Implement update() method.
-    }
 }

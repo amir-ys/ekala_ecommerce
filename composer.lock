@@ -59,7 +59,7 @@
             "dist": {
                 "type": "path",
                 "url": "modules/Blog",
-                "reference": "e7d420028ffa7a2d6b8378e4e567656ac180b3e1"
+                "reference": "ad2ccbdc576d6c34d24da1b391b5853219b9104b"
             },
             "type": "library",
             "extra": {
@@ -70,7 +70,10 @@
             "autoload": {
                 "psr-4": {
                     "Modules\\Blog\\": "src"
-                }
+                },
+                "files": [
+                    "src/Http/helpers.php"
+                ]
             },
             "transport-options": {
                 "relative": true

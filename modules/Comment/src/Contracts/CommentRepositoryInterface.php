@@ -7,4 +7,5 @@ use Modules\Core\Contracts\BaseRepositoryInterface;
 interface CommentRepositoryInterface extends BaseRepositoryInterface
 {
     public function getAll();
+    public function store(array $data);
 }

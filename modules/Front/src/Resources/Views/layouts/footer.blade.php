@@ -5,7 +5,7 @@
             <div class="col-6 col-sm-4 col-lg-2">
                 <div class="title">دسترسی سریع</div>
                 <ul>
-                    <li><a href="/">وبلاگ </a></li>
+                    <li><a href="{{ route('front.blog.index') }}">وبلاگ </a></li>
                     {{--                    <li><a href="./faq.html">راهنمای خرید</a></li>--}}
                     {{--                    <li><a href="./faq.html">شیوه های پرداخت</a></li>--}}
                     {{--                    <li><a href="./contact.html">پیگیری سفارش</a></li>--}}

@@ -32,11 +32,6 @@ class OrderRepo extends BaseRepository implements OrderRepositoryInterface
         }
     }
 
-    public function update(int $id, array $data)
-    {
-        // TODO: Implement update() method.
-    }
-
     public function changeStatus($id, $status)
     {
         $model = $this->findById($id);

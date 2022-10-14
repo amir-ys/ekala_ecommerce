@@ -90,13 +90,10 @@ x
             <li><a href="#"><i class="icon ti-write"></i> <span> تخفیف ها </span> </a>
                 <ul>
                     <li><a href="{{ route('panel.coupons.index') }}">
-                            <i class="icon ti-money"></i>
-
                             کد تخفیف
                         </a></li>
 
                     <li><a href="{{ route('panel.commonDiscounts.index') }}">
-                            <i class="icon ti-money"></i>
                             تخفیف های عمومی
                         </a></li>
 

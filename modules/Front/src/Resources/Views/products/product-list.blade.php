@@ -30,6 +30,7 @@
                             <div class="col-12 col-lg-3 px-3 px-lg-0">
                                 <!-- Side Panel -->
                                 <div class="accordion filters-container">
+                                    @if(isset($categories))
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="headingOne">
                                             <button class="accordion-button py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -50,6 +51,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @endif
                                 </div>
 
                                 <div class="accordion filters-container mt-3">
@@ -122,76 +124,9 @@
                                             <div class="accordion-body">
                                                 <div class="row">
                                                     <!-- Side Product -->
-                                                    <div class="col-12 col-md-4 col-lg-12 px-0 mt-2">
-                                                        <a href="./product.html">
-                                                            <div class="side-product">
-                                                                <div class="row pl-3">
-                                                                    <div class="col-3 pl-2">
-                                                                        <div class="image" style="background-image: url('assets/front/assets/front/assets/images/products/p100.png')"></div>
-                                                                    </div>
-                                                                    <div class="col-9 pr-0">
-                                                                        <h2>گوشی موبایل سامسونگ مدل Galaxy A51</h2>
-                                                                        <div class="row">
-                                                                            <div class="col-7 pl-0">
-                                                                                <span class="price">320.000 تومان</span>
-                                                                            </div>
-                                                                            <div class="col-5 pr-0 text-end">
-                                                                                <span class="views">321 بازدید</span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                    <!-- Side Product -->
-                                                    <!-- Side Product -->
-                                                    <div class="col-12 col-md-4 col-lg-12 px-0 mt-2">
-                                                        <a href="./product.html">
-                                                            <div class="side-product">
-                                                                <div class="row pl-3">
-                                                                    <div class="col-3 pl-2">
-                                                                        <div class="image" style="background-image: url('assets/front/assets/front/assets/images/products/p100.png')"></div>
-                                                                    </div>
-                                                                    <div class="col-9 pr-0">
-                                                                        <h2>گوشی موبایل سامسونگ مدل Galaxy A51</h2>
-                                                                        <div class="row">
-                                                                            <div class="col-7 pl-0">
-                                                                                <span class="price">320.000 تومان</span>
-                                                                            </div>
-                                                                            <div class="col-5 pr-0 text-end">
-                                                                                <span class="views">321 بازدید</span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                    <!-- Side Product -->
-                                                    <!-- Side Product -->
-                                                    <div class="col-12 col-md-4 col-lg-12 px-0 mt-2">
-                                                        <a href="./product.html">
-                                                            <div class="side-product">
-                                                                <div class="row pl-3">
-                                                                    <div class="col-3 pl-2">
-                                                                        <div class="image" style="background-image: url('assets/front/assets/front/assets/images/products/p100.png')"></div>
-                                                                    </div>
-                                                                    <div class="col-9 pr-0">
-                                                                        <h2>گوشی موبایل سامسونگ مدل Galaxy A51</h2>
-                                                                        <div class="row">
-                                                                            <div class="col-7 pl-0">
-                                                                                <span class="price">320.000 تومان</span>
-                                                                            </div>
-                                                                            <div class="col-5 pr-0 text-end">
-                                                                                <span class="views">321 بازدید</span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </div>
+                                                    @foreach($products as $product)
+                                                    @include('Front::partials.product-box-sidebar' , ['product' => $product])
+                                                    @endforeach
                                                     <!-- Side Product -->
                                                 </div>
                                             </div>
