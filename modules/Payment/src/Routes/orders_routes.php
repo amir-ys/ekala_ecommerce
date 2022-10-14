@@ -4,7 +4,7 @@
 use Illuminate\Support\Facades\Route;
 use Modules\Payment\Http\Controllers\OrderController;
 
-Route::group(['prefix' => 'orders'], function () {
+Route::group(['prefix' => 'panel/orders'], function () {
 
     Route::get('/', [OrderController::class , 'index'])->name('panel.orders.index');
     Route::get('sending', [OrderController::class , 'sending'])->name('panel.orders.sending.index');

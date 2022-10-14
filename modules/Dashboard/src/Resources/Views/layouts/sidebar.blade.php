@@ -65,29 +65,12 @@ x
                             <span>ویژگی ها</span> <span class="badge bg-danger-gradient"></span></a>
                     </li>
 
-
-
-                    <li><a data-attr="layout-builder-toggle"
-                           class="{{ request()->url(route('panel.slides.index')) == route('panel.slides.index') ? 'c-active' : '' }}"
-                           href="{{ route('panel.slides.index') }}">
-
-                            <span> اسلایدر </span> <span class="badge bg-danger-gradient"></span></a>
-                    </li>
                 </ul>
             </li>
 
 
-{{--            <li class="side-menu-divider"> نظرات</li>--}}
 
-            <li><a data-attr="layout-builder-toggle"
-                   class="{{ request()->url(route('panel.comments.index')) == route('panel.comments.index') ? 'c-active' : '' }}"
-                   href="{{ route('panel.comments.index') }}">
-                    <i class="icon ti-comments"></i>
-                    <span>  نظرات</span> <span class="badge bg-danger-gradient"></span></a>
-            </li>
-
-
-            <li><a href="#"><i class="icon ti-write"></i> <span> تخفیف ها </span> </a>
+            <li><a href="#"><i class="icon ti-gift"></i> <span> تخفیف ها </span> </a>
                 <ul>
                     <li><a href="{{ route('panel.coupons.index') }}">
                             کد تخفیف
@@ -101,7 +84,7 @@ x
             </li>
 
 
-            <li><a href="#"><i class="icon ti-write"></i> <span> پرداخت ها </span> </a>
+            <li><a href="#"><i class="icon ti-credit-card"></i> <span> پرداخت ها </span> </a>
                 <ul>
                     <li><a href="{{ route('panel.payments.index') }}">همه پرداخت ها </a></li>
                     <li><a href="{{ route('panel.payments.online') }}">پرداخت های آنلاین </a></li>
@@ -109,7 +92,7 @@ x
                 </ul>
             </li>
 
-            <li><a href="#"><i class="icon ti-write"></i> <span>  سفارشات  </span> </a>
+            <li><a href="#"><i class="icon ti-bag"></i> <span>  سفارشات  </span> </a>
                 <ul>
                     <li><a href="{{ route('panel.orders.index') }}"> همه سفارشات </a></li>
                     <li><a href="{{ route('panel.orders.sending.index') }}"> در حال ارسال </a></li>
@@ -119,19 +102,31 @@ x
                 </ul>
             </li>
 
+            <li><a data-attr="layout-builder-toggle"
+                   class="{{ request()->url(route('panel.comments.index')) == route('panel.comments.index') ? 'c-active' : '' }}"
+                   href="{{ route('panel.comments.index') }}">
+                    <i class="icon ti-comments"></i>
+                    <span>  نظرات</span> <span class="badge bg-danger-gradient"></span></a>
+            </li>
+
+            <li><a data-attr="layout-builder-toggle"
+                   class="{{ request()->url(route('panel.slides.index')) == route('panel.slides.index') ? 'c-active' : '' }}"
+                   href="{{ route('panel.slides.index') }}">
+                    <i class="icon ti-gallery"></i>
+                    <span> اسلایدر </span> <span class="badge bg-danger-gradient"></span></a>
+            </li>
 
 
             <li class="side-menu-divider">وبلاگ</li>
 
-            <li><a href="#"><i class="icon ti-write"></i> <span> وبلاگ </span> </a>
+            <li><a href="#"><i class="icon ti-rocket"></i> <span> وبلاگ </span> </a>
                 <ul>
                     <li><a href="{{ route('panel.blog.categories.index') }}">دسته بندی ها </a></li>
                     <li><a href="{{ route('panel.blog.posts.index') }}">پست ها  </a></li>
                 </ul>
             </li>
 
-
-            {{--            <li class="side-menu-divider">سایت</li>--}}
+                        <li class="side-menu-divider">سایت</li>
 
             <li><a data-attr="layout-builder-toggle"
                    class="{{ request()->url(route('panel.settings.index')) == route('panel.settings.index') ? 'c-active' : '' }}"

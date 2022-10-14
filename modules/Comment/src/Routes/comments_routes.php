@@ -4,7 +4,7 @@ namespace Modules\Comment\Routes;
 use Illuminate\Support\Facades\Route;
 use Modules\Comment\Http\Controllers\CommentController;
 
-\Route::group([] , function (){
+\Route::group(['prefix' => 'panel'] , function (){
    Route::get('comments' , [CommentController::class , 'index'])->name('panel.comments.index');
    Route::get('comments/blog' , [CommentController::class , 'blogCommentsIndex'])->name('panel.comments.blogIndex');
    Route::get('comments/products' , [CommentController::class , 'productCommentsIndex'])->name('panel.comments.productIndex');

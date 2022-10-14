@@ -5,7 +5,7 @@ namespace Modules\Payment\Routes;
 use Illuminate\Support\Facades\Route;
 use Modules\Payment\Http\Controllers\PaymentController;
 
-Route::group(['prefix' => 'payments'], function () {
+Route::group(['prefix' => 'panel/payments'], function () {
     //payment
     Route::get('/', [PaymentController::class, 'index'])->name('panel.payments.index');
     Route::get('online', [PaymentController::class, 'online'])->name('panel.payments.online');

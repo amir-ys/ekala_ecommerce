@@ -10,7 +10,7 @@ use Modules\Setting\Http\Controllers\SettingController;
 
 Route::post('settings/contact-us/save-message' , [ ContactController::class , 'saveContactMessage' ])->name('panel.settings.contact.saveContactMessage');
 
-Route::group([ 'middleware' => 'auth'], function () {
+Route::group([ 'middleware' => 'auth' , 'prefix' => 'panel'], function () {
     Route::get('settings' , [ SettingController::class , 'index' ])->name('panel.settings.index');
 
     //site settings

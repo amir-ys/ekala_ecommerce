@@ -7,7 +7,7 @@ use Modules\Blog\Http\Controllers\CategoryController;
 use Modules\Blog\Http\Controllers\PostController;
 
 Route::group([
-    'prefix' => 'blog'
+    'prefix' => 'panel/blog'
 ], function () {
     Route::resource('categories', CategoryController::class)->names('panel.blog.categories')->except('show');
     Route::get('categories/{imageName}/showImage', [CategoryController::class , 'showImage'])->name('panel.blog.categories.showImage');

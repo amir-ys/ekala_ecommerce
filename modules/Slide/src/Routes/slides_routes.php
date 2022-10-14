@@ -4,7 +4,7 @@ namespace Modules\Slide\Routes;
 use Illuminate\Support\Facades\Route;
 use Modules\Slide\Http\Controllers\SlideController;
 
-Route::group([] , function (){
+Route::group(['prefix' => 'panel'] , function (){
    Route::resource('slides' , SlideController::class)
        ->names('panel.slides')
        ->except('show');

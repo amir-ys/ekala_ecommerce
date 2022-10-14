@@ -5,7 +5,7 @@ use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 use Modules\User\Http\Controllers\UserController;
 
-Route::group([] ,  function (Router $router){
+Route::group(['prefix' => 'panel'] ,  function (Router $router){
     //panel
     $router->get('users' , [UserController::class , 'index'])->name('panel.users.index');
     $router->get('users/create' , [UserController::class , 'create'])->name('panel.users.create');
