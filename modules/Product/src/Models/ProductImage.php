@@ -5,11 +5,12 @@ namespace Modules\Product\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Product\Database\Factories\ProductImageFactory;
 
 class ProductImage extends Model
 {
-    use HasFactory;
+    use HasFactory , SoftDeletes;
 
     protected $guarded = [];
     const IS_PRIMARY_TRUE = 1;

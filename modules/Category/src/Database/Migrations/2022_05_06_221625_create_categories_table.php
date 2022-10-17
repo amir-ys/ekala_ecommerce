@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignId('parent_id')->nullable()->constrained('categories');
             $table->tinyInteger('is_active');
             $table->tinyInteger('is_searchable');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

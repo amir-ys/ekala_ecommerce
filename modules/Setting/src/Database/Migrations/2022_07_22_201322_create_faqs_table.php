@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('question');
             $table->longText('answer');
             $table->tinyInteger('is_published');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->text('value')->nullable();
             $table->json('json')->nullable();
             $table->tinyInteger('status')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

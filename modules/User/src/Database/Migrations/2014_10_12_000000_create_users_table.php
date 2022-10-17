@@ -27,6 +27,7 @@ return new class extends Migration
             $table->tinyInteger('status')->default(User::STATUS_ACTIVE);
             $table->tinyInteger('is_admin')->default(User::ROLE_USER);
             $table->rememberToken();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

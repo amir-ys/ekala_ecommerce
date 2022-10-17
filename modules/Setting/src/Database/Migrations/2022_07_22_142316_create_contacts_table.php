@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('subject');
             $table->text('message');
             $table->dateTime('read_at')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

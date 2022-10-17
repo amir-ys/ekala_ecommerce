@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->text('description')->nullable();
             $table->text('image');
             $table->tinyInteger('status');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

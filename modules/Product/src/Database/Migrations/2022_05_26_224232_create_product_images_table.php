@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->json('images');
             $table->foreignId('product_id')->constrained();
             $table->tinyInteger('is_primary')->default(\Modules\Product\Models\ProductImage::IS_PRIMARY_FALSE);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('postal_code' , 10);
             $table->string('receiver');
             $table->string('is_active')->default(\Modules\User\Models\UserAddress::STATUS_INACTIVE);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

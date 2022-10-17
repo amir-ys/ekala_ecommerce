@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Blog\Models\Post;
 use Modules\Comment\Database\Factories\CommentFactory;
 use Modules\Product\Models\Product;
@@ -15,7 +16,7 @@ use Modules\User\Models\User;
 
 class Comment extends Model
 {
-    use HasFactory;
+    use HasFactory , SoftDeletes;
 
     protected $guarded = [];
 

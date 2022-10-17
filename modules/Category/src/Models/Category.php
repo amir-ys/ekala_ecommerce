@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\AttributeGroup\Models\AttributeGroup;
 use Modules\Category\Database\Factories\CategoryFactory;
 use Modules\Category\Enums\CategoryStatus;
@@ -16,7 +17,7 @@ use Modules\Product\Models\Product;
 
 class Category extends Model
 {
-    use HasFactory , Sluggable;
+    use HasFactory , Sluggable ,SoftDeletes;
     protected $guarded = [];
 
     const SEARCHABLE_TRUE = 1;

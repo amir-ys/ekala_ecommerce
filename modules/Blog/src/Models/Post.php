@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Modules\Blog\Database\Factories\PostFactory;
 use Modules\Comment\Traits\Commentable;
@@ -14,7 +15,7 @@ use Modules\User\Models\User;
 
 class Post extends Model
 {
-    use HasFactory , Sluggable  , Commentable ;
+    use HasFactory , Sluggable  , Commentable ,SoftDeletes ;
 
     protected $guarded = [];
 

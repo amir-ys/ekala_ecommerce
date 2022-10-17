@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('attribute_groups', function (Blueprint $table) {
             $table->id();
             $table->string('name' , 255);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

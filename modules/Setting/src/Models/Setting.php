@@ -4,11 +4,12 @@ namespace Modules\Setting\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Setting\Database\Factories\SettingFactory;
 
 class Setting extends Model
 {
-    use HasFactory;
+    use HasFactory , SoftDeletes;
     protected $guarded = [];
     protected $casts = [
       'json' => 'json'

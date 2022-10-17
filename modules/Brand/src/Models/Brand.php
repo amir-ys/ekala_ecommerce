@@ -7,13 +7,14 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Brand\Database\Factories\BrandFactory;
 use Modules\Brand\Enums\BrandStatus;
 use Modules\Product\Models\Product;
 
 class Brand extends Model
 {
-    use HasFactory , Sluggable;
+    use HasFactory , Sluggable ,SoftDeletes;
     protected $guarded = [];
 
     public static function factory(): BrandFactory

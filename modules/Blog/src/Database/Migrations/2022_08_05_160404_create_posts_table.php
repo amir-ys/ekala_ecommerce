@@ -27,6 +27,7 @@ return new class extends Migration
             $table->foreignId('category_id')->constrained('blog_categories');
             $table->string('view_count')->default(0);
             $table->json('tags');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -23,6 +23,7 @@ return new class extends Migration {
             $table->string('description')->nullable();
             $table->tinyInteger('payment_type');
             $table->tinyInteger('status');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

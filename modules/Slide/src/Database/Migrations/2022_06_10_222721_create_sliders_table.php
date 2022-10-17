@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('link');
             $table->string('photo');
             $table->string('btn_text')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

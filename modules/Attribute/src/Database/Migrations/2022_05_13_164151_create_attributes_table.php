@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->foreignIdFor(\Modules\AttributeGroup\Models\AttributeGroup::class)->constrained('attribute_groups');
             $table->tinyInteger('is_filterable');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
