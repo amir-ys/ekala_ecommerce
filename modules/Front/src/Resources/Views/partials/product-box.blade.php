@@ -3,9 +3,10 @@
         <div class="text-center">
             <a  href="{{ $product->path() }}">
                 <img style="height:200px"  src="{{ $product->primaryImage
-                                                ? route('image.display' , $product->primaryImage->name) : ''}}" alt="">
+                                                ? route('image.display' , [ $product->id , $product->primaryImage->images['small']]) : ''}}" alt="">
             </a>
         </div>
+
         <div class="details p-3">
             <div class="category">
                 <a href="{{ $product->category->path() }}">{{ $product->category->name }}</a>

@@ -20,7 +20,6 @@
                 </div>
             </div>
         </div>
-
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -32,16 +31,13 @@
                                     <ul class="swiper-wrapper">
                                         <!-- Slides -->
                                         @foreach($product->allImages as $image)
-                                            <li id="1" class="swiper-slide">
-                                                <a href="{{ $image->name
-                                                ? route('image.display' , $image->name) : ''}}" itemprop="contentUrl"
-                                                   data-size="900x710">
-                                                    <img style="height:100%;width: 100%" src="{{ $image->name
-                                                ? route('image.display' , $image->name) : ''}}"
-                                                         itemprop="thumbnail"
-                                                         alt="{{ $product->name }}"/>
-                                                </a>
-                                            </li>
+                                        <li id="{{ $image->id }}" class="swiper-slide">
+                                            <a href="{{ $image->images
+                                                ? route('image.display' , [$product->id , $image->images['large']]) : ''}}" itemprop="contentUrl" >
+                                                <img data-size="900x710" src="{{ $image->images
+                                                ? route('image.display' , [$product->id , $image->images['large']]) : ''}}" itemprop="thumbnail" alt="گوشی موبایل سامسونگ مدل Galaxy A21s" />
+                                            </a>
+                                        </li>
                                         @endforeach
                                         <!-- /Slides -->
                                     </ul>
@@ -54,17 +50,16 @@
                                 <div class="swiper-container gallery-thumbs">
                                     <div class="swiper-wrapper">
                                         @foreach($product->allImages as $image)
-                                            <div class="swiper-slide">
-                                                <img style="height:100%;width: 100%" src="{{ $image->name
-                                                ? route('image.display' , $image->name) : ''}}" alt="">
-                                            </div>
+                                            <div class="swiper-slide" style="background-image:url({{ $image->images
+                                                ? route('image.display' , [$product->id , $image->images['small']]) : ''}})"></div>
                                         @endforeach
                                     </div>
                                 </div>
 
                                 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
                                     <div class="pswp__bg"></div>
-                                    <div class="pswp__scroll-wrap">
+                                    <div
+                                        class="pswp__scroll-wrap">
                                         <div class="pswp__container">
                                             <div class="pswp__item"></div>
                                             <div class="pswp__item"></div>
@@ -73,12 +68,9 @@
                                         <div class="pswp__ui pswp__ui--hidden">
                                             <div class="pswp__top-bar">
                                                 <div class="pswp__counter"></div>
-                                                <button class="pswp__button pswp__button--close"
-                                                        title="بستن (Esc)"></button>
-                                                <button class="pswp__button pswp__button--fs"
-                                                        title="تمام صفحه"></button>
-                                                <button class="pswp__button pswp__button--zoom"
-                                                        title="بزرگنمایی"></button>
+                                                <button class="pswp__button pswp__button--close" title="بستن (Esc)"></button>
+                                                <button class="pswp__button pswp__button--fs" title="تمام صفحه"></button>
+                                                <button class="pswp__button pswp__button--zoom" title="بزرگنمایی"></button>
                                                 <div class="pswp__preloader">
                                                     <div class="pswp__preloader__icn">
                                                         <div class="pswp__preloader__cut">
@@ -87,10 +79,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <button class="pswp__button pswp__button--arrow--left"
-                                                    title="قبلی"></button>
-                                            <button class="pswp__button pswp__button--arrow--right"
-                                                    title="بعدی"></button>
+                                            <button class="pswp__button pswp__button--arrow--left" title="قبلی"></button>
+                                            <button class="pswp__button pswp__button--arrow--right" title="بعدی"></button>
                                             <div class="pswp__caption">
                                                 <div class="pswp__caption__center"></div>
                                             </div>
@@ -240,9 +230,6 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-
-                                                            <p>{!! $product->description !!} </p>
-
                                                         </div>
                                                     </form>
                                                 </div>

@@ -4,7 +4,8 @@
             <div class="col-4 pl-2">
                 <a href="{{ $post->path() }}">
                     <img  src="{{ $product->primaryImage
-                                                ? route('image.display' , $product->primaryImage->name) : ''}}" alt="">
+                                                ? route('image.display' , ['product' => $product->id ,
+                                                'image' => $product->primaryImage->images['small']]) : ''}}" alt="">
 
                 </a>
             </div>

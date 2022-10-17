@@ -4,6 +4,7 @@ namespace Modules\Product\Services;
 
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class ImageService
@@ -23,7 +24,7 @@ class ImageService
         return $response;
     }
 
-    public static function uploadImage(UploadedFile $file, $dir = null, $name = null): string
+    public static function uploadImage(UploadedFile $file, $dir = null, $name = null): array
     {
         if (is_null($dir)) {
             $dir = "\\";
@@ -38,16 +39,43 @@ class ImageService
         }
 
         $extension = $file->getClientOriginalExtension();
-        $imageName = $name . '.' . $extension;
-        Storage::disk('public')->putFileAs($dir, $file, $imageName);
-        return $imageName;
+        $imageName = $name;
+        $path  = Storage::path('public') . DIRECTORY_SEPARATOR . $dir . DIRECTORY_SEPARATOR . $imageName . '.' . $extension;
+       return static::resize($file, $dir , $imageName , $extension );
     }
 
     public static function deleteImage($filename, $dir)
+    {
+        if (is_array($filename)){
+            foreach ($filename as $file){
+               self::delete($dir , $file);
+            }
+        }else{
+            self::delete($dir , $filename);
+        }
+    }
+
+    private static function resize($file , $dir , $imageName , $extension)
+    {
+        $img = Image::make($file);
+        foreach (self::sizes() as $name => $size){
+            $images[$name] = $imageName . '_' . $name . '.' . $extension;
+            $img->resize($size[0], $size[1])
+                ->save(Storage::path('public') . DIRECTORY_SEPARATOR . $dir .
+                    DIRECTORY_SEPARATOR . $imageName . '_' .$name. '.' . $extension);
+        }
+        return $images;
+    }
+
+    private static function delete($dir , $filename)
     {
         $path = $dir . '\\' . $filename;
         if (Storage::disk('public')->exists($path)) {
             Storage::disk('public')->delete($path);
         }
+    }
+
+    private static function sizes(){
+        return config('core.image.sizes.product');
     }
 }

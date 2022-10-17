@@ -162,7 +162,7 @@
                                             @if(isset($product->primaryImage))
                                                 <p>تصویر اصلی : </p>
                                                 <img width="200"
-                                                     src="{{ route('panel.products.images.display' , $product->primaryImage->name) }}"
+                                                     src="{{ route('panel.products.images.display' , [ 'product' =>  $product->id , 'image' =>  $product->primaryImage->images['small'] ]) }}"
                                                      alt="">
                                             @endif
                                         </div>

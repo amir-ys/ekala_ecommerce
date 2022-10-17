@@ -560,9 +560,8 @@ section.inner-page#product-page .swiper-container {
   margin-right: auto;
 }
 section.inner-page#product-page .swiper-container img {
-  width: 80%;
-  height: auto;
-  margin-right: 11.5%;
+  width: auto;
+  height: 80%;
 }
 @media screen and (max-width: 1199px) {
   section.inner-page#product-page .swiper-container img {

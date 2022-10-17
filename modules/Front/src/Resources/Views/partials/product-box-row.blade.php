@@ -1,8 +1,8 @@
 <div class="product-box-row">
     <div class="row">
         <div class="col-12 col-md-4">
-            <img style="height:200px"  src="{{ $product->primaryImage
-                                                ? route('image.display' , $product->primaryImage->name) : ''}}" alt="">        </div>
+            <img   src="{{ $product->primaryImage
+                                                ? route('image.display' , [ $product->id ,  $product->primaryImage->images['small']]) : ''}}" alt="">        </div>
         <div class="col-12 col-md-8">
             <div class="details py-3 px-3">
                 <div class="category">

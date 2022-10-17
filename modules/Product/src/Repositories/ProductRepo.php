@@ -74,19 +74,6 @@ class  ProductRepo extends BaseRepository implements ProductRepositoryInterface
         return $model;
     }
 
-    public function saveProductImage($imageName, Product $product, $isPrimary)
-    {
-        $product->allImages()->create([
-            'name' => $imageName,
-            'is_primary' => $isPrimary
-        ]);
-    }
-
-    public function deleteImageById($imageId, $product)
-    {
-        $product->allImages()->where('id', $imageId)->delete();
-    }
-
     public function findByIdWithImages(int $id)
     {
         return $this->query->where('id', $id)->with('images')->firstOrFail();
@@ -102,9 +89,14 @@ class  ProductRepo extends BaseRepository implements ProductRepositoryInterface
     public function storeProductImage($name, $id, $isPrimary)
     {
         $this->findById($id)->images()->create([
-            'name' => $name,
+            'images' => $name,
             'is_primary' => $isPrimary
         ]);
+    }
+
+    public function deleteImageById($id , $imageId,)
+    {
+        $this->findById($id)->allImages()->where('id', $imageId)->delete();
     }
 
     public function findImageById($id, $imageId)
@@ -114,15 +106,15 @@ class  ProductRepo extends BaseRepository implements ProductRepositoryInterface
 
     }
 
-    public function deleteProductImage($image)
-    {
-        return $image->delete();
-    }
-
-    public function getProductImages($id)
+    public function getImages($id)
     {
         $model = $this->findById($id);
         return $model->images;
+    }
+
+    public function deleteAllImages($id)
+    {
+        $this->findById($id)->allImages()->delete();
     }
 
     public function deletePrimaryImage($id)

@@ -4,6 +4,7 @@
     <li class="breadcrumb-item active"><a>@lang('Product::translation.index')</a></li>
 @endsection
 
+
 @section('content')
     <div class="row">
         <div class="col-md-12">
@@ -17,10 +18,12 @@
                             <div class="card-body ">
                                 <div class="row">
                                     <div class="col-md-12">
+                                        <a href="{{ route('panel.products.images.display'  ,[ $product->id ,  $product->primaryImage->images['large'] ])  }}">
                                         <img
-                                            src="{{ route('panel.products.images.display'  , $product->primaryImage->name)  }}"
+                                            src="{{ route('panel.products.images.display'  , [ $product->id ,  $product->primaryImage->images['small'] ])  }}"
                                             width="100%"
                                             alt="">
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -78,10 +81,12 @@
                                         <div class="card-body ">
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <img
-                                                        src="{{ route('panel.products.images.display', $image->name )  }}"
-                                                        width="100%"
-                                                        alt="">
+                                                    <a href="{{ route('panel.products.images.display', [$product->id ,$image->images['large'] ] )  }}">
+                                                        <img
+                                                            src="{{ route('panel.products.images.display', [ $product->id ,$image->images['small'] ] )  }}"
+                                                            width="100%"
+                                                            alt="">
+                                                    </a>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <form method="post"

@@ -15,6 +15,10 @@ class ProductImage extends Model
     const IS_PRIMARY_TRUE = 1;
     const IS_PRIMARY_FALSE = 0;
 
+    protected $casts = [
+        'images' => 'array'
+    ];
+
 
     public static function factory(): ProductImageFactory
     {

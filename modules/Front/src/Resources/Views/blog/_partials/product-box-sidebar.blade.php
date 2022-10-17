@@ -3,7 +3,7 @@
         <div class="side-blog-product">
             <div class="row pl-3">
                 <div class="col-4 pl-2">
-                    <img src="{{ $product->primaryImage ? route('image.display' , $product->primaryImage->name) : ''}}" alt="">
+                    <img src="{{ $product->primaryImage ? route('image.display' , [ 'product' => $product->id  , 'image' =>  $product->primaryImage->images['small']]) : ''}}" alt="">
                 </div>
                 <div class="col-8 px-0">
                     <h2>{{ $product->name }}</h2>

@@ -15,8 +15,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Brand\Models\Brand;
 use Modules\Category\Models\Category;
 use Modules\Comment\Traits\Commentable;
+use Modules\Product\Contracts\ProductRepositoryInterface;
 use Modules\Product\Database\Factories\ProductFactory;
 use Modules\Product\Enums\ProductStatus;
+use Modules\Product\Services\ImageService;
 
 /**
  * @method  Builder active()
@@ -46,6 +48,13 @@ class Product extends Model
         self::deleting(function ($product){
             $product->attributes()->detach();
             $product->allImages()->delete();
+            $product->wishlist()->delete();
+            $product->colors()->delete();
+            $product->warranties()->delete();
+            foreach ($product->allImages as $image) {
+                ImageService::deleteImage($image->images, $product->getUploadDirectory());
+            }
+            resolve(ProductRepositoryInterface::class)->deleteAllImages($product->id);
         });
 
     }
@@ -101,9 +110,11 @@ class Product extends Model
         return visits($this);
     }
 
-    public static function getUploadDirectory(): string
+    public function getUploadDirectory(): string
     {
-        return 'products';
+        $main =  'products' . DIRECTORY_SEPARATOR . $this->id;
+        $sub = substr(str_replace(['-' , ':'] , '' , $this->created_at) , 0 , 6);
+        return $main . DIRECTORY_SEPARATOR . $sub;
     }
 
     public function attributes(): BelongsToMany

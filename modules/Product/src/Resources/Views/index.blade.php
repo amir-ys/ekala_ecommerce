@@ -25,7 +25,6 @@
                                 <th>نام</th>
                                 <th> دسته بندی</th>
                                 <th> قیمت</th>
-                                <th> موجودی</th>
                                 <th> تاریخ ایجاد</th>
                                 <th> وضعیت</th>
                                 <th> رنگ ها</th>
@@ -42,7 +41,6 @@
                                     <td>{{ $product->name }}</td>
                                     <td>{{  $product->category->name  }}</td>
                                     <td>{{ number_format( $product->price)  }}</td>
-                                    <td>{{ $product->quantity  }}</td>
                                     <td>{{ getJalaliDate($product->created_at) }}</td>
                                     <td>
                                         <span

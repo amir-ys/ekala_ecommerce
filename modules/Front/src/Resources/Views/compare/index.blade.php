@@ -38,7 +38,7 @@
                                                         X
                                                     </div>
                                                     <div><img
-                                                            src="{{ route('image.display' , $product->primaryImage->name) }}"
+                                                            src="{{ route('image.display' , [$product->id , $product->primaryImage->images['small']]) }}"
                                                             alt=""></div>
                                                     <div class="title">{{ $product->name }}</div>
                                                     <div class="price-container">

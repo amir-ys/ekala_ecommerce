@@ -49,7 +49,7 @@ Route::group([ 'middleware' => 'auth' ] ,  function (){
 
 Route::group([] , function (){
    Route::get('/' , [ HomeController::class  , 'index'])->name('front.home');
-   Route::get('image/{image}/display' , [ProductImageController::class , 'display'])->name('image.display');
+   Route::get('image/{product}/{image}/display' , [ProductImageController::class , 'display'])->name('image.display');
    Route::get('product/{product:slug}' , [ProductController::class , 'show'])->name('front.product.details');
    Route::get('products/category/{category:slug}' , [ProductController::class , 'categoryProducts'])->name('front.categoryProducts.show');
 
@@ -57,7 +57,8 @@ Route::group([] , function (){
    Route::get('products/{product:slug}' , [ProductController::class , 'show'])->name('front.products.details');
 
    //image
-    Route::get('front/image/{dir}/{image}' , [ImageController::class , 'show'])->name('front.images.show');
+    Route::get('front/image
+    /{dir}/{image}' , [ImageController::class , 'show'])->name('front.images.show');
 
     //compare
     Route::get('/compare-list' , [CompareController::class , 'index'])->name('front.compare.index');

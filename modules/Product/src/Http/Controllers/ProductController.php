@@ -50,14 +50,14 @@ class ProductController extends Controller
             true);
 
         //upload primary image
-        $imageName = ImageService::uploadImage($request->primary_image, Product::getUploadDirectory());
-        $this->productRepo->saveProductImage($imageName, $product, ProductImage::IS_PRIMARY_TRUE);
+        $imageName = ImageService::uploadImage($request->primary_image, $product->getUploadDirectory());
+        $this->productRepo->storeProductImage($imageName, $product->id, ProductImage::IS_PRIMARY_TRUE);
         //other images
         if ($request->hasFile('images')) {
             $images = $request->images;
             foreach ($images as $image) {
-                $imageName = ImageService::uploadImage($image, Product::getUploadDirectory());
-                $this->productRepo->saveProductImage($imageName, $product, ProductImage::IS_PRIMARY_FALSE);
+                $imageName = ImageService::uploadImage($image, $product->getUploadDirectory());
+                $this->productRepo->storeProductImage($imageName, $product->id, ProductImage::IS_PRIMARY_FALSE);
             }
         }
         newFeedback();
@@ -96,20 +96,20 @@ class ProductController extends Controller
         if ($request->hasFile('primary_image')) {
             //delete old image
             if (!is_null($product->primaryImage)) {
-                ImageService::deleteImage($product->primaryImage->name, Product::getUploadDirectory());
-                $this->productRepo->deleteImageById($product->primaryImage->id, $product);
+                ImageService::deleteImage($product->primaryImage->images,$product->getUploadDirectory());
+                $this->productRepo->deleteImageById($product->id ,$product->primaryImage->id,);
             }
             //upload new image
-            $imageName = ImageService::uploadImage($request->primary_image, Product::getUploadDirectory());
-            $this->productRepo->saveProductImage($imageName, $product, ProductImage::IS_PRIMARY_TRUE);
+            $imageName = ImageService::uploadImage($request->primary_image, $product->getUploadDirectory());
+            $this->productRepo->storeProductImage($imageName, $product->id, ProductImage::IS_PRIMARY_TRUE);
         }
 
         //other images
         if ($request->hasFile('images')) {
             $images = $request->images;
             foreach ($images as $image) {
-                $imageName = ImageService::uploadImage($image, Product::getUploadDirectory());
-                $this->productRepo->saveProductImage($imageName, $product, ProductImage::IS_PRIMARY_FALSE);
+                $imageName = ImageService::uploadImage($image, $product->getUploadDirectory());
+                $this->productRepo->storeProductImage($imageName, $product->id, ProductImage::IS_PRIMARY_FALSE);
             }
         }
         newFeedback();
@@ -119,10 +119,6 @@ class ProductController extends Controller
     public function destroy($productId)
     {
         $product = $this->productRepo->findById($productId);
-        //todo use observer
-        foreach ($product->allImages as $image) {
-            ImageService::deleteImage($image, Product::getUploadDirectory());
-        }
         $this->productRepo->destroy($productId);
         return AjaxResponse::success();
     }

@@ -67,7 +67,7 @@
                                                             <div class="col-12 col-md-2">
                                                                 <div class="row">
                                                                     <div class="col-2 col-md-4 pl-0">
-                                                                        <img src="{{ route('image.display'  , $cartItem->associatedModel->primaryImage->name) }}" alt="">
+                                                                        <img src="{{ route('image.display'  , [$cartItem->associatedModel->id ,   $cartItem->associatedModel->primaryImage->images['small']]) }}" alt="">
                                                                     </div>
                                                                     <div class="col-10 col-md-8">
                                                                         <a href="{{ $cartItem->associatedModel->path() }}" target="_blank">

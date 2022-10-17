@@ -23,7 +23,7 @@
                             </a>
                         </td>
                         <td>
-                            <img width="50px" src="{{ route('image.display' , [ 'image' => $orderItem->product->primaryImage->name]) }}" alt="">
+                            <img width="50px" src="{{ route('image.display' , [ 'product' => $orderItem->product->id ,  'image' => $orderItem->product->primaryImage->images['small']]) }}" alt="">
                         </td>
                         <td> {{ $orderItem->price }} </td>
                         <td> {{ $orderItem->quantity }} </td>
