@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Product\Services\ImageService;
 use Modules\Slide\Database\Factories\SlideFactory;
 use Modules\Slide\Enums\SlideStatus;
 use Modules\Slide\Enums\SlideType;
@@ -18,7 +19,16 @@ class Slide extends Model
     protected $casts = [
         'status' => SlideStatus::class ,
         'type' => SlideType::class ,
+        'image' => 'array' ,
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+        self::deleting(function ($slide){
+            ImageService::deleteImage($slide->image , self::getUploadDir());
+        });
+    }
 
     public static function getUploadDir(): string
     {

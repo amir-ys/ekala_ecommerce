@@ -51,8 +51,8 @@
                                     </td>
 
                                     <td>
-                                        <a href="{{ route('panel.slides.image' , $slide->photo) }}">
-                                            <img width="100px" src="{{ route('panel.slides.image' , [$slide->photo]) }}" alt="">
+                                        <a href="{{ route('panel.slides.image' , $slide->id) }}">
+                                            <img width="100px" src="{{ route('panel.slides.image' , [$slide->id]) }}" alt="">
                                         </a>
                                     </td>
 

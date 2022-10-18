@@ -7,9 +7,9 @@ use Modules\Product\Services\ImageService;
 use Modules\Slide\Contracts\SlideRepositoryInterface;
 use Modules\Slide\Models\Slide;
 
-class ImageController extends Controller
+class SlideController extends Controller
 {
-    public function showSlideImage($slideId)
+    public function showImage($slideId)
     {
         $slide = resolve(SlideRepositoryInterface::class)->findById($slideId);
         return ImageService::loadImage($slide->image['large'] , Slide::getUploadDir());    }

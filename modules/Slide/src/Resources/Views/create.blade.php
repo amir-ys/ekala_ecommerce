@@ -104,12 +104,12 @@
 
                                     <div class="col-md-10 mb-3">
                                         <div class="row">
-                                            <label for="photo" class="col-sm-4 col-form-label">تصویر</label>
+                                            <label for="image" class="col-sm-4 col-form-label">تصویر</label>
                                             <div class="col-sm-8">
-                                                <input type="file" class="form-control" id="photo" name="photo"
+                                                <input type="file" class="form-control" id="image" name="image"
                                                        placeholder="تصویر"
-                                                       value="{{ old('photo') }}">
-                                                <x-validation-error field="photo"/>
+                                                       value="{{ old('image') }}">
+                                                <x-validation-error field="image"/>
                                             </div>
                                         </div>
                                     </div>

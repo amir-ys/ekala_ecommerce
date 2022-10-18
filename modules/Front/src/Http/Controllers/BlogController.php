@@ -31,9 +31,10 @@ class BlogController extends Controller
         return view('Front::blog.category-posts', compact('posts'));
     }
 
-    public function showImage($imageName)
+    public function showImage($postId)
     {
-        return ImageService::loadImage($imageName, Post::getUploadDir());
+        $post = resolve(PostRepositoryInterface::class)->findById($postId);
+        return ImageService::loadImage($post->image['large'], $post->getUploadDir());
     }
 
     public function postTags($tag)

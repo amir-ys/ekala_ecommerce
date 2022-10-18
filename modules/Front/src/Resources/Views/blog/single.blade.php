@@ -53,7 +53,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-12 pt-2 text-justify" id="post-html">
-                                                    <div class="text-center pt-2 pb-3"><img src="{{ route('front.blog.image.show' , $post->image) }}" alt="{{ $post->title }}"></div>
+                                                    <div class="text-center pt-2 pb-3"><img src="{{ route('front.blog.image.show' , $post->id) }}" alt="{{ $post->id }}"></div>
                                                 {!! $post->body !!}
                                                 </div>
                                                 <div class="col-12">

@@ -4,16 +4,15 @@ namespace Modules\Routes;
 use Illuminate\Support\Facades\Route;
 use Modules\Front\Http\Controllers\BlogController;
 use Modules\Front\Http\Controllers\CartController;
-use Modules\Front\Http\Controllers\CategoryController;
 use Modules\Front\Http\Controllers\CheckoutController;
 use Modules\Front\Http\Controllers\CompareController;
 use Modules\Front\Http\Controllers\CouponController;
 use Modules\Front\Http\Controllers\HomeController;
-use Modules\Front\Http\Controllers\ImageController;
 use Modules\Front\Http\Controllers\PaymentController;
 use Modules\Front\Http\Controllers\ProductController;
 use Modules\Front\Http\Controllers\ProfileController;
 use Modules\Front\Http\Controllers\SiteInfoController;
+use Modules\Front\Http\Controllers\SlideController;
 use Modules\Front\Http\Controllers\UserController;
 use Modules\Product\Http\Controllers\ProductImageController;
 
@@ -57,8 +56,7 @@ Route::group([] , function (){
    Route::get('products/{product:slug}' , [ProductController::class , 'show'])->name('front.products.details');
 
    //image
-    Route::get('front/image
-    /{dir}/{image}' , [ImageController::class , 'show'])->name('front.images.show');
+    Route::get('front/image/{slide}/show' , [SlideController::class , 'showImage'])->name('front.images.slide.show');
 
     //compare
     Route::get('/compare-list' , [CompareController::class , 'index'])->name('front.compare.index');

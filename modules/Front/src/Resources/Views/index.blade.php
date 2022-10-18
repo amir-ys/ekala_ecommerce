@@ -7,18 +7,20 @@
                 <div class="col-12 col-md-9" data-aos="fade-zoom-in" data-aos-duration="700">
                     <div id="carouselExampleCaptions" class="carousel slide carousel-fade" data-bs-ride="carousel">
                         <div class="carousel-indicators">
-                            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0"
-                                    class="active" aria-current="true" aria-label="Slide 1"></button>
-                            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
-                                    aria-label="Slide 2"></button>
+                            @foreach($sliders as $key => $slider)
+                            <button class="active" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ $key }}"
+                                     aria-current="true" aria-label="Slide 1"></button>
+                            @endforeach
                         </div>
                         <div class="carousel-inner">
+                            @foreach($sliders as $slider)
                             <div class="carousel-item active">
-                                <img src="/assets/front/assets/images/slider/slide1.jpg" class="d-block" alt="...">
+                                <img src="{{  route('front.images.slide.show' , [ $slider->id])   }}" class="d-block" alt="...">
                             </div>
-                            <div class="carousel-item">
-                                <img src="/assets/front/assets/images/slider/slide2.jpg" class="d-block" alt="...">
-                            </div>
+{{--                            <div class="carousel-item">--}}
+{{--                                <img src="/assets/front/assets/images/slider/slide2.jpg" class="d-block" alt="...">--}}
+{{--                            </div>--}}
+                            @endforeach
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
                                 data-bs-slide="prev">
@@ -38,7 +40,7 @@
                             <div class="col align-self-start" data-aos="fade-top" data-aos-duration="1000">
                                 <a href="{{ $topBanner->link }}">
                                     <img
-                                        src="{{ route('front.images.show' , [\Modules\Slide\Models\Slide::getUploadDir() , $topBanner->photo]) }}"
+                                        src="{{ route('front.images.slide.show' , [$topBanner->id]) }}"
                                         alt="" width="100%">
                                 </a>
                             </div>
@@ -299,7 +301,7 @@
                 <div class="col-12 col-md-6 pt-2 text-center">
                     <a href="{{ $bottomBanner->link }}">
                         <img style="height:150px;width: 700px"
-                             src="{{ route('front.images.show' , [\Modules\Slide\Models\Slide::getUploadDir() , $bottomBanner->photo]) }}"
+                             src="{{ route('front.images.slide.show' , [ $bottomBanner->id]) }}"
                              alt="">
                     </a>
                 </div>

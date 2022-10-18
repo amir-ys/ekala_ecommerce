@@ -37,7 +37,7 @@
                                     <div class="form-group">
                                         <input type="file" class="form-control" id="image" name="image"
                                                placeholder="عکس"
-                                               value="{{ old('image' , $post->image) }}">
+                                               value="{{ old('image' , $post->image ? $post->image['large'] : '') }}">
                                         <x-validation-error field="image"/>
                                     </div>
                                 </div>
