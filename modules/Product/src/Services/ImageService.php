@@ -24,7 +24,7 @@ class ImageService
         return $response;
     }
 
-    public static function uploadImage(UploadedFile $file, $dir = null, $name = null): array
+    public static function uploadImage(UploadedFile $file , $type  , $dir = null , $name = null): array
     {
         if (is_null($dir)) {
             $dir = "\\";
@@ -41,7 +41,7 @@ class ImageService
         $extension = $file->getClientOriginalExtension();
         $imageName = $name;
         $path  = Storage::path('public') . DIRECTORY_SEPARATOR . $dir . DIRECTORY_SEPARATOR . $imageName . '.' . $extension;
-       return static::resize($file, $dir , $imageName , $extension );
+       return static::resize($file, $dir , $imageName , $extension , $type );
     }
 
     public static function deleteImage($filename, $dir)
@@ -55,10 +55,10 @@ class ImageService
         }
     }
 
-    private static function resize($file , $dir , $imageName , $extension)
+    private static function resize($file , $dir , $imageName , $extension , $type)
     {
         $img = Image::make($file);
-        foreach (self::sizes() as $name => $size){
+        foreach (self::sizes($type) as $name => $size){
             $images[$name] = $imageName . '_' . $name . '.' . $extension;
             $img->resize($size[0], $size[1])
                 ->save(Storage::path('public') . DIRECTORY_SEPARATOR . $dir .
@@ -75,7 +75,7 @@ class ImageService
         }
     }
 
-    private static function sizes(){
-        return config('core.image.sizes.product');
+    private static function sizes($type){
+        return config("core.image.sizes.$type");
     }
 }

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->text('summary')->nullable();
             $table->text('body')->nullable();
-            $table->string('image');
+            $table->json('image');
             $table->tinyInteger('status');
             $table->tinyInteger('is_commentable');
             $table->timestamp('published_at')->nullable();

@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Str;
 use Modules\Blog\Database\Factories\PostFactory;
 use Modules\Comment\Traits\Commentable;
+use Modules\Product\Services\ImageService;
 use Modules\User\Models\User;
 
 class Post extends Model
@@ -26,7 +26,8 @@ class Post extends Model
     const NOT_COMMENTABLE = "0";
 
     protected $casts = [
-        'tags' => 'array'
+        'tags' => 'array' ,
+        'image' => 'array'
     ];
 
     public static array $statuses = [
@@ -39,12 +40,20 @@ class Post extends Model
         'ندارد' => self::NOT_COMMENTABLE
     ];
 
-    public static function getUploadDir(): string
+    protected static function boot()
+    {
+        parent::boot();
+        self::deleting(function ($post){
+            ImageService::deleteImage($post->image, $post->getUploadDir());
+        });
+    }
+
+    public  function getUploadDir(): string
     {
         $prefix = 'blog';
         $type = 'post';
-        $date = date('Y') . date('m') . date('d');
-        return $prefix . DIRECTORY_SEPARATOR . $type . DIRECTORY_SEPARATOR . $date . DIRECTORY_SEPARATOR;
+        $date = substr(str_replace(['-', ':'], '', $this->created_at), 0, 6);
+        return $prefix . DIRECTORY_SEPARATOR . $type . DIRECTORY_SEPARATOR  .  $date ;
     }
 
     public function path()
@@ -52,9 +61,9 @@ class Post extends Model
         return route('front.blog.showPost' , $this->slug);
     }
 
-    public static function getImageName(): string
+    public function getImageName(): string
     {
-        return now()->format('YmdHis') . '_' . Str::random(4);
+        return $this->id . '_' . now()->format('YmdHis') . '_' . random_int(1 , 100);
     }
 
     public static function factory() :PostFactory

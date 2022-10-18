@@ -69,9 +69,9 @@
                                 <div class="col-md-12">
                                     <label for="tags" class="col-form-label"> تصویر کنونی : </label>
                                     <div class="form-group">
-                                        <a href="{{ route('panel.blog.categories.showImage' , $category->image) }}">
+                                        <a href="{{ route('panel.blog.categories.showImage' , [ $category->id ]) }}">
                                             <img width="200px" height="150px"
-                                                 src="{{ route('panel.blog.categories.showImage' , [$category->image]) }}"
+                                                 src="{{ route('panel.blog.categories.showImage' , [$category->id]) }}"
                                                  alt="">
                                         </a>
                                     </div>

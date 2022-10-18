@@ -116,8 +116,8 @@
                                 <div class="col-md-6">
                                     <label class="col-form-label" >نمایش تصویر فعلی: </label>
                                     <div class="form-group">
-                                        <a href="{{ route('panel.blog.posts.showImage' , $post->image) }}">
-                                            <img width="400px" src="{{ route('panel.blog.posts.showImage' , [$post->image]) }}" alt="">
+                                        <a href="{{ route('panel.blog.posts.showImage' , $post->id) }}">
+                                            <img width="400px" src="{{ route('panel.blog.posts.showImage' , [$post->id]) }}" alt="">
                                         </a>
                                     </div>
                                 </div>

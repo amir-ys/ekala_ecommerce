@@ -13,7 +13,7 @@ use Modules\Product\Services\ImageService;
 
 class CategoryController extends Controller
 {
-    private CategoryRepo $categoryRepo;
+    private CategoryRepositoryInterface $categoryRepo;
 
     public function __construct(CategoryRepositoryInterface $categoryRepo)
     {
@@ -34,8 +34,8 @@ class CategoryController extends Controller
     public function store(CategoryRequest $request)
     {
         $data = $request->all();
-        $data['image'] = $this->uploadImage($request->file('image'));
-        $this->categoryRepo->store($data);
+        $category = $this->categoryRepo->store($data);
+       $this->saveImage($request->file('image') , $category);
         newFeedback();
         return to_route('panel.blog.categories.index');
     }
@@ -50,9 +50,9 @@ class CategoryController extends Controller
     {
         $data = $request->all();
         $category = $this->categoryRepo->findById($categoryId);
-
-        $data['image'] = $this->updateImage($request, $category);
         $this->categoryRepo->update($categoryId, $data);
+
+        $this->saveImage($request->file('image'), $category , true);
 
         newFeedback();
         return to_route('panel.blog.categories.index');
@@ -61,34 +61,39 @@ class CategoryController extends Controller
     public function destroy($categoryId)
     {
         $category = $this->categoryRepo->findById($categoryId);
-        $this->deleteImage($category->image);
         $this->categoryRepo->destroy($categoryId);
         return AjaxResponse::success("دسته بندی " . $category->name . " با موفقیت حذف شد.");
     }
 
-    private function uploadImage(UploadedFile $file)
+    private function saveImage(UploadedFile $file , $category , $isUpdate = false)
     {
-        return ImageService::uploadImage($file, Category::getUploadDir(), Category::getImageName());
+        $images = $this->uploadImage($file , $category  , $isUpdate);
+        $this->categoryRepo->updateImageById($category->id , $images);
     }
 
-    private function updateImage($request, Category $category)
+    private function uploadImage($file, Category $category ,$isUpdate = false)
     {
-        if ($request->hasFile('image')) {
-            $this->deleteImage($category->image);
-            return $this->uploadImage($request->file('image'));
+        if ($file) {
+
+            if ($isUpdate){
+                $this->deleteImage($category->image , $category);
+            }
+
+           return ImageService::uploadImage($file, 'blog' ,  $category->getUploadDir(), $category->getImageName());
         }
         return $category->image;
 
     }
 
-    private function deleteImage($file)
+    private function deleteImage($fileNames , $category)
     {
-        ImageService::deleteImage($file, Category::getUploadDir());
+        ImageService::deleteImage($fileNames, $category->getUploadDir());
     }
 
-    public function showImage($name)
+    public function showImage($categoryId)
     {
-        return ImageService::loadImage($name, Category::getUploadDir());
+        $category = $this->categoryRepo->findById($categoryId);
+        return ImageService::loadImage($category->image['large'], $category->getUploadDir());
     }
 
 }

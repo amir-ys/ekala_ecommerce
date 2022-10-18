@@ -38,12 +38,12 @@ class ProductImageController extends Controller
                 $this->productRepo->deletePrimaryImage($productId);
                 ImageService::deleteImage($product->primaryImage->images, $product->getUploadDirectory());
             }
-            $name = ImageService::uploadImage($request->file('primary_image'), $product->getUploadDirectory());
+            $name = ImageService::uploadImage($request->file('primary_image') , 'product' , $product->getUploadDirectory());
             $this->productRepo->storeProductImage($name, $productId, ProductImage::IS_PRIMARY_TRUE);
         } elseif ($request->hasFile('images')) {
             $images = $request->images;
             foreach ($images as $image) {
-                $name = ImageService::uploadImage($image, $product->getUploadDirectory());
+                $name = ImageService::uploadImage($image, 'product' ,$product->getUploadDirectory());
                 $this->productRepo->storeProductImage($name, $productId, ProductImage::IS_PRIMARY_FALSE);
             }
         }

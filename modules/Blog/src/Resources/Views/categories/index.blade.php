@@ -35,8 +35,8 @@
                                     <td>{{ $loop->iteration  }}</td>
                                     <td>{{ $category->name }}</td>
                                     <td>
-                                        <a href="{{ route('panel.blog.categories.showImage' , $category->image) }}">
-                                            <img width="100px" src="{{ route('panel.blog.categories.showImage' , [$category->image]) }}" alt="">
+                                        <a href="{{ route('panel.blog.categories.showImage' , $category->id) }}">
+                                            <img width="100px" src="{{ route('panel.blog.categories.showImage' , [$category->id]) }}" alt="">
                                         </a>
                                     </td>
                                     <td>{{ getJalaliDate($category->created_at) }}</td>

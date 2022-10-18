@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Str;
 use Modules\Blog\Database\Factories\CategoryFactory;
+use Modules\Product\Services\ImageService;
 
 class Category extends Model
 {
-    use HasFactory, Sluggable , SoftDeletes;
+    use HasFactory, Sluggable, SoftDeletes;
 
     protected $table = 'blog_categories';
     protected $guarded = [];
@@ -26,17 +26,29 @@ class Category extends Model
         ' غیر فعال' => self::STATUS_INACTIVE,
     ];
 
-    public static function getUploadDir(): string
+    protected $casts = [
+        'image' => 'array'
+    ];
+
+    protected static function boot()
+    {
+        parent::boot();
+        self::deleting(function ($category){
+            ImageService::deleteImage($category->image, $category->getUploadDir());
+        });
+    }
+
+    public function getUploadDir(): string
     {
         $prefix = 'blog';
         $type = 'category';
-        $date = date('Y') . date('m') . date('d');
-        return $prefix . DIRECTORY_SEPARATOR . $type . DIRECTORY_SEPARATOR . $date . DIRECTORY_SEPARATOR;
+        $date = substr(str_replace(['-', ':'], '', $this->created_at), 0, 6);
+        return $prefix . DIRECTORY_SEPARATOR . $type . DIRECTORY_SEPARATOR  .  $date;
     }
 
-    public static function getImageName(): string
+    public function getImageName(): string
     {
-        return now()->format('YmdHis') . '_' . Str::random(4);
+        return $this->id . '_' . now()->format('YmdHis') . '_' . random_int(1 , 100);
     }
 
     public static function factory(): CategoryFactory
@@ -55,7 +67,7 @@ class Category extends Model
 
     public function path()
     {
-        return route('front.blog.postCategory' , $this->slug);
+        return route('front.blog.postCategory', $this->slug);
     }
 
     public function statusCssClass(): Attribute
@@ -76,6 +88,6 @@ class Category extends Model
 
     public function posts(): HasMany
     {
-        return $this->hasMany(Post::class , 'category_id');
+        return $this->hasMany(Post::class, 'category_id');
     }
 }

@@ -69,7 +69,14 @@ class PostRepo extends BaseRepository implements PostRepositoryInterface
         $model = $this->findById($id);
         $model->vzt()->increment();
         return $model->vzt()->count();
+    }
 
+
+    public function updateImageById($id , $data)
+    {
+        $model = $this->findById($id);
+        $model->image = $data;
+        $model->save();
     }
 
 }

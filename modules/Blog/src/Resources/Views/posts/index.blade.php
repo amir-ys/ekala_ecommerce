@@ -30,7 +30,6 @@
                                 <th>زمان انتشار</th>
                                 <th> تاریخ ایجاد</th>
                                 <th>تگ ها</th>
-                                <th>متن کوتاه</th>
                                 <th>وضعیت</th>
                                 <th> عملیات</th>
                             </tr>
@@ -41,8 +40,8 @@
                                     <td>{{ $loop->iteration  }}</td>
                                     <td>{{ $post->title }}</td>
                                     <td>
-                                        <a href="{{ route('panel.blog.posts.showImage' , $post->image) }}">
-                                            <img width="100px" src="{{ route('panel.blog.posts.showImage' , [$post->image]) }}" alt="">
+                                        <a href="{{ route('panel.blog.posts.showImage' , $post->id) }}">
+                                            <img width="100px" src="{{ route('panel.blog.posts.showImage' , [$post->id]) }}" alt="">
                                         </a>
                                     </td>
                                     <td>{{ $post->author->username }}</td>
@@ -61,7 +60,6 @@
                                     <td>
                                         {{ is_array($post->tags) ? str(implode( ' , ' , $post->tags ))->limit(20) :  '-'  }}
                                     </td>
-                                    <td> {!! str($post->summary)->limit(20) !!}...</td>
                                     <td>
                                         <span class="badge py-1 bg-{{ $post->statusCssClass }}"> {{ $post->status_name }}
                                         </span>

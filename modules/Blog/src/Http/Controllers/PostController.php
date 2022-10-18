@@ -36,10 +36,10 @@ class PostController extends Controller
     {
         $data = $request->all();
         $data['author_id'] = auth()->id();
-        $data['image'] = $this->uploadImage($request->file('image'));
         $data['published_at'] = convertJalaliToDate($request->published_at , 'Y/m/d H:i');
 
-        $this->postRepo->store($data);
+        $post = $this->postRepo->store($data);
+        $this->saveImage($request->file('image') , $post);
         newFeedback();
         return to_route('panel.blog.posts.index');
     }
@@ -57,10 +57,11 @@ class PostController extends Controller
         $post = $this->postRepo->findById($postId);
 
         $data['author_id'] = auth()->id();
-        $data['image'] = $this->updateImage($request, $post);
         $data['published_at'] = convertJalaliToDate($request->published_at , 'Y/m/d H:i');
 
         $this->postRepo->update($postId, $data);
+        $this->saveImage($request->file('image'), $post , true);
+
 
         newFeedback();
         return to_route('panel.blog.posts.index');
@@ -69,33 +70,38 @@ class PostController extends Controller
     public function destroy($postId)
     {
         $post = $this->postRepo->findById($postId);
-        $this->deleteImage($post->image);
         $this->postRepo->destroy($postId);
         return AjaxResponse::success("پست " . $post->name . " با موفقیت حذف شد.");
     }
 
-    private function uploadImage(UploadedFile $file)
+    private function saveImage(UploadedFile $file , $post , $isUpdate = false)
     {
-        return ImageService::uploadImage($file, Post::getUploadDir(), Post::getImageName());
+        $images = $this->uploadImage($file , $post  , $isUpdate);
+        $this->postRepo->updateImageById($post->id , $images);
     }
 
-    private function updateImage($request, Post $post)
+    private function uploadImage($file, Post $post ,$isUpdate = false)
     {
-        if ($request->hasFile('image')) {
-            $this->deleteImage($post->image);
-            return $this->uploadImage($request->file('image'));
+        if ($file) {
+
+            if ($isUpdate){
+                $this->deleteImage($post->image , $post);
+            }
+
+            return ImageService::uploadImage($file, 'blog' ,  $post->getUploadDir(), $post->getImageName());
         }
         return $post->image;
 
     }
 
-    private function deleteImage($file)
+    private function deleteImage($fileNames , $post)
     {
-        ImageService::deleteImage($file, Post::getUploadDir());
+        ImageService::deleteImage($fileNames, $post->getUploadDir());
     }
 
-    public function showImage($name)
+    public function showImage($postId)
     {
-        return ImageService::loadImage($name, Post::getUploadDir());
+        $post = $this->postRepo->findById($postId);
+        return ImageService::loadImage($post->image['large'], $post->getUploadDir());
     }
 }

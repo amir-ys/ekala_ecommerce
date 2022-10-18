@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->string('name');
             $table->string('slug')->unique()->nullable();
             $table->text('description')->nullable();
-            $table->text('image');
+            $table->json('image')->nullable();
             $table->tinyInteger('status');
             $table->softDeletes();
             $table->timestamps();

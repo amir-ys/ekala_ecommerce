@@ -18,7 +18,7 @@ class CategoryRepo extends BaseRepository implements CategoryRepositoryInterface
 
     public function store(array $data)
     {
-        $this->query->create([
+       return $this->query->create([
             'name' => $data['name'],
             'description' => $data['description'],
             'image' => $data['image'],
@@ -41,6 +41,13 @@ class CategoryRepo extends BaseRepository implements CategoryRepositoryInterface
     {
         $category =  $this->query->where('slug' , $slug)->firstOrFail();
         return  $category->posts()->with(['category' , 'author'])->get();
+    }
+
+    public function updateImageById($id , $data)
+    {
+        $model = $this->findById($id);
+        $model->image = $data;
+        $model->save();
     }
 
 }
