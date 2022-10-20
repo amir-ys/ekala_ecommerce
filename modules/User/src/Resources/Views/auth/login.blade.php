@@ -38,7 +38,7 @@
 
                                     <div class="form-group">
                                         <a href="profile/personal-info.html"><input type="submit"
-                                                                                    value="ورود به ناحیه کاربری"
+                                                                                    value="ورود"
                                                                                     class="btn btn-success"></a>
                                     </div>
                                 </form>

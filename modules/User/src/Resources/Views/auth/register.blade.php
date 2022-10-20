@@ -52,7 +52,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <a href="profile/personal-info.html"><input type="submit" value="تکمیل عضویت"  class="btn btn-success"></a>
+                                        <input type="submit" value="عضویت"  class="btn btn-success">
                                     </div>
                                 </form>
                             </div>

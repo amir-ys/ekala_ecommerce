@@ -7,7 +7,6 @@ use Illuminate\Http\UploadedFile;
 use Modules\Blog\Contracts\CategoryRepositoryInterface;
 use Modules\Blog\Http\Requests\CategoryRequest;
 use Modules\Blog\Models\Category;
-use Modules\Blog\Repositories\CategoryRepo;
 use Modules\Core\Responses\AjaxResponse;
 use Modules\Product\Services\ImageService;
 

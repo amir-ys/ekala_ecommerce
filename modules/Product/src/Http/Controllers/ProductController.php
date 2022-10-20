@@ -9,7 +9,6 @@ use Modules\Core\Responses\AjaxResponse;
 use Modules\Product\Contracts\ProductRepositoryInterface;
 use Modules\Product\Http\Requests\StoreProductRequest;
 use Modules\Product\Http\Requests\UpdateProductRequest;
-use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductImage;
 use Modules\Product\Services\ImageService;
 

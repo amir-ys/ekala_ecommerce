@@ -8,7 +8,6 @@
                         <div class="row">
                             <div class="col-12 px-0">
                                 <h1>{{ $post->title }}</h1>
-                                <p>{{ substr( $post->summary , 0 , 1000)  }}</p>
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="/">صفحه نخست</a></li>
@@ -69,9 +68,9 @@
                                             <div class="row pt-3 pb-4 pb-lg-0">
                                                 <div class="col-12" id="share-links">
                                                     <span>به اشتراک بگذارید در:</span><br class="d-md-none">
-                                                    <a href="#" target="_blank"><span class="share-link"><img src="assets/images/social/twitter.png" alt="توئیتر" height="25px"> توئیتر</span></a>
-                                                    <a href="#" target="_blank"><span class="share-link"><img src="assets/images/social/facebook.png" alt="فیس بوک" height="25px"> فیس بوک</span></a>
-                                                    <a href="#" target="_blank"><span class="share-link"><img src="assets/images/social/linkedin.png" alt="لینکدین" height="25px"> لینکدین</span></a>
+                                                    <a href="#" target="_blank"><span class="share-link"><img src="/assets/front/assets/images/social/twitter.png" alt="توئیتر" height="25px"> توئیتر</span></a>
+                                                    <a href="#" target="_blank"><span class="share-link"><img src="/assets/front/assets/images/social/facebook.png" alt="فیس بوک" height="25px"> فیس بوک</span></a>
+                                                    <a href="#" target="_blank"><span class="share-link"><img src="/assets/front/assets/images/social/linkedin.png" alt="لینکدین" height="25px"> لینکدین</span></a>
                                                 </div>
                                             </div>
                                             <hr>

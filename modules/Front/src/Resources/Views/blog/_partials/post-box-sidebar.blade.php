@@ -3,9 +3,7 @@
         <div class="row pl-3">
             <div class="col-4 pl-2">
                 <a href="{{ $post->path() }}">
-                    <img  src="{{ $product->primaryImage
-                                                ? route('image.display' , ['product' => $product->id ,
-                                                'image' => $product->primaryImage->images['small']]) : ''}}" alt="">
+                    <img  src="{{ route('front.blog.image.show' , $post->id) }}" alt="">
 
                 </a>
             </div>

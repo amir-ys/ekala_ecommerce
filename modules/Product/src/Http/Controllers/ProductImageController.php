@@ -5,7 +5,6 @@ namespace Modules\Product\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Modules\Product\Contracts\ProductRepositoryInterface;
 use Modules\Product\Http\Requests\UploadImageRequest;
-use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductImage;
 use Modules\Product\Services\ImageService;
 

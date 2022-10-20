@@ -11,7 +11,6 @@ use Modules\Payment\Contracts\OrderRepositoryInterface;
 use Modules\Payment\Facades\OrderServiceFacade;
 use Modules\Product\Contracts\ProductRepositoryInterface;
 use Modules\User\Contracts\UserRepositoryInterface;
-use function GuzzleHttp\Promise\all;
 
 class CheckoutController extends Controller
 {
@@ -31,7 +30,7 @@ class CheckoutController extends Controller
 
         $orderRepo = resolve(OrderRepositoryInterface::class);
         $orderRepo->removeAllBeforeCouponAmountInCurrentOrder(auth()->id());
-        
+
         return redirect()->route('front.checkout.page');
     }
 

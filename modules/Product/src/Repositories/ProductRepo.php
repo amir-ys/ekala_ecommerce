@@ -5,12 +5,10 @@ namespace Modules\Product\Repositories;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\DB;
 use Modules\Core\Repositories\BaseRepository;
 use Modules\Product\Contracts\ProductRepositoryInterface;
 use Modules\Product\Enums\ProductStatus;
 use Modules\Product\Models\Product;
-use Modules\Product\Models\ProductColor;
 
 class  ProductRepo extends BaseRepository implements ProductRepositoryInterface
 {

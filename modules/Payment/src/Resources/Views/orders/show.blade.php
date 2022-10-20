@@ -73,14 +73,14 @@
                             <tr>
                                 <th> مجموع مبلغ سفارش (بدون تخفیف) </th>
                                 <td class="text-left">
-                                    {{ $order->final_amount }}
+                                    {{ number_format($order->final_amount) }}
                                 </td>
                             </tr>
 
                             <tr>
                                 <th>مجموع مبلغ  تخفیفات </th>
                                 <td class="text-left">
-                                    {{ $order->discount_amount }}
+                                    {{ number_format($order->discount_amount) }}
                                 </td>
                             </tr>
 
@@ -89,7 +89,7 @@
                             <tr>
                                 <th>   مبلغ  نهایی</th>
                                 <td class="text-left">
-                                    {{  $order->final_amount - $order->discount_amount   }}
+                                    {{  number_format($order->final_amount - $order->discount_amount)   }}
                                 </td>
                             </tr>
 
@@ -104,7 +104,7 @@
                             <tr>
                                 <th>مبلغ کوپن </th>
                                 <td class="text-left">
-                                    {{  $order->coupon_discount_amount ?? '-'  }}
+                                    {{  number_format($order->coupon_discount_amount) ?? '-'  }}
                                 </td>
                             </tr>
 
@@ -118,7 +118,7 @@
                             <tr>
                                 <th>مبلغ تخفیف عمومی استفاده شده </th>
                                 <td class="text-left">
-                                    {{  $order->common_discount_amount ?? '-' }}
+                                    {{  number_format($order->common_discount_amount) ?? '-' }}
                                 </td>
                             </tr>
 
