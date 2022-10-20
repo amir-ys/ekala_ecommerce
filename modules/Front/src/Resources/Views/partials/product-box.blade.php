@@ -1,9 +1,10 @@
     <!-- Product Box -->
     <div class="product-box" >
         <div class="text-center">
-            <a  href="{{ $product->path() }}">
-                <img style="height:200px"  src="{{ $product->primaryImage
-                                                ? route('image.display' , [ $product->id , $product->primaryImage->images['small']]) : ''}}" alt="">
+            <a href="{{ $product->path() }}">
+                <div class="image" style="background-image: url({{ $product->primaryImage
+                                                ? route('image.display' , [ $product->id , $product->primaryImage->images['default']]) : ''}})">
+                </div>
             </a>
         </div>
 

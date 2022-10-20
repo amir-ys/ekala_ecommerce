@@ -33,9 +33,9 @@
                                         @foreach($product->allImages as $image)
                                         <li id="{{ $image->id }}" class="swiper-slide">
                                             <a href="{{ $image->images
-                                                ? route('image.display' , [$product->id , $image->images['large']]) : ''}}" itemprop="contentUrl" >
-                                                <img data-size="900x710" src="{{ $image->images
-                                                ? route('image.display' , [$product->id , $image->images['large']]) : ''}}" itemprop="thumbnail" alt="گوشی موبایل سامسونگ مدل Galaxy A21s" />
+                                                ? route('image.display' , [$product->id , $image->images['default']]) : ''}}" itemprop="contentUrl" >
+                                                <img  src="{{ $image->images
+                                                ? route('image.display' , [$product->id , $image->images['small']]) : ''}}" itemprop="thumbnail" alt="گوشی موبایل سامسونگ مدل Galaxy A21s" />
                                             </a>
                                         </li>
                                         @endforeach
@@ -51,7 +51,7 @@
                                     <div class="swiper-wrapper">
                                         @foreach($product->allImages as $image)
                                             <div class="swiper-slide" style="background-image:url({{ $image->images
-                                                ? route('image.display' , [$product->id , $image->images['small']]) : ''}})"></div>
+                                                ? route('image.display' , [$product->id , $image->images['default']]) : ''}})"></div>
                                         @endforeach
                                     </div>
                                 </div>
@@ -363,15 +363,17 @@
                         <!-- /Nav Tabs -->
 
                         <!-- Suggested Products -->
-                        <div class="col-12 pt-5" id="suggested-products">
-                            <div class="title py-3 text-center">محصولات مرتبط</div>
-                            <div class="owl-carousel products-carousel">
-                                <!-- Product Item -->
-                                @foreach($relatedProducts as $product)
-                                    @include('Front::partials.product-box' , ['product' => $product])
-                                @endforeach
-                                <!-- /Product Item -->
-                            </div>
+                        @if($relatedProducts->count() > 0)
+                            <div class="col-12 pt-5" id="suggested-products">
+                                <div class="title py-3 text-center">محصولات مرتبط</div>
+                                <div class="owl-carousel products-carousel">
+                                    <!-- Product Item -->
+                                    @foreach($relatedProducts as $product)
+                                        @include('Front::partials.product-box' , ['product' => $product])
+                                    @endforeach
+                                    <!-- /Product Item -->
+                                </div>
+                        @endif
                         </div>
                         <!-- /Suggested Products -->
                     </div>

@@ -29,13 +29,15 @@ class CheckoutController extends Controller
         OrderServiceFacade::saveAddress(auth()->id() , $data);
         OrderServiceFacade::saveOrderAndOrderItems(auth()->id());
 
+        $orderRepo = resolve(OrderRepositoryInterface::class);
+        $orderRepo->removeAllBeforeCouponAmountInCurrentOrder(auth()->id());
+        
         return redirect()->route('front.checkout.page');
     }
 
     public function checkoutPage()
     {
         $orderRepo = resolve(OrderRepositoryInterface::class);
-        $orderRepo->removeAllBeforeCouponAmountInCurrentOrder(auth()->id());
         $order = $orderRepo->getCurrentOrder(auth()->id());
         return view('Front::checkout.checkout', compact('order'));
     }

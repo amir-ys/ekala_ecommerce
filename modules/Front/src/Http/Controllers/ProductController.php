@@ -14,8 +14,7 @@ class ProductController extends Controller
         $product = resolve(ProductRepositoryInterface::class)->findBySlug($productSlug);
         resolve(ProductRepositoryInterface::class)->incrementVisit($product->id);
         $defaultProductColor = resolve(ProductRepositoryInterface::class)->findDefaultProductColor($product->id);
-        //todo $relatedProduct
-        $relatedProducts = resolve(ProductRepositoryInterface::class)->getAll();
+        $relatedProducts = resolve(ProductRepositoryInterface::class)->getRelatedProducts($product->id);
         return view('Front::products.details' , compact('product' , 'relatedProducts' , 'defaultProductColor'));
     }
 

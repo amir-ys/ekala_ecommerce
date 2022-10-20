@@ -58,11 +58,6 @@ Route::group([] , function (){
    //image
     Route::get('front/image/{slide}/show' , [SlideController::class , 'showImage'])->name('front.images.slide.show');
 
-    //compare
-    Route::get('/compare-list' , [CompareController::class , 'index'])->name('front.compare.index');
-    Route::get('/compare/{product}/add' , [CompareController::class , 'add'])->name('front.compare.add');
-    Route::get('/compare/{product}/remove' , [CompareController::class , 'remove'])->name('front.compare.remove');
-
     //cart
     Route::get('/cart' , [CartController::class , 'index'])->name('front.cart.index');
     Route::get('/cart/add' , [CartController::class , 'add'])->name('front.cart.add');

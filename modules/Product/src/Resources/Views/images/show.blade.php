@@ -18,9 +18,9 @@
                             <div class="card-body ">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <a href="{{ route('panel.products.images.display'  ,[ $product->id ,  $product->primaryImage->images['large'] ])  }}">
+                                        <a href="{{ route('panel.products.images.display'  ,[ $product->id ,  $product->primaryImage->images['default'] ])  }}">
                                         <img
-                                            src="{{ route('panel.products.images.display'  , [ $product->id ,  $product->primaryImage->images['small'] ])  }}"
+                                            src="{{ route('panel.products.images.display'  , [ $product->id ,  $product->primaryImage->images['default'] ])  }}"
                                             width="100%"
                                             alt="">
                                         </a>
@@ -81,9 +81,9 @@
                                         <div class="card-body ">
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <a href="{{ route('panel.products.images.display', [$product->id ,$image->images['large'] ] )  }}">
+                                                    <a href="{{ route('panel.products.images.display', [$product->id ,$image->images['default'] ] )  }}">
                                                         <img
-                                                            src="{{ route('panel.products.images.display', [ $product->id ,$image->images['small'] ] )  }}"
+                                                            src="{{ route('panel.products.images.display', [ $product->id ,$image->images['default'] ] )  }}"
                                                             width="100%"
                                                             alt="">
                                                     </a>

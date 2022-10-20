@@ -18,8 +18,8 @@ return [
         'sizes' => [
 
             'product' => [
-                'small' => [350, 350],
-                'large' => [900, 710],
+                'default' => [700, 700],
+                'small' => [438, 438],
             ],
 
             'blog' => [

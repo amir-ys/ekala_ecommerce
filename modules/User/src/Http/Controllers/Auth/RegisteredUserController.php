@@ -40,9 +40,6 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        Auth::login($user);
-
-        //todo customize redirect user
-        return redirect()->route('panel.home');
+        return redirect()->route('login');
     }
 }

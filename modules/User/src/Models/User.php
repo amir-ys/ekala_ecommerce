@@ -56,6 +56,11 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    public function isAdmin()
+    {
+        return !empty($this->is_admin);
+    }
+
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);

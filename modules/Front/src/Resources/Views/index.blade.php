@@ -69,7 +69,6 @@
                 </div>
             </div>
             <!-- /Tabs -->
-
             <!-- Products -->
             <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-md-4 featured-product featured" data-aos="fade-up"
                  data-aos-duration="1000">

@@ -212,11 +212,32 @@ class Product extends Model
         return $warranty ? $warranty->name : '-';
     }
 
+    public function findColorById($colorId)
+    {
+        return $this->colors()->where('id' , $colorId)->first();
+    }
+
     public function statusCssClass(): Attribute
     {
         return Attribute::get(function () {
             if ($this->is_active->value == ProductStatus::ACTIVE->value) return 'success';
             if ($this->is_active->value == ProductStatus::INACTIVE->value) return 'danger';
+        });
+    }
+
+    public function marketableCssClass(): Attribute
+    {
+        return Attribute::get(function () {
+            if ($this->is_marketable == self::MARKETABLE) return 'success';
+            if ($this->is_marketable == self::NOT_MARKETABLE) return 'danger';
+        });
+    }
+
+    public function marketableName(): Attribute
+    {
+        return Attribute::get(function () {
+            if ($this->is_marketable == self::MARKETABLE) return 'بله';
+            if ($this->is_marketable == self::NOT_MARKETABLE) return 'خیر';
         });
     }
 

@@ -10,7 +10,7 @@ use Modules\Product\Database\Factories\ProductImageFactory;
 
 class ProductImage extends Model
 {
-    use HasFactory , SoftDeletes;
+    use HasFactory;
 
     protected $guarded = [];
     const IS_PRIMARY_TRUE = 1;

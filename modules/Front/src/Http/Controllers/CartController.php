@@ -16,7 +16,7 @@ class CartController extends Controller
     {
         $cartItems = CartService::getItems();
         //todo $suggestionProduct
-        $suggestionProducts = resolve(ProductRepositoryInterface::class)->getAll();
+        $suggestionProducts = resolve(ProductRepositoryInterface::class)->getLatest();
         return view('Front::cart.index' , compact('cartItems' , 'suggestionProducts'));
     }
 

@@ -1,8 +1,12 @@
 <div class="product-box-row">
     <div class="row">
         <div class="col-12 col-md-4">
-            <img   src="{{ $product->primaryImage
-                                                ? route('image.display' , [ $product->id ,  $product->primaryImage->images['small']]) : ''}}" alt="">        </div>
+            <a href="{{ $product->path() }}">
+                <div class="image" style="background-image: url({{ $product->primaryImage
+                                                ? route('image.display' , [ $product->id , $product->primaryImage->images['default']]) : ''}})">
+                </div>
+            </a>
+        </div>
         <div class="col-12 col-md-8">
             <div class="details py-3 px-3">
                 <div class="category">

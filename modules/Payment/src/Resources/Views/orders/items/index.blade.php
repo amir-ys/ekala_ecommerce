@@ -32,7 +32,6 @@
                                     <td> {{  $item->price }} </td>
                                     <td> {{  $item->total }} </td>
                                     <td> {{ optional($item->color)->color_name ?? '-'   }} </td>
-{{--                                    todo //warranty--}}
                                     <td> {{ optional($item->warranty)->name ?? '-'   }} </td>
                                 </tr>
                             @endforeach

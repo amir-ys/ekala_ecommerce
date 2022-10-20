@@ -15,27 +15,16 @@ use Modules\Product\Models\ProductColor;
 class  ProductRepo extends BaseRepository implements ProductRepositoryInterface
 {
     protected $model = Product::class;
+
     public function activeAndMarketable()
     {
-        $this->active()->marketable();
-        return $this->query;
-    }
-
-    private function active(): static
-    {
-        $this->query->where('is_active' , ProductStatus::ACTIVE);
-        return $this;
-    }
-
-    private function marketable(): static
-    {
-        $this->query->where('is_marketable' , Product::MARKETABLE);
-       return $this;
+        return $this->query->where('is_active', ProductStatus::ACTIVE)
+            ->where('is_marketable', Product::MARKETABLE);
     }
 
     public function getAll()
     {
-        return $this->activeAndMarketable()->latest()->with(['brand', 'category'])->get();
+        return $this->query->latest()->with(['brand', 'category'])->get();
     }
 
     public function store(array $data)
@@ -56,7 +45,7 @@ class  ProductRepo extends BaseRepository implements ProductRepositoryInterface
 
     public function update(int $id, array $data)
     {
-        $model =  $this->findById($id);
+        $model = $this->findById($id);
 
         $model->update([
             'name' => $data['name'],
@@ -94,7 +83,7 @@ class  ProductRepo extends BaseRepository implements ProductRepositoryInterface
         ]);
     }
 
-    public function deleteImageById($id , $imageId,)
+    public function deleteImageById($id, $imageId,)
     {
         $this->findById($id)->allImages()->where('id', $imageId)->delete();
     }
@@ -146,8 +135,8 @@ class  ProductRepo extends BaseRepository implements ProductRepositoryInterface
     {
         $query = $this->activeAndMarketable();
 
-        if (!is_null($category)){
-            $query = $query->where('category_id' , $category);
+        if (!is_null($category)) {
+            $query = $query->where('category_id', $category);
         }
 
         $query = $query->when(request()->order == 'newest', function ($q) {
@@ -155,7 +144,7 @@ class  ProductRepo extends BaseRepository implements ProductRepositoryInterface
         });
 
         $query = $query->when(request()->order == 'most-visited', function ($q) {
-           $query =  getMostVisitedProductFromRedis();
+            $query = getMostVisitedProductFromRedis();
         });
 
         $query = $query->when(request()->order == 'cheapest', function ($q) {
@@ -256,6 +245,20 @@ class  ProductRepo extends BaseRepository implements ProductRepositoryInterface
             ->get();
     }
 
+    public function getRelatedProducts($id)
+    {
+        $model = $this->findById($id);
+        $query = $this->activeAndMarketable()
+            ->whereNot('id' , $model->id)
+            ->orWhere(function (Builder $q) use ($model) {
+            $q->where('brand_id', $model->brand_id)
+                ->orWhere('brand_id', $model->brand_id)
+                ->orWhere('name', 'like', "%$model->name%");
+        })->get();
+
+        return $query;
+    }
+
     /**
      * start product colors process
      */
@@ -267,14 +270,14 @@ class  ProductRepo extends BaseRepository implements ProductRepositoryInterface
     }
 
 
-    public function findColorById($id, $colorId , $fail = false)
+    public function findColorById($id, $colorId, $fail = false)
     {
         $model = $this->findById($id);
         $model = $model->colors()->where('id', $colorId);
         return $fail ? $model->firstOrFail() : $model->first();
     }
 
-    public function storeColor($id, $data , $isPrimary = false)
+    public function storeColor($id, $data, $isPrimary = false)
     {
         $model = $this->findById($id);
         $model->colors()->update(['is_primary' => false]);
@@ -287,7 +290,7 @@ class  ProductRepo extends BaseRepository implements ProductRepositoryInterface
         ]);
     }
 
-    public function updateColor($id, $colorId, $data , $isPrimary =  false)
+    public function updateColor($id, $colorId, $data, $isPrimary = false)
     {
         $model = $this->findById($id);
         $model->colors()->update(['is_primary' => false]);
@@ -361,6 +364,7 @@ class  ProductRepo extends BaseRepository implements ProductRepositoryInterface
         $model = $this->findById($id);
         $model->vzt()->increment();
     }
+
     public function decrementQuantity($id, $colorId)
     {
         $model = $this->findById($id);
@@ -382,6 +386,6 @@ class  ProductRepo extends BaseRepository implements ProductRepositoryInterface
     public function findDefaultProductColor($id)
     {
         $model = $this->findById($id);
-        return $model->colors()->where('is_primary' , true)->first();
+        return $model->colors()->where('is_primary', true)->first();
     }
 }

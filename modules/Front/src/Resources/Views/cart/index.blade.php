@@ -188,27 +188,13 @@
                                                 <div><span id="factor-total-discount"></span>    {{ number_format($getDiscountAmount = getDiscountAmount())  }} تومان</div>
                                             </div>
                                         </div>
-                                        @if(session()->has('coupon'))
-                                            <div class="row py-2 bg-light">
-                                                <div class="col-6">
-                                                    <div>کد تخفیف : </div>
-                                                </div>
-                                                <div class="col-6">
-                                                    <div><span id="factor-total-discount"></span>    {{ number_format(session()->get('coupon')['amount'])  }} تومان</div>
-                                                </div>
-                                            </div>
-                                        @endif
                                         <div class="row py-2" id="total">
                                             <div class="col-6">
                                                 <div>مبلغ قابل پرداخت:</div>
                                             </div>
                                             <div class="col-6">
                                                 <div><span id="factor-total">
-                                                        @php
-                                                        $discountAmount = 0;
-                                                            if (session()->has('coupon')) $discountAmount += session('coupon')['amount'];
-                                                        @endphp
-                                                        {{ number_format(\Modules\Front\Services\CartService::getTotal() - $getDiscountAmount ) }}</span> تومان
+                                                        {{ number_format(\Modules\Front\Services\CartService::getTotal() ) }}</span> تومان
                                                 </div>
                                             </div>
                                         </div>

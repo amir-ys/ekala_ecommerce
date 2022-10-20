@@ -3,8 +3,11 @@
         <div class="side-product">
             <div class="row pl-3">
                 <div class="col-3 pl-2">
-                    <img src="{{ $product->primaryImage ? route('image.display' ,[ $product->id ,  $product->primaryImage->images['small']]) : ''}}" alt="">
-                </div>
+                    <a href="{{ $product->path() }}">
+                        <div class="image" style="background-image: url({{ $product->primaryImage
+                                                ? route('image.display' , [ $product->id , $product->primaryImage->images['default']]) : ''}})">
+                        </div>
+                    </a>                </div>
                 <div class="col-9 pr-0">
                     <h2>{{ $product->name }}</h2>
                     <div class="row">
