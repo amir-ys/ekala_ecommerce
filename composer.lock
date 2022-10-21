@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4b5a36ee1e5ac501bea44fa2b3e107bc",
+    "content-hash": "91c0ffaeb502c4578f4e41f9d6aa6c00",
     "packages": [
         {
             "name": "amir_ys/attribute-module",
@@ -296,6 +296,29 @@
                 "files": [
                     "src/Http/helpers.php"
                 ]
+            },
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "amir_ys/role_permissions_module",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "modules/RolePermissions",
+                "reference": "e78cd4b6ec6b33ff8dcb98a77eb61de4c98f92e9"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": "Modules\\RolePermissions\\Providers\\RolePermissionsServiceProvider"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Modules\\RolePermissions\\": "src"
+                }
             },
             "transport-options": {
                 "relative": true
@@ -3980,6 +4003,88 @@
                 }
             ],
             "time": "2022-05-28T13:28:03+00:00"
+        },
+        {
+            "name": "spatie/laravel-permission",
+            "version": "5.5.14",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-permission.git",
+                "reference": "87850d72185278b65a33b58b6016dd3564d3a583"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-permission/zipball/87850d72185278b65a33b58b6016dd3564d3a583",
+                "reference": "87850d72185278b65a33b58b6016dd3564d3a583",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/auth": "^7.0|^8.0|^9.0",
+                "illuminate/container": "^7.0|^8.0|^9.0",
+                "illuminate/contracts": "^7.0|^8.0|^9.0",
+                "illuminate/database": "^7.0|^8.0|^9.0",
+                "php": "^7.3|^8.0|^8.1"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^5.0|^6.0|^7.0",
+                "phpunit/phpunit": "^9.4",
+                "predis/predis": "^1.1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Spatie\\Permission\\PermissionServiceProvider"
+                    ]
+                },
+                "branch-alias": {
+                    "dev-main": "5.x-dev",
+                    "dev-master": "5.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Spatie\\Permission\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Permission handling for Laravel 6.0 and up",
+            "homepage": "https://github.com/spatie/laravel-permission",
+            "keywords": [
+                "acl",
+                "laravel",
+                "permission",
+                "permissions",
+                "rbac",
+                "roles",
+                "security",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/laravel-permission/issues",
+                "source": "https://github.com/spatie/laravel-permission/tree/5.5.14"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-10-21T04:50:01+00:00"
         },
         {
             "name": "spatie/laravel-referer",
@@ -9209,6 +9314,7 @@
         "amir_ys/front-module": 20,
         "amir_ys/payment-module": 20,
         "amir_ys/product-module": 20,
+        "amir_ys/role_permissions_module": 20,
         "amir_ys/setting-module": 20,
         "amir_ys/slide-module": 20,
         "amir_ys/user-module": 20

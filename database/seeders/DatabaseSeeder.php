@@ -3,11 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Modules\Attribute\Models\Attribute;
-use Modules\AttributeGroup\Models\AttributeGroup;
-use Modules\Brand\Models\Brand;
-use Modules\Category\Models\Category;
-use Modules\Product\Models\Product;
+use Modules\RolePermissions\Database\Seeders\RolePermissionsSeeder;
 use Modules\User\Database\Seeders\ProvinceSeeder;
 
 class DatabaseSeeder extends Seeder
@@ -26,7 +22,8 @@ class DatabaseSeeder extends Seeder
 //        Attribute::factory()->count(rand(1, 10))->create();
 //        Product::factory()->count(rand(1, 10))->create();
         $this->call([
-            ProvinceSeeder::class
+            ProvinceSeeder::class,
+            RolePermissionsSeeder::class
         ]);
     }
 }

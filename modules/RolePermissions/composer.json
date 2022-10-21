@@ -1,0 +1,14 @@
+{
+    "name": "amir_ys/role_permissions_module",
+    "autoload": {
+        "psr-4": {
+            "Modules\\RolePermissions\\" : "src"
+        }
+    },
+   "extra": {
+       "laravel" : {
+           "providers": "Modules\\RolePermissions\\Providers\\RolePermissionsServiceProvider"
+
+       }
+   }
+}

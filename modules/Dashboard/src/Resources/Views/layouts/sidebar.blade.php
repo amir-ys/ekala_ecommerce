@@ -18,9 +18,9 @@ x
             <li><a href="#"><i class="icon ti-user"></i> <span> کاربران</span> </a>
                 <ul>
                     <li><a href="{{ route('panel.users.index') }}">کاربران </a></li>
-                    <li><a href="#">سطوح دسترسی </a>
+                    <li><a href="">سطوح دسترسی </a>
                         <ul>
-                            <li><a href="inbox.html"> نقش کاربری </a></li>
+                            <li><a href="{{ route('panel.roles.index') }}"> نقش کاربری </a></li>
                         </ul>
                     </li>
                 </ul>

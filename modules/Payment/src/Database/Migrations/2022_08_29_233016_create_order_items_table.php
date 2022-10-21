@@ -21,8 +21,8 @@ return new class extends Migration {
             $table->bigInteger('price');
             $table->integer('quantity');
             $table->bigInteger('total');
-            $table->foreignId('color_id')->constrained('product_colors');
-            $table->foreignId('warranty_id')->constrained('product_warranties');
+            $table->foreignId('color_id');
+            $table->foreignId('warranty_id');
             $table->softDeletes();
             $table->timestamps();
         });
