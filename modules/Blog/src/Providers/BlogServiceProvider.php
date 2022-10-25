@@ -2,10 +2,13 @@
 
 namespace Modules\Blog\Providers;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Modules\Blog\Contracts\CategoryRepositoryInterface;
 use Modules\Blog\Contracts\PostRepositoryInterface;
+use Modules\Blog\Models\Post;
+use Modules\Blog\Policies\BlogPolicy;
 use Modules\Blog\Repositories\CategoryRepo;
 use Modules\Blog\Repositories\PostRepo;
 
@@ -20,6 +23,7 @@ class BlogServiceProvider extends ServiceProvider
         $this->loadTranslationsFrom(__DIR__ . "/../Resources/Lang", 'Blog');
         $this->loadViewsFrom(__DIR__ . '/../Resources/Views', 'Blog');
         $this->loadRoutes();
+        Gate::policy(Post::class , BlogPolicy::class);
 
     }
 

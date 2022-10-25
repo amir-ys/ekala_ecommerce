@@ -17,12 +17,14 @@ class AboutController extends Controller
     }
     public function aboutPage()
     {
+        $this->authorize('manage' , Setting::class);
         $about = $this->settingRepo->getAbout();
         return view('Setting::about-us.show', compact('about'));
     }
 
     public function storeAbout(AboutRequest $request)
     {
+        $this->authorize('manage' , Setting::class);
         $this->uploadAboutImage($request);
         $this->settingRepo->storeAbout($request->all());
         newFeedback();

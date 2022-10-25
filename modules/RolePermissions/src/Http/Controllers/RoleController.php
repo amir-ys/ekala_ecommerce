@@ -6,6 +6,8 @@ use Modules\Core\Responses\AjaxResponse;
 use Modules\RolePermissions\Contracts\PermissionRepositoryInterface;
 use Modules\RolePermissions\Contracts\RoleRepositoryInterface;
 use Modules\RolePermissions\Http\Requests\RoleRequest;
+use Modules\RolePermissions\Models\Permission;
+use Modules\RolePermissions\Models\Role;
 
 class RoleController extends Controller
 {
@@ -17,18 +19,21 @@ class RoleController extends Controller
 
     public function index()
     {
+        $this->authorize('view' , Role::class);
         $roles = $this->roleRepo->getAll();
         return view('RolePermissions::roles.index' , compact('roles'));
     }
 
     public function create(PermissionRepositoryInterface $permissionRepo)
     {
+        $this->authorize('manage' , Permission::class);
         $permissions = $permissionRepo->getAll();
         return view('RolePermissions::roles.create' , compact('permissions'));
     }
 
     public function store(RoleRequest $request)
     {
+        $this->authorize('manage' , Permission::class);
         $this->roleRepo->store($request->all());
         newFeedback();
         return redirect()->route('panel.roles.index');
@@ -36,6 +41,7 @@ class RoleController extends Controller
 
     public function edit($id)
     {
+        $this->authorize('manage' , Permission::class);
         $role = $this->roleRepo->findById($id);
         $permissions = resolve(PermissionRepositoryInterface::class)->getAll();
         return view('RolePermissions::roles.edit' , compact( 'role' , 'permissions'));
@@ -43,6 +49,7 @@ class RoleController extends Controller
 
     public function update(RoleRequest $request , $id)
     {
+        $this->authorize('manage' , Permission::class);
         $this->roleRepo->update($id , $request->validated());
         newFeedback();
         return redirect()->route('panel.roles.index');
@@ -50,6 +57,7 @@ class RoleController extends Controller
 
     public function destroy($id)
     {
+        $this->authorize('manage' , Permission::class);
        $role =  $this->roleRepo->findById($id);
        $this->roleRepo->destroy($id);
        return AjaxResponse::success("نقش کاربری ". $role->name ." با موفقیت حذق شد.");

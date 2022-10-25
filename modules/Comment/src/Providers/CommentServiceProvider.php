@@ -1,9 +1,12 @@
 <?php
 namespace Modules\Comment\Providers;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Modules\Comment\Contracts\CommentRepositoryInterface;
+use Modules\Comment\Models\Comment;
+use Modules\Comment\Policies\CommentPolicy;
 use Modules\Comment\Repositories\CommentRepo;
 
 class CommentServiceProvider extends  ServiceProvider
@@ -16,8 +19,7 @@ class CommentServiceProvider extends  ServiceProvider
         $this->loadViewsFrom(__DIR__ . '/../Resources/Views', 'Comment');
         $this->loadTranslationsFrom(__DIR__ . '/../Resources/Lang', 'Comment');
         $this->loadRoutes();
-
-
+        Gate::policy(Comment::class , CommentPolicy::class);
     }
 
     public function boot()

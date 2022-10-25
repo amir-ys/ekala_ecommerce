@@ -2,9 +2,12 @@
 
 namespace Modules\Attribute\Providers;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Modules\Attribute\Contracts\AttributeRepositoryInterface;
+use Modules\Attribute\Models\Attribute;
+use Modules\Attribute\Policies\AttributePolicy;
 use Modules\Attribute\Repositories\AttributeRepo;
 
 class AttributeServiceProvider extends ServiceProvider
@@ -17,6 +20,7 @@ class AttributeServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__ . '/../Resources/Views', 'Attribute');
         $this->loadTranslationsFrom(__DIR__ . '/../Resources/Lang', 'Attribute');
         $this->loadRoutes();
+        Gate::policy(Attribute::class , AttributePolicy::class);
 
     }
 

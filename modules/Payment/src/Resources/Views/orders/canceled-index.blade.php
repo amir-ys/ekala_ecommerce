@@ -55,7 +55,9 @@
                                             </button>
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(204px, 36px, 0px);">
                                                 <a class="dropdown-item" href="{{ route('panel.orders.show' , $order->id) }}">مشاهده فاکتور</a>
-                                                <a class="dropdown-item" href="{{ route('panel.orders.changeStatus.page' , $order->id) }}">تغییر وضعیت سفارش </a>
+                                                @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_PAYMENTS))
+                                                    <a class="dropdown-item" href="{{ route('panel.orders.changeStatus.page' , $order->id) }}">تغییر وضعیت سفارش </a>
+                                                @endif
                                             </div>
                                         </div>
                                     </td>

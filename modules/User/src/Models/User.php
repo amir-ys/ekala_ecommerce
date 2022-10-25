@@ -13,10 +13,11 @@ use Modules\Comment\Models\Comment;
 use Modules\Payment\Models\Order;
 use Modules\Product\Models\Wishlist;
 use Modules\User\Database\Factories\UserFactory;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable ,SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable ,SoftDeletes , HasRoles;
 
     const STATUS_ACTIVE = 1;
     const STATUS_DISABLE = 0;

@@ -2,11 +2,14 @@
 
 namespace Modules\Setting\Providers;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Modules\Setting\Contracts\ContactRepositoryInterface;
 use Modules\Setting\Contracts\FaqRepositoryInterface;
 use Modules\Setting\Contracts\SettingRepositoryInterface;
+use Modules\Setting\Models\Setting;
+use Modules\Setting\Policies\SettingPolicy;
 use Modules\Setting\Repositories\ContactRepo;
 use Modules\Setting\Repositories\FaqRepo;
 use Modules\Setting\Repositories\SettingRepo;
@@ -21,7 +24,7 @@ class SettingServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__ . '/../Resources/Views', 'Setting');
         $this->loadTranslationsFrom(__DIR__ . '/../Resources/Lang', 'Setting');
         $this->loadRoutes();
-
+        Gate::policy(Setting::class , SettingPolicy::class);
     }
 
     public function boot()

@@ -9,6 +9,7 @@ use Modules\Core\Responses\AjaxResponse;
 use Modules\Product\Contracts\ProductRepositoryInterface;
 use Modules\Product\Http\Requests\StoreProductRequest;
 use Modules\Product\Http\Requests\UpdateProductRequest;
+use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductImage;
 use Modules\Product\Services\ImageService;
 
@@ -21,12 +22,14 @@ class ProductController extends Controller
 
     public function index()
     {
+        $this->authorize('view' , Product::class );
         $products = $this->productRepo->getAll();
         return view('Product::index', compact('products'));
     }
 
     public function create()
     {
+        $this->authorize('manage' , Product::class );
         $brands = (resolve(BrandRepositoryInterface::class))->getActive();
         $categories = (resolve(CategoryRepositoryInterface::class))->getActive();
         return view('Product::create', compact('brands', 'categories'));
@@ -34,9 +37,11 @@ class ProductController extends Controller
 
     public function store(StoreProductRequest $request)
     {
+        $this->authorize('manage' , Product::class);
         $data = $request->all();
         $data['special_price_start'] = convertJalaliToDate($request->special_price_start , 'Y/m/d H:i');
         $data['special_price_end'] = convertJalaliToDate($request->special_price_end , 'Y/m/d H:i');
+        $data['user_d'] = auth()->id();
 
         $product = $this->productRepo->store($data);
 
@@ -65,6 +70,7 @@ class ProductController extends Controller
 
     public function edit($productId)
     {
+        $this->authorize('manage' , Product::class);
         $product = $this->productRepo->findByIdWithRelations($productId);
         $productColor = $this->productRepo->findDefaultProductColor($productId);
         $brands = (resolve(BrandRepositoryInterface::class))->getActive();
@@ -74,11 +80,13 @@ class ProductController extends Controller
 
     public function update(UpdateProductRequest $request, $productId)
     {
+        $this->authorize('manage' , Product::class);
         $product = $this->productRepo->findById($productId);
 
         $data = $request->all();
         $data['special_price_start'] = convertJalaliToDate($request->special_price_start , 'Y/m/d H:i');
         $data['special_price_end'] = convertJalaliToDate($request->special_price_end , 'Y/m/d H:i');
+        $data['user_d'] = auth()->id();
 
         //update product
         $product = $this->productRepo->update($productId, $data);
@@ -117,6 +125,7 @@ class ProductController extends Controller
 
     public function destroy($productId)
     {
+        $this->authorize('manage' , Product::class);
         $product = $this->productRepo->findById($productId);
         $this->productRepo->destroy($productId);
         return AjaxResponse::success();

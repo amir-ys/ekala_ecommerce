@@ -1,9 +1,12 @@
 <?php
 namespace Modules\Brand\Providers;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Modules\Brand\Contracts\BrandRepositoryInterface;
+use Modules\Brand\Models\Brand;
+use Modules\Brand\Policies\BrandPolicy;
 use Modules\Brand\Repositories\BrandRepo;
 
 class BrandServiceProvider extends ServiceProvider
@@ -17,6 +20,7 @@ class BrandServiceProvider extends ServiceProvider
         $this->loadJsonTranslationsFrom(__DIR__ . '/../Resources/Lang');
         $this->loadTranslationsFrom(__DIR__ . '/../Resources/Lang', 'Brand');
         $this->loadRoutes();
+        Gate::policy(Brand::class ,BrandPolicy::class);
 
     }
 

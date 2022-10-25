@@ -18,7 +18,9 @@
                                 <th>نام</th>
                                 <th>دسته بندی</th>
                                 <th> تاریخ ایجاد</th>
+                                @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_ATTRIBUTE_GROUPS))
                                 <th> عملیات</th>
+                                @endif
                             </tr>
                             </thead>
                             <tbody>
@@ -28,6 +30,7 @@
                                     <td>{{ $attributeGroup->name }}</td>
                                     <td>{{ $attributeGroup->getCategoriesName() }}</td>
                                     <td>{{ getJalaliDate($attributeGroup->created_at) }}</td>
+                                    @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_ATTRIBUTE_GROUPS))
                                     <td>
                                         <a class="btn btn-sm bg-transparent d-inline"
                                            href="{{ route('panel.attributeGroups.edit' , $attributeGroup) }}"><i
@@ -46,6 +49,7 @@
                                             @method('delete')
                                         </form>
                                     </td>
+                                    @endif
                                 </tr>
                             @endforeach
                             </tbody>
@@ -54,7 +58,9 @@
                 </div>
             </div>
         </div>
+        @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_ATTRIBUTE_GROUPS))
         @include('AttributeGroup::create')
+        @endif
     </div>
     <!-- /basic responsive table -->
 @endsection

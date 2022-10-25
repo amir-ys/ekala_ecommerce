@@ -6,15 +6,17 @@
 @section('content')
     <div class="row">
         <div class="col-lg-12">
-            <div class="row mb-3">
-                <div class="col-sm-12 col-md-12 col-lg-2">
-                    <a href="{{ route('panel.users.create') }}"
-                       class="btn btn-primary
+            @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_USERS))
+                <div class="row mb-3">
+                    <div class="col-sm-12 col-md-12 col-lg-2">
+                        <a href="{{ route('panel.users.create') }}"
+                           class="btn btn-primary
                         btn-rounded waves-effect waves-light mb-2 me-2">
-                        <i class="mdi mdi-plus me-1"></i>
-                        @lang('User::translation.create')</a>
+                            <i class="mdi mdi-plus me-1"></i>
+                            @lang('User::translation.create')</a>
+                    </div>
                 </div>
-            </div>
+            @endif
             <div class="card">
                 <div class="card-body border border-5">
                     <div class="table-responsive">
@@ -22,14 +24,16 @@
                             <thead class="thead-light">
                             <tr>
                                 <th>شناسه</th>
-                                <th> عکس پروفایل </th>
-                                <th> نام کاربری </th>
-                                <th> نام و نام خانوادگی </th>
-                                <th> ایمیل </th>
+                                <th> عکس پروفایل</th>
+                                <th> نام کاربری</th>
+                                <th> نام و نام خانوادگی</th>
+                                <th> ایمیل</th>
                                 <th> موبایل</th>
-                                <th> وضعیت تایید ایمیل </th>
-                                <th> وضعیت کاربر </th>
-                                <th> عملیات</th>
+                                <th> وضعیت تایید ایمیل</th>
+                                <th> وضعیت کاربر</th>
+                                @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_USERS))
+                                    <th> عملیات</th>
+                                @endif
                             </tr>
                             </thead>
                             <tbody>
@@ -39,7 +43,9 @@
                                     <td>
                                         @if(!is_null($user->profile))
                                             <a href="{{ route('panel.users.profile.show' , $user->profile) }}">
-                                                <img width="100px" src="{{ route('panel.users.profile.show' , [$user->profile]) }}" alt="">
+                                                <img width="100px"
+                                                     src="{{ route('panel.users.profile.show' , [$user->profile]) }}"
+                                                     alt="">
                                             </a>
                                         @else
                                             -
@@ -50,7 +56,8 @@
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->mobile ?? '-' }}</td>
                                     <td>
-                                        <span class="badge badge-{{ $user->hasVerifiedEmail() ? 'success'  : 'danger' }}">
+                                        <span
+                                            class="badge badge-{{ $user->hasVerifiedEmail() ? 'success'  : 'danger' }}">
                                             {{ $user->hasVerifiedEmail() ? 'تایید شده'  : 'تایید نشده' }}
                                         </span>
                                     </td>
@@ -59,16 +66,18 @@
                                             {{ $user->statusName }}
                                         </span>
                                     </td>
-                                    <td>
-                                        <a class="btn btn-sm bg-transparent d-inline"
-                                           href="{{ route('panel.users.edit' , $user->id) }}"><i
-                                                class="fa fa-pencil fa-15m text-success"></i></a>
+                                    @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_USERS))
+                                        <td>
+                                            <a class="btn btn-sm bg-transparent d-inline"
+                                               href="{{ route('panel.users.edit' , $user->id) }}"><i
+                                                    class="fa fa-pencil fa-15m text-success"></i></a>
 
-                                        <a class="btn btn-sm bg-transparent d-inline"
-                                           onclick="deleteItem(event , '{{ route('panel.users.destroy' , $user->id) }}' )"
-                                           href="{{ route('panel.users.destroy' , $user->id) }}"><i
-                                                class="fa fa-trash fa-15m text-danger"></i></a>
-                                    </td>
+                                            <a class="btn btn-sm bg-transparent d-inline"
+                                               onclick="deleteItem(event , '{{ route('panel.users.destroy' , $user->id) }}' )"
+                                               href="{{ route('panel.users.destroy' , $user->id) }}"><i
+                                                    class="fa fa-trash fa-15m text-danger"></i></a>
+                                        </td>
+                                    @endif
                                 </tr>
                             @endforeach
                             </tbody>

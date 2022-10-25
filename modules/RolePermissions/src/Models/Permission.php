@@ -37,8 +37,8 @@ class Permission extends \Spatie\Permission\Models\Permission
     const PERMISSION_MANAGE_SLIDES = 'manage slides';
     const PERMISSION_READ_SLIDES = 'read slides';
     const PERMISSION_MANAGE_USERS = 'manage users';
-    const PERMISSION_MANAGE_ROLE_PERMISSIONS = 'manage role_permissions';
     const PERMISSION_READ_USERS = 'read users';
+    const PERMISSION_MANAGE_ROLE_PERMISSIONS = 'manage role_permissions';
     const PERMISSION_READ_ROLE_PERMISSIONS = 'read role_permissions';
     const PERMISSION_MANAGE_BLOG = 'manage blog';
     const PERMISSION_READ_BLOG = 'read blog';
@@ -52,11 +52,11 @@ class Permission extends \Spatie\Permission\Models\Permission
         self::PERMISSION_MANAGE_COMMENTS, self::PERMISSION_READ_COMMENTS,
         self::PERMISSION_MANAGE_COUPONS, self::PERMISSION_READ_COUPONS,
         self::PERMISSION_MANAGE_PAYMENTS, self::PERMISSION_READ_PAYMENTS,
-        self::PERMISSION_MANAGE_PRODUCTS, self::PERMISSION_READ_PRODUCTS,
+        self::PERMISSION_MANAGE_PRODUCTS, self::PERMISSION_READ_PRODUCTS ,
         self::PERMISSION_MANAGE_SETTINGS, self::PERMISSION_READ_SETTINGS,
         self::PERMISSION_MANAGE_SLIDES, self::PERMISSION_READ_SLIDES,
         self::PERMISSION_MANAGE_USERS, self::PERMISSION_READ_USERS,
         self::PERMISSION_MANAGE_ROLE_PERMISSIONS, self::PERMISSION_READ_ROLE_PERMISSIONS,
-        self::PERMISSION_MANAGE_BLOG, self::PERMISSION_READ_BLOG,
+        self::PERMISSION_MANAGE_BLOG, self::PERMISSION_READ_BLOG ,
     ];
 }

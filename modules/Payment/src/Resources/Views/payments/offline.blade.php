@@ -14,12 +14,14 @@
                             <tr>
                                 <th>شناسه</th>
                                 <th>کاربر</th>
-                                <th>  مقدار </th>
-                                <th> زمان پرداخت </th>
-                                <th>روش پرداخت </th>
+                                <th> مقدار</th>
+                                <th> زمان پرداخت</th>
+                                <th>روش پرداخت</th>
                                 <th>وضعیت</th>
                                 <th>تاریخ ساخت</th>
-                                <th> عملیات</th>
+                                @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_PAYMENTS))
+                                    <th> عملیات</th>
+                                @endif
                             </tr>
                             </thead>
                             <tbody>
@@ -30,19 +32,23 @@
                                     <td> {{  $payment->amount }} </td>
                                     <td> {{  $payment->pay_date ?: '-' }} </td>
                                     <td>
-                                        <span CLASS="badge bg-{{ $payment->payment_type_css }}"> {{  $payment->payment_type_name }} </span>
+                                        <span
+                                            CLASS="badge bg-{{ $payment->payment_type_css }}"> {{  $payment->payment_type_name }} </span>
                                     </td>
                                     <td>
-                                        <span CLASS="badge bg-{{ $payment->status_css }}"> {{  $payment->status_name }} </span>
+                                        <span
+                                            CLASS="badge bg-{{ $payment->status_css }}"> {{  $payment->status_name }} </span>
                                     </td>
                                     <td>{{ getJalaliDate($payment->created_at) }}</td>
-                                    <td>
+                                    @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_PAYMENTS))
+                                        <td>
 
-                                        <a href="{{ route('panel.payments.destroy' , $payment->id) }}"
-                                           onclick="deleteItem(event ,  '{{ route('panel.payments.destroy' , $payment->id) }}')"
-                                           class="btn btn-sm bg-transparent d-inline delete-confirm"><i
-                                                class="fa fa-trash fa-15m text-danger"></i></a>
-                                    </td>
+                                            <a href="{{ route('panel.payments.destroy' , $payment->id) }}"
+                                               onclick="deleteItem(event ,  '{{ route('panel.payments.destroy' , $payment->id) }}')"
+                                               class="btn btn-sm bg-transparent d-inline delete-confirm"><i
+                                                    class="fa fa-trash fa-15m text-danger"></i></a>
+                                        </td>
+                                    @endif
                                 </tr>
                             @endforeach
                             </tbody>

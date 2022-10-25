@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
+            $table->foreignId('user_id')->constrained();
             $table->foreignId('category_id')->constrained();
             $table->foreignId('brand_id')->constrained();
             $table->text('description')->nullable();

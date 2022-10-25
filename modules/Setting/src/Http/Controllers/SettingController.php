@@ -16,6 +16,8 @@ class SettingController extends Controller
     }
     public function index()
     {
+        $this->authorize('view' , Setting::class);
+
         $shopName = $this->settingRepo->getItem(Setting::SETTING_SHOP_NAME);
         $shopFooter = $this->settingRepo->getItem(Setting::SETTING_SHOP_FOOTER);
         $shopFooterContact = $this->settingRepo->getItem(Setting::SETTING_SHOP_FOOTER_CONTACT);
@@ -25,6 +27,7 @@ class SettingController extends Controller
 
     public function siteInfoStore(Request $request)
     {
+        $this->authorize('manage' , Setting::class);
         $this->settingRepo->storeSiteInfo($request->all());
         newFeedback();
         return back();
@@ -32,6 +35,7 @@ class SettingController extends Controller
 
     public function socialMediaStore(Request $request)
     {
+        $this->authorize('manage' , Setting::class);
         $this->settingRepo->storeSocialMedia($request->all());
         newFeedback();
         return back();

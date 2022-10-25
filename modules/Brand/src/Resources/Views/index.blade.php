@@ -18,7 +18,9 @@
                                 <th>نام</th>
                                 <th> تاریخ ایجاد</th>
                                 <th>وضعیت</th>
+                                @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_BRANDS))
                                 <th> عملیات</th>
+                                @endif
                             </tr>
                             </thead>
                             <tbody>
@@ -31,6 +33,7 @@
                                         <span
                                         class="badge py-1 bg-{{ $brand->statusCssClass }}"> @lang($brand->is_active->name) </span>
                                     </td>
+                                    @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_BRANDS))
                                     <td>
                                         <a class="btn btn-sm bg-transparent d-inline"
                                            href="{{ route('panel.brands.edit' , $brand) }}"><i
@@ -47,6 +50,7 @@
                                             @method('delete')
                                         </form>
                                     </td>
+                                    @endif
                                 </tr>
                             @endforeach
                             </tbody>
@@ -55,7 +59,9 @@
                 </div>
             </div>
         </div>
+        @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_BRANDS))
         @include('Brand::create')
+        @endif
     </div>
     <!-- /basic responsive table -->
 @endsection

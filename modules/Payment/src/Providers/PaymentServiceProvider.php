@@ -2,11 +2,13 @@
 
 namespace Modules\Payment\Providers;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Modules\Payment\Contracts\PaymentRepositoryInterface;
 use Modules\Payment\Gateways\Gateway;
 use Modules\Payment\Models\Payment;
+use Modules\Payment\Policies\PaymentPolicy;
 use Modules\Payment\Repositories\PaymentRepo;
 use Modules\Payment\Services\Payment\OfflinePaymentService;
 use Modules\Payment\Services\Payment\OnlinePaymentService;
@@ -22,8 +24,7 @@ class PaymentServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
         $this->mergeConfigFrom(__DIR__ . '/../Config/payment.php', 'payment');
         $this->loadRoutes();
-
-
+        Gate::policy(Payment::class , PaymentPolicy::class);
     }
 
     public function boot()

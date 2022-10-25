@@ -6,6 +6,7 @@
 @section('content')
     <div class="row">
         <div class="col-lg-12">
+            @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_ATTRIBUTES))
             <div class="row mb-3">
                 <div class="col-sm-12 col-md-12 col-lg-2">
                     <a href="{{ route('panel.attributes.create') }}"
@@ -16,6 +17,7 @@
                     </a>
                 </div>
             </div>
+            @endif
             <div class="card">
                 <div class="card-body border border-5">
                     <div class="table-responsive">
@@ -27,7 +29,9 @@
                                 <th>گروه ویژگی</th>
                                 <th> تاریخ ایجاد</th>
                                 <th>قابل فیلتر است ؟</th>
+                                @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_ATTRIBUTES))
                                 <th> عملیات</th>
+                                @endif
                             </tr>
                             </thead>
                             <tbody>
@@ -45,6 +49,7 @@
                                                       ? 'بله'  : 'خیر'   }}
                                         </span>
                                     </td>
+                                    @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_ATTRIBUTES))
                                     <td>
                                         <a class="btn btn-sm bg-transparent d-inline"
                                            href="{{ route('panel.attributes.edit' , $attribute->id) }}"><i
@@ -61,6 +66,7 @@
                                             @method('delete')
                                         </form>
                                     </td>
+                                    @endif
                                 </tr>
                             @endforeach
                             </tbody>

@@ -6,31 +6,35 @@
 @section('content')
     <div class="row">
         <div class="col-lg-12">
-            <div class="row mb-3">
-                <div class="col-sm-12 col-md-12 col-lg-2">
-                    <a href="{{ route('panel.slides.create') }}"
-                       class="btn btn-primary
+            @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_SLIDES))
+                <div class="row mb-3">
+                    <div class="col-sm-12 col-md-12 col-lg-2">
+                        <a href="{{ route('panel.slides.create') }}"
+                           class="btn btn-primary
                         btn-rounded waves-effect waves-light mb-2 me-2">
-                        <i class="mdi mdi-plus me-1"></i>
-                        @lang('Slide::translation.create')
-                    </a>
+                            <i class="mdi mdi-plus me-1"></i>
+                            @lang('Slide::translation.create')
+                        </a>
+                    </div>
                 </div>
-            </div>
+            @endif
             <div class="card">
                 <div class="card-body border border-5">
                     <div class="table-responsive">
-                        <table  id="table" class="table table-hover">
+                        <table id="table" class="table table-hover">
                             <thead class="thead-light">
                             <tr>
                                 <th>شناسه</th>
                                 <th>موضوع</th>
                                 <th>اولویت</th>
-                                <th>لینک </th>
+                                <th>لینک</th>
                                 <th>نوع</th>
                                 <th>وضعیت</th>
                                 <th>عکس</th>
                                 <th> تاریخ ایجاد</th>
-                                <th> عملیات</th>
+                                @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_SLIDES))
+                                    <th> عملیات</th>
+                                @endif
                             </tr>
                             </thead>
                             <tbody>
@@ -52,28 +56,31 @@
 
                                     <td>
                                         <a href="{{ route('panel.slides.image' , $slide->id) }}">
-                                            <img width="100px" src="{{ route('panel.slides.image' , [$slide->id]) }}" alt="">
+                                            <img width="100px" src="{{ route('panel.slides.image' , [$slide->id]) }}"
+                                                 alt="">
                                         </a>
                                     </td>
 
                                     <td>{{ getJalaliDate($slide->created_at) }}</td>
-                                    <td>
-                                        <a class="btn btn-sm bg-transparent d-inline"
-                                           href="{{ route('panel.slides.edit' , $slide->id) }}"><i
-                                                class="fa fa-pencil fa-15m text-success"></i></a>
+                                    @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_SLIDES))
+                                        <td>
+                                            <a class="btn btn-sm bg-transparent d-inline"
+                                               href="{{ route('panel.slides.edit' , $slide->id) }}"><i
+                                                    class="fa fa-pencil fa-15m text-success"></i></a>
 
-                                        <a href="{{ route('panel.slides.destroy' , $slide->id) }}"
-                                           onclick="deleteItem(event ,  '{{ route('panel.slides.destroy' , $slide->id) }}')"
-                                           class="btn btn-sm bg-transparent d-inline delete-confirm"><i
-                                                class="fa fa-trash fa-15m text-danger"></i></a>
-                                    </td>
+                                            <a href="{{ route('panel.slides.destroy' , $slide->id) }}"
+                                               onclick="deleteItem(event ,  '{{ route('panel.slides.destroy' , $slide->id) }}')"
+                                               class="btn btn-sm bg-transparent d-inline delete-confirm"><i
+                                                    class="fa fa-trash fa-15m text-danger"></i></a>
+                                        </td>
+                                    @endif
                                 </tr>
                             @endforeach
                             </tbody>
                         </table>
                     </div>
+                </div>
             </div>
         </div>
-    </div>
-    <!-- /basic responsive table -->
+        <!-- /basic responsive table -->
 @endsection

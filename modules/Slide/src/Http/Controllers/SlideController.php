@@ -18,17 +18,20 @@ class SlideController extends Controller
     }
     public function index()
     {
+        $this->authorize('view' , Slide::class);
         $slides = $this->slideRepo->getAll();
         return view('Slide::index' ,compact('slides'));
     }
 
     public function create()
     {
+        $this->authorize('manage' , Slide::class);
         return view('Slide::create');
     }
 
     public function store(SlideRequest $request)
     {
+        $this->authorize('manage' , Slide::class);
         $request->request->add(['image_name' => $this->uploadImage($request->file('image') ,$request->type )]);
         $this->slideRepo->store($request->all());
         newFeedback();
@@ -37,12 +40,14 @@ class SlideController extends Controller
 
     public function edit($slideId)
     {
+        $this->authorize('manage' , Slide::class);
         $slide = $this->slideRepo->findById($slideId);
         return view('Slide::edit' , compact('slide'));
     }
 
     public function update(SlideRequest $request , $slideId)
     {
+        $this->authorize('manage' , Slide::class);
         $slide = $this->slideRepo->findById($slideId);
         $request->request->add(['image_name' => $this->uploadImage($request->file('image') , $request->type , $slide)]);
 
@@ -53,6 +58,7 @@ class SlideController extends Controller
 
     public function destroy($slideId)
     {
+        $this->authorize('manage' , Slide::class);
         $slide = $this->slideRepo->findById($slideId);
         $this->slideRepo->destroy($slideId);
         return AjaxResponse::success("اسلایدر  ". $slide->title." با موفقیت حذف شد.");
@@ -60,6 +66,7 @@ class SlideController extends Controller
 
     public function showImage($slideId)
     {
+        $this->authorize('view' , Slide::class);
         $slide = $this->slideRepo->findById($slideId);
         return ImageService::loadImage($slide->image['large'] , Slide::getUploadDir());
     }

@@ -6,16 +6,18 @@
         </a></li>
 @endsection
 @section('content')
-    <div class="row mb-md-2">
-        <div class="col-md-12">
-            <div class="col-md-6">
-                <a href="{{ route('panel.comments.productIndex') }}"
-                        class="btn btn-outline-danger">@lang('Comment::translation.productIndex')</a>
-                <a href="{{ route('panel.comments.blogIndex') }}"
-                        class="btn btn-outline-primary">@lang('Comment::translation.blogIndex')</a>
+    @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_COMMENTS))
+        <div class="row mb-md-2">
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <a href="{{ route('panel.comments.productIndex') }}"
+                       class="btn btn-outline-danger">@lang('Comment::translation.productIndex')</a>
+                    <a href="{{ route('panel.comments.blogIndex') }}"
+                       class="btn btn-outline-primary">@lang('Comment::translation.blogIndex')</a>
+                </div>
             </div>
         </div>
-    </div>
+    @endif
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
@@ -30,7 +32,9 @@
                                 <th> برای نوع ؟</th>
                                 <th> تاریخ ایجاد</th>
                                 <th> وضعیت تایید</th>
-                                <th> عملیات</th>
+                                @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_COMMENTS))
+                                    <th> عملیات</th>
+                                @endif
                             </tr>
                             </thead>
                             <tbody>
@@ -47,27 +51,29 @@
                                         </span>
                                     </td>
 
-                                    <td>
-                                        @if($comment->is_approved)
-                                            <a class="btn btn-danger btn-sm bg-transparent d-inline text-black-50 ml-2 w-100"
-                                               href="#" onclick="rejectStatus('{{ $comment->id }}')">
-                                                رد
+                                    @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_COMMENTS))
+                                        <td>
+                                            @if($comment->is_approved)
+                                                <a class="btn btn-danger btn-sm bg-transparent d-inline text-black-50 ml-2 w-100"
+                                                   href="#" onclick="rejectStatus('{{ $comment->id }}')">
+                                                    رد
+                                                </a>
+
+                                            @else
+                                                <a class="btn btn-success btn-sm bg-transparent d-inline text-black-50 ml-1 w-100"
+                                                   href="#" onclick="approveStatus( event ,'{{ $comment->id }}')">
+                                                    تایید
+                                                </a>
+                                            @endif
+
+
+                                            <a class="btn btn-primary btn-sm bg-transparent d-inline text-black-50 mr-2"
+                                               href="{{ route('panel.comments.replies.show' , $comment->id) }}">
+                                                پاسخ
                                             </a>
 
-                                        @else
-                                            <a class="btn btn-success btn-sm bg-transparent d-inline text-black-50 ml-1 w-100"
-                                               href="#" onclick="approveStatus( event ,'{{ $comment->id }}')">
-                                                تایید
-                                            </a>
-                                        @endif
-
-
-                                        <a class="btn btn-primary btn-sm bg-transparent d-inline text-black-50 mr-2"
-                                           href="{{ route('panel.comments.replies.show' , $comment->id) }}">
-                                            پاسخ
-                                        </a>
-
-                                    </td>
+                                        </td>
+                                    @endif
 
                                     <form action="{{ route('panel.comments.rejectStatus' , $comment->id ) }}"
                                           method="post"

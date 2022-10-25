@@ -7,6 +7,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="row mb-3">
+                @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_PRODUCTS))
                 <div class="col-sm-12 col-md-12 col-lg-2">
                     <a href="{{ route('panel.products.create') }}"
                        class="btn btn-primary
@@ -14,6 +15,7 @@
                         <i class="mdi mdi-plus me-1"></i>
                         @lang('Product::translation.create')</a>
                 </div>
+                @endif
             </div>
             <div class="card">
                 <div class="card-body border border-5">
@@ -30,7 +32,12 @@
                                 <th> تاریخ ایجاد</th>
                                 <th> قابل فروش بودن </th>
                                 <th> وضعیت</th>
+                                @if(auth()->user()->hasAnyPermission([
+    \Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_PRODUCTS ,
+    \Modules\RolePermissions\Models\Permission::PERMISSION_READ_PRODUCTS
+]))
                                 <th> عملیات</th>
+                                @endif
                             </tr>
                             </thead>
                             <tbody>
@@ -57,6 +64,8 @@
 
                                     <td>
                                         <div class="row">
+                                            @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_PRODUCTS))
+
                                             <a class="btn btn-sm bg-transparent d-inline"
                                                href="{{ route('panel.products.edit' , $product->id) }}"><i
                                                     class="fa fa-pencil fa-15m text-success"></i></a>
@@ -65,6 +74,7 @@
                                                onclick="deleteItem(event ,  '{{ route('panel.products.destroy' , $product->id) }}')"
                                                class="btn btn-sm bg-transparent d-inline delete-confirm"><i
                                                     class="fa fa-trash fa-15m text-danger"></i></a>
+                                            @endif
 
                                             <div class="dropdown">
                                                 <button class="btn btn-primary btn-sm dropdown-toggle" type="button"

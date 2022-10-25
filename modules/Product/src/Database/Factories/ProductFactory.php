@@ -7,6 +7,7 @@ use Modules\Brand\Models\Brand;
 use Modules\Category\Models\Category;
 use Modules\Product\Enums\ProductStatus;
 use Modules\Product\Models\Product;
+use Modules\User\Models\User;
 
 /**
  * @extends Factory
@@ -26,6 +27,7 @@ class ProductFactory extends Factory
             'name' => $this->faker->word,
             'category_id' => Category::factory(),
             'brand_id' => Brand::factory(),
+            'user_d' => User::factory(),
             'description' => $this->faker->text,
             'price' => $this->faker->numberBetween(5000, 50000000),
             'quantity' => $this->faker->numberBetween(0, 1000),

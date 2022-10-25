@@ -2,9 +2,12 @@
 
 namespace Modules\Coupon\Providers;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Modules\Coupon\Contracts\CouponRepositoryInterface;
+use Modules\Coupon\Models\Coupon;
+use Modules\Coupon\Policies\CouponPolicy;
 use Modules\Coupon\Repositories\CouponRepo;
 
 class CouponServiceProvider extends ServiceProvider
@@ -18,6 +21,7 @@ class CouponServiceProvider extends ServiceProvider
         $this->loadJsonTranslationsFrom(__DIR__ . '/../Resources/Lang');
         $this->loadViewsFrom(__DIR__ . '/../Resources/Views', 'Coupon');
         $this->defineRoutes();
+        Gate::policy(Coupon::class , CouponPolicy::class);
     }
 
     public function boot()

@@ -1,11 +1,14 @@
 <?php
 namespace Modules\User\Providers;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Modules\User\Contracts\CityRepositoryInterface;
 use Modules\User\Contracts\ProvinceRepositoryInterface;
 use Modules\User\Contracts\UserRepositoryInterface;
+use Modules\User\Models\User;
+use Modules\User\Policies\UserPolicy;
 use Modules\User\Repositories\CityRepo;
 use Modules\User\Repositories\ProvinceRepo;
 use Modules\User\Repositories\UserRepo;
@@ -21,6 +24,7 @@ class UserServiceProvider extends ServiceProvider
         $this->loadJsonTranslationsFrom(__DIR__ . '/../Resources/Lang/fa.json');
         $this->loadUserRoute();
         $this->loadAuthRoute();
+        Gate::policy(User::class , UserPolicy::class);
 
     }
 

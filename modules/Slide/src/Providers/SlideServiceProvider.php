@@ -1,9 +1,12 @@
 <?php
 namespace Modules\Slide\Providers;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Modules\Slide\Contracts\SlideRepositoryInterface;
+use Modules\Slide\Models\Slide;
+use Modules\Slide\Policies\SlidePolicy;
 use Modules\Slide\Repositories\SlideRepo;
 
 class SlideServiceProvider extends ServiceProvider
@@ -17,6 +20,7 @@ class SlideServiceProvider extends ServiceProvider
         $this->loadTranslationsFrom(__DIR__ . '/../Resources/Lang', 'Slide');
         $this->loadJsonTranslationsFrom(__DIR__ . '/../Resources/Lang');
         $this->loadRoutes();
+        Gate::policy(Slide::class , SlidePolicy::class);
     }
 
     public function boot()

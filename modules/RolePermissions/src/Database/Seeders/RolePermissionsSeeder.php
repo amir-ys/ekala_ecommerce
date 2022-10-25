@@ -15,9 +15,7 @@ class RolePermissionsSeeder extends Seeder
     public function run()
     {
         foreach (Permission::$permissions as $permission) {
-            Permission::create([
-                'name' => $permission
-            ]);
+            Permission::findOrCreate($permission);
         }
 
     }

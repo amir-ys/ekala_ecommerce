@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Modules\Setting\Contracts\ContactRepositoryInterface;
 use Modules\Setting\Contracts\SettingRepositoryInterface;
 use Modules\Setting\Http\Requests\SaveContactMessageRequest;
+use Modules\Setting\Models\Setting;
 
 class ContactController extends Controller
 {
@@ -18,12 +19,14 @@ class ContactController extends Controller
     }
     public function index()
     {
+        $this->authorize('view' , Setting::class);
         $messages = resolve(ContactRepositoryInterface::class)->getMessage();
         return view('Setting::contact-us.index' ,  compact('messages'));
     }
 
     public function show($contactId)
     {
+        $this->authorize('view' , Setting::class);
         $contact = resolve(ContactRepositoryInterface::class)->findById($contactId);
         resolve(ContactRepositoryInterface::class)->changeReadAt($contactId);
         return view('Setting::contact-us.show' , compact('contact'));
@@ -31,12 +34,14 @@ class ContactController extends Controller
 
     public function saveInfoPage()
     {
+        $this->authorize('manage' , Setting::class);
         $contact = $this->settingRepo->getContact();
         return view('Setting::contact-us.save'  ,compact('contact'));
     }
 
     public function saveInfo(Request $request)
     {
+        $this->authorize('manage' , Setting::class);
         $this->settingRepo->storeContact($request->all());
         newFeedback();
         return back();

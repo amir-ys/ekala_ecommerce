@@ -3,7 +3,6 @@
 namespace Modules\Blog\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\UploadedFile;
 use Modules\Blog\Contracts\PostRepositoryInterface;
 use Modules\Blog\Http\Requests\PostRequest;
 use Modules\Blog\Models\Category;
@@ -22,30 +21,34 @@ class PostController extends Controller
 
     public function index()
     {
+        $this->authorize('view', Post::class);
         $posts = $this->postRepo->getAll();
         return view('Blog::posts.index', compact('posts'));
     }
 
     public function create()
     {
+        $this->authorize('manage', Post::class);
         $categories = Category::all();
         return view('Blog::posts.create', compact('categories'));
     }
 
     public function store(PostRequest $request)
     {
+        $this->authorize('manage', Post::class);
         $data = $request->all();
         $data['author_id'] = auth()->id();
-        $data['published_at'] = convertJalaliToDate($request->published_at , 'Y/m/d H:i');
+        $data['published_at'] = convertJalaliToDate($request->published_at, 'Y/m/d H:i');
 
         $post = $this->postRepo->store($data);
-        $this->saveImage($request->file('image') , $post);
+        $this->saveImage($request->file('image'), $post);
         newFeedback();
         return to_route('panel.blog.posts.index');
     }
 
     public function edit($postId)
     {
+        $this->authorize('manage', Post::class);
         $post = $this->postRepo->findById($postId);
         $categories = Category::all();
         return view('Blog::posts.edit', compact('post', 'categories'));
@@ -53,14 +56,15 @@ class PostController extends Controller
 
     public function update(PostRequest $request, $postId)
     {
+        $this->authorize('manage', Post::class);
         $data = $request->all();
         $post = $this->postRepo->findById($postId);
 
         $data['author_id'] = auth()->id();
-        $data['published_at'] = convertJalaliToDate($request->published_at , 'Y/m/d H:i');
+        $data['published_at'] = convertJalaliToDate($request->published_at, 'Y/m/d H:i');
 
         $this->postRepo->update($postId, $data);
-        $this->saveImage($request->file('image'), $post , true);
+        $this->saveImage($request->file('image'), $post, true);
 
 
         newFeedback();
@@ -69,32 +73,36 @@ class PostController extends Controller
 
     public function destroy($postId)
     {
+        $this->authorize('manage', Post::class);
         $post = $this->postRepo->findById($postId);
         $this->postRepo->destroy($postId);
         return AjaxResponse::success("پست " . $post->name . " با موفقیت حذف شد.");
     }
 
-    private function saveImage(UploadedFile $file , $post , $isUpdate = false)
+    private function saveImage($file, $post, $isUpdate = false)
     {
-        $images = $this->uploadImage($file , $post  , $isUpdate);
-        $this->postRepo->updateImageById($post->id , $images);
+        if (is_null($file)) {
+            return null;
+        }
+            $images = $this->uploadImage($file, $post, $isUpdate);
+            $this->postRepo->updateImageById($post->id, $images);
     }
 
-    private function uploadImage($file, Post $post ,$isUpdate = false)
+    private function uploadImage($file, Post $post, $isUpdate = false)
     {
         if ($file) {
 
-            if ($isUpdate){
-                $this->deleteImage($post->image , $post);
+            if ($isUpdate) {
+                $this->deleteImage($post->image, $post);
             }
 
-            return ImageService::uploadImage($file, 'blog' ,  $post->getUploadDir(), $post->getImageName());
+            return ImageService::uploadImage($file, 'blog', $post->getUploadDir(), $post->getImageName());
         }
         return $post->image;
 
     }
 
-    private function deleteImage($fileNames , $post)
+    private function deleteImage($fileNames, $post)
     {
         ImageService::deleteImage($fileNames, $post->getUploadDir());
     }

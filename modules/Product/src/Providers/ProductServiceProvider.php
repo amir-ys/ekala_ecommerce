@@ -2,9 +2,12 @@
 
 namespace Modules\Product\Providers;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Modules\Product\Contracts\ProductRepositoryInterface;
+use Modules\Product\Models\Product;
+use Modules\Product\Policies\ProductPolicy;
 use Modules\Product\Repositories\ProductRepo;
 
 class ProductServiceProvider extends ServiceProvider
@@ -17,6 +20,7 @@ class ProductServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__ . '/../Resources/Views', 'Product');
         $this->loadTranslationsFrom(__DIR__ . '/../Resources/Lang', 'Product');
         $this->loadProductRoutes();
+        Gate::policy(Product::class , ProductPolicy::class);
     }
 
     public function boot()

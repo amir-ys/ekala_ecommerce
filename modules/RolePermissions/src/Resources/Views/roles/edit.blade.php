@@ -40,7 +40,10 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 @foreach($permissions  as $permission)
-                                                    <div class="col-md-3">
+                                                    <div class="@if($permission->name ==
+                                            \Modules\RolePermissions\Models\Permission::PERMISSION_SUPER_ADMIN)
+                                            col-md-12 @else
+                                            col-md-3 @endif">
                                                         <div class="form-group">
                                                             <div class="custom-control custom-checkbox">
                                                                 <input type="checkbox" class="custom-control-input"
@@ -50,10 +53,13 @@
                                                                     @checked($role->permissions->contains($permission->id))
                                                                 >
                                                                 <label class="custom-control-label"
-                                                                       for="{{ $permission->id }}">{{ $permission->name }}</label>
+                                                                       for="{{ $permission->id }}">@lang($permission->name)</label>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    @if($permission->name == \Modules\RolePermissions\Models\Permission::PERMISSION_SUPER_ADMIN)
+                                                        <br>
+                                                    @endif
                                                 @endforeach
                                                 <x-validation-error field="permissions"/>
 

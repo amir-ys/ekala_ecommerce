@@ -1,9 +1,12 @@
 <?php
 namespace Modules\AttributeGroup\Providers;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Modules\AttributeGroup\Contracts\AttributeGroupRepositoryInterface;
+use Modules\AttributeGroup\Models\AttributeGroup;
+use Modules\AttributeGroup\Policies\AttributeGroupPolicy;
 use Modules\AttributeGroup\Repositories\AttributeGroupRepo;
 
 class AttributeGroupServiceProvider extends  ServiceProvider
@@ -16,7 +19,7 @@ class AttributeGroupServiceProvider extends  ServiceProvider
         $this->loadViewsFrom(__DIR__ . '/../Resources/Views', 'AttributeGroup');
         $this->loadTranslationsFrom(__DIR__ . '/../Resources/Lang', 'AttributeGroup');
         $this->loadRoutes();
-
+        Gate::policy(AttributeGroup::class , AttributeGroupPolicy::class);
     }
 
     public function boot()

@@ -1,9 +1,12 @@
 <?php
 namespace Modules\Category\Providers;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Modules\Category\Contracts\CategoryRepositoryInterface;
+use Modules\Category\Models\Category;
+use Modules\Category\Policies\CategoryPolicy;
 use Modules\Category\Repositories\CategoryRepo;
 
 class CategoryServiceProvider extends  ServiceProvider
@@ -16,6 +19,7 @@ class CategoryServiceProvider extends  ServiceProvider
         $this->loadViewsFrom(__DIR__ . '/../Resources/Views', 'Category');
         $this->loadTranslationsFrom(__DIR__ . '/../Resources/Lang', 'Category');
         $this->loadRoutes();
+        Gate::policy(Category::class , CategoryPolicy::class);
 
 
     }

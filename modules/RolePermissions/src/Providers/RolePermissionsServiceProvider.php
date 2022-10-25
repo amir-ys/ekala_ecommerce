@@ -2,12 +2,17 @@
 
 namespace Modules\RolePermissions\Providers;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Modules\RolePermissions\Contracts\PermissionRepositoryInterface;
 use Modules\RolePermissions\Contracts\RoleRepositoryInterface;
+use Modules\RolePermissions\Models\Permission;
+use Modules\RolePermissions\Models\Role;
+use Modules\RolePermissions\Policies\RolePermissionPolicy;
 use Modules\RolePermissions\Repositories\PermissionRepo;
 use Modules\RolePermissions\Repositories\RoleRepo;
+use Modules\User\Models\User;
 
 class RolePermissionsServiceProvider extends ServiceProvider
 {
@@ -18,7 +23,12 @@ class RolePermissionsServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
         $this->loadViewsFrom(__DIR__ . '/../Resources/Views' , 'RolePermissions');
         $this->loadTranslationsFrom(__DIR__ . '/../Resources/Lang' , 'RolePermissions');
+        $this->loadJsonTranslationsFrom(__DIR__ . '/../Resources/Lang' );
         $this->loadRoutes();
+        Gate::policy(Role::class , RolePermissionPolicy::class);
+        Gate::before(function (User $user){
+            return $user->hasPermissionTo(Permission::PERMISSION_SUPER_ADMIN) ?true :null ;
+        });
 
     }
 

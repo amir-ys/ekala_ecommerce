@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Modules\Core\Responses\AjaxResponse;
 use Modules\Product\Contracts\ProductRepositoryInterface;
 use Modules\Product\Http\Requests\ProductColorRequest;
+use Modules\Product\Models\Product;
 
 class ProductColorController extends Controller
 {
@@ -18,6 +19,7 @@ class ProductColorController extends Controller
 
     public function index($productId)
     {
+        $this->authorize('view', Product::class);
         $product = $this->productRepo->findById($productId);
         $colors = $this->productRepo->getProductColors($productId);
         return view('Product::product-colors.index', compact('colors', 'product'));
@@ -25,19 +27,22 @@ class ProductColorController extends Controller
 
     public function create($productId)
     {
+        $this->authorize('manage', Product::class);
         $product = $this->productRepo->findById($productId);
         return view('Product::product-colors.create', compact('product'));
     }
 
     public function store(ProductColorRequest $request, $productId)
     {
-        $this->productRepo->storeColor($productId, $request->all() , isset($request->is_primary));
+        $this->authorize('manage', Product::class);
+        $this->productRepo->storeColor($productId, $request->all(), isset($request->is_primary));
         newFeedback();
         return redirect()->route('panel.products.colors.index', $productId);
     }
 
     public function edit($productId, $colorId)
     {
+        $this->authorize('manage', Product::class);
         $product = $this->productRepo->findById($productId);
         $color = $this->productRepo->findColorById($productId, $colorId);
         return view('Product::product-colors.edit', compact('color', 'product'));
@@ -45,13 +50,15 @@ class ProductColorController extends Controller
 
     public function update(ProductColorRequest $request, $productId, $colorId)
     {
-        $this->productRepo->updateColor($productId, $colorId, $request->all() , isset($request->is_primary));
+        $this->authorize('manage', Product::class);
+        $this->productRepo->updateColor($productId, $colorId, $request->all(), isset($request->is_primary));
         newFeedback();
         return redirect()->route('panel.products.colors.index', $productId);
     }
 
     public function destroy($productId, $colorId)
     {
+        $this->authorize('manage', Product::class);
         $this->productRepo->destroyColor($productId, $colorId);
         return AjaxResponse::success();
     }

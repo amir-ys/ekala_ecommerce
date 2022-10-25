@@ -24,17 +24,20 @@ class UserController extends Controller
 
     public function index()
     {
+        $this->authorize('view' , User::class);
         $users = $this->userRepo->getAll();
         return view('User::panel.index', compact('users'));
     }
 
     public function create()
     {
+        $this->authorize('manage' , User::class);
         return view('User::panel.create');
     }
 
     public function store(UserRequest $request)
     {
+        $this->authorize('manage' , User::class);
         if ($request->hasFile('profile')) {
             $request->request->add(['uploadedProfile' => ImageService::uploadImage($request->file('profile') , User::getUploadDir())]);
         }else{
@@ -48,12 +51,14 @@ class UserController extends Controller
 
     public function edit($userId)
     {
+        $this->authorize('manage' , User::class);
         $user = $this->userRepo->findById($userId);
         return view('User::panel.edit', compact('user'));
     }
 
     public function update(UserRequest $request, $userId)
     {
+        $this->authorize('manage' , User::class);
         $user = $this->userRepo->findById($userId);
         if ($request->hasFile('profile')) {
             $request->request->add(['uploadedProfile' => ImageService::uploadImage($request->file('profile') , User::getUploadDir())]);
@@ -69,6 +74,7 @@ class UserController extends Controller
 
     public function destroy($userId)
     {
+        $this->authorize('manage' , User::class);
         $user = $this->userRepo->findById($userId);
         $this->userRepo->destroy($userId);
         return AjaxResponse::success("کاربر  ". $user->username." با موفقیت حذف شد.");

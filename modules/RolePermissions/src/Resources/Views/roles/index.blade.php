@@ -6,15 +6,17 @@
 @section('content')
     <div class="row">
         <div class="col-lg-12">
-            <div class="row mb-3">
-                <div class="col-sm-12 col-md-12 col-lg-2">
-                    <a href="{{ route('panel.roles.create') }}"
-                       class="btn btn-primary
+            @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_ROLE_PERMISSIONS))
+                <div class="row mb-3">
+                    <div class="col-sm-12 col-md-12 col-lg-2">
+                        <a href="{{ route('panel.roles.create') }}"
+                           class="btn btn-primary
                         btn-rounded waves-effect waves-light mb-2 me-2">
-                        <i class="mdi mdi-plus me-1"></i>
-                        @lang('RolePermissions::translation.role.create')</a>
+                            <i class="mdi mdi-plus me-1"></i>
+                            @lang('RolePermissions::translation.role.create')</a>
+                    </div>
                 </div>
-            </div>
+            @endif
             <div class="card">
                 <div class="card-body border border-5">
                     <div class="table-responsive">
@@ -23,9 +25,11 @@
                             <tr>
                                 <th>شناسه</th>
                                 <th>نام</th>
-                                <th> مجوز ها </th>
+                                <th> مجوز ها</th>
                                 <th> تاریخ ایجاد</th>
+                                @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_ROLE_PERMISSIONS))
                                 <th> عملیات</th>
+                                @endif
                             </tr>
                             </thead>
                             <tbody>
@@ -37,13 +41,13 @@
                                         <span>
                                             <ul>
                                                 @foreach($role->permissions as $permission)
-                                                    <li> {{ $permission->name }} </li>
+                                                    <li> @lang($permission->name) </li>
                                                 @endforeach
                                             </ul>
                                         </span>
                                     </td>
                                     <td>{{ getJalaliDate($role->created_at) }}</td>
-
+                                    @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_ROLE_PERMISSIONS))
                                     <td>
                                         <a class="btn btn-sm bg-transparent d-inline"
                                            href="{{ route('panel.roles.edit' , $role->id) }}"><i
@@ -55,6 +59,7 @@
                                                 class="fa fa-trash fa-15m text-danger"></i></a>
 
                                     </td>
+                                    @endif
                                 </tr>
                             @endforeach
                             </tbody>

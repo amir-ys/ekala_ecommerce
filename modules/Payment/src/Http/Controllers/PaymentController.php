@@ -18,24 +18,28 @@ class PaymentController extends Controller
 
     public function index()
     {
+        $this->authorize('view' , Payment::class);
         $payments = $this->paymentRepo->getAll();
         return view('Payment::payments.index', compact('payments'));
     }
 
     public function online()
     {
+        $this->authorize('view' , Payment::class);
         $payments = $this->paymentRepo->getPaymentsByType(Payment::PAYMENT_TYPE_ONLINE);
         return view('Payment::payments.online', compact('payments'));
     }
 
     public function offline()
     {
+        $this->authorize('view' , Payment::class);
         $payments = $this->paymentRepo->getPaymentsByType(Payment::PAYMENT_TYPE_OFFLINE);
         return view('Payment::payments.offline', compact('payments'));
     }
 
     public function destroy($paymentId)
     {
+        $this->authorize('manage' , Payment::class);
         $payment = $this->paymentRepo->findById($paymentId);
         if (!$payment) {
             return AjaxResponse::error('پرداختی با این شناسه پیدا نشد.');

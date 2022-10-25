@@ -19,6 +19,7 @@ class CommentController extends Controller
     }
     public function index()
     {
+        $this->authorize('view' , Comment::class);
         $this->commentRepo->changeSeen();
         $parentComments = $this->commentRepo->getParentComments();
         return view('Comment::index' , compact('parentComments'));
@@ -26,6 +27,7 @@ class CommentController extends Controller
 
     public function productCommentsIndex()
     {
+        $this->authorize('manage' , Comment::class);
         $this->commentRepo->changeSeen(null , Product::class);
         $parentComments = $this->commentRepo->getProductComments();
         return view('Comment::index' , compact('parentComments'));
@@ -33,6 +35,7 @@ class CommentController extends Controller
 
     public function blogCommentsIndex()
     {
+        $this->authorize('manage' , Comment::class);
         $this->commentRepo->changeSeen(null , Post::class);
         $parentComments = $this->commentRepo->getBlogComments();
         return view('Comment::index' , compact('parentComments'));
@@ -40,6 +43,7 @@ class CommentController extends Controller
 
     public function store(StoreCommentRequest $request)
     {
+        $this->authorize('manage' , Comment::class);
         $data = $request->all();
         $data['user_id'] = auth()->id();
 
@@ -50,28 +54,30 @@ class CommentController extends Controller
 
     public function approveStatus($commentId)
     {
+        $this->authorize('manage' , Comment::class);
         $this->commentRepo->changeStatus($commentId , Comment::STATUS_APPROVED);
         return back();
     }
 
     public function rejectStatus($commentId)
     {
+        $this->authorize('manage' , Comment::class);
         $this->commentRepo->changeStatus($commentId , Comment::STATUS_REJECTED);
         return back();
     }
 
     public function replyShow($commentId)
     {
+        $this->authorize('manage' , Comment::class);
         $comment = $this->commentRepo->findById($commentId);
         return view('Comment::reply' , compact('comment'));
     }
 
     public function changeSeenStatus($commentId = 0)
     {
+        $this->authorize('manage' , Comment::class);
         $this->commentRepo->changeSeen($commentId);
         newFeedback();
         return  back();
     }
-
-
 }
