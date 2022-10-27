@@ -57,4 +57,24 @@ class UpdateProductRequest extends FormRequest
         ];
     }
 
+    protected function prepareForValidation()
+    {
+        if ($this->filled(['special_price' ,'special_price_start' , 'special_price_end' ])) {
+            $this->merge([
+                'special_price_start' => convertJalaliToDate($this->special_price_start, 'Y/m/d H:i'),
+                'special_price_end' => convertJalaliToDate($this->special_price_end, 'Y/m/d H:i'),
+            ]);
+        }else{
+            $this->merge([
+                'special_price' => null,
+                'special_price_start' => null,
+                'special_price_end' => null,
+            ]);
+        }
+
+        $this->mergeIfMissing([
+            'user_id' => auth()->id(),
+        ]);
+    }
+
 }

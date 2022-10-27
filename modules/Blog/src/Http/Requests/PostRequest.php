@@ -34,6 +34,22 @@ class PostRequest extends FormRequest
         return $rules;
 
     }
+    protected function prepareForValidation()
+    {
+        if ($this->filled(['published_at'])) {
+            $this->merge([
+                'published_at' => convertJalaliToDate($this->published_at, 'Y/m/d H:i'),
+            ]);
+        }else{
+            $this->merge([
+                'published_at' => null,
+            ]);
+        }
+
+        $this->merge([
+            'author_id' => auth()->id()
+        ]);
+    }
 
     public function attributes()
     {

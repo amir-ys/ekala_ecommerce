@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Coupon\Database\Factories\CouponFactory;
+use Modules\Payment\Models\Order;
 use Modules\User\Models\User;
 
 class Coupon extends Model
@@ -47,6 +49,11 @@ class Coupon extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
     }
     public function useTypeName(): Attribute
     {

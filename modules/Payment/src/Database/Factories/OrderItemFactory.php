@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Modules\Payment\Models\Order;
 use Modules\Payment\Models\OrderItem;
 use Modules\Product\Models\Product;
+use Modules\Product\Models\ProductColor;
+use Modules\Product\Models\ProductWarranty;
 
 /**
  * @extends Factory
@@ -27,6 +29,8 @@ class OrderItemFactory extends Factory
             'price' => $price = $this->faker->numberBetween(10000, 10000000),
             'quantity' => $qu = $this->faker->numberBetween(1, 50),
             'total' => $price * $qu,
+            'color_id' => ProductColor::factory(),
+            'warranty_id' => ProductWarranty::factory(),
         ];
     }
 }

@@ -19,14 +19,14 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->text('summary')->nullable();
             $table->text('body')->nullable();
-            $table->json('image');
+            $table->json('image')->nullable();
             $table->tinyInteger('status');
             $table->tinyInteger('is_commentable');
             $table->timestamp('published_at')->nullable();
             $table->foreignId('author_id')->constrained('users');
             $table->foreignId('category_id')->constrained('blog_categories');
             $table->string('view_count')->default(0);
-            $table->json('tags');
+            $table->json('tags')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

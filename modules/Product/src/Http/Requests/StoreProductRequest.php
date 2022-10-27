@@ -35,9 +35,9 @@ class StoreProductRequest extends FormRequest
             })],
             'special_price_end' => ['nullable', Rule::requiredIf(function () {
                 return request()->special_price != null;
-            }) ,] ,
-            'color_name' => ['required'] ,
-            'color_value' => ['required'] ,
+            }),],
+            'color_name' => ['required'],
+            'color_value' => ['required'],
         ];
     }
 
@@ -55,6 +55,27 @@ class StoreProductRequest extends FormRequest
             'color_name' => 'رنگ',
             'color_value' => 'کد رنگ',
         ];
+    }
+
+
+    protected function prepareForValidation()
+    {
+        if ($this->filled(['special_price' ,'special_price_start' , 'special_price_end' ])) {
+            $this->merge([
+                'special_price_start' => convertJalaliToDate($this->special_price_start, 'Y/m/d H:i'),
+                'special_price_end' => convertJalaliToDate($this->special_price_end, 'Y/m/d H:i'),
+            ]);
+        }else{
+            $this->merge([
+                'special_price' => null,
+                'special_price_start' => null,
+                'special_price_end' => null,
+            ]);
+        }
+
+        $this->mergeIfMissing([
+            'user_id' => auth()->id(),
+        ]);
     }
 
 }

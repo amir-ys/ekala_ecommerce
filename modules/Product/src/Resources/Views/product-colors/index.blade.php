@@ -6,7 +6,7 @@
 @section('content')
     <div class="row">
         <div class="col-lg-12">
-            @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_PRODUCTS))
+            @can(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_PRODUCTS)
                 <div class="row mb-3">
                     <div class="col-sm-12 col-md-12 col-lg-2">
                         <a href="{{ route('panel.products.colors.create' , $product->id) }}"
@@ -16,7 +16,7 @@
                             @lang('Product::translation.color.create')</a>
                     </div>
                 </div>
-            @endif
+            @endcan
             <div class="card">
                 <div class="card-body border border-5">
                     <div class="table-responsive">
@@ -29,9 +29,9 @@
                                 <th>افزابش قیمت</th>
                                 <th> موجودی</th>
                                 <th>تاریخ ایجاد</th>
-                                @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_PRODUCTS))
+                                @can(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_PRODUCTS)
                                     <th> عملیات</th>
-                                @endif
+                                @endcan
                             </tr>
                             </thead>
                             <tbody>
@@ -50,7 +50,7 @@
                                     <td>{{  $color->quantity }} عدد
                                     </td>
                                     <td>{{ getJalaliDate($color->created_at) }}</td>
-                                    @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_PRODUCTS))
+                                    @can(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_PRODUCTS)
                                         <td>
                                             <a class="btn btn-sm bg-transparent d-inline"
                                                href="{{ route('panel.products.colors.edit' , [$product->id ,  $color->id]) }}"><i
@@ -69,7 +69,7 @@
                                                 @method('delete')
                                             </form>
                                         </td>
-                                    @endif
+                                    @endcan
                                 </tr>
                             @endforeach
                             </tbody>

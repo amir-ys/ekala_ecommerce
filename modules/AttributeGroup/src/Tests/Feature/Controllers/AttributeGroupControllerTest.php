@@ -5,6 +5,8 @@ namespace Modules\AttributeGroup\Tests\Feature\Controllers;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\AttributeGroup\Models\AttributeGroup;
 use Modules\Category\Models\Category;
+use Modules\RolePermissions\Database\Seeders\RolePermissionsSeeder;
+use Modules\RolePermissions\Models\Permission;
 use Modules\User\Models\User;
 use Tests\TestCase;
 
@@ -75,7 +77,8 @@ class AttributeGroupControllerTest extends TestCase
         $response->assertJson([
            'message' =>  'گروه مشخصات'. $attributeGroup->name .' با موفقیت حذف شد.'
         ]);
-        $this->assertDatabaseCount('attribute_groups',0);
+
+        $this->assertCount(0 ,AttributeGroup::all() );
         $this->assertDatabaseMissing('attribute_groups' , $attributeGroup->toArray());
     }
 
@@ -96,7 +99,9 @@ class AttributeGroupControllerTest extends TestCase
 
     public function actingAsUser()
     {
-        $user =  User::factory()->create();
+        $user = User::factory()->create();
+        $this->seed(RolePermissionsSeeder::class);
+        $user->givePermissionTo(Permission::PERMISSION_MANAGE_ATTRIBUTE_GROUPS);
         $this->actingAs($user);
     }
 

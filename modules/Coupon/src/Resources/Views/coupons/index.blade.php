@@ -6,7 +6,7 @@
 @section('content')
     <div class="row">
         <div class="col-lg-12">
-            @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_COUPONS))
+            @can(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_COUPONS)
                 <div class="row mb-3">
                     <div class="col-sm-12 col-md-12 col-lg-2">
                         <a href="{{ route('panel.coupons.create') }}"
@@ -16,7 +16,7 @@
                             @lang('Coupon::translation.create')</a>
                     </div>
                 </div>
-            @endif
+            @endcan
             <div class="card">
                 <div class="card-body border border-5">
                     <div class="table-responsive">
@@ -34,9 +34,9 @@
                                 <th>تاریخ شروع</th>
                                 <th>تاریخ پایان</th>
                                 <th> وضعیت</th>
-                                @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_COUPONS))
+                                @can(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_COUPONS)
                                     <th> عملیات</th>
-                                @endif
+                                @endcan
                             </tr>
                             </thead>
                             <tbody>
@@ -56,7 +56,7 @@
                                         <span class="badge py-1 bg-{{ $coupon->statusCssClass }}"> {{ $coupon->status_name }}
                                         </span>
                                     </td>
-                                    @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_COUPONS))
+                                    @can(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_COUPONS)
                                         <td>
                                             <a class="btn btn-sm bg-transparent d-inline"
                                                href="{{ route('panel.coupons.edit' , $coupon->id) }}"><i
@@ -74,7 +74,7 @@
                                                 @method('delete')
                                             </form>
                                         </td>
-                                    @endif
+                                    @endcan
                                 </tr>
                             @endforeach
                             </tbody>

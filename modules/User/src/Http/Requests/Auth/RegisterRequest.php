@@ -26,7 +26,7 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'fullname' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ];
@@ -35,7 +35,8 @@ class RegisterRequest extends FormRequest
     public function attributes()
     {
         return [
-            'fullname' => 'نام و نام خانوادگی'
+            'fullname' => 'نام و نام خانوادگی' ,
+            'username' => 'نام کاربری'
         ];
     }
 

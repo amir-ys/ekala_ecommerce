@@ -4,7 +4,10 @@ namespace Modules\Discount\Tests\Feature\Controllers;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\Coupon\Models\CommonDiscount;
+use Modules\RolePermissions\Database\Seeders\RolePermissionsSeeder;
+use Modules\RolePermissions\Models\Permission;
 use Modules\User\Models\User;
+use Morilog\Jalali\Jalalian;
 use Tests\TestCase;
 
 class CommonDiscountControllerTest extends TestCase
@@ -13,7 +16,6 @@ class CommonDiscountControllerTest extends TestCase
 
     public function test_index_method()
     {
-        $this->withoutExceptionHandling();
         $this->actingAsUser();
         $response = $this->get(route('panel.commonDiscounts.index'));
 
@@ -32,8 +34,12 @@ class CommonDiscountControllerTest extends TestCase
     {
         $this->actingAsUser();
         $data = CommonDiscount::factory()->make()->toArray();
+        $data['start_date'] = (new Jalalian(1396 , 3 ,5 , 12 ,06))->format('Y/m/d H:i');
+        $data['end_date'] = (new Jalalian(1399 , 3 ,5 , 07 ,30))->format('Y/m/d H:i');
         $response = $this->post(route('panel.commonDiscounts.store'), $data);
 
+        $data['start_date'] = convertJalaliToDate($data['start_date'] , 'Y/m/d H:i' );
+        $data['end_date'] = convertJalaliToDate($data['end_date'] , 'Y/m/d H:i' );
         $response->assertRedirect();
         $this->assertDatabaseCount('common_discounts', 1);
         $this->assertDatabaseHas('common_discounts', $data);
@@ -56,7 +62,12 @@ class CommonDiscountControllerTest extends TestCase
         $discount = CommonDiscount::factory()->create();
         $data = CommonDiscount::factory()->make()->toArray();
 
+        $data['start_date'] = (new Jalalian(1396 , 3 ,5 , 12 ,06))->format('Y/m/d H:i');
+        $data['end_date'] = (new Jalalian(1399 , 3 ,5 , 07 ,30))->format('Y/m/d H:i');
         $response = $this->patch(route('panel.commonDiscounts.update', $discount->id), $data);
+
+        $data['start_date'] = convertJalaliToDate($data['start_date'] , 'Y/m/d H:i' );
+        $data['end_date'] = convertJalaliToDate($data['end_date'] , 'Y/m/d H:i' );
 
         $response->assertRedirect();
         $this->assertDatabaseCount('common_discounts', 1);
@@ -65,7 +76,6 @@ class CommonDiscountControllerTest extends TestCase
 
     public function test_destroy_method()
     {
-        $this->withoutExceptionHandling();
         $this->actingAsUser();
         $discount = CommonDiscount::factory()->create();
 
@@ -73,14 +83,16 @@ class CommonDiscountControllerTest extends TestCase
         $response->assertJson([
             'message' => "تخفیف " . $discount->title . " با موفقیت حذف شد."
         ]);
-        $this->assertDatabaseCount('common_discounts', 0);
+        $this->assertCount(0, CommonDiscount::all());
         $this->assertDatabaseMissing('common_discounts', $discount->toArray());
     }
 
 
-    private function actingAsUser()
+    public function actingAsUser()
     {
         $user = User::factory()->create();
+        $this->seed(RolePermissionsSeeder::class);
+        $user->givePermissionTo(Permission::PERMISSION_MANAGE_COUPONS);
         $this->actingAs($user);
     }
 }

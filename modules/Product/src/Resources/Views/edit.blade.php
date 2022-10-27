@@ -104,13 +104,13 @@
                                     <div class="col-md-12">
                                         <label>  انتخاب رنگ محصول : </label>
                                     </div>
-                                    <input type="hidden" name="color_id" value="{{ $productColor->id }}">
+                                    <input type="hidden" name="color_id" value="{{ $productColor?->id }}">
                                     <div class="col-md-4">
                                         <div class="col-md-12">
                                             <label class="col-form-label">نام</label>
                                             <input type="text" class="form-control" name="color_name"
                                                    placeholder="نام"
-                                                   value="{{ old('color_name' , $productColor->color_name) }}">
+                                                   value="{{ old('color_name' , $productColor?->color_name) }}">
                                             <x-validation-error field="color_name"/>
                                         </div>
                                     </div>
@@ -119,7 +119,7 @@
                                         <div class="input-group sample-selector colorpicker-element">
                                             <input type="text" class="form-control text-right" dir="ltr" name="color_value"
                                                    placeholder="کد رنگ (hex)" id="color_value"
-                                                   value="{{ old('color_value' , $productColor->color_value) }}">
+                                                   value="{{ old('color_value' , $productColor?->color_value) }}">
                                             <div class="input-group-append">
                                                 <span class="input-group-text"><i style="background-color: rgb(225, 72, 72);"></i></span>
                                             </div>
@@ -131,7 +131,7 @@
                                         <label>موجودی</label>
                                         <input type="text" class="form-control" name="quantity"
                                                placeholder="موجودی"
-                                               value="{{ old('quantity' , $productColor->quantity) }}">
+                                               value="{{ old('quantity' , $productColor?->quantity) }}">
                                         <x-validation-error field="quantity"/>
                                     </div>
 
@@ -162,7 +162,7 @@
                                             @if(isset($product->primaryImage))
                                                 <p>تصویر اصلی : </p>
                                                 <img width="200"
-                                                     src="{{ route('panel.products.images.display' , [ 'product' =>  $product->id , 'image' =>  $product->primaryImage->images['small'] ]) }}"
+                                                     src="{{ route('panel.products.images.display' , [ 'product' =>  $product->id , 'image' =>  $product->primaryImage->images['default'] ]) }}"
                                                      alt="">
                                             @endif
                                         </div>

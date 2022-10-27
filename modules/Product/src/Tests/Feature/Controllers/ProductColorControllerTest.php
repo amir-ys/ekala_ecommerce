@@ -5,6 +5,8 @@ namespace Modules\Product\Tests\Feature\Controllers;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductColor;
+use Modules\RolePermissions\Database\Seeders\RolePermissionsSeeder;
+use Modules\RolePermissions\Models\Permission;
 use Modules\User\Models\User;
 use Tests\TestCase;
 
@@ -45,8 +47,6 @@ class ProductColorControllerTest extends TestCase
 
     public function test_edit_method()
     {
-        $this->withoutExceptionHandling();
-
         $this->actingAsUser();
         $product = $this->createProduct();
         $color = ProductColor::factory()->state(['product_id' => $product->id])->create();
@@ -79,7 +79,6 @@ class ProductColorControllerTest extends TestCase
     {
         $this->actingAsUser();
         $product = $this->createProduct();
-        $this->withoutExceptionHandling();
         $color = ProductColor::factory()->state(['product_id' => $product->id])->create();
 
         $this->delete(route('panel.products.colors.destroy', [$product->id, $color->id]));
@@ -89,6 +88,8 @@ class ProductColorControllerTest extends TestCase
     public function actingAsUser()
     {
         $user = User::factory()->create();
+        $this->seed(RolePermissionsSeeder::class);
+        $user->givePermissionTo(Permission::PERMISSION_MANAGE_PRODUCTS);
         $this->actingAs($user);
     }
 

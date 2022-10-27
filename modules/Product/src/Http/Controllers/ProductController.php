@@ -39,10 +39,6 @@ class ProductController extends Controller
     {
         $this->authorize('manage' , Product::class);
         $data = $request->all();
-        $data['special_price_start'] = convertJalaliToDate($request->special_price_start , 'Y/m/d H:i');
-        $data['special_price_end'] = convertJalaliToDate($request->special_price_end , 'Y/m/d H:i');
-        $data['user_d'] = auth()->id();
-
         $product = $this->productRepo->store($data);
 
         //store primary color
@@ -82,11 +78,7 @@ class ProductController extends Controller
     {
         $this->authorize('manage' , Product::class);
         $product = $this->productRepo->findById($productId);
-
         $data = $request->all();
-        $data['special_price_start'] = convertJalaliToDate($request->special_price_start , 'Y/m/d H:i');
-        $data['special_price_end'] = convertJalaliToDate($request->special_price_end , 'Y/m/d H:i');
-        $data['user_d'] = auth()->id();
 
         //update product
         $product = $this->productRepo->update($productId, $data);

@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="row mb-3">
-                @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_PRODUCTS))
+                @can(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_PRODUCTS)
                     <div class="col-sm-12 col-md-12 col-lg-2">
                         <a href="{{ route('panel.products.warranties.create' , $product->id) }}"
                            class="btn btn-primary
@@ -15,7 +15,7 @@
                             <i class="mdi mdi-plus me-1"></i>
                             @lang('Product::translation.warranty.create')</a>
                     </div>
-                @endif
+                @endcan
             </div>
             <div class="card">
                 <div class="card-body border border-5">
@@ -27,9 +27,9 @@
                                 <th>نام</th>
                                 <th>افزابش قیمت</th>
                                 <th>تاریخ ایجاد</th>
-                                @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_PRODUCTS))
+                                @can(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_PRODUCTS)
                                     <th> عملیات</th>
-                                @endif
+                                @endcan
                             </tr>
                             </thead>
                             <tbody>
@@ -39,7 +39,7 @@
                                     <td>{{ $warranty->name }}</td>
                                     <td>{{  number_format($warranty->price_increase) }} تومان</td>
                                     <td>{{ getJalaliDate($warranty->created_at) }}</td>
-                                    @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_PRODUCTS))
+                                    @can(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_PRODUCTS)
                                         <td>
                                             <a class="btn btn-sm bg-transparent d-inline"
                                                href="{{ route('panel.products.warranties.edit' , [$product->id ,  $warranty->id]) }}"><i
@@ -51,7 +51,7 @@
                                                     class="fa fa-trash fa-15m text-danger"></i></a>
 
                                         </td>
-                                    @endif
+                                    @endcan
                                 </tr>
                             @endforeach
                             </tbody>

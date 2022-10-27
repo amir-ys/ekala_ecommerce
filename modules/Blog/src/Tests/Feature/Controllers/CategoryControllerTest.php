@@ -5,6 +5,8 @@ namespace Modules\Blog\Tests\Feature\Controllers;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Modules\Blog\Models\Category;
+use Modules\RolePermissions\Database\Seeders\RolePermissionsSeeder;
+use Modules\RolePermissions\Models\Permission;
 use Modules\User\Models\User;
 use Tests\TestCase;
 
@@ -42,7 +44,6 @@ class CategoryControllerTest extends TestCase
 
     public function test_edit_method()
     {
-        $this->withoutExceptionHandling();
         $this->actingAsUser();
         $category = Category::factory()->create();
 
@@ -75,7 +76,7 @@ class CategoryControllerTest extends TestCase
         $response->assertJson([
             'message' => "دسته بندی " . $category->name . " با موفقیت حذف شد."
         ]);
-        $this->assertDatabaseCount('blog_categories', 0);
+        $this->assertCount(0 ,Category::all() );
         $this->assertDatabaseMissing('blog_categories', $category->toArray());
     }
 
@@ -97,6 +98,8 @@ class CategoryControllerTest extends TestCase
     public function actingAsUser()
     {
         $user = User::factory()->create();
+        $this->seed(RolePermissionsSeeder::class);
+        $user->givePermissionTo(Permission::PERMISSION_MANAGE_BLOG);
         $this->actingAs($user);
     }
 }

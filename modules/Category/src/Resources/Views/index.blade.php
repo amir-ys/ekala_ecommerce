@@ -6,7 +6,7 @@
 @section('content')
     <div class="row">
         <div class="col-lg-12">
-            @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_CATEGORIES))
+            @can(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_CATEGORIES)
             <div class="row mb-3">
                 <div class="col-sm-12 col-md-12 col-lg-2">
                     <a href="{{ route('panel.categories.create') }}"
@@ -16,7 +16,7 @@
                         @lang('Category::translation.create')</a>
                 </div>
             </div>
-            @endif
+            @endcan
             <div class="card">
                 <div class="card-body border border-5">
                     <div class="table-responsive">
@@ -29,9 +29,9 @@
                                 <th> تاریخ ایجاد</th>
                                 <th>قابل فیلتر است ؟</th>
                                 <th>وضعیت</th>
-                                @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_CATEGORIES))
+                                @can(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_CATEGORIES)
                                 <th> عملیات</th>
-                                @endif
+                                @endcan
                             </tr>
                             </thead>
                             <tbody>
@@ -55,7 +55,7 @@
                                         </span>
                                     </td>
 
-                                    @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_CATEGORIES))
+                                    @can(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_CATEGORIES)
                                     <td>
                                         <a class="btn btn-sm bg-transparent d-inline"
                                            href="{{ route('panel.categories.edit' , $category->id) }}"><i
@@ -72,7 +72,7 @@
                                             @method('delete')
                                         </form>
                                     </td>
-                                    @endif
+                                    @endcan
                                 </tr>
                             @endforeach
                             </tbody>

@@ -5,6 +5,8 @@ namespace Modules\Product\Tests\Feature\Controllers;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductWarranty;
+use Modules\RolePermissions\Database\Seeders\RolePermissionsSeeder;
+use Modules\RolePermissions\Models\Permission;
 use Modules\User\Models\User;
 use Tests\TestCase;
 
@@ -45,8 +47,6 @@ class ProductWarrantyControllerTest extends TestCase
 
     public function test_edit_method()
     {
-        $this->withoutExceptionHandling();
-
         $this->actingAsUser();
         $product = $this->createProduct();
         $warranty = ProductWarranty::factory()->state(['product_id' => $product->id])->create();
@@ -89,6 +89,8 @@ class ProductWarrantyControllerTest extends TestCase
     public function actingAsUser()
     {
         $user = User::factory()->create();
+        $this->seed(RolePermissionsSeeder::class);
+        $user->givePermissionTo(Permission::PERMISSION_MANAGE_PRODUCTS);
         $this->actingAs($user);
     }
 

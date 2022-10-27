@@ -20,7 +20,7 @@ return new class extends Migration
             $table->tinyInteger('status');
             $table->string('type');
             $table->string('link');
-            $table->json('image');
+            $table->json('image')->nullable();
             $table->string('btn_text')->nullable();
             $table->softDeletes();
             $table->timestamps();

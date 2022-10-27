@@ -17,8 +17,8 @@ class PostTest extends TestCase
     {
         $data = Post::factory()->make()->toArray();
         $data['slug'] = SlugService::createSlug(Post::class, 'slug', $data['title']);
-
         Post::create($data);
+
 
         $this->assertDatabaseCount('posts', 1);
         $this->assertDatabaseHas('posts', $data);
@@ -37,10 +37,10 @@ class PostTest extends TestCase
     public function test_post_relation_with_user()
     {
         $user = User::factory()->create();
-        $post = Post::factory()->for($user)->create();
+        $post = Post::factory()->for($user , 'author')->create();
 
 
-        $this->assertTrue(isset($post->user->id));
-        $this->assertEquals($post->user->id , $user->id);
+        $this->assertTrue(isset($post->author->id));
+        $this->assertEquals($post->author->id , $user->id);
     }
 }

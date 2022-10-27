@@ -6,7 +6,7 @@
         </a></li>
 @endsection
 @section('content')
-    @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_COMMENTS))
+    @can(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_COMMENTS)
         <div class="row mb-md-2">
             <div class="col-md-12">
                 <div class="col-md-6">
@@ -17,7 +17,7 @@
                 </div>
             </div>
         </div>
-    @endif
+    @endcan
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
@@ -32,9 +32,9 @@
                                 <th> برای نوع ؟</th>
                                 <th> تاریخ ایجاد</th>
                                 <th> وضعیت تایید</th>
-                                @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_COMMENTS))
+                                @can(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_COMMENTS)
                                     <th> عملیات</th>
-                                @endif
+                                @endcan
                             </tr>
                             </thead>
                             <tbody>
@@ -51,7 +51,7 @@
                                         </span>
                                     </td>
 
-                                    @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_COMMENTS))
+                                    @can(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_COMMENTS)
                                         <td>
                                             @if($comment->is_approved)
                                                 <a class="btn btn-danger btn-sm bg-transparent d-inline text-black-50 ml-2 w-100"
@@ -73,7 +73,7 @@
                                             </a>
 
                                         </td>
-                                    @endif
+                                    @endcan
 
                                     <form action="{{ route('panel.comments.rejectStatus' , $comment->id ) }}"
                                           method="post"

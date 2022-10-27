@@ -33,14 +33,14 @@
             </div>
             <div class="col-12 col-md-12 col-lg-6">
                 <hr class="d-lg-none">
-                <img src="/assets/front/assets/images/logo.png" alt=""> {{ $shopName->value }}
+                <img src="/assets/front/assets/images/logo.png" alt=""> {{ $shopName ? $shopName->value : config('core.shop_name') }}
                 <br>
                 <p>
-                    {{ $shopFooter->value }}
+                    {{ $shopFooter?->value }}
                 </p>
                 <div class="row">
                     <div class="col-12 col-md-6 text-center p-2" id="support-info">
-                        {!! $shopFooterContact->value !!}
+                        {!! $shopFooterContact?->value !!}
                     </div>
                     <div class="col-12 col-md-6 pt-2 pt-md-0" id="certificates">
                         <div class="row">

@@ -4,6 +4,8 @@ namespace Modules\Category\Tests\Feature\Controllers;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\Category\Models\Category;
+use Modules\RolePermissions\Database\Seeders\RolePermissionsSeeder;
+use Modules\RolePermissions\Models\Permission;
 use Modules\User\Models\User;
 use Tests\TestCase;
 
@@ -74,7 +76,7 @@ class CategoryControllerTest extends TestCase
         $response->assertJson([
             'message' => "دسته بندی ". $category->name ." با موفقیت حذف شد."
         ]);
-        $this->assertDatabaseCount( 'categories' ,0);
+        $this->assertCount(0 ,Category::all() );
         $this->assertDatabaseMissing('categories' , $category->toArray() );
     }
 
@@ -96,7 +98,9 @@ class CategoryControllerTest extends TestCase
 
     public function actingAsUser()
     {
-        $user =  User::factory()->create();
+        $user = User::factory()->create();
+        $this->seed(RolePermissionsSeeder::class);
+        $user->givePermissionTo(Permission::PERMISSION_MANAGE_CATEGORIES);
         $this->actingAs($user);
     }
 }

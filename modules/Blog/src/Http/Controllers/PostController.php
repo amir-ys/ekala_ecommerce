@@ -36,12 +36,10 @@ class PostController extends Controller
     public function store(PostRequest $request)
     {
         $this->authorize('manage', Post::class);
-        $data = $request->all();
-        $data['author_id'] = auth()->id();
-        $data['published_at'] = convertJalaliToDate($request->published_at, 'Y/m/d H:i');
+        $post = $this->postRepo->store($request->all());
 
-        $post = $this->postRepo->store($data);
         $this->saveImage($request->file('image'), $post);
+
         newFeedback();
         return to_route('panel.blog.posts.index');
     }
@@ -57,15 +55,10 @@ class PostController extends Controller
     public function update(PostRequest $request, $postId)
     {
         $this->authorize('manage', Post::class);
-        $data = $request->all();
         $post = $this->postRepo->findById($postId);
 
-        $data['author_id'] = auth()->id();
-        $data['published_at'] = convertJalaliToDate($request->published_at, 'Y/m/d H:i');
-
-        $this->postRepo->update($postId, $data);
+        $this->postRepo->update($postId, $request->validated());
         $this->saveImage($request->file('image'), $post, true);
-
 
         newFeedback();
         return to_route('panel.blog.posts.index');
@@ -84,8 +77,8 @@ class PostController extends Controller
         if (is_null($file)) {
             return null;
         }
-            $images = $this->uploadImage($file, $post, $isUpdate);
-            $this->postRepo->updateImageById($post->id, $images);
+        $images = $this->uploadImage($file, $post, $isUpdate);
+        $this->postRepo->updateImageById($post->id, $images);
     }
 
     private function uploadImage($file, Post $post, $isUpdate = false)

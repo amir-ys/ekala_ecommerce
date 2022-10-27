@@ -6,7 +6,7 @@
 @section('content')
     <div class="row">
         <div class="col-lg-12">
-            @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_ROLE_PERMISSIONS))
+            @can(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_ROLE_PERMISSIONS)
                 <div class="row mb-3">
                     <div class="col-sm-12 col-md-12 col-lg-2">
                         <a href="{{ route('panel.roles.create') }}"
@@ -16,7 +16,7 @@
                             @lang('RolePermissions::translation.role.create')</a>
                     </div>
                 </div>
-            @endif
+            @endcan
             <div class="card">
                 <div class="card-body border border-5">
                     <div class="table-responsive">
@@ -27,9 +27,9 @@
                                 <th>نام</th>
                                 <th> مجوز ها</th>
                                 <th> تاریخ ایجاد</th>
-                                @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_ROLE_PERMISSIONS))
+                                @can(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_ROLE_PERMISSIONS)
                                 <th> عملیات</th>
-                                @endif
+                                @endcan
                             </tr>
                             </thead>
                             <tbody>
@@ -47,7 +47,7 @@
                                         </span>
                                     </td>
                                     <td>{{ getJalaliDate($role->created_at) }}</td>
-                                    @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_ROLE_PERMISSIONS))
+                                    @can(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_ROLE_PERMISSIONS)
                                     <td>
                                         <a class="btn btn-sm bg-transparent d-inline"
                                            href="{{ route('panel.roles.edit' , $role->id) }}"><i
@@ -59,7 +59,7 @@
                                                 class="fa fa-trash fa-15m text-danger"></i></a>
 
                                     </td>
-                                    @endif
+                                    @endcan
                                 </tr>
                             @endforeach
                             </tbody>

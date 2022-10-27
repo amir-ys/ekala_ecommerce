@@ -33,6 +33,7 @@ class CommonDiscountController extends Controller
 
     public function store(CommonDiscountRequest $request)
     {
+//        dd($request->all());
         $this->authorize('manage' , Coupon::class);
         $data = $request->all();
         $data['start_date'] = convertJalaliToDate($request->start_date , 'Y/m/d H:i' );

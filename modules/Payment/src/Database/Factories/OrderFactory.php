@@ -34,7 +34,7 @@ class OrderFactory extends Factory
             'coupon_discount_amount' => $this->faker->numberBetween(10000, 500000),
             'common_discount_id' => CommonDiscount::factory(),
             'common_discount_amount' => $this->faker->numberBetween(10000, 500000),
-            'status' => $this->faker->randomElement([Order::STATUS_PENDING, Order::STATUS_FAILED, Order::STATUS_POSTED ]),
+            'status' => $this->faker->randomElement([Order::STATUS_PENDING, Order::STATUS_FAILED, Order::STATUS_CANCELED ,Order::STATUS_PAID ]),
             'delivery_status' => $this->faker->randomElement([Order::DELIVERY_STATUS_SENDING, Order::DELIVERY_STATUS_NOT_SEND,
                             Order::DELIVERY_STATUS_DELIVERED , Order::DELIVERY_STATUS_POSTED ]),
         ];

@@ -6,6 +6,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Modules\Blog\Models\Category;
 use Modules\Blog\Models\Post;
+use Modules\RolePermissions\Database\Seeders\RolePermissionsSeeder;
+use Modules\RolePermissions\Models\Permission;
 use Modules\User\Models\User;
 use Tests\TestCase;
 
@@ -27,16 +29,16 @@ class PostControllerTest extends TestCase
         $this->actingAsUser();
         $response = $this->get(route('panel.blog.posts.create'));
         $response->assertViewIs('Blog::posts.create')
-        ->assertViewHas('categories' , Category::all());
+            ->assertViewHas('categories', Category::all());
     }
 
     public function test_store_method()
     {
-        $this->withoutExceptionHandling();
         $this->actingAsUser();
         $data = Post::factory()->make()->toArray();
 
         $data['image'] = UploadedFile::fake()->image('posts.jpeg');
+        $data['tags'] = ['php' , 'laravel'];
         $response = $this->post(route('panel.blog.posts.store'), $data);
 
         $response->assertRedirect();
@@ -45,7 +47,6 @@ class PostControllerTest extends TestCase
 
     public function test_edit_method()
     {
-        $this->withoutExceptionHandling();
         $this->actingAsUser();
         $post = Post::factory()->create();
 
@@ -54,8 +55,8 @@ class PostControllerTest extends TestCase
         $response->assertViewIs('Blog::posts.edit')
             ->assertViewHasAll(
                 [
-                    'post' => $post ,
-                    'categories' =>  Category::all() ,
+                    'post' => $post,
+                    'categories' => Category::all(),
                 ]
             );
     }
@@ -82,7 +83,7 @@ class PostControllerTest extends TestCase
         $response->assertJson([
             'message' => "پست " . $post->name . " با موفقیت حذف شد."
         ]);
-        $this->assertDatabaseCount('posts', 0);
+        $this->assertCount(0, Post::all());
         $this->assertDatabaseMissing('posts', $post->toArray());
     }
 
@@ -90,6 +91,8 @@ class PostControllerTest extends TestCase
     public function actingAsUser()
     {
         $user = User::factory()->create();
+        $this->seed(RolePermissionsSeeder::class);
+        $user->givePermissionTo(Permission::PERMISSION_MANAGE_BLOG);
         $this->actingAs($user);
     }
 }

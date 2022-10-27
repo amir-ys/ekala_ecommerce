@@ -6,7 +6,7 @@
 @section('content')
     <div class="row">
         <div class="col-lg-12">
-            @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_SLIDES))
+            @can(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_SLIDES)
                 <div class="row mb-3">
                     <div class="col-sm-12 col-md-12 col-lg-2">
                         <a href="{{ route('panel.slides.create') }}"
@@ -17,7 +17,7 @@
                         </a>
                     </div>
                 </div>
-            @endif
+            @endcan
             <div class="card">
                 <div class="card-body border border-5">
                     <div class="table-responsive">
@@ -32,9 +32,9 @@
                                 <th>وضعیت</th>
                                 <th>عکس</th>
                                 <th> تاریخ ایجاد</th>
-                                @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_SLIDES))
+                                @can(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_SLIDES)
                                     <th> عملیات</th>
-                                @endif
+                                @endcan
                             </tr>
                             </thead>
                             <tbody>
@@ -62,7 +62,7 @@
                                     </td>
 
                                     <td>{{ getJalaliDate($slide->created_at) }}</td>
-                                    @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_SLIDES))
+                                    @can(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_SLIDES)
                                         <td>
                                             <a class="btn btn-sm bg-transparent d-inline"
                                                href="{{ route('panel.slides.edit' , $slide->id) }}"><i
@@ -73,7 +73,7 @@
                                                class="btn btn-sm bg-transparent d-inline delete-confirm"><i
                                                     class="fa fa-trash fa-15m text-danger"></i></a>
                                         </td>
-                                    @endif
+                                    @endcan
                                 </tr>
                             @endforeach
                             </tbody>

@@ -4,6 +4,8 @@ namespace Modules\Brand\Tests\Feature\Controllers;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\Brand\Models\Brand;
+use Modules\RolePermissions\Database\Seeders\RolePermissionsSeeder;
+use Modules\RolePermissions\Models\Permission;
 use Modules\User\Models\User;
 use Tests\TestCase;
 
@@ -64,7 +66,7 @@ class BrandControllerTest extends TestCase
 
         $response = $this->delete(route('panel.brands.destroy' ,  $brand->id));
 
-        $this->assertDatabaseCount('brands' ,0 );
+        $this->assertCount(0 ,Brand::all() );
         $this->assertDatabaseMissing('brands' ,$brand->toArray());
         $response->assertJson([
             'status' => 1
@@ -89,7 +91,9 @@ class BrandControllerTest extends TestCase
 
     public function actingAsUser()
     {
-        $user =  User::factory()->create();
+        $user = User::factory()->create();
+        $this->seed(RolePermissionsSeeder::class);
+        $user->givePermissionTo(Permission::PERMISSION_MANAGE_BRANDS);
         $this->actingAs($user);
     }
 

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Payment\Models\Order;
 use Modules\User\Database\Factories\UserAddressFactory;
 
 class UserAddress extends Model
@@ -35,6 +36,11 @@ class UserAddress extends Model
     {
         return new UserAddressFactory();
 
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 
     public function getFullAddress(): Attribute

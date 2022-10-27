@@ -27,8 +27,8 @@ class UserFactory extends Factory
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
             'remember_token' => Str::random(10),
             'profile' => $this->faker->imageUrl,
-            'status' => $this->faker->randomElement([1, 0 , -1]),
-            'is_admin' => $this->faker->randomElement([1, 0 , -1]),
+            'status' => $this->faker->randomElement(User::$statuses),
+            'is_admin' => User::ROLE_ADMIN,
         ];
     }
 
@@ -46,11 +46,11 @@ class UserFactory extends Factory
         });
     }
 
-    public function admin()
+    public function admin(): UserFactory
     {
         return $this->state(function (array $attributes) {
             return [
-                'is_admin' => true,
+                'is_admin' => User::ROLE_ADMIN,
             ];
         });
     }

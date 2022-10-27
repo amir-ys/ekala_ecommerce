@@ -9,6 +9,8 @@ return [
     'show-date' => 'diff-for-humans',
 
 
+    'shop_name' => 'ekala-eccormance' ,
+
     /*
      | This option controls the default date show in all tables
      |

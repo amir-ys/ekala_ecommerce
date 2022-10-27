@@ -6,7 +6,7 @@
 @section('content')
     <div class="row">
         <div class="col-lg-12">
-            @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_USERS))
+            @can(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_USERS)
                 <div class="row mb-3">
                     <div class="col-sm-12 col-md-12 col-lg-2">
                         <a href="{{ route('panel.users.create') }}"
@@ -16,7 +16,7 @@
                             @lang('User::translation.create')</a>
                     </div>
                 </div>
-            @endif
+            @endcan
             <div class="card">
                 <div class="card-body border border-5">
                     <div class="table-responsive">
@@ -31,9 +31,9 @@
                                 <th> موبایل</th>
                                 <th> وضعیت تایید ایمیل</th>
                                 <th> وضعیت کاربر</th>
-                                @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_USERS))
+                                @can(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_USERS)
                                     <th> عملیات</th>
-                                @endif
+                                @endcan
                             </tr>
                             </thead>
                             <tbody>
@@ -66,7 +66,7 @@
                                             {{ $user->statusName }}
                                         </span>
                                     </td>
-                                    @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_USERS))
+                                    @can(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_USERS)
                                         <td>
                                             <a class="btn btn-sm bg-transparent d-inline"
                                                href="{{ route('panel.users.edit' , $user->id) }}"><i
@@ -77,7 +77,7 @@
                                                href="{{ route('panel.users.destroy' , $user->id) }}"><i
                                                     class="fa fa-trash fa-15m text-danger"></i></a>
                                         </td>
-                                    @endif
+                                    @endcan
                                 </tr>
                             @endforeach
                             </tbody>

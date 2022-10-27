@@ -28,7 +28,7 @@ class SlideFactory extends Factory
             'type' => $this->faker->randomElement([SlideType::SLIDER->value , SlideType::BANNER_BOTTOM->value , SlideType::BANNER_TOP_LEFT->value]),
             'link' => $this->faker->url,
             'btn_text' => $this->faker->text,
-            'photo' => $this->faker->imageUrl,
+//            'image' => $this->faker->imageUrl,
         ];
     }
 }

@@ -20,7 +20,7 @@ class CouponFactory extends Factory
     public function definition()
     {
         return [
-            'code' => $this->faker->randomElement,
+            'code' => $this->faker->unique()->lastName(),
             'type' => $this->faker->randomElement(Coupon::$types),
             'use_type' => Coupon::USE_TYPE_PUBLIC,
             'amount' => $this->faker->numberBetween(100000, 2000000),

@@ -30,7 +30,8 @@ class AttributeTest extends TestCase
     public function test_attribute_relation_with_products()
     {
         $count = rand(1 ,9);
-        $attribute = Attribute::factory()->hasAttached(Product::factory()->count($count) , ['value' => '::test::'] , 'products')->create();
+        $attribute = Attribute::factory()->hasAttached(Product::factory()->count($count) , ['value' => '::test::'] ,
+            'products')->create();
 
         $this->assertCount($count , $attribute->products);
     }

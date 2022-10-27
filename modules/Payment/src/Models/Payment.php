@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Payment\Database\Factories\PaymentFactory;
 use Modules\User\Models\User;
@@ -30,9 +31,9 @@ class Payment extends Model
     const PAYMENT_TYPE_ONLINE = 1;
     const PAYMENT_TYPE_OFFLINE = 2;
 
-    public function order(): BelongsTo
+    public function orders(): HasMany
     {
-        return $this->belongsTo(Order::class, 'order_id');
+        return $this->hasMany(Order::class);
     }
 
     public function user(): BelongsTo

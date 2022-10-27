@@ -21,7 +21,6 @@ class CategoryRepo extends BaseRepository implements CategoryRepositoryInterface
        return $this->query->create([
             'name' => $data['name'],
             'description' => $data['description'],
-            'image' => $data['image'],
             'status' => $data['status'],
         ]);
     }
@@ -32,7 +31,6 @@ class CategoryRepo extends BaseRepository implements CategoryRepositoryInterface
         $model->update([
             'name' => $data['name'],
             'description' => $data['description'],
-            'image' => $data['image'],
             'status' => $data['status'],
         ]);
     }

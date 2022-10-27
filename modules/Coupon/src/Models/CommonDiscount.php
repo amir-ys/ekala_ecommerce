@@ -5,8 +5,10 @@ namespace Modules\Coupon\Models;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Coupon\Database\Factories\CommonDiscountFactory;
+use Modules\Payment\Models\Order;
 
 class CommonDiscount extends Model
 {
@@ -24,6 +26,11 @@ class CommonDiscount extends Model
     public static function factory(): CommonDiscountFactory
     {
         return new CommonDiscountFactory();
+    }
+
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
     }
 
     public function statusCssClass(): Attribute

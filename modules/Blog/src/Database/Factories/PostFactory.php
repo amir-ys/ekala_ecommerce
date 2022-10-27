@@ -25,14 +25,13 @@ class PostFactory extends Factory
             'title' => $this->faker->title,
             'summary' => $this->faker->text,
             'body' => $this->faker->paragraph,
-            'image' => $this->faker->imageUrl,
+            'image' => $this->faker->imageUrl ,
             'status' => $this->faker->randomElement(Post::$statuses),
             'is_commentable' => $this->faker->randomElement(Post::$commentable),
-            'published_at' => $this->faker->dateTime()->format('Y-m-d H:i:s'),
+//            'published_at' => (new Jalalian(1399 , 3 ,5 , 07 ,30))->format('Y/m/d H:i'),
             'author_id' => User::factory(),
             'category_id' => Category::factory(),
             'view_count' => $this->faker->randomNumber(),
-            'tags' =>  ['php' , 'laravel' , 'js']
         ];
     }
 }

@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="row mb-3">
-                @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_BLOG))
+                @can(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_BLOG)
                 <div class="col-sm-12 col-md-12 col-lg-2">
                     <a href="{{ route('panel.blog.posts.create') }}"
                        class="btn btn-primary
@@ -15,7 +15,7 @@
                         <i class="mdi mdi-plus me-1"></i>
                         @lang('Blog::translation.post.create')</a>
                 </div>
-                @endif
+                @endcan
             </div>
             <div class="card">
                 <div class="card-body border border-5">
@@ -33,9 +33,9 @@
                                 <th> تاریخ ایجاد</th>
                                 <th>تگ ها</th>
                                 <th>وضعیت</th>
-                                @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_BLOG))
+                                @can(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_BLOG)
                                 <th> عملیات</th>
-                                @endif
+                                @endcan
                             </tr>
                             </thead>
                             <tbody>
@@ -69,7 +69,7 @@
                                         </span>
                                     </td>
 
-                                    @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_BLOG))
+                                    @can(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_BLOG)
                                     <td>
                                         <a class="btn btn-sm bg-transparent d-inline"
                                            href="{{ route('panel.blog.posts.edit' , $post->id) }}"><i
@@ -81,7 +81,7 @@
                                                 class="fa fa-trash fa-15m text-danger"></i></a>
 
                                     </td>
-                                    @endif
+                                    @endcan
                                 </tr>
                             @endforeach
                             </tbody>

@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Brand\Models\Brand;
 use Modules\Category\Models\Category;
 use Modules\Comment\Traits\Commentable;
+use Modules\Payment\Models\OrderItem;
 use Modules\Product\Contracts\ProductRepositoryInterface;
 use Modules\Product\Database\Factories\ProductFactory;
 use Modules\Product\Enums\ProductStatus;
@@ -103,6 +104,11 @@ class Product extends Model
     public function wishlist(): HasMany
     {
         return $this->hasMany(Wishlist::class, 'product_id');
+    }
+
+    public function orderDetails()
+    {
+        return $this->hasMany(OrderItem::class);
     }
 
     public function vzt()

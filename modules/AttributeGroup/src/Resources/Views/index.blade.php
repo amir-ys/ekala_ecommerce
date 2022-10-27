@@ -18,9 +18,9 @@
                                 <th>نام</th>
                                 <th>دسته بندی</th>
                                 <th> تاریخ ایجاد</th>
-                                @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_ATTRIBUTE_GROUPS))
-                                <th> عملیات</th>
-                                @endif
+                                @can(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_ATTRIBUTE_GROUPS)
+                                    <th> عملیات</th>
+                                @endcan
                             </tr>
                             </thead>
                             <tbody>
@@ -30,26 +30,27 @@
                                     <td>{{ $attributeGroup->name }}</td>
                                     <td>{{ $attributeGroup->getCategoriesName() }}</td>
                                     <td>{{ getJalaliDate($attributeGroup->created_at) }}</td>
-                                    @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_ATTRIBUTE_GROUPS))
-                                    <td>
-                                        <a class="btn btn-sm bg-transparent d-inline"
-                                           href="{{ route('panel.attributeGroups.edit' , $attributeGroup) }}"><i
-                                                class="fa fa-pencil fa-15m text-success"></i></a>
+                                    @can(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_ATTRIBUTE_GROUPS)
 
-                                        <a href="{{ route('panel.attributeGroups.destroy' , $attributeGroup->id) }}"
-                                           onclick="deleteItem(event ,  '{{ route('panel.attributeGroups.destroy' , $attributeGroup->id) }}')"
-                                           class="btn btn-sm bg-transparent d-inline delete-confirm"><i
-                                                class="fa fa-trash fa-15m text-danger"></i></a>
+                                        <td>
+                                            <a class="btn btn-sm bg-transparent d-inline"
+                                               href="{{ route('panel.attributeGroups.edit' , $attributeGroup) }}"><i
+                                                    class="fa fa-pencil fa-15m text-success"></i></a>
 
-                                        <form
-                                            action="{{ route('panel.attributeGroups.destroy' , $attributeGroup->id) }}"
-                                            method="post"
-                                            id="destroy-brand-{{ $attributeGroup->id }}">
-                                            @csrf
-                                            @method('delete')
-                                        </form>
-                                    </td>
-                                    @endif
+                                            <a href="{{ route('panel.attributeGroups.destroy' , $attributeGroup->id) }}"
+                                               onclick="deleteItem(event ,  '{{ route('panel.attributeGroups.destroy' , $attributeGroup->id) }}')"
+                                               class="btn btn-sm bg-transparent d-inline delete-confirm"><i
+                                                    class="fa fa-trash fa-15m text-danger"></i></a>
+
+                                            <form
+                                                action="{{ route('panel.attributeGroups.destroy' , $attributeGroup->id) }}"
+                                                method="post"
+                                                id="destroy-brand-{{ $attributeGroup->id }}">
+                                                @csrf
+                                                @method('delete')
+                                            </form>
+                                        </td>
+                                    @endcan
                                 </tr>
                             @endforeach
                             </tbody>
@@ -58,18 +59,18 @@
                 </div>
             </div>
         </div>
-        @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_ATTRIBUTE_GROUPS))
-        @include('AttributeGroup::create')
-        @endif
+        @can(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_ATTRIBUTE_GROUPS)
+            @include('AttributeGroup::create')
+        @endcan
     </div>
     <!-- /basic responsive table -->
 @endsection
 @section('css')
-        <link rel="stylesheet" href="/assets/panel/vendors/select2/css/select2.min.css" type="text/css">
+    <link rel="stylesheet" href="/assets/panel/vendors/select2/css/select2.min.css" type="text/css">
 @endsection
 
 @section('script')
-        <script src="/assets/panel/vendors/select2/js/select2.min.js"></script>
+    <script src="/assets/panel/vendors/select2/js/select2.min.js"></script>
     <script>
         $('#select-category-id').select2({
             placeholder: "دسته بندی را انتخاب کنید",

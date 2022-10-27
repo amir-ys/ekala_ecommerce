@@ -25,6 +25,7 @@ class ProductColorFactory extends Factory
             'color_value' => $this->faker->hexColor(),
             'price_increase' => $this->faker->numberBetween(-4000, 5000),
             'product_id' => Product::factory(),
+            'quantity' => $qu = $this->faker->numberBetween(1, 50),
         ];
     }
 }

@@ -19,9 +19,9 @@
                                 <th>روش پرداخت</th>
                                 <th>وضعیت</th>
                                 <th>تاریخ ساخت</th>
-                                @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_PAYMENTS))
+                                @can(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_PAYMENTS)
                                     <th> عملیات</th>
-                                @endif
+                                @endcan
                             </tr>
                             </thead>
                             <tbody>
@@ -40,7 +40,7 @@
                                             CLASS="badge bg-{{ $payment->status_css }}"> {{  $payment->status_name }} </span>
                                     </td>
                                     <td>{{ getJalaliDate($payment->created_at) }}</td>
-                                    @if(auth()->user()->hasPermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_PAYMENTS))
+                                    @can(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_PAYMENTS)
                                         <td>
 
                                             <a href="{{ route('panel.payments.destroy' , $payment->id) }}"
@@ -48,7 +48,7 @@
                                                class="btn btn-sm bg-transparent d-inline delete-confirm"><i
                                                     class="fa fa-trash fa-15m text-danger"></i></a>
                                         </td>
-                                    @endif
+                                    @endcan
                                 </tr>
                             @endforeach
                             </tbody>

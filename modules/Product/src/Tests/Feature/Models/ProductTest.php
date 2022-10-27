@@ -8,6 +8,7 @@ use Modules\Attribute\Models\Attribute;
 use Modules\Brand\Models\Brand;
 use Modules\Category\Models\Category;
 use Modules\Comment\Models\Comment;
+use Modules\Payment\Models\OrderItem;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductImage;
 use Tests\TestCase;
@@ -45,7 +46,8 @@ class ProductTest extends TestCase
     public function test_product_relation_with_productImage()
     {
         $count = rand(1, 9);
-        $product = Product::factory()->has(ProductImage::factory()->state(['is_primary' => 0])->count($count), 'images')->create();
+        $product = Product::factory()->has(ProductImage::factory()->state(['is_primary' => 0])->count($count),
+            'images')->create();
 
         $this->assertCount($count, $product->images);
         $this->assertInstanceOf(ProductImage::class, $product->images->first());
@@ -61,12 +63,21 @@ class ProductTest extends TestCase
         $this->assertInstanceOf(Attribute::class, $product->attributes->first());
     }
 
-    public function test_product_relation_with_()
+    public function test_product_relation_with_comment()
     {
         $count = rand(1, 9);
         $product = Product::factory()->has(Comment::factory()->count($count), 'comments')->create();
 
         $this->assertCount($count, $product->comments);
         $this->assertInstanceOf(Comment::class, $product->comments()->first());
+    }
+
+    public function test_product_relation_with_order_items()
+    {
+        $count = rand(1, 9);
+        $product = Product::factory()->has(OrderItem::factory()->count($count) , 'orderDetails')->create();
+
+        $this->assertCount($count , $product->orderDetails);
+        $this->assertInstanceOf(OrderItem::class , $product->orderDetails->first() );
     }
 }

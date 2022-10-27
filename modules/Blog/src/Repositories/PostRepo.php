@@ -18,7 +18,7 @@ class PostRepo extends BaseRepository implements PostRepositoryInterface
 
     public function store(array $data)
     {
-        $this->query->create([
+       return $this->query->create([
             'title' => $data['title'],
             'summary' => $data['summary'],
             'body' => $data['body'],

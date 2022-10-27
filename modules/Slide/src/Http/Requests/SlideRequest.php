@@ -25,11 +25,11 @@ class SlideRequest extends FormRequest
             'type' => ['required', new Enum(SlideType::class)],
             'link' => ['required', 'url'],
             'btn_text' => ['nullable', 'string'],
-            'photo' => ['required', 'image', 'mimes:png,jpeg,jpg'],
+            'image' => ['required', 'image', 'mimes:png,jpeg,jpg'],
         ];
 
         if ($this->getMethod() == 'PATCH'){
-            $rules['photo'] = ['nullable', 'image', 'mimes:png,jpeg,jpg'];
+            $rules['image'] = ['nullable', 'image', 'mimes:png,jpeg,jpg'];
             $rules['priority'] = ['nullable' ];
         }
 
@@ -44,7 +44,7 @@ class SlideRequest extends FormRequest
             'type' => 'نوع',
             'link' => 'لینک',
             'btn_text' => 'متن دکمه',
-            'photo' => 'عکس',
+            'image' => 'عکس',
         ];
     }
 

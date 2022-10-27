@@ -3,6 +3,7 @@
 namespace Modules\RolePermissions\Tests\Feature\Controllers;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Modules\RolePermissions\Database\Seeders\RolePermissionsSeeder;
 use Modules\RolePermissions\Models\Permission;
 use Modules\RolePermissions\Models\Role;
 use Modules\User\Models\User;
@@ -44,7 +45,6 @@ class RoleControllerTest extends TestCase
         $response->assertRedirect();
         $this->assertDatabaseCount('roles' , 1);
         $this->assertDatabaseHas('roles' ,$roleData );
-        $this->assertDatabaseCount('permissions' , 3);
         $this->assertDatabaseCount('role_has_permissions' , 3);
     }
 
@@ -77,7 +77,6 @@ class RoleControllerTest extends TestCase
         $response->assertRedirect();
         $this->assertDatabaseCount('roles' , 1);
         $this->assertDatabaseHas('roles' ,$roleData );
-        $this->assertDatabaseCount('permissions' , 4);
         $this->assertDatabaseCount('role_has_permissions' , 3);
     }
 
@@ -98,11 +97,12 @@ class RoleControllerTest extends TestCase
         $this->assertDatabaseCount('role_has_permissions' , 0);
     }
 
-    private function actingAsUser()
+    public function actingAsUser()
     {
-        $user = User::factory()->admin()->create();
+        $user = User::factory()->create();
+        $this->seed(RolePermissionsSeeder::class);
+        $user->givePermissionTo(Permission::PERMISSION_MANAGE_ROLE_PERMISSIONS);
         $this->actingAs($user);
-
     }
 
 }
