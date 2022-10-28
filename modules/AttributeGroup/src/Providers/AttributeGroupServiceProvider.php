@@ -1,4 +1,5 @@
 <?php
+
 namespace Modules\AttributeGroup\Providers;
 
 use Illuminate\Support\Facades\Gate;
@@ -9,7 +10,7 @@ use Modules\AttributeGroup\Models\AttributeGroup;
 use Modules\AttributeGroup\Policies\AttributeGroupPolicy;
 use Modules\AttributeGroup\Repositories\AttributeGroupRepo;
 
-class AttributeGroupServiceProvider extends  ServiceProvider
+class AttributeGroupServiceProvider extends ServiceProvider
 {
     private string $namespace = 'Modules\AttributeGroup\Http\Controllers';
 
@@ -18,20 +19,22 @@ class AttributeGroupServiceProvider extends  ServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
         $this->loadViewsFrom(__DIR__ . '/../Resources/Views', 'AttributeGroup');
         $this->loadTranslationsFrom(__DIR__ . '/../Resources/Lang', 'AttributeGroup');
-        $this->loadRoutes();
-        Gate::policy(AttributeGroup::class , AttributeGroupPolicy::class);
+        Gate::policy(AttributeGroup::class, AttributeGroupPolicy::class);
     }
 
     public function boot()
     {
-        app()->bind(AttributeGroupRepositoryInterface::class , AttributeGroupRepo::class);
+        $this->loadRoutes();
+        app()->bind(AttributeGroupRepositoryInterface::class, AttributeGroupRepo::class);
     }
 
     private function loadRoutes()
     {
-        Route::middleware(['web' , 'auth'])
-            ->namespace($this->namespace)
-            ->group(__DIR__ . '/../Routes/attributeGroups_routes.php');
+        if (!app()->routesAreCached()) {
+            Route::middleware(['web'] + config('core.panel_middlewares'))
+                ->namespace($this->namespace)
+                ->group(__DIR__ . '/../Routes/attributeGroups_routes.php');
+        }
     }
 
 }

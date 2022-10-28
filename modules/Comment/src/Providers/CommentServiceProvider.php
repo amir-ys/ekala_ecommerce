@@ -1,4 +1,5 @@
 <?php
+
 namespace Modules\Comment\Providers;
 
 use Illuminate\Support\Facades\Gate;
@@ -9,7 +10,7 @@ use Modules\Comment\Models\Comment;
 use Modules\Comment\Policies\CommentPolicy;
 use Modules\Comment\Repositories\CommentRepo;
 
-class CommentServiceProvider extends  ServiceProvider
+class CommentServiceProvider extends ServiceProvider
 {
     private string $namespace = 'Modules\Comment\Http\Controllers';
 
@@ -18,20 +19,22 @@ class CommentServiceProvider extends  ServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
         $this->loadViewsFrom(__DIR__ . '/../Resources/Views', 'Comment');
         $this->loadTranslationsFrom(__DIR__ . '/../Resources/Lang', 'Comment');
-        $this->loadRoutes();
-        Gate::policy(Comment::class , CommentPolicy::class);
+        Gate::policy(Comment::class, CommentPolicy::class);
     }
 
     public function boot()
     {
-        $this->app->bind(CommentRepositoryInterface::class , CommentRepo::class);
+        $this->loadRoutes();
+        $this->app->bind(CommentRepositoryInterface::class, CommentRepo::class);
     }
 
     private function loadRoutes()
     {
-        Route::middleware(['web' , 'auth'])
-            ->namespace($this->namespace)
-            ->group(__DIR__ . '/../Routes/comments_routes.php');
+        if (!app()->routesAreCached()) {
+            Route::middleware(['web'] + config('core.panel_middlewares'))
+                ->namespace($this->namespace)
+                ->group(__DIR__ . '/../Routes/comments_routes.php');
+        }
     }
 
 }

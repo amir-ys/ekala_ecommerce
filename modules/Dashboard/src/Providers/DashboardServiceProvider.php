@@ -1,4 +1,5 @@
 <?php
+
 namespace Modules\Dashboard\Providers;
 
 use Illuminate\Support\Facades\Route;
@@ -13,29 +14,31 @@ class DashboardServiceProvider extends ServiceProvider
     public function register()
     {
         $this->loadViewsFrom(__DIR__ . '/../Resources/Views', 'Dashboard');
-        $this->loadRoutes();
 
 
     }
 
     public function boot()
     {
+        $this->loadRoutes();
         $this->unseenCommentViewComposer();
 
     }
 
     public function loadRoutes()
     {
-        Route::middleware(['web' , 'auth' , 'verified'])
-            ->namespace($this->namespace)
-            ->group(__DIR__ . '/../Routes/dashboards_routes.php');
+        if (!app()->routesAreCached()) {
+            Route::middleware(['web'] + config('core.panel_middlewares'))
+                ->namespace($this->namespace)
+                ->group(__DIR__ . '/../Routes/dashboards_routes.php');
+        }
     }
 
     public function unseenCommentViewComposer()
     {
-        view()->composer('Dashboard::layouts.top-sidebar' , function (View $view){
+        view()->composer('Dashboard::layouts.top-sidebar', function (View $view) {
             $unseenComments = (resolve(CommentRepositoryInterface::class))->getUnseenComments();
-           return $view->with('unseenComments' , $unseenComments);
+            return $view->with('unseenComments', $unseenComments);
         });
     }
 }

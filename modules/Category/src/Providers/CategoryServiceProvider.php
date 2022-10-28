@@ -1,4 +1,5 @@
 <?php
+
 namespace Modules\Category\Providers;
 
 use Illuminate\Support\Facades\Gate;
@@ -9,7 +10,7 @@ use Modules\Category\Models\Category;
 use Modules\Category\Policies\CategoryPolicy;
 use Modules\Category\Repositories\CategoryRepo;
 
-class CategoryServiceProvider extends  ServiceProvider
+class CategoryServiceProvider extends ServiceProvider
 {
     private string $namespace = 'Modules\Category\Http\Controllers';
 
@@ -18,22 +19,24 @@ class CategoryServiceProvider extends  ServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
         $this->loadViewsFrom(__DIR__ . '/../Resources/Views', 'Category');
         $this->loadTranslationsFrom(__DIR__ . '/../Resources/Lang', 'Category');
-        $this->loadRoutes();
-        Gate::policy(Category::class , CategoryPolicy::class);
+        Gate::policy(Category::class, CategoryPolicy::class);
 
 
     }
 
     public function boot()
     {
-        $this->app->bind(CategoryRepositoryInterface::class , CategoryRepo::class);
+        $this->loadRoutes();
+        $this->app->bind(CategoryRepositoryInterface::class, CategoryRepo::class);
     }
 
     private function loadRoutes()
     {
-        Route::middleware(['web' , 'auth'])
-            ->namespace($this->namespace)
-            ->group(__DIR__ . '/../Routes/categories_routes.php');
+        if (!app()->routesAreCached()) {
+            Route::middleware(['web'] + config('core.panel_middlewares'))
+                ->namespace($this->namespace)
+                ->group(__DIR__ . '/../Routes/categories_routes.php');
+        }
     }
 
 }

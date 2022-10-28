@@ -31,9 +31,11 @@
                 <div class="container">
                     <div class="row">
                         <!-- Side Panel Post -->
-                        @foreach(getMostVisitedPostsFromRedis() as $post)
-                            @include('Front::blog._partials.post-box-sidebar' , ['post' => $post])
-                        @endforeach
+                        @if(!empty(getMostVisitedPostsFromRedis()))
+                            @foreach(getMostVisitedPostsFromRedis() as $post)
+                                @include('Front::blog._partials.post-box-sidebar' , ['post' => $post])
+                            @endforeach
+                        @endif
                         <!-- /Side Panel Post -->
                     </div>
                 </div>

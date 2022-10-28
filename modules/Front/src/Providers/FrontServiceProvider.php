@@ -20,14 +20,14 @@ class FrontServiceProvider extends ServiceProvider
     {
         $this->loadViewsFrom(__DIR__ . '/../Resources/Views', 'Front');
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
-        $this->loadRoutes();
-        app()->make('router')->aliasMiddleware('filling_cart' , FillingCart::class );
-        app()->make('router')->aliasMiddleware('profile_complete' , ProfileComplete::class );
+        app()->make('router')->aliasMiddleware('filling_cart', FillingCart::class);
+        app()->make('router')->aliasMiddleware('profile_complete', ProfileComplete::class);
 
     }
 
     public function boot()
     {
+        $this->loadRoutes();
         $this->footerViewComposer();
         $this->BlogCategoriesViewComposer();
         $this->ShopCategoriesViewComposer();
@@ -44,19 +44,19 @@ class FrontServiceProvider extends ServiceProvider
                 return resolve(CategoryRepositoryInterface::class)->allParentLimit(7);
             });
 
-            $shopName = Cache::remember('shopName', now()->addDay(), function () use($settingRepo) {
+            $shopName = Cache::remember('shopName', now()->addDay(), function () use ($settingRepo) {
                 return $settingRepo->getItem(Setting::SETTING_SHOP_NAME);
             });
 
-            $shopFooter = Cache::remember('shopFooter', now()->addDay(), function () use($settingRepo) {
+            $shopFooter = Cache::remember('shopFooter', now()->addDay(), function () use ($settingRepo) {
                 return $settingRepo->getItem(Setting::SETTING_SHOP_FOOTER);
             });
 
-            $shopFooterContact = Cache::remember('shopFooterContact', now()->addDay(), function () use($settingRepo) {
+            $shopFooterContact = Cache::remember('shopFooterContact', now()->addDay(), function () use ($settingRepo) {
                 return $settingRepo->getItem(Setting::SETTING_SHOP_FOOTER_CONTACT);
             });
 
-            $socialMedia = Cache::remember('socialMedia', now()->addDay(), function () use($settingRepo) {
+            $socialMedia = Cache::remember('socialMedia', now()->addDay(), function () use ($settingRepo) {
                 return $settingRepo->getItem(Setting::SETTING_SOCIAL_MEDIA);
             });
 
@@ -90,7 +90,7 @@ class FrontServiceProvider extends ServiceProvider
         view()->composer('Front::layouts.main-navbar', function (View $view) {
 
             $categories = Cache::remember('categories', now()->addDay(), function () {
-               return resolve(CategoryRepositoryInterface::class)->allParent();
+                return resolve(CategoryRepositoryInterface::class)->allParent();
             });
 
             return $view->with([
@@ -101,8 +101,10 @@ class FrontServiceProvider extends ServiceProvider
 
     private function loadRoutes()
     {
-        Route::middleware('web')
-            ->namespace($this->namespace)
-            ->group(__DIR__ . '/../Routes/front_routes.php');
+        if (!app()->routesAreCached()) {
+            Route::middleware('web')
+                ->namespace($this->namespace)
+                ->group(__DIR__ . '/../Routes/front_routes.php');
+        }
     }
 }

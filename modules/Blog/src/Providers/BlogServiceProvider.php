@@ -22,22 +22,23 @@ class BlogServiceProvider extends ServiceProvider
         $this->loadJsonTranslationsFrom(__DIR__ . "/../Resources/Lang");
         $this->loadTranslationsFrom(__DIR__ . "/../Resources/Lang", 'Blog');
         $this->loadViewsFrom(__DIR__ . '/../Resources/Views', 'Blog');
-        $this->loadRoutes();
-        Gate::policy(Post::class , BlogPolicy::class);
-
+        Gate::policy(Post::class, BlogPolicy::class);
     }
 
     public function boot()
     {
+        $this->loadRoutes();
         $this->app->bind(CategoryRepositoryInterface::class, CategoryRepo::class);
         $this->app->bind(PostRepositoryInterface::class, PostRepo::class);
     }
 
     private function loadRoutes()
     {
-        Route::middleware(['web' , 'auth'])
-            ->namespace($this->namespace)
-            ->group(__DIR__ . "/../Routes/blog_routes.php");
+        if (!app()->routesAreCached()) {
+            Route::middleware(['web'] + config('core.panel_middlewares'))
+                ->namespace($this->namespace)
+                ->group(__DIR__ . "/../Routes/blog_routes.php");
+        }
     }
 
 }

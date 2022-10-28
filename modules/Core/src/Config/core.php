@@ -1,15 +1,24 @@
 <?php
 
 return [
-    /*
-      | This option controls the default date show in all tables
-      |
-      | Supported: "diff-for-humans" , "carbon"
-      */
+
+    'shop_name' => 'فروشگاه اینترنتی ekala' ,
+
+    /* array type */
+    'panel_middlewares' =>  [ 'auth' , 'verified' ] ,
+
+
+
+
+
+
+
+/*
+  | This option controls the default date show in all tables
+  |
+  | Supported: "diff-for-humans" , "carbon"
+  */
     'show-date' => 'diff-for-humans',
-
-
-    'shop_name' => 'ekala-eccormance' ,
 
     /*
      | This option controls the default date show in all tables

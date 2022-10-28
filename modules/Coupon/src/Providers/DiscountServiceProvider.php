@@ -17,20 +17,22 @@ class DiscountServiceProvider extends ServiceProvider
         $this->loadTranslationsFrom(__DIR__ . '/../Resources/Lang', 'Discount');
         $this->loadJsonTranslationsFrom(__DIR__ . '/../Resources/Lang');
         $this->loadViewsFrom(__DIR__ . '/../Resources/Views', 'Discount');
-        $this->defineRoutes();
     }
 
     public function boot()
     {
+        $this->defineRoutes();
         $this->app->bind(CommonDiscountRepositoryInterface::class, CommonDiscountRepo::class);
 
     }
 
     private function defineRoutes()
     {
-        Route::middleware(['web', 'auth'])
-            ->namespace($this->namespace)
-            ->group(__DIR__ . '/../Routes/discounts_routes.php');
+        if (!app()->routesAreCached()) {
+            Route::middleware(['web'] + config('core.panel_middlewares'))
+                ->namespace($this->namespace)
+                ->group(__DIR__ . '/../Routes/discounts_routes.php');
+        }
     }
 
 }

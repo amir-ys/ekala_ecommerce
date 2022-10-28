@@ -21,28 +21,30 @@ class RolePermissionsServiceProvider extends ServiceProvider
     public function register()
     {
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
-        $this->loadViewsFrom(__DIR__ . '/../Resources/Views' , 'RolePermissions');
-        $this->loadTranslationsFrom(__DIR__ . '/../Resources/Lang' , 'RolePermissions');
-        $this->loadJsonTranslationsFrom(__DIR__ . '/../Resources/Lang' );
-        $this->loadRoutes();
-        Gate::policy(Role::class , RolePermissionPolicy::class);
-        Gate::before(function (User $user){
-            return $user->hasPermissionTo(Permission::PERMISSION_SUPER_ADMIN) ?true :null ;
+        $this->loadViewsFrom(__DIR__ . '/../Resources/Views', 'RolePermissions');
+        $this->loadTranslationsFrom(__DIR__ . '/../Resources/Lang', 'RolePermissions');
+        $this->loadJsonTranslationsFrom(__DIR__ . '/../Resources/Lang');
+        Gate::policy(Role::class, RolePermissionPolicy::class);
+        Gate::before(function (User $user) {
+            return $user->hasPermissionTo(Permission::PERMISSION_SUPER_ADMIN) ? true : null;
         });
 
     }
 
     public function boot()
     {
-        $this->app->bind(RoleRepositoryInterface::class , RoleRepo::class);
-        $this->app->bind(PermissionRepositoryInterface::class , PermissionRepo::class);
+        $this->loadRoutes();
+        $this->app->bind(RoleRepositoryInterface::class, RoleRepo::class);
+        $this->app->bind(PermissionRepositoryInterface::class, PermissionRepo::class);
     }
 
     public function loadRoutes()
     {
-        Route::middleware([ 'web' ,'auth' , 'verified'])
-            ->namespace($this->namespace)
-            ->group(__DIR__ . '/../Routes/role_permissions_routes.php');
+        if (!app()->routesAreCached()) {
+            Route::middleware(['web'] + config('core.panel_middlewares'))
+                ->namespace($this->namespace)
+                ->group(__DIR__ . '/../Routes/role_permissions_routes.php');
+        }
     }
 
 }

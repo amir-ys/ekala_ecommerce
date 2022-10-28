@@ -1,4 +1,5 @@
 <?php
+
 namespace Modules\Brand\Providers;
 
 use Illuminate\Support\Facades\Gate;
@@ -19,21 +20,23 @@ class BrandServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
         $this->loadJsonTranslationsFrom(__DIR__ . '/../Resources/Lang');
         $this->loadTranslationsFrom(__DIR__ . '/../Resources/Lang', 'Brand');
-        $this->loadRoutes();
-        Gate::policy(Brand::class ,BrandPolicy::class);
+        Gate::policy(Brand::class, BrandPolicy::class);
 
     }
 
     public function boot()
     {
-        $this->app->bind(BrandRepositoryInterface::class , BrandRepo::class);
+        $this->loadRoutes();
+        $this->app->bind(BrandRepositoryInterface::class, BrandRepo::class);
     }
 
     private function loadRoutes()
     {
-        Route::middleware(['web' , 'auth'])
-            ->namespace($this->namespace)
-            ->group(__DIR__ . '/../Routes/brands_routes.php');
+        if (!app()->routesAreCached()) {
+            Route::middleware(['web'] + config('core.panel_middlewares'))
+                ->namespace($this->namespace)
+                ->group(__DIR__ . '/../Routes/brands_routes.php');
+        }
     }
 
 }

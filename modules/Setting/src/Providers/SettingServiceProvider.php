@@ -23,12 +23,12 @@ class SettingServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
         $this->loadViewsFrom(__DIR__ . '/../Resources/Views', 'Setting');
         $this->loadTranslationsFrom(__DIR__ . '/../Resources/Lang', 'Setting');
-        $this->loadRoutes();
-        Gate::policy(Setting::class , SettingPolicy::class);
+        Gate::policy(Setting::class, SettingPolicy::class);
     }
 
     public function boot()
     {
+        $this->loadRoutes();
         $this->app->bind(SettingRepositoryInterface::class, SettingRepo::class);
         $this->app->bind(ContactRepositoryInterface::class, ContactRepo::class);
         $this->app->bind(FaqRepositoryInterface::class, FaqRepo::class);
@@ -37,9 +37,11 @@ class SettingServiceProvider extends ServiceProvider
 
     private function loadRoutes()
     {
-        Route::middleware(['web'])
-            ->namespace($this->namespace)
-            ->group(__DIR__ . '/../Routes/settings_routes.php');
+        if (!app()->routesAreCached()) {
+            Route::middleware(['web'] + config('core.panel_middlewares'))
+                ->namespace($this->namespace)
+                ->group(__DIR__ . '/../Routes/settings_routes.php');
+        }
     }
 
 }

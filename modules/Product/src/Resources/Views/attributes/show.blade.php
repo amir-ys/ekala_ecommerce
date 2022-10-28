@@ -30,7 +30,7 @@
                         <form action="{{ route('panel.products.attributes.save' , $product->id) }}" method="post">
                             @csrf
                             <div class="row">
-                                @foreach($product->category->attributeGroups as $attributeGroup)
+                                @foreach($product->category->attributeGroups()->has('attributes')->get() as $attributeGroup)
                                     <div class="col-md-4">
                                         <div class="card">
                                             <div class="card-body">
@@ -39,7 +39,8 @@
                                                     <div class="form-group">
                                                         <div class="custom-control">
                                                             <label for="customCheck">{{ $attribute->name }}</label>
-                                                            <input type="text" name="attributes[{{ $attribute->id }}]"
+                                                            <input type="text"
+                                                                   name="attributes[{{ $attribute->id }}]"
                                                                    placeholder="{{ $attribute->name }}"
                                                                    value="{{ $attribute->getValueForProduct($product) }}"
                                                                    class="form-control">

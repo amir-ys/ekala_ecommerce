@@ -280,7 +280,9 @@ class  ProductRepo extends BaseRepository implements ProductRepositoryInterface
     public function storeColor($id, $data, $isPrimary = false)
     {
         $model = $this->findById($id);
-        $model->colors()->update(['is_primary' => false]);
+        if ($isPrimary){
+            $model->colors()->update(['is_primary' => false]);
+        }
         $model->colors()->create([
             "color_name" => $data['color_name'],
             "color_value" => $data['color_value'],
@@ -293,7 +295,9 @@ class  ProductRepo extends BaseRepository implements ProductRepositoryInterface
     public function updateColor($id, $colorId, $data, $isPrimary = false)
     {
         $model = $this->findById($id);
-        $model->colors()->update(['is_primary' => false]);
+        if ($isPrimary){
+            $model->colors()->update(['is_primary' => false]);
+        }
         $model->colors()->where('id', $colorId)->update([
             "color_name" => $data['color_name'],
             "color_value" => $data['color_value'],

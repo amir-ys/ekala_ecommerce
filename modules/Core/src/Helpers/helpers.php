@@ -46,7 +46,7 @@ if (!function_exists('getDiscountAmount')) {
         function site_name()
         {
             $site = \Modules\Setting\Models\Setting::query()->where('name', 'shop-name')->first();
-            return $site ? $site->value : 'نا مشخص';
+            return $site ? $site->value : 'سایت';
         }
     }
 }

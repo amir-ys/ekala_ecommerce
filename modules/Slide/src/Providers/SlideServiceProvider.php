@@ -19,20 +19,22 @@ class SlideServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__ . '/../Resources/Views', 'Slide');
         $this->loadTranslationsFrom(__DIR__ . '/../Resources/Lang', 'Slide');
         $this->loadJsonTranslationsFrom(__DIR__ . '/../Resources/Lang');
-        $this->loadRoutes();
         Gate::policy(Slide::class , SlidePolicy::class);
     }
 
     public function boot()
     {
+        $this->loadRoutes();
         $this->app->bind(SlideRepositoryInterface::class , SlideRepo::class);
     }
 
     private function loadRoutes()
     {
-        Route::middleware(['web' , 'auth'])
-            ->namespace($this->namespace)
-            ->group(__DIR__ . '/../Routes/slides_routes.php');
+        if (!app()->routesAreCached()) {
+            Route::middleware(['web'] + config('core.panel_middlewares'))
+                ->namespace($this->namespace)
+                ->group(__DIR__ . '/../Routes/slides_routes.php');
+        }
     }
 
 }

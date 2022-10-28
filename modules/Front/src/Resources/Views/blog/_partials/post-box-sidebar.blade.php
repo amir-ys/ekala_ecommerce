@@ -13,8 +13,8 @@
                     </h2></a>
                 <div class="row">
                     <div class="col-12 col-xl-6 pl-0">
-                                                                        <span class="category">دسته بندی: <a
-                                                                                href="{{ $post->category->path() }}">{{ $post->category->name }}</a></span>
+                       <span class="category">دسته بندی: <a
+                       href="{{ $post->category?->path() }}">{{ $post->category?->name }}</a></span>
                     </div>
                     <div
                         class="col-12 col-xl-6 pr-0 text-start text-xl-end d-none d-xl-block">

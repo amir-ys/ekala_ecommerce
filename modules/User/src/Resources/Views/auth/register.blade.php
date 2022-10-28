@@ -9,19 +9,29 @@
                             <div class="col-12 col-lg-5 text-center">
                                 <img src="/assets/front/assets/images/login.png" alt="">
                             </div>
-                            <div class="col-12 col-lg-7 pt-2 pt-md-0 align-self-center">
+                            <div class="col-12 col-lg-7  pt-md-0 align-self-center">
                                 <div class="title">عضویت در فروشگاه</div>
                                 <p>با ورود به حساب کاربری خود از همه امکانات سایت بهره مند شوید.</p>
                                 <form action="{{ route('register') }}" method="post">
                                     @csrf
                                     <div class="form-group">
-                                        <label for="name">نام و نام خانوادگی :</label>
-                                        <input type="text" name="fullname"
-                                               class="form-control @error('fullname') is-invalid @enderror"
-                                               value="{{ old('fullname') }}"
-                                               id="fullname"
-                                               autocomplete="name" >
-                                        <x-validation-error field="fullname"/>
+                                        <label for="first_name">نام   :</label>
+                                        <input type="text" name="first_name"
+                                               class="form-control @error('first_name') is-invalid @enderror"
+                                               value="{{ old('first_name') }}"
+                                               id="first_name"
+                                               autocomplete="first_name" >
+                                        <x-validation-error field="first_name"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="last_name"> نام خانوادگی :</label>
+                                        <input type="text" name="last_name"
+                                               class="form-control @error('last_name') is-invalid @enderror"
+                                               value="{{ old('last_name') }}"
+                                               id="last_name"
+                                               autocomplete="last_name" >
+                                        <x-validation-error field="last_name"/>
                                     </div>
 
                                     <div class="form-group">

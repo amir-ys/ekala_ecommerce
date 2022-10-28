@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Modules\RolePermissions\Database\Seeders\RolePermissionsSeeder;
 use Modules\User\Database\Seeders\ProvinceSeeder;
+use Modules\User\Database\Seeders\UserSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -22,8 +23,9 @@ class DatabaseSeeder extends Seeder
 //        Attribute::factory()->count(rand(1, 10))->create();
 //        Product::factory()->count(rand(1, 10))->create();
         $this->call([
+            UserSeeder::class ,
             ProvinceSeeder::class,
-            RolePermissionsSeeder::class
+            RolePermissionsSeeder::class ,
         ]);
     }
 }

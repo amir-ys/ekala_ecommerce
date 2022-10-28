@@ -19,22 +19,24 @@ class AttributeServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
         $this->loadViewsFrom(__DIR__ . '/../Resources/Views', 'Attribute');
         $this->loadTranslationsFrom(__DIR__ . '/../Resources/Lang', 'Attribute');
-        $this->loadRoutes();
-        Gate::policy(Attribute::class , AttributePolicy::class);
+        Gate::policy(Attribute::class, AttributePolicy::class);
 
     }
 
     public function boot()
     {
-        $this->app->bind(AttributeRepositoryInterface::class , AttributeRepo::class);
+        $this->loadRoutes();
+        $this->app->bind(AttributeRepositoryInterface::class, AttributeRepo::class);
 
     }
 
     private function loadRoutes()
     {
-        Route::middleware(['web' , 'auth'])
-            ->namespace($this->namespace)
-            ->group(__DIR__ . '/../Routes/attributes_routes.php');
+        if (!app()->routesAreCached()) {
+            Route::middleware(['web'] + config('core.panel_middlewares'))
+                ->namespace($this->namespace)
+                ->group(__DIR__ . '/../Routes/attributes_routes.php');
+        }
     }
 
 }

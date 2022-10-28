@@ -23,22 +23,19 @@ class PaymentServiceProvider extends ServiceProvider
         $this->loadTranslationsFrom(__DIR__ . '/../Resources/Lang', 'Payment');
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
         $this->mergeConfigFrom(__DIR__ . '/../Config/payment.php', 'payment');
-        $this->loadRoutes();
-        Gate::policy(Payment::class , PaymentPolicy::class);
+        Gate::policy(Payment::class, PaymentPolicy::class);
     }
 
     public function boot()
     {
+        $this->loadRoutes();
         $this->app->bind(PaymentRepositoryInterface::class, PaymentRepo::class);
-
-        $this->app->bind( 'Payment_service', function (){
-
-            if (session()->get('payment_type') == Payment::PAYMENT_TYPE_ONLINE){
+        $this->app->bind('Payment_service', function () {
+            if (session()->get('payment_type') == Payment::PAYMENT_TYPE_ONLINE) {
                 return new OnlinePaymentService();
-            }else if(session()->get('payment_type') == Payment::PAYMENT_TYPE_OFFLINE){
+            } else if (session()->get('payment_type') == Payment::PAYMENT_TYPE_OFFLINE) {
                 return new OfflinePaymentService();
             }
-
         });
 
         //todo payment class
@@ -49,9 +46,11 @@ class PaymentServiceProvider extends ServiceProvider
 
     private function loadRoutes()
     {
-        Route::middleware(['web', 'auth'])
-            ->namespace($this->namespace)
-            ->group(__DIR__ . '/../Routes/payments_routes.php');
+        if (!app()->routesAreCached()) {
+            Route::middleware(['web'] + config('core.panel_middlewares'))
+                ->namespace($this->namespace)
+                ->group(__DIR__ . '/../Routes/payments_routes.php');
+        }
     }
 
 }

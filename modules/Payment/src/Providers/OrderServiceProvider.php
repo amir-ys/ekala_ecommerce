@@ -14,25 +14,27 @@ class OrderServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->loadViewsFrom(__DIR__ . '/../Resources/Views' , 'Order');
-        $this->loadTranslationsFrom(__DIR__ . '/../Resources/Lang' , 'Order');
+        $this->loadViewsFrom(__DIR__ . '/../Resources/Views', 'Order');
+        $this->loadTranslationsFrom(__DIR__ . '/../Resources/Lang', 'Order');
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
-        $this->loadRoutes();
 
 
     }
 
     public function boot()
     {
-        $this->app->bind( 'order_service', OrderService::class);
+        $this->loadRoutes();
+        $this->app->bind('order_service', OrderService::class);
         $this->app->bind(OrderRepositoryInterface::class, OrderRepo::class);
     }
 
     private function loadRoutes()
     {
-        Route::middleware(['web', 'auth'])
-            ->namespace($this->namespace)
-            ->group(__DIR__ . '/../Routes/orders_routes.php');
+        if (!app()->routesAreCached()) {
+            Route::middleware(['web'] + config('core.panel_middlewares'))
+                ->namespace($this->namespace)
+                ->group(__DIR__ . '/../Routes/orders_routes.php');
+        }
     }
 
 }
