@@ -33,7 +33,8 @@
             </div>
             <div class="col-12 col-md-12 col-lg-6">
                 <hr class="d-lg-none">
-                <img src="/assets/front/assets/images/logo.png" alt=""> {{ $shopName ? $shopName->value : config('core.shop_name') }}
+                <img src="/assets/front/assets/images/logo.png"
+                     alt=""> {{ $shopName ? $shopName->value : config('core.shop_name') }}
                 <br>
                 <p>
                     {{ $shopFooter?->value }}
@@ -68,11 +69,16 @@
         <div class="row">
             <div class="col-12 col-sm-6" id="social-links">
                 <span>ما را دنبال کنید</span>
-                <a href="{{ isset($socialMedia->json['instagram']) ? $socialMedia->json['instagram'] : null  }}"><img src="/assets/front/assets/images/social/insta.png" alt=""></a>
-                <a href="{{ isset($socialMedia->json['facebook']) ? $socialMedia->json['facebook'] : null  }}"><img src="/assets/front/assets/images/social/facebook.png" alt=""></a>
-                <a href="{{ isset($socialMedia->json['linkedin']) ? $socialMedia->json['linkedin'] : null  }}"><img src="/assets/front/assets/images/social/linkedin.png" alt=""></a>
-                <a href="{{ isset($socialMedia->json['twitter']) ? $socialMedia->json['twitter'] : null  }}"><img src="/assets/front/assets/images/social/twitter.png" alt=""></a>
-                <a href="{{ isset($socialMedia->json['youtube']) ? $socialMedia->json['youtube'] : null  }}"><img src="/assets/front/assets/images/social/youtube.png" alt=""></a>
+                <a href="{{ isset($socialMedia->json['instagram']) ? $socialMedia->json['instagram'] : null  }}"><img
+                        src="/assets/front/assets/images/social/insta.png" alt=""></a>
+                <a href="{{ isset($socialMedia->json['facebook']) ? $socialMedia->json['facebook'] : null  }}"><img
+                        src="/assets/front/assets/images/social/facebook.png" alt=""></a>
+                <a href="{{ isset($socialMedia->json['linkedin']) ? $socialMedia->json['linkedin'] : null  }}"><img
+                        src="/assets/front/assets/images/social/linkedin.png" alt=""></a>
+                <a href="{{ isset($socialMedia->json['twitter']) ? $socialMedia->json['twitter'] : null  }}"><img
+                        src="/assets/front/assets/images/social/twitter.png" alt=""></a>
+                <a href="{{ isset($socialMedia->json['youtube']) ? $socialMedia->json['youtube'] : null  }}"><img
+                        src="/assets/front/assets/images/social/youtube.png" alt=""></a>
             </div>
             <div class="col-12 col-sm-6 text-sm-end pt-2 pt-sm-0">
                 <span>کلیه حقوق و مادی معنوی محفوط است.</span>

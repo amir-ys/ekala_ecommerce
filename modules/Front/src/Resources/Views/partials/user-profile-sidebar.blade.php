@@ -61,7 +61,7 @@
                         <hr>
                     </li>
                     <li>
-                        <a href="{{ route('logout') }}">
+                        <a onclick="event.preventDefault();document.getElementById('logout-form').submit()">
                             <div>
                                 <div class="icon d-inline-block"><img
                                         src="/assets/front/assets/images/icons/profile-menu/exit.webp"
@@ -69,6 +69,11 @@
                                 خروج از حساب
                             </div>
                         </a>
+
+
+                        <form action="{{ route('logout') }}"  method="post" id="logout-form">
+                            @csrf
+                        </form>
                     </li>
                 </ul>
             </div>

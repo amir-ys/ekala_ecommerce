@@ -68,7 +68,7 @@ class ProductController extends Controller
     {
         $this->authorize('manage' , Product::class);
         $product = $this->productRepo->findByIdWithRelations($productId);
-        $productColor = $this->productRepo->findDefaultProductColor($productId);
+        $productColor = $this->productRepo->findDefaultProductColor($product);
         $brands = (resolve(BrandRepositoryInterface::class))->getActive();
         $categories = (resolve(CategoryRepositoryInterface::class))->getActive();
         return view('Product::edit', compact('product', 'brands', 'categories' , 'productColor'));

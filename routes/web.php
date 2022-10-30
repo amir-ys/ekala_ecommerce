@@ -13,6 +13,3 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('test' , function (){
-   return auth()->user()->givePermissionTo(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_BLOG);
-});

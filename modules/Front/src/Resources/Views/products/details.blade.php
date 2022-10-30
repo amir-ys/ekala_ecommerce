@@ -161,11 +161,11 @@
                                                 <div class="variables">
                                                     <div class="title">گزینه های موجود:</div>
                                                     <div class="row">
-                                                        @if($product->colors()->count() > 0 )
+                                                        @if(!empty($colors = $product->colors ))
                                                             <div class="col-12 col-sm-4 col-lg-6 mb-md-2 ">
                                                                 <div class="variable">
                                                                     <div class="sub-title pt-2 pb-2">رنگ</div>
-                                                                    @foreach($product->colors()->get()  as $key =>  $color)
+                                                                    @foreach($colors  as $key =>  $color)
                                                                         <label class="color-variable" for="color_input_{{ $color->id }}"
                                                                             style="background-color:{{ $color->color_value }};
                                                                             height: 30px ; width: 30px" ></label>
@@ -184,8 +184,8 @@
                                                             <div class="variable">
                                                                 <div class="sub-title pt-2 pb-2">گارانتی</div>
                                                                 <select name="warranty_id" class="form-select" form="add_to_card">
-                                                                    @if($product->warranties()->get()->count() > 0)
-                                                                    @foreach($product->warranties()->get() as $key => $warranty)
+                                                                    @if(!empty( $warranties =  $product->warranties))
+                                                                    @foreach($warranties as $key => $warranty)
                                                                         <option
                                                                             id="item"
                                                                             value="{{ $warranty->id }}"

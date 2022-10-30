@@ -172,6 +172,7 @@ class  ProductRepo extends BaseRepository implements ProductRepositoryInterface
     public function findBySlug($slug)
     {
         return $this->activeAndMarketable()
+            ->with(['category.attributeGroups.attributes' , 'colors' , 'warranties' , 'allImages' , 'approvedComments' ])
             ->where('slug', $slug)
             ->firstOrFail();
     }
@@ -243,19 +244,17 @@ class  ProductRepo extends BaseRepository implements ProductRepositoryInterface
             ->withSum('colors', 'sold_number')
             ->orderByDesc('colors_sum_sold_number')
             ->limit(6)
-            ->with(['category', 'brand', 'primaryImage'])
             ->get();
     }
 
-    public function getRelatedProducts($id)
+    public function getRelatedProducts($product)
     {
-        $model = $this->findById($id);
         $query = $this->activeAndMarketable()
-            ->whereNot('id' , $model->id)
-            ->orWhere(function (Builder $q) use ($model) {
-            $q->where('brand_id', $model->brand_id)
-                ->orWhere('brand_id', $model->brand_id)
-                ->orWhere('name', 'like', "%$model->name%");
+            ->whereNot('id' , $product->id)
+            ->orWhere(function (Builder $q) use ($product) {
+            $q->where('brand_id', $product->brand_id)
+                ->orWhere('brand_id', $product->brand_id)
+                ->orWhere('name', 'like', "%$product->name%");
         })->get();
 
         return $query;
@@ -365,10 +364,9 @@ class  ProductRepo extends BaseRepository implements ProductRepositoryInterface
      * end product warranties process
      */
 
-    public function incrementVisit($id)
+    public function incrementVisit($product)
     {
-        $model = $this->findById($id);
-        $model->vzt()->increment();
+        $product->vzt()->increment();
     }
 
     public function decrementQuantity($id, $colorId)
@@ -389,9 +387,8 @@ class  ProductRepo extends BaseRepository implements ProductRepositoryInterface
         $color->save();
     }
 
-    public function findDefaultProductColor($id)
+    public function findDefaultProductColor($product)
     {
-        $model = $this->findById($id);
-        return $model->colors()->where('is_primary', true)->first();
+        return $product->colors()->where('is_primary', true)->first();
     }
 }
