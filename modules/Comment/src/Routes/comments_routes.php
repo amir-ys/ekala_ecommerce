@@ -13,4 +13,4 @@ use Modules\Comment\Http\Controllers\CommentController;
    Route::get('comments/{comment}/replies/show' , [CommentController::class , 'replyShow'])->name('panel.comments.replies.show');
    Route::any('comments/change-seen-status/{comment?}' , [CommentController::class , 'changeSeenStatus'])->name('panel.comments.changeSeenStatus');
 });
-   Route::post('comments/store' , [CommentController::class , 'store' ])->name('comments.store');
+   Route::post('comments/store' , [CommentController::class , 'store' ])->name('comments.store')->middleware([ 'web' ,'auth']);

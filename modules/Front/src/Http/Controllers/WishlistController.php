@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Product\Http\Controllers;
+namespace Modules\Front\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Modules\Core\Responses\AjaxResponse;

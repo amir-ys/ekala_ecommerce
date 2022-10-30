@@ -43,11 +43,7 @@ class CommentController extends Controller
 
     public function store(StoreCommentRequest $request)
     {
-        $this->authorize('manage' , Comment::class);
-        $data = $request->all();
-        $data['user_id'] = auth()->id();
-
-        $this->commentRepo->store($data);
+        $this->commentRepo->store($request->all());
         alert()->success('عملیات موفق' , 'کامنت با موفقیت ثبت شد. پس از تایید مدیریت نمایش داده میشود.' );
         return back();
     }

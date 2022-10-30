@@ -17,6 +17,8 @@ class UserRequest extends FormRequest
     public function rules()
     {
         $rules = [
+            'first_name' => ['nullable', 'string', 'min:2'],
+            'last_name' => ['nullable', 'string', 'min:2'],
             'username' => ['required', 'string', Rule::unique('users', 'username')->ignore($this->route()->parameter('user'))],
             'email' => ['required', 'email', Rule::unique('users', 'email')->ignore($this->route()->parameter('user'))],
             'password' => ['required', Password::min(8)],

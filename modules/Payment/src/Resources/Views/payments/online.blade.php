@@ -28,7 +28,7 @@
                             @foreach($payments as $payment)
                                 <tr>
                                     <td>{{ $loop->iteration  }}</td>
-                                    <td>{{ $payment->user?->username  }}</td>
+                                    <td>{{ $payment->user->full_name  }}</td>
                                     <td> {{  $payment->amount }} </td>
                                     <td> {{  $payment->gateway_name }} </td>
                                     <td>

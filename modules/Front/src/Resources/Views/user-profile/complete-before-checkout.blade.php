@@ -11,7 +11,7 @@
                                 <h1>تکمیل پروفایل</h1>
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="./index.html">صفحه نخست</a></li>
+                                        <li class="breadcrumb-item"><a href="/">صفحه نخست</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">تکمیل پروفایل</li>
                                     </ol>
                                 </nav>
@@ -40,7 +40,7 @@
                                                             <label class="col-form-label text-capitalize"
                                                                    for="first_name"> نام  </label>
                                                             <input type="text" class="form-control" id="first_name"
-                                                                   name="first_name" placeholder="موضوع" value="{{old("first_name" , auth()->user()->first_name)}}">
+                                                                   name="first_name" placeholder="نام" value="{{old("first_name" , auth()->user()->first_name)}}">
                                                             <x-validation-error field="first_name"/>
                                                         </div>
                                                     </div>

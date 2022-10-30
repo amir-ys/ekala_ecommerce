@@ -233,6 +233,7 @@ class  ProductRepo extends BaseRepository implements ProductRepositoryInterface
             ->where('special_price_start', '<', now())
             ->where('special_price_end', '>', now())
             ->limit(6)
+            ->with(['category', 'brand', 'primaryImage'])
             ->get();
     }
 
@@ -242,6 +243,7 @@ class  ProductRepo extends BaseRepository implements ProductRepositoryInterface
             ->withSum('colors', 'sold_number')
             ->orderByDesc('colors_sum_sold_number')
             ->limit(6)
+            ->with(['category', 'brand', 'primaryImage'])
             ->get();
     }
 

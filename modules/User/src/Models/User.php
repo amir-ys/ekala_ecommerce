@@ -82,6 +82,13 @@ class User extends Authenticatable implements MustVerifyEmail
         return 'users\\profile';
     }
 
+    public function FullName() :Attribute
+    {
+        return  Attribute::get(function (){
+            return $this->first_name . ' ' . $this->last_name;
+        });
+    }
+
     public function StatusName() :Attribute
     {
       return  Attribute::get(function (){

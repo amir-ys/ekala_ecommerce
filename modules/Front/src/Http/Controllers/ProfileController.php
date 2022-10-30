@@ -19,7 +19,7 @@ class ProfileController extends Controller
         $data = $this->validateInputs();
         $userRepo = resolve(UserRepositoryInterface::class);
         $userRepo->updateFields(auth()->id() , $data);
-        return redirect()->route('front.checkout.check');
+        return redirect()->route('front.checkout.addressPage');
     }
 
     private function validateInputs()

@@ -39,7 +39,6 @@ class FrontServiceProvider extends ServiceProvider
         view()->composer('Front::layouts.footer', function (View $view) {
             $settingRepo = resolve(SettingRepositoryInterface::class);
 
-
             $categories = Cache::remember('categories', now()->addDay(), function () {
                 return resolve(CategoryRepositoryInterface::class)->allParentLimit(7);
             });

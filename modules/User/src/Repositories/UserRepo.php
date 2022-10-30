@@ -16,6 +16,8 @@ class UserRepo extends BaseRepository implements UserRepositoryInterface
     public function store(array $data)
     {
         $this->query->create([
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
             'username' => $data['username'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
@@ -28,6 +30,8 @@ class UserRepo extends BaseRepository implements UserRepositoryInterface
     public function update(int $id, array $data)
     {
         $this->query->findOrFail($id)->update([
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
             'username' => $data['username'],
             'email' => $data['email'],
             'password' => !isset($data['password']) ?: bcrypt($data['password']),

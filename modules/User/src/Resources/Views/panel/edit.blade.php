@@ -25,6 +25,23 @@
                             @method('patch')
                             <div class="form-group">
                                 <div class="row">
+
+                                    <div class="col-md-3 mb-3">
+                                        <label>نام </label>
+                                        <input type="text" class="form-control" name="first_name"
+                                               placeholder="نام"
+                                               value="{{ old('first_name' , $user->first_name) }}">
+                                        <x-validation-error field="first_name"/>
+                                    </div>
+
+                                    <div class="col-md-3 mb-3">
+                                        <label> نام خانوادگی</label>
+                                        <input type="text" class="form-control" name="last_name"
+                                               placeholder=" نام خانوادگی"
+                                               value="{{ old('last_name' , $user->last_name) }}">
+                                        <x-validation-error field="last_name"/>
+                                    </div>
+
                                     <div class="col-md-3 mb-3">
                                         <label>نام کاریری</label>
                                         <input type="text" class="form-control" name="username"
@@ -32,13 +49,7 @@
                                                value="{{ old('username' , $user->username) }}">
                                         <x-validation-error field="username"/>
                                     </div>
-                                    <div class="col-md-3 mb-3">
-                                        <label>نام و نام خانوادگی</label>
-                                        <input type="text" class="form-control" name="full_name"
-                                               placeholder="نام و نام خانوادگی"
-                                               value="{{ old('full_name' , $user->full_name) }}">
-                                        <x-validation-error field="full_name"/>
-                                    </div>
+
                                     <div class="col-md-3 mb-3">
                                         <label>ایمیل</label>
                                         <input type="text" class="form-control" name="email"

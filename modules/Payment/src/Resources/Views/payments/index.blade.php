@@ -29,7 +29,7 @@
                             @foreach($payments as $payment)
                                 <tr>
                                     <td>{{ $loop->iteration  }}</td>
-                                    <td>{{ $payment->user?->username  }}</td>
+                                    <td>{{ $payment->user->full_name  }}</td>
                                     <td> {{  $payment->amount }} </td>
                                     <td>
                                         <span CLASS="badge bg-{{ $payment->payment_type_css }}"> {{  $payment->payment_type_name }} </span>

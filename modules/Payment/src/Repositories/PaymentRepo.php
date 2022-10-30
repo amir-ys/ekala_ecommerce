@@ -29,8 +29,7 @@ class PaymentRepo extends BaseRepository implements PaymentRepositoryInterface
 
     public function storePayment($data)
     {
-       return $this->query->updateOrCreate($data ,
-            []);
+       return $this->query->updateOrCreate($data , []);
    }
 
 }

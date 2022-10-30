@@ -42,7 +42,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration  }}</td>
                                     <td>{{ str($comment->body)->limit(20) }}</td>
-                                    <td>{{ $comment->user->username }}</td>
+                                    <td>{{ $comment->user->email }}</td>
                                     <td>{{ $comment->commentable_type_name }}</td>
                                     <td>{{ getJalaliDate($comment->created_at) }}</td>
                                     <td>

@@ -97,7 +97,9 @@ class CheckoutController extends Controller
             [
                 'address_id' => ['required', 'exists:user_addresses,id'],
             ],
-            [],
+            [
+                'address_id.required' => 'لطفا یک آدرس را وارد کنید.'
+                ],
             [
                 'address_id' => 'آدرس '
             ]);

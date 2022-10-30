@@ -22,7 +22,6 @@ class OfflinePaymentService
         return [
             'user_id' =>  auth()->id() ,
             'amount' => $currentOrder->final_amount ,
-            'order_id' => $currentOrder->id ,
             'pay_date' => null ,
             'payment_type' => Payment::PAYMENT_TYPE_OFFLINE ,
             'status' => Payment::STATUS_PENDING_APPROVAL ,

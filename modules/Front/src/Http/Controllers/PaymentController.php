@@ -38,13 +38,14 @@ class PaymentController extends Controller
         $payment = $this->checkTokenExistsInPayment();
         $result = PaymentServiceFacade::verify($payment->amount);
 
+        $currentOrder = $this->orderRepo->getCurrentOrder(auth()->id());
         if (is_array($result)) {
-            $this->orderRepo->changeStatus($payment->order->id, Order::STATUS_FAILED);
+            $this->orderRepo->changeStatus($currentOrder->id, Order::STATUS_FAILED);
             $this->paymentRepo->changeStatus($payment->id, Payment::STATUS_FAILED);
             $this->incrementProductQuantity();
             alert()->error('پرداخت ناموفق', 'سفارش شما انجام نشد.' . $result['message']);
         } else {
-            $this->orderRepo->changeStatus($payment->order->id, Order::STATUS_PAID);
+            $this->orderRepo->changeStatus($currentOrder->id, Order::STATUS_PAID);
             $this->paymentRepo->changeStatus($payment->id, Payment::STATUS_SUCCESS);
             alert()->success('پرداخت موفق', 'سفارش شما باموفقیت انجام شد.');
         }

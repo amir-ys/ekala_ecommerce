@@ -30,10 +30,10 @@
                                 <tr>
                                     <td>{{ $loop->iteration  }}</td>
                                     <td>{{ $order->id  }}</td>
-                                    <td>{{ $order->user?->username  }}</td>
-                                    <td> {{  $order->final_amount }} </td>
-                                    <td> {{  $order->discount_amount }} </td>
-                                    <td> {{  $order->final_amount - $order->discount_amount   }} </td>
+                                    <td>{{ $order->user->full_name  }}</td>
+                                    <td> {{  number_format($order->final_amount + $order->total_discount_amount ) }} </td>
+                                    <td> {{  number_format($order->total_discount_amount) }} </td>
+                                    <td> {{  number_format($order->final_amount)  }} </td>
                                     <td>
                                         <span CLASS="badge bg-{{ $order->payment?->status_css }}"> {{  $order->payment?->status_name }} </span>
                                     </td>

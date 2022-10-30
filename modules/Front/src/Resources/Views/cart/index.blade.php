@@ -67,8 +67,7 @@
                                                             <div class="col-12 col-md-2">
                                                                 <div class="row">
                                                                     <div class="col-2 col-md-4 pl-0">
-                                                                        <img src="{{ route('image.display'  , [$cartItem->associatedModel->id ,   $cartItem->associatedModel->primaryImage->images['small']]) }}" alt="">
-                                                                    </div>
+                                                                        <img src="{{ route('image.display'  , [$cartItem->associatedModel->id ,   $cartItem->associatedModel->primaryImage->images['small']]) }}" alt=""></div>
                                                                     <div class="col-10 col-md-8">
                                                                         <a href="{{ $cartItem->associatedModel->path() }}" target="_blank">
                                                                             <div class="title pt-2">
@@ -194,7 +193,7 @@
                                             </div>
                                             <div class="col-6">
                                                 <div><span id="factor-total">
-                                                        {{ number_format(\Modules\Front\Services\CartService::getTotal() ) }}</span> تومان
+                                                        {{ number_format(\Modules\Front\Services\CartService::getTotal() - $getDiscountAmount ) }}</span> تومان
                                                 </div>
                                             </div>
                                         </div>

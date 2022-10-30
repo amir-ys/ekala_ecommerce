@@ -3,6 +3,7 @@
 namespace Modules\Product\Models;
 
 
+use Awssat\Visits\Visits;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -15,6 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Brand\Models\Brand;
 use Modules\Category\Models\Category;
 use Modules\Comment\Traits\Commentable;
+use Modules\Payment\Models\Order;
 use Modules\Payment\Models\OrderItem;
 use Modules\Product\Contracts\ProductRepositoryInterface;
 use Modules\Product\Database\Factories\ProductFactory;
@@ -106,12 +108,17 @@ class Product extends Model
         return $this->hasMany(Wishlist::class, 'product_id');
     }
 
-    public function orderDetails()
+    public function orderDetails(): HasMany
     {
         return $this->hasMany(OrderItem::class);
     }
 
-    public function vzt()
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function vzt(): Visits
     {
         return visits($this);
     }

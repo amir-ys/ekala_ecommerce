@@ -26,7 +26,6 @@ class ProductImageController extends Controller
 
     public function display($productId, $imageName)
     {
-        $this->authorize('manage', Product::class);
         $product = $this->productRepo->findById($productId);
         return ImageService::loadImage($imageName, $product->getUploadDirectory());
     }

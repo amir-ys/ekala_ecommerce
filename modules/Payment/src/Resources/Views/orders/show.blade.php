@@ -29,7 +29,7 @@
                             </tr>
                             <tr>
                                 <th>نام مشتری</th>
-                                <td class="text-left">{{ $order->user->username }}</td>
+                                <td class="text-left">{{ $order->user->username ?? $order->user->full_name }}</td>
                             </tr>
                             <tr>
                                 <th> آدرس مشتری</th>

@@ -33,7 +33,6 @@ class OnlinePaymentService
         $gatewayName = $this->getGatewayName();
         return [
             'user_id' =>  auth()->id() ,
-            'order_id' =>  $currentOrder->id ,
             'amount' => $currentOrder->final_amount ,
             'gateway_name' => $gatewayName ,
             'token' =>  $token ,

@@ -187,7 +187,7 @@
                                                                     @if($product->warranties()->get()->count() > 0)
                                                                     @foreach($product->warranties()->get() as $key => $warranty)
                                                                         <option
-                                                                            id="warranty_item"
+                                                                            id="item"
                                                                             value="{{ $warranty->id }}"
                                                                             data-warranty-name="{{ $warranty->name }}"
                                                                             data-warranty-price="{{ $warranty->price_increase }}"
@@ -195,7 +195,7 @@
                                                                         >{{ $warranty->name }}</option>
                                                                     @endforeach
                                                                     @else
-                                                                        <option value>بدون گارانتی</option>
+                                                                        <option id="def" value>بدون گارانتی</option>
                                                                     @endif
                                                                 </select>
                                                             </div>
@@ -458,8 +458,14 @@
                 selected_color_price = parseFloat($("input[name='color_id']:checked").attr('data-color-price'))
             }
 
-            if($("select[name='warranty_id'] option:selected option[id='warranty_item']").length > 0){
-                selected_warranty_price = parseFloat($("select[name='warranty_id'] option:selected").attr('data-warranty-price'))
+
+            warranty = $("select[name='warranty_id'] option:selected");
+            if ((warranty.length) > 0) {
+                if (warranty.attr('id') == 'item') {
+                    selected_warranty_price = parseFloat(warranty.attr('data-warranty-price'))
+                } else {
+                    selected_warranty_price = 0;
+                }
             }
 
             if($("input[name='quantity']").val() > 0){

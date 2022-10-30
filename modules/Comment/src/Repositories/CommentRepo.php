@@ -8,6 +8,7 @@ use Modules\Comment\Contracts\CommentRepositoryInterface;
 use Modules\Comment\Models\Comment;
 use Modules\Core\Repositories\BaseRepository;
 use Modules\Product\Models\Product;
+use Modules\User\Models\User;
 
 class CommentRepo extends BaseRepository implements CommentRepositoryInterface
 {
@@ -21,6 +22,8 @@ class CommentRepo extends BaseRepository implements CommentRepositoryInterface
             'user_id' => $data['user_id'],
             'commentable_id' => $data['model_id'],
             'commentable_type' => $data['model_type'],
+            'is_approved' => $data['is_admin'] == User::ROLE_ADMIN ? User::ROLE_ADMIN : User::ROLE_USER ,
+            'is_seen' => $data['is_admin'] == User::ROLE_ADMIN ? User::ROLE_ADMIN : User::ROLE_USER ,
         ]);
     }
 
