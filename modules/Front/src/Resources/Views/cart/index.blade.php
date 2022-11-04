@@ -12,7 +12,7 @@
                                 <p>مدیریت و خرید همزمان چند محصول</p>
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="./index.html">صفحه نخست</a></li>
+                                        <li class="breadcrumb-item"><a href="/">صفحه نخست</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">سبد خرید</li>
                                     </ol>
                                 </nav>
@@ -156,10 +156,14 @@
                                                     </div>
                                                 </div>
                                             @else
-                                                <div>
-                                                    <h5 class="text-center">
-                                                        سبد خرید شما خالی است.
-                                                    </h5>
+                                                <div class="card mt-md-3 mb-md-3">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <h5 class="text-center mt-md-5 mb-md-4">
+                                                                سبد خرید شما خالی است.
+                                                            </h5>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             @endif
                                         </div>

@@ -7,12 +7,12 @@
                     aria-controls="panelsStayOpen-collapseOne">
                                             <span class="row">
                                                 <span class="col-3 col-sm-2 col-lg-3">
-                                                    <img src="/assets/front/assets/images/user-no-image.jpg"
+                                                    <img src="{{ route('front.profile.image.display' , auth()->id()) }}"
                                                          class="rounded-circle">
                                                 </span>
                                                 <span
                                                     class="col-7 col-sm-8 col-lg-7 pt-0 pt-sm-2 pt-md-3 pt-lg-0 align-self-center">
-                                                    <div id="full-name">{{ auth()->user()->username ?? auth()->user()->mobile  }}</div>
+                                                    <div id="full-name">{{ auth()->user()->email ?? auth()->user()->mobile  }}</div>
                                                     <div class="mt-2" id="email-mobile">{{auth()->user()->mobile }}</div>
                                                 </span>
                                             </span>

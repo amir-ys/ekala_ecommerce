@@ -22,6 +22,7 @@ class UserSeeder extends Seeder
         ] ,
        [
            'password' => bcrypt(123456) ,
+           'email_verified_at' => now() ,
            'is_admin' => User::ROLE_ADMIN
        ]);
 

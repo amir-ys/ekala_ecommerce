@@ -11,7 +11,7 @@
                                 <p>بلاگ آموزشی {{ site_name() }}</p>
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="/">صفحه نخست</a></li>
+                                        <li class="breadcrumb-item"><a href="/blog">صفحه نخست</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">بلاگ آموزشی</li>
                                     </ol>
                                 </nav>

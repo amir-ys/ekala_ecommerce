@@ -17,13 +17,23 @@ x
             @canany([\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_USERS ,
                                                   \Modules\RolePermissions\Models\Permission::PERMISSION_READ_USERS ,
                                                    \Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_ROLE_PERMISSIONS ,
-                                         \Modules\RolePermissions\Models\Permission::PERMISSION_READ_ROLE_PERMISSIONS])
+                                         \Modules\RolePermissions\Models\Permission::PERMISSION_READ_ROLE_PERMISSIONS ,
+                                         \Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_ADMINS ,
+                   \Modules\RolePermissions\Models\Permission::PERMISSION_READ_ADMINS
+                                         ])
                 <li><a href="#"><i class="icon ti-user"></i> <span> کاربران</span> </a>
                     <ul>
                         @canany([\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_USERS ,
                             \Modules\RolePermissions\Models\Permission::PERMISSION_READ_USERS])
                             <li><a href="{{ route('panel.users.index') }}">کاربران </a></li>
                         @endcanany
+
+                            @canany([\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_ADMINS ,
+                   \Modules\RolePermissions\Models\Permission::PERMISSION_READ_ADMINS])
+                                <li><a href="{{ route('panel.admins.index') }}">مدیران </a></li>
+                            @endcanany
+
+
                         @canany([\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_ROLE_PERMISSIONS ,
                                              \Modules\RolePermissions\Models\Permission::PERMISSION_READ_ROLE_PERMISSIONS])
                             <li><a href="">سطوح دسترسی </a>

@@ -11,7 +11,7 @@
                                 <p>با ما در ارتباط باشید.</p>
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="./index.html">صفحه نخست</a></li>
+                                        <li class="breadcrumb-item"><a href="/">صفحه نخست</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">تماس با ما</li>
                                     </ol>
                                 </nav>

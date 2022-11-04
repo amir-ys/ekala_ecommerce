@@ -12,33 +12,62 @@ class UserRepo extends BaseRepository implements UserRepositoryInterface
 {
     protected $model = User::class;
 
+    public function getUsers()
+    {
+        return $this->query->where('is_admin', User::ROLE_USER)->get();
+    }
+
+    public function getAdmins()
+    {
+        return $this->query->where('is_admin', User::ROLE_ADMIN)->get();
+    }
 
     public function store(array $data)
     {
-        $this->query->create([
+        $userData = [
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'username' => $data['username'],
             'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+            'mobile' => $data['mobile'],
+            'national_code' => $data['national_code'],
             'profile' => $data['uploadedProfile'],
-            'email_verified_at' => isset($data['verify_email']) ? now() : null,
+            'email_verified_at' => ($data['is_admin'] == User::ROLE_ADMIN || isset($data['verify_email'])) ? now() : null,
             'status' => $data['status'],
-        ]);
+            'is_admin' => $data['is_admin'],
+        ];
+
+        if (!is_null($data['password'])) {
+            $userData['password'] = bcrypt($data['password']);
+        }
+
+        $user = $this->query->create($userData);
+        $user->assignRole($data['role_ids']);
     }
 
     public function update(int $id, array $data)
     {
-        $this->query->findOrFail($id)->update([
+        $user = $this->findById($id);
+        $userData = [
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'username' => $data['username'],
+            'mobile' => $data['mobile'],
+            'national_code' => $data['national_code'],
             'email' => $data['email'],
-            'password' => !isset($data['password']) ?: bcrypt($data['password']),
             'profile' => $data['uploadedProfile'],
-            'email_verified_at' => isset($data['verify_email']) ? now() : null,
+            'email_verified_at' => ($data['is_admin'] == User::ROLE_ADMIN || isset($data['verify_email'])) ? now() : null,
             'status' => $data['status'],
-        ]);
+            'is_admin' => $data['is_admin'],
+        ];
+
+        if (!is_null($data['password'])) {
+            $userData['password'] = bcrypt($data['password']);
+        }
+
+        $user->update($userData);
+        $user->syncRoles($data['role_ids']);
+
     }
 
     public function getUserOrders(int $id, $status)
@@ -48,7 +77,7 @@ class UserRepo extends BaseRepository implements UserRepositoryInterface
         if (!is_null($status)) {
             $query = $this->whenStatus($query, $status, Order::STATUS_PENDING);
             $query = $this->whenStatus($query, $status, Order::STATUS_PAID);
-            $query = $this->whenStatus($query, $status, Order::STATUS_POSTED);
+            $query = $this->whenStatus($query, $status, Order::DELIVERY_STATUS_DELIVERED);
             $query = $this->whenStatus($query, $status, Order::STATUS_FAILED);
         }
         return $query->get();
@@ -100,14 +129,14 @@ class UserRepo extends BaseRepository implements UserRepositoryInterface
         });
     }
 
-    public function updateFields($id , $data)
+    public function updateFields($id, $data)
     {
-       return $this->query->where('id' , $id)->update($data);
+        return $this->query->where('id', $id)->update($data);
     }
 
     public function getActiveAddresses($id)
     {
-        $model = $this->query->where('id' , $id)->firstOrFail();
-       return $model->addresses()->get();
+        $model = $this->query->where('id', $id)->firstOrFail();
+        return $model->addresses()->get();
     }
 }

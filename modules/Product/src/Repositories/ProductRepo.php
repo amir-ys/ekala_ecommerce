@@ -161,8 +161,15 @@ class  ProductRepo extends BaseRepository implements ProductRepositoryInterface
             $q->where('category_id', request()->category);
         });
 
-        $query = $query->when(request()->has('only-available'), function ($q) {
-            $q->where('quantity', '>', 0);
+        $query = $query->when(request()->has('only-available'), function (Builder $q) {
+            $q->whereHas('colors' , function ($q){
+                return $q->where('quantity' , '>' , 0);
+            });
+        });
+
+
+        $query = $query->when(request()->has(['price_range_from' , 'price_range_to']), function (Builder $q) {
+            $q->whereBetween('price' , [request('price_range_from') , request('price_range_to')]);
         });
 
         return $query->paginate();
@@ -243,6 +250,7 @@ class  ProductRepo extends BaseRepository implements ProductRepositoryInterface
         return $this->activeAndMarketable()
             ->withSum('colors', 'sold_number')
             ->orderByDesc('colors_sum_sold_number')
+            ->with(['category', 'brand', 'primaryImage'])
             ->limit(6)
             ->get();
     }
@@ -250,6 +258,7 @@ class  ProductRepo extends BaseRepository implements ProductRepositoryInterface
     public function getRelatedProducts($product)
     {
         $query = $this->activeAndMarketable()
+            ->with(['category', 'brand', 'primaryImage'])
             ->whereNot('id' , $product->id)
             ->orWhere(function (Builder $q) use ($product) {
             $q->where('brand_id', $product->brand_id)

@@ -12,7 +12,7 @@
                                 <p>با ما بیشتر آشنا شوید.</p>
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="./index.html">صفحه نخست</a></li>
+                                        <li class="breadcrumb-item"><a href="/">صفحه نخست</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">درباره ما</li>
                                     </ol>
                                 </nav>
@@ -33,7 +33,7 @@
                                     {!!  $about ? $about->json['description'] : null !!}
                                 </div>
                                 <div class="col-12 col-lg-5 align-self-center h-100">
-                                    <img src="{{ $about->imagePath() }}" alt="">
+                                    <img src="{{ $about ?? $about->imagePath() }}" alt="">
                                 </div>
                             </div>
                             <!-- Team -->

@@ -23,6 +23,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/user/profile/wishlists', [UserController::class, 'wishlists'])->name('front.user.wishlists.index');
     Route::get('/user/profile/orders', [UserController::class, 'orders'])->name('front.user.orders.index');
     Route::get('/user/profile/addresses', [UserController::class, 'addresses'])->name('front.user.addresses.index');
+    Route::patch('user/profile/{id}/update', [ProfileController::class, 'edit'])->name('front.profile.edit');
+    Route::get('user/profile/{id}/image/display', [ProfileController::class, 'displayImage'])->name('front.profile.image.display');
 
 
     Route::group(['middleware' => ['filling_cart', 'profile_complete']], function () {

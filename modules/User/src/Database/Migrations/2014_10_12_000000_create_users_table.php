@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('username')->nullable()->unique();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
+            $table->string('national_code' , 10)->nullable();
+            $table->string('card_number' , 16)->nullable();
             $table->string('email')->unique();
             $table->string('mobile')->nullable();
             $table->timestamp('email_verified_at')->nullable();

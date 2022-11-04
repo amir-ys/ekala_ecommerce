@@ -2,7 +2,7 @@
     <div class="container-fluid">
 
         <div class="header-logo">
-            <a href="#">
+            <a href="{{ route('front.home') }}">
                 <img src="/assets/panel/media/image/light-logo.png" alt="...">
                 <span class="logo-text d-none d-lg-block">گراموس</span>
             </a>

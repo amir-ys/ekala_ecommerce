@@ -12,6 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Modules\Comment\Models\Comment;
 use Modules\Payment\Models\Order;
 use Modules\Product\Models\Wishlist;
+use Modules\Product\Services\ImageService;
 use Modules\User\Database\Factories\UserFactory;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -19,9 +20,9 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable ,SoftDeletes , HasRoles;
 
-    const STATUS_ACTIVE = 1;
-    const STATUS_DISABLE = 0;
-    const STATUS_BANNED = -1;
+    const STATUS_ACTIVE = "1";
+    const STATUS_DISABLE = "0";
+    const STATUS_BANNED = "-1";
 
     const ROLE_USER = 0;
     const ROLE_ADMIN = 1;
@@ -31,6 +32,14 @@ class User extends Authenticatable implements MustVerifyEmail
         'غیر فعال' => self::STATUS_DISABLE,
         'بن' => self::STATUS_BANNED,
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+        self::deleting(function ($user){
+            ImageService::deleteImage($user->profile , self::getUploadDir());
+        });
+    }
 
     public static function factory(): UserFactory
     {
@@ -44,8 +53,8 @@ class User extends Authenticatable implements MustVerifyEmail
 
     protected $fillable = [
         'username' , 'first_name' , 'last_name' ,
-        'email', 'mobile' , 'email_verified_at' ,
-        'password', 'profile' , 'status' , 'is_admin'
+        'email', 'mobile' , 'email_verified_at' , 'card_number' ,
+        'password', 'profile' , 'status' , 'is_admin' , 'national_code'
     ];
 
     protected $hidden = [

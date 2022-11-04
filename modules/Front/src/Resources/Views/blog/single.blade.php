@@ -10,7 +10,7 @@
                                 <h1>{{ $post->title }}</h1>
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="/">صفحه نخست</a></li>
+                                        <li class="breadcrumb-item"><a href="/blog">صفحه نخست</a></li>
                                         <li class="breadcrumb-item"><a href="{{ route('front.blog.index') }}">بلاگ آموزشی</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">{{ $post->title }}</li>
                                     </ol>

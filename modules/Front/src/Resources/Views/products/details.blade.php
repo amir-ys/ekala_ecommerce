@@ -9,8 +9,8 @@
                             <div class="col-12 ">
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="./index.html">صفحه نخست</a></li>
-                                        <li class="breadcrumb-item"><a href="./products.html">فروشگاه</a></li>
+                                        <li class="breadcrumb-item"><a href="./blog">صفحه نخست</a></li>
+                                        <li class="breadcrumb-item"><a href="/products">فروشگاه</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">گوشی موبایل</li>
                                     </ol>
                                 </nav>
@@ -31,13 +31,16 @@
                                     <ul class="swiper-wrapper">
                                         <!-- Slides -->
                                         @foreach($product->allImages as $image)
-                                        <li id="{{ $image->id }}" class="swiper-slide">
-                                            <a href="{{ $image->images
-                                                ? route('image.display' , [$product->id , $image->images['default']]) : ''}}" itemprop="contentUrl" >
-                                                <img  src="{{ $image->images
-                                                ? route('image.display' , [$product->id , $image->images['small']]) : ''}}" itemprop="thumbnail" alt="گوشی موبایل سامسونگ مدل Galaxy A21s" />
-                                            </a>
-                                        </li>
+                                            <li id="{{ $image->id }}" class="swiper-slide">
+                                                <a href="{{ $image->images
+                                                ? route('image.display' , [$product->id , $image->images['default']]) : ''}}"
+                                                   itemprop="contentUrl">
+                                                    <img src="{{ $image->images
+                                                ? route('image.display' , [$product->id , $image->images['small']]) : ''}}"
+                                                         itemprop="thumbnail"
+                                                         alt="گوشی موبایل سامسونگ مدل Galaxy A21s"/>
+                                                </a>
+                                            </li>
                                         @endforeach
                                         <!-- /Slides -->
                                     </ul>
@@ -68,9 +71,12 @@
                                         <div class="pswp__ui pswp__ui--hidden">
                                             <div class="pswp__top-bar">
                                                 <div class="pswp__counter"></div>
-                                                <button class="pswp__button pswp__button--close" title="بستن (Esc)"></button>
-                                                <button class="pswp__button pswp__button--fs" title="تمام صفحه"></button>
-                                                <button class="pswp__button pswp__button--zoom" title="بزرگنمایی"></button>
+                                                <button class="pswp__button pswp__button--close"
+                                                        title="بستن (Esc)"></button>
+                                                <button class="pswp__button pswp__button--fs"
+                                                        title="تمام صفحه"></button>
+                                                <button class="pswp__button pswp__button--zoom"
+                                                        title="بزرگنمایی"></button>
                                                 <div class="pswp__preloader">
                                                     <div class="pswp__preloader__icn">
                                                         <div class="pswp__preloader__cut">
@@ -79,8 +85,10 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <button class="pswp__button pswp__button--arrow--left" title="قبلی"></button>
-                                            <button class="pswp__button pswp__button--arrow--right" title="بعدی"></button>
+                                            <button class="pswp__button pswp__button--arrow--left"
+                                                    title="قبلی"></button>
+                                            <button class="pswp__button pswp__button--arrow--right"
+                                                    title="بعدی"></button>
                                             <div class="pswp__caption">
                                                 <div class="pswp__caption__center"></div>
                                             </div>
@@ -97,7 +105,7 @@
                                                     <div class="row">
                                                         <div class="d-flex justify-content-between">
                                                             <div>
-                                                                <a >
+                                                                <a>
                                                                     <h5>{{$product->name}}</h5>
                                                                 </a>
                                                             </div>
@@ -117,22 +125,27 @@
                                                                        title="افزودن به علاقه‌مندی"></a>
                                                                 @endif
 
-                                                                <p class="border border-1 p-1 px-2 mt-2">
-                                                                    بازدید :
-                                                                 {{ productVisitCount($product->id) }}
+                                                                <div class="border border-2 pt-md-1 pb-md-1 pr-md-1 pl-md-1 mt-md-3">
+                                                                    <span>
+                                                                    <li class="fas fa-eye"></li>
+                                                                    </span>
+                                                                    <small>
+                                                                        {{ productVisitCount($product->id) }}
+                                                                    </small>
+                                                                </div>
 
-                                                                </p>
-
-                                                                <form action="{{ route('products.wishlist.checkUserIsLogin') }}" id='check-user-is-login'>
+                                                                <form
+                                                                    action="{{ route('products.wishlist.checkUserIsLogin') }}"
+                                                                    id='check-user-is-login'>
                                                                     @csrf
                                                                 </form>
 
-{{--                                                                <a href="{{ route('front.compare.add' , $product->id) }}">--}}
-{{--                                                                    <div--}}
-{{--                                                                        class="btn btn-outline-secondary btn-compare mt-1 mt-sm-0"--}}
-{{--                                                                        data-toggle="tooltip" data-placement="top"--}}
-{{--                                                                        title="مقایسه"></div>--}}
-{{--                                                                </a>--}}
+                                                                {{--                                                                <a href="{{ route('front.compare.add' , $product->id) }}">--}}
+                                                                {{--                                                                    <div--}}
+                                                                {{--                                                                        class="btn btn-outline-secondary btn-compare mt-1 mt-sm-0"--}}
+                                                                {{--                                                                        data-toggle="tooltip" data-placement="top"--}}
+                                                                {{--                                                                        title="مقایسه"></div>--}}
+                                                                {{--                                                                </a>--}}
 
                                                             </div>
                                                         </div>
@@ -150,14 +163,16 @@
                                                 {{--                                                </div>--}}
                                                 <hr>
 
-                                              <div class="card border">
-                                                  <div class="card-body">
-                                                      <div  class="row">
-                                                          <div class="col-md-6">رنگ انتخابی: <span id="selected_color"> </span></div>
-                                                          <div class="col-md-6">گارانتی انتخابی: <span id="selected_warranty"></span></div>
-                                                      </div>
-                                                  </div>
-                                              </div>
+                                                <div class="card border">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-md-6">رنگ انتخابی: <span
+                                                                    id="selected_color"> </span></div>
+                                                            <div class="col-md-6">گارانتی انتخابی: <span
+                                                                    id="selected_warranty"></span></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <div class="variables">
                                                     <div class="title">گزینه های موجود:</div>
                                                     <div class="row">
@@ -166,15 +181,18 @@
                                                                 <div class="variable">
                                                                     <div class="sub-title pt-2 pb-2">رنگ</div>
                                                                     @foreach($colors  as $key =>  $color)
-                                                                        <label class="color-variable" for="color_input_{{ $color->id }}"
-                                                                            style="background-color:{{ $color->color_value }};
-                                                                            height: 30px ; width: 30px" ></label>
-                                                                        <input class="d-none" form="add_to_card" type="radio" name="color_id"  id="color_input_{{ $color->id }}"
+                                                                        <label class="color-variable"
+                                                                               for="color_input_{{ $color->id }}"
+                                                                               style="background-color:{{ $color->color_value }};
+                                                                            height: 30px ; width: 30px"></label>
+                                                                        <input class="d-none" form="add_to_card"
+                                                                               type="radio" name="color_id"
+                                                                               id="color_input_{{ $color->id }}"
                                                                                value="{{ $color->id }}"
                                                                                data-color-price="{{ $color->price_increase }}"
                                                                                data-color-name="{{ $color->color_name }}"
                                                                                data-color-quantity="{{ $color->quantity }}"
-                                                                        @if($color->is_primary) checked @endif
+                                                                               @if($color->is_primary) checked @endif
                                                                         >
                                                                     @endforeach
                                                                 </div>
@@ -183,17 +201,18 @@
                                                         <div class="col-12 col-sm-4 col-lg-6">
                                                             <div class="variable">
                                                                 <div class="sub-title pt-2 pb-2">گارانتی</div>
-                                                                <select name="warranty_id" class="form-select" form="add_to_card">
+                                                                <select name="warranty_id" class="form-select"
+                                                                        form="add_to_card">
                                                                     @if(!empty( $warranties =  $product->warranties))
-                                                                    @foreach($warranties as $key => $warranty)
-                                                                        <option
-                                                                            id="item"
-                                                                            value="{{ $warranty->id }}"
-                                                                            data-warranty-name="{{ $warranty->name }}"
-                                                                            data-warranty-price="{{ $warranty->price_increase }}"
-                                                                            @selected($key == 0 )
-                                                                        >{{ $warranty->name }}</option>
-                                                                    @endforeach
+                                                                        @foreach($warranties as $key => $warranty)
+                                                                            <option
+                                                                                id="item"
+                                                                                value="{{ $warranty->id }}"
+                                                                                data-warranty-name="{{ $warranty->name }}"
+                                                                                data-warranty-price="{{ $warranty->price_increase }}"
+                                                                                @selected($key == 0 )
+                                                                            >{{ $warranty->name }}</option>
+                                                                        @endforeach
                                                                     @else
                                                                         <option id="def" value>بدون گارانتی</option>
                                                                     @endif
@@ -213,7 +232,8 @@
                                                                     <div class="sub-title pt-3 mb-md-2">تعداد</div>
                                                                     <div class="input-group mb-3 order-number">
                                                                         <div class="input-group-prepend">
-                                                                            <button class="btn btn-outline-secondary btn-inc btn-change-quantity"
+                                                                            <button
+                                                                                class="btn btn-outline-secondary btn-inc btn-change-quantity"
                                                                                 type="button">+
                                                                             </button>
                                                                         </div>
@@ -223,7 +243,8 @@
                                                                                name="quantity" min="1"
                                                                                max="{{ $defaultProductColor->quantity }}">
                                                                         <div class="input-group-prepend">
-                                                                            <button class="btn btn-outline-secondary btn-dec btn-change-quantity"
+                                                                            <button
+                                                                                class="btn btn-outline-secondary btn-dec btn-change-quantity"
                                                                                 type="button">_
                                                                             </button>
                                                                         </div>
@@ -265,7 +286,7 @@
                                                     <div>
                                                         <span id="product_original_price"
                                                               data-product-original-price="{{ $product->price }}"
-                                                            class="price text-left">{{ $product->formattedPrice() }}
+                                                              class="price text-left">{{ $product->formattedPrice() }}
                                                         </span>
                                                         <span>تومان</span>
                                                     </div>
@@ -275,13 +296,14 @@
                                                     <div> تخفیف کالا:</div>
                                                     <div>
                                                         @if($product->hasDiscount)
-                                                            <span class="pre-price" id="product_discount_price" data-product-discount-price="{{ $product->discountAmount() }}"
+                                                            <span class="pre-price" id="product_discount_price"
+                                                                  data-product-discount-price="{{ $product->discountAmount() }}"
                                                             >{{ number_format($product->discountAmount()) }}
                                                             </span>
                                                         @else
                                                             0
                                                         @endif
-                                                                <span>تومان</span>
+                                                        <span>تومان</span>
                                                     </div>
                                                 </div>
                                                 <hr>
@@ -295,13 +317,13 @@
                                                 </div>
 
                                                 @if($defaultProductColor->quantity > 0)
-                                                <div class="col-md-12 w-100 mt-md-3" id="btn-add-to-card">
-                                                    <button type="submit" form="add_to_card"
-                                                            class="btn btn-success btn-add-to-basket btn-sm btn-block w-100">
-                                                        <i class="fa fa-shopping-cart"></i>
-                                                        افزودن به سبد خرید
-                                                    </button>
-                                                </div>
+                                                    <div class="col-md-12 w-100 mt-md-3" id="btn-add-to-card">
+                                                        <button type="submit" form="add_to_card"
+                                                                class="btn btn-success btn-add-to-basket btn-sm btn-block w-100">
+                                                            <i class="fa fa-shopping-cart"></i>
+                                                            افزودن به سبد خرید
+                                                        </button>
+                                                    </div>
                                                 @else
                                                     <div class="col-md-12 w-100 mt-md-3" id="btn-add-to-card">
                                                         <span class="btn btn-secondary  btn-sm btn-block w-100">
@@ -342,7 +364,7 @@
                                             <div class="col-12 pt-2 px-0 px-lg-0">
                                                 <!-- HTML Tab -->
                                                 <div id="html-tab" class="tabs-container text-justify p-0 p-md-3"
-                                                @if($errors->count() > 0) style="display: none" @endif>
+                                                     @if($errors->count() > 0) style="display: none" @endif>
                                                     {!! $product->description !!}
                                                 </div>
                                                 <!-- /HTML Tab -->
@@ -373,9 +395,9 @@
                                     @endforeach
                                     <!-- /Product Item -->
                                 </div>
-                        @endif
-                        </div>
-                        <!-- /Suggested Products -->
+                                @endif
+                            </div>
+                            <!-- /Suggested Products -->
                     </div>
                 </div>
             </div>
@@ -405,11 +427,11 @@
         $(document).ready(function () {
             bill();
 
-            $('input[name="color_id"]').change(function (){
+            $('input[name="color_id"]').change(function () {
                 bill();
             })
 
-            $('select[name="warranty_id"]').change(function (){
+            $('select[name="warranty_id"]').change(function () {
                 bill();
             })
 
@@ -425,15 +447,15 @@
         function bill() {
             //color
             let color_name = $("input[name='color_id']:checked").attr('data-color-name');
-            if($("input[name='color_id']:checked").attr('data-color-quantity') <= 0){
+            if ($("input[name='color_id']:checked").attr('data-color-quantity') <= 0) {
                 $('#btn-add-to-card').empty()
                 $('#btn-add-to-card').html(
                     '<span class="btn btn-secondary  btn-sm btn-block w-100">ناموجود </span>'
                 )
-            }else{
+            } else {
                 $('#btn-add-to-card').empty()
                 $('#btn-add-to-card').html(
-                '<button type="submit" form="add_to_card" class="btn btn-success btn-add-to-basket btn-sm btn-block w-100"><i class="fa fa-shopping-cart"></i>افزودن به سبد خرید</button>'
+                    '<button type="submit" form="add_to_card" class="btn btn-success btn-add-to-basket btn-sm btn-block w-100"><i class="fa fa-shopping-cart"></i>افزودن به سبد خرید</button>'
                 )
             }
 
@@ -441,20 +463,20 @@
 
             //warranty
             let warranty_name = $("select[name='warranty_id'] option:selected").text();
-            if(warranty_name){
+            if (warranty_name) {
                 $('#selected_warranty').html(warranty_name);
-            }else{
+            } else {
                 $('#selected_warranty').html('بدون گارانتی');
             }
 
-            let product_original_price =  parseFloat($("#product_original_price").attr('data-product-original-price'));
+            let product_original_price = parseFloat($("#product_original_price").attr('data-product-original-price'));
             let product_discount_price = 0;
             let selected_color_price = 0;
             let selected_warranty_price = 0;
             let quantity = 0;
 
 
-            if($("input[name='color_id']:checked").length > 0){
+            if ($("input[name='color_id']:checked").length > 0) {
                 selected_color_price = parseFloat($("input[name='color_id']:checked").attr('data-color-price'))
             }
 
@@ -468,11 +490,11 @@
                 }
             }
 
-            if($("input[name='quantity']").val() > 0){
+            if ($("input[name='quantity']").val() > 0) {
                 quantity = parseFloat($("input[name='quantity']").val())
             }
 
-            if($("#product_discount_price").length > 0){
+            if ($("#product_discount_price").length > 0) {
                 product_discount_price = parseFloat($("#product_discount_price").attr('data-product-discount-price'))
             }
 
@@ -484,7 +506,7 @@
             // quantity ,)
 
             let product_price = product_original_price + selected_warranty_price + selected_color_price;
-            let final_price = quantity * ( product_price - product_discount_price )
+            let final_price = quantity * (product_price - product_discount_price)
 
 
             $('#product_original_price').html(formatter.format(product_price))
@@ -494,7 +516,6 @@
 
 
         var formatter = new Intl.NumberFormat('fa-IR');
-
 
 
         $('.btn-inc').click(function () {
@@ -541,20 +562,20 @@
 
         function addOrRemoveProductFromWishlist(route) {
             event.preventDefault();
-            if("{{ auth()->check() }}"){
-            $.ajax({
-                url : route ,
-                type : 'POST' ,
-                data : { _token : "{{ csrf_token() }}" } ,
-                 success : function (response) {
-                    if (response.data == true){
-                        $('.wishlist-item').addClass('bg-danger')
-                    }else if(response.data == false){
-                        $('.wishlist-item').removeClass('bg-danger')
+            if ("{{ auth()->check() }}") {
+                $.ajax({
+                    url: route,
+                    type: 'POST',
+                    data: {_token: "{{ csrf_token() }}"},
+                    success: function (response) {
+                        if (response.data == true) {
+                            $('.wishlist-item').addClass('bg-danger')
+                        } else if (response.data == false) {
+                            $('.wishlist-item').removeClass('bg-danger')
+                        }
                     }
-                }
-            })
-            }else{
+                })
+            } else {
                 document.getElementById('check-user-is-login').submit()
             }
         }

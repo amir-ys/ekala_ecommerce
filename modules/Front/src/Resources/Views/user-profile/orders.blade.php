@@ -11,8 +11,7 @@
                                 <p>به ناحیه کاربری روبیک مارکت خوش آمدید.</p>
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="../index.html">صفحه نخست</a></li>
-                                        <li class="breadcrumb-item"><a href="#">ناحیه کاربری</a></li>
+                                        <li class="breadcrumb-item"><a href="/">صفحه نخست</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">سفارشات</li>
                                     </ol>
                                 </nav>
@@ -42,23 +41,36 @@
                                                 <ul class="px-3">
                                                     <li>
                                                         <a href="{{ route('front.user.orders.index') }}?status={{ \Modules\Payment\Models\Order::STATUS_PENDING }}"
-                                                class="{{ request()->query('status') == \Modules\Payment\Models\Order::STATUS_PENDING ? 'active' : '' }}">
+                                                           class="{{ request()->query('status') == \Modules\Payment\Models\Order::STATUS_PENDING ? 'active' : '' }}">
                                                             <span>در انتظار پرداخت</span>
-                                                            <div class="badge badge-secondary">1</div>
+                                                            <div
+                                                                class="badge badge-secondary">{{ $orders->where('status' , \Modules\Payment\Models\Order::STATUS_PENDING)->count() }}</div>
                                                         </a>
                                                     </li>
+
+                                                    <li>
+                                                        <a href="{{ route('front.user.orders.index') }}?status={{ \Modules\Payment\Models\Order::STATUS_FAILED }}"
+                                                           class="{{ request()->query('status') == \Modules\Payment\Models\Order::STATUS_FAILED ? 'active' : '' }}">
+                                                            <span>پرداخت ناموفق  </span>
+                                                            <div
+                                                                class="badge badge-secondary">{{ $orders->where('status' , \Modules\Payment\Models\Order::STATUS_FAILED)->count() }}</div>
+                                                        </a>
+                                                    </li>
+
                                                     <li>
                                                         <a href="{{ route('front.user.orders.index') }}?status={{ \Modules\Payment\Models\Order::STATUS_PAID  }}"
-                                                                  class="{{ request()->query('status') == \Modules\Payment\Models\Order::STATUS_PAID ? 'active' : '' }}"          >
+                                                           class="{{ request()->query('status') == \Modules\Payment\Models\Order::STATUS_PAID ? 'active' : '' }}">
                                                             <span>پرداخت شده</span>
-                                                            <div class="badge badge-secondary">2</div>
+                                                            <div
+                                                                class="badge badge-secondary">{{ $orders->where('status' , \Modules\Payment\Models\Order::STATUS_PAID)->count() }}</div>
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a href="{{ route('front.user.orders.index') }}?status={{ \Modules\Payment\Models\Order::DELIVERY_STATUS_POSTED }}"
-                                                                         class="{{ request()->query('status') == \Modules\Payment\Models\Order::DELIVERY_STATUS_POSTED ? 'active' : '' }}"           >
+                                                        <a href="{{ route('front.user.orders.index') }}?status={{ \Modules\Payment\Models\Order::DELIVERY_STATUS_DELIVERED }}"
+                                                           class="{{ request()->query('status') == \Modules\Payment\Models\Order::DELIVERY_STATUS_DELIVERED ? 'active' : '' }}">
                                                             <span>ارسال شده</span>
-                                                            <div class="badge badge-secondary">3</div>
+                                                            <div
+                                                                class="badge badge-secondary">{{ $orders->where('status' , \Modules\Payment\Models\Order::DELIVERY_STATUS_DELIVERED)->count() }}</div>
                                                         </a>
                                                     </li>
                                                 </ul>
@@ -74,39 +86,54 @@
                                     <div class="container">
                                         <div class="row ">
                                             <div class="table-responsive">
-                                                    <table id="table"  class="table table-hover table-borderless"   >
-    <thead>
-
-                                                        <tr>
-                                                            <th> شناسه سفارش </th>
-                                                            <th> تاریخ سفارش</th>
-                                                            <th> نوع پرداخت </th>
-                                                            <th>  کد تخفیف </th>
-                                                            <th> مبلغ </th>
-                                                            <th> وضعیت پرداخت </th>
-                                                            <th> وضعیت ارسال </th>
-                                                            <th> عملیات </th>
-                                                        </tr>
-    </thead>
-    <tbody>
-    @foreach($orders as $order)
-    <tr>
-    <td> {{ $order->id }} </td>
-    <td> {{ getJalaliDate($order->created_at) }} </td>
-    <td> {{ $order->payment?->payment_type_name }} </td>
-    <td> {{ $order->coupon_id ? $order->coupon_amount : '-'  }} </td>
-    <td> {{ $order->final_amount }} </td>
-    <td class="badge bg-{{ $order->status_css }}"> {{ $order->status_name }} </td>
-    <td class="border text-{{ $order->delivery_status_css }}" > {{ $order->delivery_status_name }} </td>
-        <td><a  href="#order-{{ $order->id }}" data-bs-toggle="modal" data-bs-target="#order-{{ $order->id }}" ><i class="fa fa-eye"></i></a>
-    @include('Front::user-profile.partials.order-items-modal')
-    </td>
-    </tr>
-@endforeach
-    </tbody>
-                                                       </table>
+                                                <table id="table" class="table table-hover table-borderless">
+                                                    <thead>
+                                                    <tr>
+                                                        <th> شناسه سفارش</th>
+                                                        <th> تاریخ سفارش</th>
+                                                        <th> نوع پرداخت</th>
+                                                        <th> کد تخفیف</th>
+                                                        <th> مبلغ</th>
+                                                        <th> وضعیت پرداخت</th>
+                                                        <th> وضعیت ارسال</th>
+                                                        <th> عملیات</th>
+                                                    </tr>
+                                                    </thead>
+                                                    @if(count($orders) > 0)
+                                                    <tbody>
+                                                        @foreach($orders as $order)
+                                                            <tr>
+                                                                <td> {{ $order->id }} </td>
+                                                                <td> {{ getJalaliDate($order->created_at) }} </td>
+                                                                <td> {{ $order->payment?->payment_type_name }} </td>
+                                                                <td> {{ $order->coupon_id ? $order->coupon_amount : '-'  }} </td>
+                                                                <td> {{ $order->final_amount }} </td>
+                                                                <td class="badge bg-{{ $order->status_css }}"> {{ $order->status_name }} </td>
+                                                                <td class="border text-{{ $order->delivery_status_css }}"> {{ $order->delivery_status_name }} </td>
+                                                                <td><a href="#order-{{ $order->id }}"
+                                                                       data-bs-toggle="modal"
+                                                                       data-bs-target="#order-{{ $order->id }}"><i
+                                                                            class="fa fa-eye"></i></a>
+                                                                    @include('Front::user-profile.partials.order-items-modal')
+                                                                </td>
+                                                            </tr>
+                                                    </tbody>
+                                                        @endforeach
+                                                    @endif
+                                                </table>
                                             </div>
                                         </div>
+                                        @if(count($orders) <= 0)
+                                            <div class="card mt-md-3 mb-md-3">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <h5 class="text-center mt-md-5 mb-md-4">
+                                                            شما هنوز سفارشی ندارید.
+                                                        </h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                                 <!-- /Factors List -->

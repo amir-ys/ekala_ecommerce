@@ -28,6 +28,10 @@ return [
     'image' => [
         'sizes' => [
 
+            'user' => [
+                'default' => [300 , 300]
+            ] ,
+
             'product' => [
                 'default' => [700, 700],
                 'small' => [438, 438],

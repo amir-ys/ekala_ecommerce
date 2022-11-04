@@ -11,8 +11,7 @@
                                 <p>به ناحیه کاربری روبیک مارکت خوش آمدید.</p>
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="../index.html">صفحه نخست</a></li>
-                                        <li class="breadcrumb-item"><a href="#">ناحیه کاربری</a></li>
+                                        <li class="breadcrumb-item"><a href="/">صفحه نخست</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">محصولات مورد علاقه</li>
                                     </ol>
                                 </nav>
@@ -39,17 +38,32 @@
                                     <div class="row pt-2 px-3">
                                         <div class="col-12"><h1>محصولات مورد علاقه</h1></div>
                                     </div>
+                                    <hr>
                                     <div class="container">
-                                        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 gx-md-4">
-                                            <!-- Products -->
-{{--                                            <div class="col">--}}
+                                        @if(count($wishlist = auth()->user()->wishlist) > 0)
+
+                                            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 gx-md-4">
+                                                <!-- Products -->
+                                                {{--                                            <div class="col">--}}
                                                 <!-- Product Box -->
-                                                @foreach(auth()->user()->wishlist as $wishlist )
+                                                @foreach($wishlist as $wishlist )
                                                     @include('Front::partials.product-box' , ['product' => $wishlist->product , 'discount' => false ])
                                                 @endforeach
-                                                <!-- /Product Box -->
-{{--                                            </div>--}}
-                                        </div>
+                                            </div>
+
+                                        @else
+                                            <div class="card mt-md-3 mb-md-3">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <h5 class="text-center mt-md-5 mb-md-4">
+                                                            شما هنوز به محصولی علاقه مند نشدید.
+                                                        </h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endif
+                                        <!-- /Product Box -->
+                                        {{--                                            </div>--}}
                                     </div>
                                 </div>
                                 <!-- /Favorite Products -->

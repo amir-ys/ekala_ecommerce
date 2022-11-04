@@ -19,7 +19,6 @@ class UserRequest extends FormRequest
         $rules = [
             'first_name' => ['nullable', 'string', 'min:2'],
             'last_name' => ['nullable', 'string', 'min:2'],
-            'username' => ['required', 'string', Rule::unique('users', 'username')->ignore($this->route()->parameter('user'))],
             'email' => ['required', 'email', Rule::unique('users', 'email')->ignore($this->route()->parameter('user'))],
             'password' => ['required', Password::min(8)],
             'profile' => ['nullable', 'mimes:jpeg,jpg,png'],
@@ -27,12 +26,20 @@ class UserRequest extends FormRequest
         ];
 
         if ($this->getMethod() == 'PATCH') {
-            $rules['password'] = ['nullable', 'password', Password::min(8)];
+            $rules['password'] = ['nullable', Password::min(8)];
         }
 
 
         return $rules;
 
+    }
+
+    public function prepareForValidation()
+    {
+        $this->merge([
+            'username' => null ,
+            'is_admin' => User::ROLE_USER
+        ]);
     }
 
 

@@ -67,6 +67,13 @@ class CategoryRepo extends BaseRepository  implements CategoryRepositoryInterfac
             ->get();
     }
 
+    public function getSearchable(): array|Collection
+    {
+        return $this->query
+            ->where('is_searchable' , Category::SEARCHABLE_TRUE)
+            ->get();
+    }
+
     public function allParent(): array|Collection
     {
         return $this->query

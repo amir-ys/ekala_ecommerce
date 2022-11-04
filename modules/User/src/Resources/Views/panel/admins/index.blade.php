@@ -1,7 +1,7 @@
 @extends('Dashboard::master')
-@section('title'  ,__('User::translation.index'))
+@section('title'  ,__('User::translation.admin.index'))
 @section('breadcrumb')
-    <li class="breadcrumb-item active"><a>@lang('User::translation.index')</a></li>
+    <li class="breadcrumb-item active"><a>@lang('User::translation.admin.index')</a></li>
 @endsection
 @section('content')
     <div class="row">
@@ -9,11 +9,11 @@
             @can(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_USERS)
                 <div class="row mb-3">
                     <div class="col-sm-12 col-md-12 col-lg-2">
-                        <a href="{{ route('panel.users.create') }}"
+                        <a href="{{ route('panel.admins.create') }}"
                            class="btn btn-primary
                         btn-rounded waves-effect waves-light mb-2 me-2">
                             <i class="mdi mdi-plus me-1"></i>
-                            @lang('User::translation.create')</a>
+                            @lang('User::translation.admin.create')</a>
                     </div>
                 </div>
             @endcan
@@ -25,11 +25,11 @@
                             <tr>
                                 <th>شناسه</th>
                                 <th> عکس پروفایل</th>
-                                <th> نام کاربری</th>
                                 <th> نام و نام خانوادگی</th>
+                                <th>  کد ملی</th>
+                                <th> نام کاربری</th>
                                 <th> ایمیل</th>
                                 <th> موبایل</th>
-                                <th> وضعیت تایید ایمیل</th>
                                 <th> وضعیت کاربر</th>
                                 @can(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_USERS)
                                     <th> عملیات</th>
@@ -37,44 +37,39 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($users as $user)
+                            @foreach($admins as $admin)
                                 <tr>
                                     <td>{{ $loop->iteration  }}</td>
                                     <td>
-                                        @if(!is_null($user->profile))
-                                            <a href="{{ route('panel.users.profile.show' , $user->profile) }}">
-                                                <img width="100px"
-                                                     src="{{ route('panel.users.profile.show' , [$user->profile]) }}"
+                                        @if(!is_null($admin->profile))
+                                            <a href="{{ route('panel.admins.profile.show' , $admin->profile) }}">
+                                                <img width="50px" height="50px"
+                                                     src="{{ route('panel.admins.profile.show' , [$admin->profile]) }}"
                                                      alt="">
                                             </a>
                                         @else
                                             -
                                         @endif
                                     </td>
-                                    <td>{{ $user->username ?? '-' }}</td>
-                                    <td>{{ $user->full_name }}</td>
-                                    <td>{{ $user->email }}</td>
-                                    <td>{{ $user->mobile ?? '-' }}</td>
+                                    <td>{{ $admin->full_name }}</td>
+                                    <td>{{ $admin->national_code }}</td>
+                                    <td>{{ $admin->username ?? '-' }}</td>
+                                    <td>{{ $admin->email }}</td>
+                                    <td>{{ $admin->mobile ?? '-' }}</td>
                                     <td>
-                                        <span
-                                            class="badge badge-{{ $user->hasVerifiedEmail() ? 'success'  : 'danger' }}">
-                                            {{ $user->hasVerifiedEmail() ? 'تایید شده'  : 'تایید نشده' }}
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span class="badge badge-{{ $user->statusCss }}">
-                                            {{ $user->statusName }}
+                                        <span class="badge badge-{{ $admin->statusCss }}">
+                                            {{ $admin->statusName }}
                                         </span>
                                     </td>
                                     @can(\Modules\RolePermissions\Models\Permission::PERMISSION_MANAGE_USERS)
                                         <td>
                                             <a class="btn btn-sm bg-transparent d-inline"
-                                               href="{{ route('panel.users.edit' , $user->id) }}"><i
+                                               href="{{ route('panel.admins.edit' , $admin->id) }}"><i
                                                     class="fa fa-pencil fa-15m text-success"></i></a>
 
                                             <a class="btn btn-sm bg-transparent d-inline"
-                                               onclick="deleteItem(event , '{{ route('panel.users.destroy' , $user->id) }}' )"
-                                               href="{{ route('panel.users.destroy' , $user->id) }}"><i
+                                               onclick="deleteItem(event , '{{ route('panel.admins.destroy' , $admin->id) }}' )"
+                                               href="{{ route('panel.admins.destroy' , $admin->id) }}"><i
                                                     class="fa fa-trash fa-15m text-danger"></i></a>
                                         </td>
                                     @endcan

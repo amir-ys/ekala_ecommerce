@@ -25,21 +25,22 @@ class UserController extends Controller
     public function index()
     {
         $this->authorize('view' , User::class);
-        $users = $this->userRepo->getAll();
-        return view('User::panel.index', compact('users'));
+        $users = $this->userRepo->getUsers();
+        return view('User::panel.users.index', compact('users'));
     }
 
     public function create()
     {
         $this->authorize('manage' , User::class);
-        return view('User::panel.create');
+        return view('User::panel.users.create');
     }
 
     public function store(UserRequest $request)
     {
         $this->authorize('manage' , User::class);
         if ($request->hasFile('profile')) {
-            $request->request->add(['uploadedProfile' => ImageService::uploadImage($request->file('profile') , User::getUploadDir())]);
+            $request->request->add(['uploadedProfile' => ImageService::uploadImage($request->file('profile')
+                , 'user' , User::getUploadDir())['default']]);
         }else{
             $request->request->add(['uploadedProfile' => null ]);
         }
@@ -53,7 +54,7 @@ class UserController extends Controller
     {
         $this->authorize('manage' , User::class);
         $user = $this->userRepo->findById($userId);
-        return view('User::panel.edit', compact('user'));
+        return view('User::panel.users.edit', compact('user'));
     }
 
     public function update(UserRequest $request, $userId)
@@ -61,7 +62,8 @@ class UserController extends Controller
         $this->authorize('manage' , User::class);
         $user = $this->userRepo->findById($userId);
         if ($request->hasFile('profile')) {
-            $request->request->add(['uploadedProfile' => ImageService::uploadImage($request->file('profile') , User::getUploadDir())]);
+            $request->request->add(['uploadedProfile' =>
+                ImageService::uploadImage($request->file('profile') , 'user' , User::getUploadDir())['default']]);
         }else{
             $request->request->add(['uploadedProfile' => $user->profile ]);
         }
@@ -77,7 +79,7 @@ class UserController extends Controller
         $this->authorize('manage' , User::class);
         $user = $this->userRepo->findById($userId);
         $this->userRepo->destroy($userId);
-        return AjaxResponse::success("کاربر  ". $user->username." با موفقیت حذف شد.");
+        return AjaxResponse::success("کاربر  ". $user->email." با موفقیت حذف شد.");
 
     }
 

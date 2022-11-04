@@ -38,6 +38,8 @@ class Permission extends \Spatie\Permission\Models\Permission
     const PERMISSION_READ_SLIDES = 'read slides';
     const PERMISSION_MANAGE_USERS = 'manage users';
     const PERMISSION_READ_USERS = 'read users';
+    const PERMISSION_MANAGE_ADMINS = 'manage admins';
+    const PERMISSION_READ_ADMINS = 'read admins';
     const PERMISSION_MANAGE_ROLE_PERMISSIONS = 'manage role_permissions';
     const PERMISSION_READ_ROLE_PERMISSIONS = 'read role_permissions';
     const PERMISSION_MANAGE_BLOG = 'manage blog';
@@ -58,5 +60,6 @@ class Permission extends \Spatie\Permission\Models\Permission
         self::PERMISSION_MANAGE_USERS, self::PERMISSION_READ_USERS,
         self::PERMISSION_MANAGE_ROLE_PERMISSIONS, self::PERMISSION_READ_ROLE_PERMISSIONS,
         self::PERMISSION_MANAGE_BLOG, self::PERMISSION_READ_BLOG ,
+        self::PERMISSION_MANAGE_ADMINS, self::PERMISSION_READ_ADMINS ,
     ];
 }

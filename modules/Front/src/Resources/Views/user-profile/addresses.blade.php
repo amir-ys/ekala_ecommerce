@@ -11,8 +11,7 @@
                                 <p>به ناحیه کاربری روبیک مارکت خوش آمدید.</p>
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="../index.html">صفحه نخست</a></li>
-                                        <li class="breadcrumb-item"><a href="#">ناحیه کاربری</a></li>
+                                        <li class="breadcrumb-item"><a href="/">صفحه نخست</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">آدرس های من</li>
                                     </ol>
                                 </nav>
@@ -41,7 +40,8 @@
                                     </div>
                                     <hr>
                                     <div class="container">
-                                        <form action="{{ route('panel.users.address.store') }}" method="post" id="address-su-form">
+                                        <form action="{{ route('panel.users.address.store') }}" method="post"
+                                              id="address-su-form">
                                             @csrf
                                             <div class="row">
                                                 <div class="col-12 pt-3">
@@ -60,7 +60,7 @@
                                                                             value="{{ $province->id }}">{{ $province->name }}</option>
                                                                     @endforeach
                                                                 </select>
-                                                                <x-validation-error field="province_id" bag="store" />
+                                                                <x-validation-error field="province_id" bag="store"/>
                                                             </div>
                                                         </div>
                                                         <div class="col-12 col-md-4 pl-2">
@@ -107,7 +107,8 @@
                                                         </div>
                                                         <div class="col-12">
                                                             <div class="form-group m-1 pb-3">
-                                                                <input type="submit" class="btn btn-primary px-5" id="submit_btn"
+                                                                <input type="submit" class="btn btn-primary px-5"
+                                                                       id="submit_btn"
                                                                        value="ذخیره آدرس">
                                                             </div>
                                                         </div>
@@ -127,45 +128,57 @@
                                     <hr>
                                     <div class="container">
                                         <div class="row">
-                                            <!-- Address Record -->
-                                            @foreach($addresses as $address)
-                                                <div class="col-12 address py-2">
-                                                    <div class="row">
-                                                        <div class="col-12 col-sm-10">
-                                                            <div
-                                                                class="title">{{ $address->province->name  . ',' .  $address->city->name  }}</div>
-                                                            <div class="sub-title"> آدرس: {{ $address->address }}</div>
-                                                            <div class="sub-title"> نام تحویل
-                                                                گیرنده: {{ $address->receiver }}</div>
-                                                            <div class="sub-title"> شماره تحویل
-                                                                گیرنده: {{ $address->phone_number }}</div>
-                                                            <div class="sub-title">
-                                                                کدپستی: {{ $address->postal_code }}</div>
+                                            @if(count($addresses) > 0)
+                                                @foreach($addresses as $address)
+                                                    <div class="col-12 address py-2">
+                                                        <div class="row">
+                                                            <div class="col-12 col-sm-10">
+                                                                <div
+                                                                    class="title">{{ $address->province->name  . ',' .  $address->city->name  }}</div>
+                                                                <div class="sub-title">
+                                                                    آدرس: {{ $address->address }}</div>
+                                                                <div class="sub-title"> نام تحویل
+                                                                    گیرنده: {{ $address->receiver }}</div>
+                                                                <div class="sub-title"> شماره تحویل
+                                                                    گیرنده: {{ $address->phone_number }}</div>
+                                                                <div class="sub-title">
+                                                                    کدپستی: {{ $address->postal_code }}</div>
+                                                            </div>
+                                                            <div class="col-12 col-sm-2 text-lg-end">
+                                                                <a href="#"
+                                                                   onclick="deleteItem(event , '{{  route('panel.users.address.destroy' , $address->id) }}'  ,'آدرس')"
+                                                                   class="float-right float-sm-left pr-2 pl-sm-2"><i
+                                                                        class="fa fa-trash-alt font-weight-normal"></i>
+                                                                </a>
+
+
+                                                                @if($address->is_active == \Modules\User\Models\UserAddress::STATUS_ACTIVE)
+                                                                    <a href="#" class="float-right float-sm-left ml-2"
+                                                                       title="آدرس پیش فرض"><i
+                                                                            class="fa fa-check-circle"
+                                                                            style="color: #fcb941"></i></a>
+                                                                @elseif($address->is_active == \Modules\User\Models\UserAddress::STATUS_INACTIVE)
+                                                                    <a href="{{  route('panel.users.address.changeStatus' , $address->id) }}"
+                                                                       class="float-right float-sm-left ml-2"
+                                                                       title="آدرس پیش فرض"><i class="fa fa-circle"
+                                                                                               style="color: #fcb941"></i></a>
+                                                                @endif
+
+                                                            </div>
                                                         </div>
-                                                        <div class="col-12 col-sm-2 text-lg-end">
-                                                            <a href="#"
-                                                               onclick="deleteItem(event , '{{  route('panel.users.address.destroy' , $address->id) }}'  ,'آدرس')"
-                                                               class="float-right float-sm-left pr-2 pl-sm-2"><i
-                                                                    class="fa fa-trash-alt font-weight-normal"></i>
-                                                            </a>
-
-
-                                                            @if($address->is_active == \Modules\User\Models\UserAddress::STATUS_ACTIVE)
-                                                                <a href="#" class="float-right float-sm-left ml-2"
-                                                                   title="آدرس پیش فرض"><i class="fa fa-check-circle"
-                                                                                           style="color: #fcb941"></i></a>
-                                                            @elseif($address->is_active == \Modules\User\Models\UserAddress::STATUS_INACTIVE)
-                                                                <a href="{{  route('panel.users.address.changeStatus' , $address->id) }}"
-                                                                   class="float-right float-sm-left ml-2"
-                                                                   title="آدرس پیش فرض"><i class="fa fa-circle"
-                                                                                           style="color: #fcb941"></i></a>
-                                                            @endif
-
+                                                    </div>
+                                                @endforeach
+                                            @else
+                                                <div class="card mt-md-3 mb-md-3">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <h5 class="text-center mt-md-5 mb-md-4">
+                                                                شما هنوز آدرسی وارد نکرده اید.
+                                                            </h5>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            @endforeach
-                                            <!-- Address Record -->
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -190,9 +203,9 @@
                     data: {province_id: province_id},
                     success: function (response) {
                         $('#city_id').empty()
-                        response.data.map((city) =>  {
+                        response.data.map((city) => {
                             $('#city_id').append($('<option/>').val(city.id).text(city.name))
-                    })
+                        })
                     }
                 })
             })
@@ -201,21 +214,21 @@
 
     <script>
 
-        function updateItem(event , findUpdateUrl , updateUrl) {
+        function updateItem(event, findUpdateUrl, updateUrl) {
             event.preventDefault();
             $.ajax({
-                url : findUpdateUrl ,
-                type : 'get' ,
-                success : function (response){
-                    $('#hidden_div').html( '<input type="hidden" name="address_id" value="'+ response.data.id +'" >' )
+                url: findUpdateUrl,
+                type: 'get',
+                success: function (response) {
+                    $('#hidden_div').html('<input type="hidden" name="address_id" value="' + response.data.id + '" >')
                     $('#submit_btn').val('بروزرسانی آدرس')
                     $('input[name="address"]').val(response.data.address)
                     $('input[name="receiver"]').val(response.data.receiver)
                     $('input[name="postal_code"]').val(response.data.postal_code)
                     $('input[name="phone_number"]').val(response.data.phone_number)
-                    $('#address-su-form').attr('action' ,updateUrl)
+                    $('#address-su-form').attr('action', updateUrl)
                 },
-                error : function () {
+                error: function () {
 
                 }
             })

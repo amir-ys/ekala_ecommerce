@@ -21,7 +21,7 @@ class ProductController extends Controller
 
     public function list(Request $request)
     {
-        $categories = resolve(CategoryRepositoryInterface::class)->allParent();
+        $categories = resolve(CategoryRepositoryInterface::class)->getSearchable();
         $products = resolve(ProductRepositoryInterface::class)->getProductsOrderByRequest();
         return view('Front::products.product-list' , compact('products' , 'categories'));
     }
