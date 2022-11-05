@@ -23,9 +23,9 @@ class DatabaseSeeder extends Seeder
 //        Attribute::factory()->count(rand(1, 10))->create();
 //        Product::factory()->count(rand(1, 10))->create();
         $this->call([
+            RolePermissionsSeeder::class ,
             UserSeeder::class ,
             ProvinceSeeder::class,
-            RolePermissionsSeeder::class ,
         ]);
     }
 }
