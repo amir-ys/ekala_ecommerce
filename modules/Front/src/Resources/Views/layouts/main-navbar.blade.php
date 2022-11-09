@@ -56,7 +56,7 @@
                                                 </ul>
                                             </li>
                                             <li class="droopmenu-parent" aria-haspopup="true">
-                                                <a href="./products.html" aria-expanded="false"> فروشگاه<em
+                                                <a href="{{ route('front.home') }}" aria-expanded="false"> فروشگاه<em
                                                         class="droopmenu-topanim"></em></a>
                                                 <div class="dm-arrow"></div>
                                                 <ul style="">

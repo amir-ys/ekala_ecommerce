@@ -7,7 +7,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-12 px-0">
-                                <h1>فروشگاه روبیک مارکت</h1>
+                                <h1>فروشگاه site_name()</h1>
                                 <p>هر آنچه نیاز دارید در این فروشگاه موجود است</p>
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">

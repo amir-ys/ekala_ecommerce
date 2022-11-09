@@ -23,7 +23,7 @@ class SlideRequest extends FormRequest
             'priority' => ['nullable' , Rule::unique('sliders' , 'priority')],
             'status' => ['required', new Enum(SlideStatus::class)],
             'type' => ['required', new Enum(SlideType::class)],
-            'link' => ['required', 'url'],
+            'link' => ['required'],
             'btn_text' => ['nullable', 'string'],
             'image' => ['required', 'image', 'mimes:png,jpeg,jpg'],
         ];

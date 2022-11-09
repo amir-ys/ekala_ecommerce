@@ -3,7 +3,7 @@
         <div class="row py-3 align-content-center">
             <div class="col-12 col-md-3 col-xl-2 text-center text-md-start pb-2" id="header-logo">
                 <a href="/">
-                    <img src="/assets/front/assets/images/logo.png" alt=""> روبیک مارکت
+                    <img src="/assets/front/assets/images/logo.png" alt=""> {{ site_name()  }}
                 </a>
             </div>
             <div class="col-12 col-md-5 col-xl-6">

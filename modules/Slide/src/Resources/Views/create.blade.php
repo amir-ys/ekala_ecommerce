@@ -52,7 +52,9 @@
                                                     <option value>یک وضعیت را انتخاب کنید</option>
                                                     @foreach(\Modules\Slide\Enums\SlideStatus::cases() as $status)
                                                         <option
-                                                            value="{{ $status->value  }}">  @lang($status->name ) </option>
+                                                            value="{{ $status->value  }}"
+                                                        @selected(old('status'))
+                                                        >  @lang($status->name ) </option>
                                                     @endforeach
                                                 </select>
                                                 <x-validation-error field="status"/>
@@ -69,7 +71,9 @@
                                                     <option value>یک نوع را انتخاب کنید</option>
                                                     @foreach(\Modules\Slide\Enums\SlideType::cases() as $status)
                                                         <option
-                                                            value="{{ $status->value  }}">  @lang($status->name ) </option>
+                                                            value="{{ $status->value  }}"
+                                                        @selected(old('type'))
+                                                        >  @lang($status->name ) </option>
                                                     @endforeach
                                                 </select>
                                                 <x-validation-error field="type"/>

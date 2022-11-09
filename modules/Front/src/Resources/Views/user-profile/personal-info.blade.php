@@ -8,7 +8,7 @@
                         <div class="row">
                             <div class="col-12 px-0">
                                 <h1>ناحیه کاربری</h1>
-                                <p>به ناحیه کاربری روبیک مارکت خوش آمدید.</p>
+                                <p>به ناحیه کاربری {{  site_name() }} خوش آمدید.</p>
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="/">صفحه نخست</a></li>

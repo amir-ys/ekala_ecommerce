@@ -43,10 +43,6 @@ class FrontServiceProvider extends ServiceProvider
                 return resolve(CategoryRepositoryInterface::class)->allParentLimit(7);
             });
 
-            $shopName = Cache::remember('shopName', now()->addDay(), function () use ($settingRepo) {
-                return $settingRepo->getItem(Setting::SETTING_SHOP_NAME);
-            });
-
             $shopFooter = Cache::remember('shopFooter', now()->addDay(), function () use ($settingRepo) {
                 return $settingRepo->getItem(Setting::SETTING_SHOP_FOOTER);
             });
@@ -61,7 +57,6 @@ class FrontServiceProvider extends ServiceProvider
 
             return $view->with([
                 'categories' => $categories,
-                'shopName' => $shopName,
                 'shopFooter' => $shopFooter,
                 'shopFooterContact' => $shopFooterContact,
                 'socialMedia' => $socialMedia,

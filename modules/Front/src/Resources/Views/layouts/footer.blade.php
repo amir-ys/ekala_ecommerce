@@ -34,7 +34,7 @@
             <div class="col-12 col-md-12 col-lg-6">
                 <hr class="d-lg-none">
                 <img src="/assets/front/assets/images/logo.png"
-                     alt=""> {{ $shopName ? $shopName->value : config('core.shop_name') }}
+                     alt=""> {{ site_name() }}
                 <br>
                 <p>
                     {{ $shopFooter?->value }}

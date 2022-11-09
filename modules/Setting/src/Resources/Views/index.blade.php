@@ -54,7 +54,7 @@
                                 <div class="form-group">
                                     <label for="shop_name"> نام فروشگاه </label>
                                     <input type="text" name="shop_name" id="shop_name" class="form-control"
-                                           value="{{ optional($shopName)->value }}">
+                                           value="{{ site_name() }}">
                                 </div>
                             </div>
 

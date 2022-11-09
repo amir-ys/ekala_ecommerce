@@ -18,11 +18,10 @@ class SettingController extends Controller
     {
         $this->authorize('view' , Setting::class);
 
-        $shopName = $this->settingRepo->getItem(Setting::SETTING_SHOP_NAME);
         $shopFooter = $this->settingRepo->getItem(Setting::SETTING_SHOP_FOOTER);
         $shopFooterContact = $this->settingRepo->getItem(Setting::SETTING_SHOP_FOOTER_CONTACT);
         $socialMedia = $this->settingRepo->getItem(Setting::SETTING_SOCIAL_MEDIA);
-        return view('Setting::index' , compact('shopName' , 'shopFooter' , 'shopFooterContact' , 'socialMedia' ));
+        return view('Setting::index' , compact( 'shopFooter' , 'shopFooterContact' , 'socialMedia' ));
     }
 
     public function siteInfoStore(Request $request)
