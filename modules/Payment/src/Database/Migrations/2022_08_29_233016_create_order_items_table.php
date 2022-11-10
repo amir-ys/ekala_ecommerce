@@ -18,9 +18,9 @@ return new class extends Migration {
             $table->id();
             $table->foreignIdFor(Order::class)->constrained();
             $table->foreignIdFor(Product::class)->constrained();
-            $table->bigInteger('price');
+            $table->decimal('price');
             $table->integer('quantity');
-            $table->bigInteger('total');
+            $table->decimal('total');
             $table->foreignId('color_id');
             $table->foreignId('warranty_id');
             $table->softDeletes();

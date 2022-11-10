@@ -16,7 +16,7 @@ return new class extends Migration {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class)->constrained();
-            $table->bigInteger('amount');
+            $table->decimal('amount');
             $table->string('token')->nullable();
             $table->string('gateway_name')->nullable()->comment('from payment type online');
             $table->string('pay_date')->nullable()->comment('for payment type offline');
