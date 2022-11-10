@@ -37,7 +37,7 @@
                                     </div>
                                     <div class="col-md-5 mb-3">
                                         <label>قیمت</label>
-                                        <input type="text" class="form-control" name="price"
+                                        <input type="number" class="form-control" name="price"
                                                placeholder="قیمت"
                                                value="{{ old('price' , $product->price) }}">
                                         <x-validation-error field="price"/>

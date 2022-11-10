@@ -5,7 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Modules\RolePermissions\Database\Seeders\RolePermissionsSeeder;
 use Modules\User\Database\Seeders\ProvinceSeeder;
-use Modules\User\Database\Seeders\UserSeeder;
+use Modules\User\Database\Seeders\AdminSeeder;
+use Modules\User\Database\Seeders\ViewerUserSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,15 +17,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-//        Attribute::factory()->count(rand(1, 10))->create();
-//        Category::factory()->count(rand(1, 10))->create();
-//        AttributeGroup::factory()->count(rand(1, 10))->create();
-//        Brand::factory()->count(rand(1, 10))->create();
-//        Attribute::factory()->count(rand(1, 10))->create();
-//        Product::factory()->count(rand(1, 10))->create();
         $this->call([
             RolePermissionsSeeder::class ,
-            UserSeeder::class ,
+            AdminSeeder::class ,
+            ViewerUserSeeder::class ,
             ProvinceSeeder::class,
         ]);
     }

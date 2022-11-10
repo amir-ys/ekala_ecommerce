@@ -45,7 +45,6 @@ class ProfileController extends Controller
             'first_name' => ['required'],
             'last_name' => ['required'],
             'mobile' => ['required', 'min:10', 'max:14'],
-            'email' => ['required', Rule::unique('users', 'email')->ignore(auth()->user())],
         ]);
     }
 }

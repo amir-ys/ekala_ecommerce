@@ -58,16 +58,6 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label class="col-form-label text-capitalize"
-                                                                   for="email"> ایمیل  </label>
-                                                            <input type="text" class="form-control" id="email"
-                                                                   name="email" placeholder="ایمیل" value="{{old("email" , auth()->user()->email)}}">
-                                                            <x-validation-error field="email"/>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label class="col-form-label text-capitalize"
                                                                    for="mobile"> شماره همراه  </label>
                                                             <input type="text" class="form-control" id="mobile"
                                                                    name="mobile" placeholder="شماره همراه" value="{{old("mobile" , auth()->user()->mobile)}}">

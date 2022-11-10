@@ -2,6 +2,8 @@
 
 namespace Modules\Payment\Gateways\Zarinpal;
 
+use SoapClient;
+
 class Zarinpal
 {
 

@@ -8,7 +8,7 @@ use Modules\User\Models\City;
 use Modules\User\Models\Province;
 use Modules\User\Models\User;
 
-class UserSeeder extends Seeder
+class AdminSeeder extends Seeder
 {
     /**
      * Seed the application's database.
@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
     public function run()
     {
        $user = User::query()->firstOrCreate([
-           'email' => 'admin@gmail.com' ,
+           'email' => 'admin@ekala.com' ,
         ] ,
        [
            'password' => bcrypt(123456) ,
