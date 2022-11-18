@@ -118,7 +118,7 @@
                                             </div>
                                             <div class="col-6">
                                                 <div>
-                                                    {{ number_format(\Modules\Front\Services\CartService::getTotal()) }}
+                                                    {{ number_format(\Modules\Cart\Facades\CartServiceFacade::getTotal()) }}
                                                     تومان
                                                 </div>
                                             </div>

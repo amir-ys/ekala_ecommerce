@@ -4,9 +4,12 @@ namespace Modules\Payment\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Payment\Database\Factories\OrderItemFactory;
 use Modules\Product\Models\Product;
+use Modules\Product\Models\ProductColor;
+use Modules\Product\Models\ProductWarranty;
 
 class OrderItem extends Model
 {
@@ -20,13 +23,23 @@ class OrderItem extends Model
         return new OrderItemFactory();
     }
 
-    public function product()
+    public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
     }
 
-    public function order()
+    public function order(): BelongsTo
     {
         return $this->belongsTo(Order::class);
+    }
+
+    public function color(): BelongsTo
+    {
+        return $this->belongsTo(ProductColor::class);
+    }
+
+    public function warranty(): BelongsTo
+    {
+        return $this->belongsTo(ProductWarranty::class);
     }
 }

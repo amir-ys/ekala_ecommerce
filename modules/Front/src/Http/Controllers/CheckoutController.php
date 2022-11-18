@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Modules\Front\Services\CartService;
+use Modules\Cart\Facades\CartServiceFacade;
 use Modules\Payment\Contracts\OrderRepositoryInterface;
 use Modules\Payment\Facades\OrderServiceFacade;
 use Modules\Product\Contracts\ProductRepositoryInterface;
@@ -63,11 +63,11 @@ class CheckoutController extends Controller
     {
         $productRepository = resolve(ProductRepositoryInterface::class);
 
-        foreach (CartService::getItems() as $cartItem) {
+        foreach (CartServiceFacade::getItems() as $cartItem) {
             //check product exists or is marketable
             $product = $productRepository->findActiveById($cartItem->associatedModel->id);
             if (!$product){
-                CartService::clearAll();
+                CartServiceFacade::clearAll();
                 return [ 'status' => -1 , 'message' => 'محصول از فروشگاه حذف شده یا غیرقابل فروش شده است.'  ];
             }
 
@@ -78,13 +78,13 @@ class CheckoutController extends Controller
 
             //check changes of price
             if ($cartItem->price !=  $product->priceWithAttributes($cartItem->attributes['color']['id'] , $cartItem->attributes['warranty']['id'] )){
-                CartService::clearAll();
+                CartServiceFacade::clearAll();
                 return [ 'status' => -1 , 'message' => 'قیمت محصولات تغییر پیدا کرده است.'  ];
             }
 
             //check changes of quantity
             if ($cartItem->quantity > $productQuantity){
-                CartService::clearAll();
+                CartServiceFacade::clearAll();
                 return [ 'status' => -1 , 'message' => 'موجودی محصولات تغییر پیدا کرده است.'  ];
             }
         }
@@ -115,7 +115,7 @@ class CheckoutController extends Controller
     public function decrementProductQuantity()
     {
         $productRepo = resolve(ProductRepositoryInterface::class);
-        foreach (CartService::getItems() as $cartItem) {
+        foreach (CartServiceFacade::getItems() as $cartItem) {
             $productRepo->decrementQuantity($cartItem->associatedModel->id, $cartItem->attributes['color']['id']);
         }
     }

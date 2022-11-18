@@ -61,14 +61,6 @@ Route::group([], function () {
     //image
     Route::get('front/image/{slide}/show', [SlideController::class, 'showImage'])->name('front.images.slide.show');
 
-    //cart
-    Route::get('/cart', [CartController::class, 'index'])->name('front.cart.index');
-    Route::get('/cart/add', [CartController::class, 'add'])->name('front.cart.add');
-    Route::get('/cart/clear', [CartController::class, 'clear'])->name('front.cart.clear');
-    Route::get('/cart/{id}/remove', [CartController::class, 'remove'])->name('front.cart.remove');
-    Route::get('/cart/update', [CartController::class, 'update'])->name('front.cart.update');
-
-
     //about-us
     Route::get('/about-us', [SiteInfoController::class, 'showAboutPage'])->name('front.aboutUs.show');
 
@@ -76,7 +68,7 @@ Route::group([], function () {
     Route::get('/contact-us', [SiteInfoController::class, 'showContactPage'])->name('front.contactUs.show');
 
     //faqs
-    Route::get('/faqs', [SiteInfoController::class, 'showFaqPage'])->name('front.faqs.show');
+    Route::get('/FAQ', [SiteInfoController::class, 'showFaqPage'])->name('front.faqs.show');
 
 
     Route::prefix('blog')->controller(BlogController::class)->group(function () {

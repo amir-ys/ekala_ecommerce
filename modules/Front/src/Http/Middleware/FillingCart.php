@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Modules\Front\Services\CartService;
+use Modules\Cart\Facades\CartServiceFacade;
 
 class FillingCart
 {
@@ -19,7 +19,7 @@ class FillingCart
      */
     public function handle(Request $request, Closure $next)
     {
-        if (CartService::empty()) {
+        if (CartServiceFacade::isEmpty()) {
             alert()->error('ناموفق', 'سبد خرید شما خالی است.');
             return back();
         }

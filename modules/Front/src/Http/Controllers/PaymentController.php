@@ -3,6 +3,7 @@
 namespace Modules\Front\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Modules\Cart\Facades\CartServiceFacade;
 use Modules\Front\Services\CartService;
 use Modules\Payment\Contracts\OrderRepositoryInterface;
 use Modules\Payment\Contracts\PaymentRepositoryInterface;
@@ -49,7 +50,7 @@ class PaymentController extends Controller
             $this->paymentRepo->changeStatus($payment->id, Payment::STATUS_SUCCESS);
             alert()->success('پرداخت موفق', 'سفارش شما باموفقیت انجام شد.');
         }
-        CartService::clearAll();
+        CartServiceFacade::clearAll();
         $this->clearPaymentTypeFromSession();
         return redirect()->route('front.home');
     }
@@ -83,7 +84,7 @@ class PaymentController extends Controller
     public function incrementProductQuantity()
     {
         $productRepo = resolve(ProductRepositoryInterface::class);
-        foreach (CartService::getItems() as $cartItem) {
+        foreach (CartServiceFacade::getItems() as $cartItem) {
             $productRepo->incrementQuantity($cartItem->associatedModel->id, $cartItem->attributes['color']['id']);
         }
     }

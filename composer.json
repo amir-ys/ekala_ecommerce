@@ -10,6 +10,7 @@
         "amir_ys/attributegroup-module": "dev-master",
         "amir_ys/blog-module": "dev-master",
         "amir_ys/brand-module": "dev-master",
+        "amir_ys/cart-module": "dev-master",
         "amir_ys/category-module": "dev-master",
         "amir_ys/comment-module": "dev-master",
         "amir_ys/core-module": "dev-master",
@@ -116,6 +117,10 @@
         {
             "type" : "path" ,
             "url" : "modules/RolePermissions"
+        } ,
+        {
+            "type" : "path" ,
+            "url" : "modules/Cart"
         }
     ],
     "autoload-dev": {

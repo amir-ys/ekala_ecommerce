@@ -105,7 +105,7 @@
                                             </div>
                                             <div class="col-6">
                                                 <div>
-                                                    {{ number_format(\Modules\Front\Services\CartService::getTotal()) }}
+                                                    {{ number_format(\Modules\Cart\Facades\CartServiceFacade::getTotal()) }}
                                                     تومان
                                                 </div>
                                             </div>
@@ -116,7 +116,7 @@
                                             </div>
                                             <div class="col-6">
                                                 <div>
-                                                    {{ number_format( $discountAmount = $getDiscountAmount = getDiscountAmount())  }}                                                    تومان
+                                                    {{ number_format( $discountAmount = getDiscountAmount())  }}                                                    تومان
                                                 </div>
                                             </div>
                                         </div>
@@ -133,7 +133,7 @@
                                                 <div>مبلغ قابل پرداخت:</div>
                                             </div>
                                             <div class="col-6">
-                                                <div>{{ number_format(\Modules\Front\Services\CartService::getTotal() - ( $discountAmount )) }}
+                                                <div>{{ number_format(\Modules\Cart\Facades\CartServiceFacade::getTotal() - $discountAmount ) }}
                                                     تومان
                                                 </div>
                                             </div>

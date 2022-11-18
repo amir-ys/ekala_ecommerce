@@ -34,7 +34,7 @@
                                         <div class="row">
                                             <div class=" mt-2" id="return-to-shop">می‌خواهید محصولات دیگری اضافه
                                                 کنید؟ <a href="/">بازگشت به فروشگاه</a></div>
-                                            @if(\Modules\Front\Services\CartService::getItems()->count() > 0)
+                                            @if($cartItems->count() > 0)
                                                 <div class="col-12 py-3">
                                                     <div class="d-none d-md-block">
                                                         <div class="row my-2" id="heading">
@@ -179,7 +179,7 @@
                                             </div>
                                             <div class="col-6">
                                                 <div>
-                                                    <span id="factor-total-price">{{ number_format(\Modules\Front\Services\CartService::getTotal()) }}</span> تومان
+                                                    <span id="factor-total-price">{{ number_format(\Modules\Cart\Facades\CartServiceFacade::getTotal()) }}</span> تومان
                                                 </div>
                                             </div>
                                         </div>
@@ -197,7 +197,7 @@
                                             </div>
                                             <div class="col-6">
                                                 <div><span id="factor-total">
-                                                        {{ number_format(\Modules\Front\Services\CartService::getTotal() - $getDiscountAmount ) }}</span> تومان
+                                                        {{ number_format(\Modules\Cart\Facades\CartServiceFacade::getTotal() - $getDiscountAmount ) }}</span> تومان
                                                 </div>
                                             </div>
                                         </div>

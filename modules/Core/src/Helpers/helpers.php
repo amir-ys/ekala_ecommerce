@@ -10,15 +10,15 @@ if (!function_exists('getJalaliDate')) {
     function getJalaliDate($date, $format = 'Y-m-d H:i', $showDate = null)
     {
         if (is_null($date)) return null;
-        if (!$showDate){
-            $dateFormat =  config('core.show-date');
+        if (!$showDate) {
+            $dateFormat = config('core.show-date');
             if ($dateFormat == 'carbon') {
                 return Jalalian::fromCarbon($date)->format($format);
             }
             return $date->diffForHumans();
         }
 
-        return Jalalian::fromCarbon(Carbon::createFromFormat($format ,$date))->format($showDate);
+        return Jalalian::fromCarbon(Carbon::createFromFormat($format, $date))->format($showDate);
     }
 }
 
@@ -36,23 +36,31 @@ if (!function_exists('getDiscountAmount')) {
     function getDiscountAmount()
     {
         $discountAmount = 0;
-        foreach (CartService::getItems() as $cartItem) {
+        foreach (\Modules\Cart\Facades\CartServiceFacade::getItems() as $cartItem) {
             $discountAmount += $cartItem->associatedModel->discountAmount() * $cartItem->quantity;
         }
         return $discountAmount;
     }
+}
 
-    if (!function_exists('site_name')) {
-        function site_name()
-        {
-            $site = \Illuminate\Support\Facades\Cache::remember('site' , now()->addDay() ,  function (){
-                \Modules\Setting\Models\Setting::query()->where('name', 'shop-name')->first();
-            });
-
-            return $site ? $site->value : config('app.name') ;
-        }
+if (!function_exists('getFinalAmount')) {
+    function getFinalAmount(): float|int
+    {
+        return \Modules\Cart\Facades\CartServiceFacade::getTotal() - getDiscountAmount();
     }
 }
+
+if (!function_exists('site_name')) {
+    function site_name()
+    {
+        $site = \Illuminate\Support\Facades\Cache::remember('site', now()->addDay(), function () {
+            \Modules\Setting\Models\Setting::query()->where('name', 'shop-name')->first();
+        });
+
+        return $site ? $site->value : config('app.name');
+    }
+}
+
 
 if (!function_exists('convertJalaliToDate')) {
 
@@ -68,7 +76,7 @@ if (!function_exists('getJalaliFromFormat')) {
     {
         $format = $format ?: 'Y-m-d H:i:s';
         $outputFormat = $outputFormat ?: 'Y/m/d';
-        return Jalalian::fromCarbon(Carbon::createFromFormat($format ,$date))->format($outputFormat ?: $format);
+        return Jalalian::fromCarbon(Carbon::createFromFormat($format, $date))->format($outputFormat ?: $format);
     }
 }
 

@@ -2,8 +2,8 @@
 
 namespace Modules\Payment\Services;
 
+use Modules\Cart\Facades\CartServiceFacade;
 use Modules\Coupon\Contracts\CommonDiscountRepositoryInterface;
-use Modules\Front\Services\CartService;
 use Modules\Payment\Contracts\OrderRepositoryInterface;
 
 class OrderService
@@ -33,9 +33,9 @@ class OrderService
 
     private function getOrderData(): array
     {
-        $finalPrice = CartService::getFinalAmount();
-        $commonDiscount = $this->calcCommonDiscount($finalPrice);
+        $finalPrice = getFinalAmount();
         $discountAmount = getDiscountAmount();
+        $commonDiscount = $this->calcCommonDiscount($finalPrice);
         return [
             'user_id' => auth()->id() ,
             'discount_amount' => $discountAmount,
@@ -51,7 +51,7 @@ class OrderService
     {
         return [
             'order_id' => $order->id ,
-            'cart' => CartService::getItems()
+            'cart' => CartServiceFacade::getItems()
         ];
 
     }

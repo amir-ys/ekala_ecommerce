@@ -1,14 +1,14 @@
 <?php
 
-namespace Modules\Front\Services;
+namespace Modules\Cart\Services;
 
-class CartService
+class DarryCartService
 {
     public static function add($product, $inputs)
     {
         $rowId = $product->id . $inputs['color_id'] . $inputs['warranty_id'];
-        $productPriceWithAttributes =$product->priceWithAttributes($inputs['color_id'] , $inputs['warranty_id']);
-        $productPriceWithAttributesAndDiscount =$product->priceWithAttributes($inputs['color_id'] , $inputs['warranty_id'] , true);
+        $productPriceWithAttributes = $product->priceWithAttributes($inputs['color_id'], $inputs['warranty_id']);
+        $productPriceWithAttributesAndDiscount = $product->priceWithAttributes($inputs['color_id'], $inputs['warranty_id'], true);
         $colorName = $product->colorName($inputs['color_id']);
         $warrantyName = $product->warrantyName($inputs['warranty_id']);
 
@@ -16,16 +16,16 @@ class CartService
 
         if (!$currentItem) {
             \Cart::add(array(
-                'id' => $rowId ,
+                'id' => $rowId,
                 'name' => $product->name,
                 'price' => $productPriceWithAttributes,
                 'attributes' => [
-                    'color' =>  [
-                        'id' =>  $inputs['color_id'] ?? null ,
-                        'name' =>  $colorName
+                    'color' => [
+                        'id' => $inputs['color_id'] ?? null,
+                        'name' => $colorName
                     ],
                     'warranty' => [
-                        'id' => $inputs['warranty_id'] ?? null ,
+                        'id' => $inputs['warranty_id'] ?? null,
                         'name' => $warrantyName
                     ],
                     'price_with_discount' => $productPriceWithAttributesAndDiscount
@@ -33,9 +33,8 @@ class CartService
                 'quantity' => $inputs['quantity'],
                 'associatedModel' => $product,
             ));
-        return ['status' => 'add' ];
+            return ['status' => 'add'];
         }
-
 
 
         $colorNameStatus = $inputs['color_id'] != $currentItem['attributes']['color']['id'];
@@ -46,12 +45,12 @@ class CartService
                 'name' => $product->name,
                 'price' => $productPriceWithAttributes,
                 'attributes' => [
-                    'color' =>  [
-                        'id' =>  $inputs['color_id'] ?? null ,
-                        'name' =>  $colorName
+                    'color' => [
+                        'id' => $inputs['color_id'] ?? null,
+                        'name' => $colorName
                     ],
                     'warranty' => [
-                        'id' => $inputs['warranty_id'] ?? null ,
+                        'id' => $inputs['warranty_id'] ?? null,
                         'name' => $warrantyName
                     ],
                     'price_with_discount' => $productPriceWithAttributesAndDiscount
@@ -59,7 +58,7 @@ class CartService
                 'quantity' => $inputs['quantity'],
                 'associatedModel' => $product,
             ));
-            return ['status' => 'add' ];
+            return ['status' => 'add'];
         }
 
         if (($currentItem->quantity + $inputs['quantity']) > $product->quantity) {
@@ -70,12 +69,12 @@ class CartService
             'name' => $product->name,
             'price' => $productPriceWithAttributes,
             'attributes' => [
-                'color' =>  [
-                    'id' =>  $inputs['color_id'] ?? null ,
-                    'name' =>  $colorName
+                'color' => [
+                    'id' => $inputs['color_id'] ?? null,
+                    'name' => $colorName
                 ],
                 'warranty' => [
-                    'id' => $inputs['warranty_id'] ?? null ,
+                    'id' => $inputs['warranty_id'] ?? null,
                     'name' => $warrantyName
                 ],
                 'price_with_discount' => $productPriceWithAttributesAndDiscount
@@ -83,7 +82,7 @@ class CartService
             'quantity' => $inputs['quantity'],
             'associatedModel' => $product,
         ));
-        return ['status' => 'add' ];
+        return ['status' => 'add'];
 
     }
 
@@ -101,7 +100,7 @@ class CartService
 
     public static function getItems()
     {
-       return \Cart::getContent();
+        return \Cart::getContent();
     }
 
     public static function clearAll(): void
@@ -114,7 +113,7 @@ class CartService
         \Cart::remove($id);
     }
 
-    public static function empty()
+    public static function isEmpty()
     {
         return \Cart::isEmpty();
     }
@@ -122,10 +121,5 @@ class CartService
     public static function getTotal()
     {
         return \Cart::getTotal();
-    }
-
-    public static function getFinalAmount(): float|int
-    {
-       return self::getTotal() - getDiscountAmount();
     }
 }
