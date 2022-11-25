@@ -7,7 +7,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-12 px-0">
-                                <h1>فروشگاه site_name()</h1>
+                                <h1>فروشگاه {{ site_name()}}</h1>
                                 <p>هر آنچه نیاز دارید در این فروشگاه موجود است</p>
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
@@ -30,7 +30,7 @@
                             <div class="col-12 col-lg-3 px-3 px-lg-0">
                                 <!-- Side Panel -->
                                 <div class="accordion filters-container">
-                                    @if(count($categories) > 0)
+                                    @if(isset($categories) && count($categories) > 0)
                                         <div class="accordion-item">
                                             <h2 class="accordion-header" id="headingOne">
                                                 <button class="accordion-button py-2 px-3" type="button"

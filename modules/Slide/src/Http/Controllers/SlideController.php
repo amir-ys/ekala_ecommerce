@@ -4,7 +4,7 @@ namespace Modules\Slide\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Modules\Core\Responses\AjaxResponse;
-use Modules\Product\Services\ImageService;
+use Modules\Core\Services\ImageService;
 use Modules\Slide\Contracts\SlideRepositoryInterface;
 use Modules\Slide\Http\Requests\SlideRequest;
 use Modules\Slide\Models\Slide;

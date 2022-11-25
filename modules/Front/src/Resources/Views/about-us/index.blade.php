@@ -33,7 +33,7 @@
                                     {!!  $about ? $about->json['description'] : null !!}
                                 </div>
                                 <div class="col-12 col-lg-5 align-self-center h-100">
-                                    <img src="{{ $about ?? $about->imagePath() }}" alt="">
+                                    <img src="{{ $about ? $about->imagePath() : null }}" alt="">
                                 </div>
                             </div>
                             <!-- Team -->

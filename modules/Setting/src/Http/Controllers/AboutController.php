@@ -3,7 +3,7 @@
 namespace Modules\Setting\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Modules\Product\Services\ImageService;
+use Modules\Core\Services\ImageService;
 use Modules\Setting\Contracts\SettingRepositoryInterface;
 use Modules\Setting\Http\Requests\AboutRequest;
 use Modules\Setting\Models\Setting;

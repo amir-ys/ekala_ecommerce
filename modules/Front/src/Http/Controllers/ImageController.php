@@ -3,7 +3,7 @@
 namespace Modules\Front\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Modules\Product\Services\ImageService;
+use Modules\Core\Services\ImageService;
 use Modules\Slide\Contracts\SlideRepositoryInterface;
 use Modules\Slide\Models\Slide;
 

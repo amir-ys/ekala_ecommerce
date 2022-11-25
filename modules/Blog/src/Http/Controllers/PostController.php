@@ -8,8 +8,7 @@ use Modules\Blog\Http\Requests\PostRequest;
 use Modules\Blog\Models\Category;
 use Modules\Blog\Models\Post;
 use Modules\Core\Responses\AjaxResponse;
-use Modules\Product\Services\ImageService;
-
+use Modules\Core\Services\ImageService;
 class PostController extends Controller
 {
     private PostRepositoryInterface $postRepo;

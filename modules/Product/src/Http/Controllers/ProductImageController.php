@@ -7,8 +7,7 @@ use Modules\Product\Contracts\ProductRepositoryInterface;
 use Modules\Product\Http\Requests\UploadImageRequest;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductImage;
-use Modules\Product\Services\ImageService;
-
+use Modules\Core\Services\ImageService;
 class ProductImageController extends Controller
 {
     public function __construct(ProductRepositoryInterface $productRepository)

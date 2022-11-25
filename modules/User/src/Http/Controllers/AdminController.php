@@ -4,7 +4,7 @@ namespace Modules\User\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Modules\Core\Responses\AjaxResponse;
-use Modules\Product\Services\ImageService;
+use Modules\Core\Services\ImageService;
 use Modules\RolePermissions\Contracts\RoleRepositoryInterface;
 use Modules\User\Contracts\UserRepositoryInterface;
 use Modules\User\Http\Requests\Panel\AdminRequest;

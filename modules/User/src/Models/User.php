@@ -12,7 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Modules\Comment\Models\Comment;
 use Modules\Payment\Models\Order;
 use Modules\Product\Models\Wishlist;
-use Modules\Product\Services\ImageService;
+use Modules\Core\Services\ImageService;
 use Modules\User\Database\Factories\UserFactory;
 use Spatie\Permission\Traits\HasRoles;
 

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Modules\Front\Http\Requests\UpdateProfileRequest;
-use Modules\Product\Services\ImageService;
+use Modules\Core\Services\ImageService;
 use Modules\User\Contracts\UserRepositoryInterface;
 use Modules\User\Models\User;
 

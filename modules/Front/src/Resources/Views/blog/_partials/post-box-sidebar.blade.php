@@ -8,9 +8,11 @@
                 </a>
             </div>
             <div class="col-8 px-0">
-                <a href="./blog-post.html"><h2>
+                <a href="{{ $post->path() }}">
+                    <h2>
                     {{ $post->title }}
-                    </h2></a>
+                    </h2>
+                </a>
                 <div class="row">
                     <div class="col-12 col-xl-6 pl-0">
                        <span class="category">دسته بندی: <a

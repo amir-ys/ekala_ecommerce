@@ -21,8 +21,7 @@ use Modules\Payment\Models\OrderItem;
 use Modules\Product\Contracts\ProductRepositoryInterface;
 use Modules\Product\Database\Factories\ProductFactory;
 use Modules\Product\Enums\ProductStatus;
-use Modules\Product\Services\ImageService;
-
+use Modules\Core\Services\ImageService;
 /**
  * @method  Builder active()
  * @method  Builder marketable()

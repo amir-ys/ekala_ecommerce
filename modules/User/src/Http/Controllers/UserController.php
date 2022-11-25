@@ -5,7 +5,7 @@ namespace Modules\User\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Modules\Core\Responses\AjaxResponse;
-use Modules\Product\Services\ImageService;
+use Modules\Core\Services\ImageService;
 use Modules\User\Contracts\CityRepositoryInterface;
 use Modules\User\Contracts\UserRepositoryInterface;
 use Modules\User\Http\Requests\Panel\UserAddressRequest;

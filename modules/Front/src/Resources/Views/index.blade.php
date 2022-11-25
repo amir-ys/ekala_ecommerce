@@ -318,7 +318,7 @@
             <div class="row row-cols-1 row-cols-md-3">
                 <!-- Blog Post -->
                 @foreach($posts as $post)
-                @include('Front::partials.blog-post-box' , ['post' => $post])
+                @include('Front::blog._partials.blog-post-box' , ['post' => $post])
                 @endforeach
                 <!-- Blog Post -->
             </div>

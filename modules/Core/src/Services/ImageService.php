@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Product\Services;
+namespace Modules\Core\Services;
 
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -40,7 +40,7 @@ class ImageService
 
         $extension = $file->getClientOriginalExtension();
         $imageName = $name;
-        $path  = Storage::path('public') . DIRECTORY_SEPARATOR . $dir . DIRECTORY_SEPARATOR . $imageName . '.' . $extension;
+        $path  = ImageService . phpStorage::path('public') . $dir . DIRECTORY_SEPARATOR . $imageName . '.' . $extension;
        return static::resize($file, $dir , $imageName , $extension , $type );
     }
 
@@ -61,7 +61,7 @@ class ImageService
         foreach (self::sizes($type) as $name => $size){
             $images[$name] = $imageName . '_' . $name . '.' . $extension;
             $img->resize($size[0], $size[1])
-                ->save(Storage::path('public') . DIRECTORY_SEPARATOR . $dir .
+                ->save(ImageService . phpStorage::path('public') . $dir .
                     DIRECTORY_SEPARATOR . $imageName . '_' .$name. '.' . $extension);
         }
         return $images;

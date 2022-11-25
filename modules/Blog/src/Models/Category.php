@@ -9,8 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Blog\Database\Factories\CategoryFactory;
-use Modules\Product\Services\ImageService;
-
+use Modules\Core\Services\ImageService;
 class Category extends Model
 {
     use HasFactory, Sluggable, SoftDeletes;

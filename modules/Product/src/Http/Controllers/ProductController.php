@@ -11,8 +11,7 @@ use Modules\Product\Http\Requests\StoreProductRequest;
 use Modules\Product\Http\Requests\UpdateProductRequest;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductImage;
-use Modules\Product\Services\ImageService;
-
+use Modules\Core\Services\ImageService;
 class ProductController extends Controller
 {
     public function __construct(ProductRepositoryInterface $productRepository)

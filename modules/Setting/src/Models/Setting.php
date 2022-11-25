@@ -38,8 +38,8 @@ class Setting extends Model
         return new SettingFactory();
     }
 
-    public function imagePath(): string
+    public function imagePath(): ?string
     {
-        return route('panel.settings.aboutImage.show' , [ 'name' => $this->json['photo']]);
+        return  $this->json['photo'] ?  route('panel.settings.aboutImage.show' , [ 'name' => $this->json['photo']]) : null;
     }
 }

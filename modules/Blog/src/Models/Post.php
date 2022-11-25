@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Blog\Database\Factories\PostFactory;
 use Modules\Comment\Traits\Commentable;
-use Modules\Product\Services\ImageService;
+use Modules\Core\Services\ImageService;
 use Modules\User\Models\User;
 
 class Post extends Model
