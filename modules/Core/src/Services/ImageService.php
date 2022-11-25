@@ -40,7 +40,7 @@ class ImageService
 
         $extension = $file->getClientOriginalExtension();
         $imageName = $name;
-        $path  = ImageService . phpStorage::path('public') . $dir . DIRECTORY_SEPARATOR . $imageName . '.' . $extension;
+        $path  = Storage::path('public') . DIRECTORY_SEPARATOR . $dir . DIRECTORY_SEPARATOR . $imageName . '.' . $extension;
        return static::resize($file, $dir , $imageName , $extension , $type );
     }
 
@@ -61,7 +61,7 @@ class ImageService
         foreach (self::sizes($type) as $name => $size){
             $images[$name] = $imageName . '_' . $name . '.' . $extension;
             $img->resize($size[0], $size[1])
-                ->save(ImageService . phpStorage::path('public') . $dir .
+                ->save(Storage::path('public') . DIRECTORY_SEPARATOR . $dir .
                     DIRECTORY_SEPARATOR . $imageName . '_' .$name. '.' . $extension);
         }
         return $images;
