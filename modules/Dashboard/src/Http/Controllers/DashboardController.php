@@ -8,6 +8,9 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        if (!auth()->user()->isAdmin()){
+            return  abort(403);
+        }
         return view('Dashboard::index');
     }
 }

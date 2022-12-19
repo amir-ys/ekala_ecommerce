@@ -8,6 +8,7 @@ use Illuminate\Support\ServiceProvider;
 use Modules\User\Contracts\CityRepositoryInterface;
 use Modules\User\Contracts\ProvinceRepositoryInterface;
 use Modules\User\Contracts\UserRepositoryInterface;
+use Modules\User\Middleware\EmailVerificationThrottle;
 use Modules\User\Models\User;
 use Modules\User\Policies\UserPolicy;
 use Modules\User\Repositories\CityRepo;
@@ -35,6 +36,8 @@ class UserServiceProvider extends ServiceProvider
         $this->app->bind(UserRepositoryInterface::class, UserRepo::class);
         $this->app->bind(ProvinceRepositoryInterface::class, ProvinceRepo::class);
         $this->app->bind(CityRepositoryInterface::class, CityRepo::class);
+
+        $this->app->make('router')->aliasMiddleware('emailThrottle', EmailVerificationThrottle::class);
     }
 
     private function loadUserRoute()

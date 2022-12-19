@@ -14,11 +14,12 @@ use Modules\Payment\Models\Order;
 use Modules\Product\Models\Wishlist;
 use Modules\Core\Services\ImageService;
 use Modules\User\Database\Factories\UserFactory;
+use Modules\User\Notifications\VerifyEmailNotification;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable ,SoftDeletes , HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, HasRoles;
 
     const STATUS_ACTIVE = "1";
     const STATUS_DISABLE = "0";
@@ -36,8 +37,8 @@ class User extends Authenticatable implements MustVerifyEmail
     protected static function boot()
     {
         parent::boot();
-        self::deleting(function ($user){
-            ImageService::deleteImage($user->profile , self::getUploadDir());
+        self::deleting(function ($user) {
+            ImageService::deleteImage($user->profile, self::getUploadDir());
         });
     }
 
@@ -48,13 +49,13 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function wishlist(): HasMany
     {
-        return $this->hasMany(Wishlist::class , 'user_id');
+        return $this->hasMany(Wishlist::class, 'user_id');
     }
 
     protected $fillable = [
-        'username' , 'first_name' , 'last_name' ,
-        'email', 'mobile' , 'email_verified_at' , 'card_number' ,
-        'password', 'profile' , 'status' , 'is_admin' , 'national_code'
+        'username', 'first_name', 'last_name',
+        'email', 'mobile', 'email_verified_at', 'card_number',
+        'password', 'profile', 'status', 'is_admin', 'national_code'
     ];
 
     protected $hidden = [
@@ -78,7 +79,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function orders()
     {
-        return $this->hasMany(Order::class ,'user_id');
+        return $this->hasMany(Order::class, 'user_id');
     }
 
     public function addresses(): HasMany
@@ -91,29 +92,41 @@ class User extends Authenticatable implements MustVerifyEmail
         return 'users\\profile';
     }
 
-    public function FullName() :Attribute
+    public function panelPath(): string
     {
-        return  Attribute::get(function (){
+        return $this->isAdmin() ?
+            'panel.home' :
+            'front.home';
+    }
+
+    public function sendEmailVerificationCode()
+    {
+        $this->notify(new VerifyEmailNotification());
+    }
+
+    public function FullName(): Attribute
+    {
+        return Attribute::get(function () {
             return $this->first_name . ' ' . $this->last_name;
         });
     }
 
-    public function StatusName() :Attribute
+    public function StatusName(): Attribute
     {
-      return  Attribute::get(function (){
-           if ($this->status == self::STATUS_ACTIVE) $name = 'فعال' ;
-           if ($this->status == self::STATUS_DISABLE) $name = 'غیر فعال' ;
-           if ($this->status == self::STATUS_BANNED) $name = 'بن شده' ;
-           return $name;
+        return Attribute::get(function () {
+            if ($this->status == self::STATUS_ACTIVE) $name = 'فعال';
+            if ($this->status == self::STATUS_DISABLE) $name = 'غیر فعال';
+            if ($this->status == self::STATUS_BANNED) $name = 'بن شده';
+            return $name;
         });
     }
 
-    public function StatusCss() :Attribute
+    public function StatusCss(): Attribute
     {
-        return  Attribute::get(function (){
-            if ($this->status == self::STATUS_ACTIVE) $name = 'success' ;
-            if ($this->status == self::STATUS_DISABLE) $name = 'warning' ;
-            if ($this->status == self::STATUS_BANNED) $name = 'danger' ;
+        return Attribute::get(function () {
+            if ($this->status == self::STATUS_ACTIVE) $name = 'success';
+            if ($this->status == self::STATUS_DISABLE) $name = 'warning';
+            if ($this->status == self::STATUS_BANNED) $name = 'danger';
             return $name;
         });
     }

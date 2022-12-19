@@ -35,13 +35,7 @@ class AuthenticatedSessionController extends Controller
 
         session()->regenerate();
 
-        if (\auth()->user()->isAdmin()) {
-            $route = route('panel.home');
-        } else {
-            $route = route('front.home');
-        }
-
-        return redirect()->intended($route);
+        return redirect()->intended(\auth()->user()->panelPath());
 
     }
 

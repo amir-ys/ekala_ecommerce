@@ -2,12 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\User\Http\Controllers\Auth\AuthenticatedSessionController;
-use Modules\User\Http\Controllers\Auth\EmailVerificationNotificationController;
-use Modules\User\Http\Controllers\Auth\EmailVerificationPromptController;
 use Modules\User\Http\Controllers\Auth\NewPasswordController;
 use Modules\User\Http\Controllers\Auth\PasswordResetLinkController;
 use Modules\User\Http\Controllers\Auth\RegisteredUserController;
-use Modules\User\Http\Controllers\Auth\VerifyEmailController;
+use Modules\User\Http\Controllers\Auth\EmailVerificationController;
 
 Route::middleware('guest')->group(function () {
     //register
@@ -26,16 +24,14 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('verify-email', [EmailVerificationPromptController::class, '__invoke'])
-        ->name('verification.notice');
+    Route::get('email/verify', [EmailVerificationController::class, 'showForm'])->name('verification.showForm');
 
-    Route::get('verify-email/{id}/{hash}', [VerifyEmailController::class, '__invoke'])
-        ->middleware(['signed', 'throttle:6,1'])
+    Route::post('email/verify', [EmailVerificationController::class, 'checkCode'])->middleware(['throttle:6,1'])
         ->name('verification.verify');
 
-    Route::post('email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
-        ->middleware('throttle:6,1')
-        ->name('verification.send');
+    Route::post('email/resend', [EmailVerificationController::class, 'resend'])
+        ->middleware('emailThrottle')
+        ->name('verification.resend');
 
     //logout
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
