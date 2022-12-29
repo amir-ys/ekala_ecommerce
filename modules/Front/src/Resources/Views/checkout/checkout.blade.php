@@ -28,6 +28,15 @@
                         <div class="row">
                             <div class="col-12 col-lg-9">
                                 <!-- Choose Address -->
+
+                                @if($errors->any())
+                                    <div class="alert alert-warning">
+                                        @foreach($errors->all() as $error)
+                                            <p>{{ $error }}</p>
+                                        @endforeach
+                                    </div>
+                                @endif
+
                                 <section id="choose-address">
                                     <div class="container">
                                         <div class="row">

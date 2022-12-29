@@ -4,7 +4,7 @@
         <div class="header-logo">
             <a href="{{ route('front.home') }}">
                 <img src="/assets/panel/media/image/light-logo.png" alt="...">
-                <span class="logo-text d-none d-lg-block">گراموس</span>
+                <span class="logo-text d-none d-lg-block">فروشگاه</span>
             </a>
         </div>
 

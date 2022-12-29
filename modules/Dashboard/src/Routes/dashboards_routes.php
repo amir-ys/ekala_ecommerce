@@ -5,7 +5,7 @@ use Modules\Dashboard\Http\Controllers\DashboardController;
 
 Route::group(['middleware' => [ /* 'auth', 'verified' */ ]
 ], function($router) {
-    $router->get('/home', [ DashboardController::class, 'index'])->name('panel.home');
+    $router->get('/panel/dashboard', [ DashboardController::class, 'index'])->name('panel.home');
 });
 
 

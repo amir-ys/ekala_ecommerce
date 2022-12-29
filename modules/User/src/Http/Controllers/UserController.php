@@ -104,6 +104,7 @@ class UserController extends Controller
     public function UserAddressStore(UserAddressRequest $request)
     {
         $this->userRepo->storeUserAddress(auth()->id() ,$request->all());
+        $this->userRepo->setUserAddressToDefault(auth()->id());
         alert()->success('آدرس با موفقیت ذخیره شد.');
         return back();
     }

@@ -96,6 +96,16 @@ class UserRepo extends BaseRepository implements UserRepositoryInterface
         ]);
     }
 
+    public function setUserAddressToDefault($id)
+    {
+        $model = $this->query->findOrFail($id);
+       if ( $model->addresses->count() == 1){
+           $model->addresses()->update([
+               'is_active' => UserAddress::STATUS_ACTIVE
+           ]);
+       }
+    }
+
     public function getAddresses($id)
     {
         $model = $this->query->findOrFail($id);

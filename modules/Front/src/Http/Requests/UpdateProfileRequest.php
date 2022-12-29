@@ -29,7 +29,7 @@ class UpdateProfileRequest extends FormRequest
             'national_code' => ['nullable', 'string', 'digits:10'],
             'mobile' => ['required', 'string', 'min:11'],
             'email' => ['required', 'email'],
-            'cart_number' => ['nullable', 'digits:16'],
+            'card_number' => ['nullable', 'digits:16'],
         ];
     }
 
@@ -49,7 +49,7 @@ class UpdateProfileRequest extends FormRequest
     public function attributes()
     {
         return [
-            'cart_number' => 'شماره کارت'
+            'card_number' => 'شماره کارت'
         ];
     }
 }

@@ -54,8 +54,8 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="cart_number" class="col-form-label">  شماره کارت </label>
-                                <input name="cart_number" id="cart_number" value="{{ old('cart_number' , auth()->user()->cart_number) }}"
+                                <label for="card_number" class="col-form-label">  شماره کارت </label>
+                                <input name="card_number" id="card_number" value="{{ old('card_number' , auth()->user()->card_number) }}"
                                        type="number"  class="form-control">
                             </div>
                         </div>

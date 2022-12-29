@@ -36,7 +36,8 @@ class AboutController extends Controller
         $oldImage = $this->settingRepo->getAbout() ? $this->settingRepo->getAbout()->json['photo'] : null;
         if ($request->hasFile('photo')) {
             $oldImage ? ImageService::deleteImage($oldImage, Setting::getAboutUsDir()) : null;
-            $request->request->add(['photo_uploaded' => ImageService::uploadImage($request->file('photo'), Setting::getAboutUsDir(), 'about-us')]);
+            $request->request->add(['photo_uploaded' => ImageService::uploadImage($request->file('photo'), 'settings' ,
+                Setting::getAboutUsDir(), 'about-us')]);
         } else {
             $request->request->add(['photo_uploaded' => $oldImage]);
         }

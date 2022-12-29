@@ -40,6 +40,6 @@ class Setting extends Model
 
     public function imagePath(): ?string
     {
-        return  $this->json['photo'] ?  route('panel.settings.aboutImage.show' , [ 'name' => $this->json['photo']]) : null;
+        return  $this->json['photo']['default'] ?  route('panel.settings.aboutImage.show' , [ 'name' => $this->json['photo']['default']]) : null;
     }
 }

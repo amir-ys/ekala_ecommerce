@@ -95,7 +95,7 @@
                                             <div class="row">
                                                 <div class="col-10">
                                                     <div class="title">شماره کارت جهت مرجوع وجه</div>
-                                                    <div class="value" dir="ltr">{{auth()->user()->cart_number}}</div>
+                                                    <div class="value" dir="ltr">{{auth()->user()->card_number}}</div>
                                                 </div>
                                             </div>
                                         </div>

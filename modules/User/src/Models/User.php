@@ -95,8 +95,8 @@ class User extends Authenticatable implements MustVerifyEmail
     public function panelPath(): string
     {
         return $this->isAdmin() ?
-            'panel.home' :
-            'front.home';
+           route( 'panel.home' ):
+            route('front.home');
     }
 
     public function sendEmailVerificationCode()

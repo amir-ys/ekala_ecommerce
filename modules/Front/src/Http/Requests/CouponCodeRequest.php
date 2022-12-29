@@ -27,4 +27,11 @@ class CouponCodeRequest extends FormRequest
             'code' => 'required'
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'code' => 'کد تخفیف'
+        ];
+    }
 }

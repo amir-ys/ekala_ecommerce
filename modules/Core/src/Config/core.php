@@ -53,6 +53,12 @@ return [
                     ]
             ],
 
+            'settings' => [
+//                'about' => [
+                    'default' => [600 , 360]
+//                ]
+            ] ,
+
         ]
     ]
 ];
