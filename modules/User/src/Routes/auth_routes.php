@@ -3,11 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use Modules\User\Http\Controllers\Auth\AuthenticatedSessionController;
 use Modules\User\Http\Controllers\Auth\NewPasswordController;
+use Modules\User\Http\Controllers\Auth\OAuth\OAuthByGoogleController;
 use Modules\User\Http\Controllers\Auth\PasswordResetLinkController;
 use Modules\User\Http\Controllers\Auth\RegisteredUserController;
 use Modules\User\Http\Controllers\Auth\EmailVerificationController;
 
-Route::middleware('guest')->group(function () {
+Route::middleware('guest')->group(callback: function () {
     //register
     Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
     Route::post('register', [RegisteredUserController::class, 'store']);
@@ -21,6 +22,13 @@ Route::middleware('guest')->group(function () {
     Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])->name('password.email');
     Route::get('reset-password/{token}', [NewPasswordController::class, 'create'])->name('password.reset');
     Route::post('reset-password', [NewPasswordController::class, 'store'])->name('password.update');
+
+
+    //OAuth
+    Route::get('/auth/google/redirect' , [ OAuthByGoogleController::class , 'redirect'])->name('user.oauth.google.redirect');
+    Route::get('/auth/google/callback' , [ OAuthByGoogleController::class , 'callback'])->name('user.oauth.google.callback');
+
+
 });
 
 Route::middleware(['auth'])->group(function () {

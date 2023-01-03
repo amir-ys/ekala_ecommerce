@@ -23,7 +23,7 @@ class CartServiceProvider extends ServiceProvider
     public function loadRoutes()
     {
        if (! app()->routesAreCached()){
-           Route::middleware(['web'] + config('core.panel_middlewares'))
+           Route::middleware(['web'])
                ->namespace($this->namespace)
                ->group(__DIR__ . '/../Routes/cart_routes.php');
        }

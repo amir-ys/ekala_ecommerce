@@ -22,6 +22,11 @@ class UserRepo extends BaseRepository implements UserRepositoryInterface
         return $this->query->where('is_admin', User::ROLE_ADMIN)->get();
     }
 
+    public function findByEmail($email)
+    {
+        return $this->query->where('email', $email)->first();
+    }
+
     public function store(array $data)
     {
         $userData = [
@@ -99,11 +104,11 @@ class UserRepo extends BaseRepository implements UserRepositoryInterface
     public function setUserAddressToDefault($id)
     {
         $model = $this->query->findOrFail($id);
-       if ( $model->addresses->count() == 1){
-           $model->addresses()->update([
-               'is_active' => UserAddress::STATUS_ACTIVE
-           ]);
-       }
+        if ($model->addresses->count() == 1) {
+            $model->addresses()->update([
+                'is_active' => UserAddress::STATUS_ACTIVE
+            ]);
+        }
     }
 
     public function getAddresses($id)
@@ -148,5 +153,10 @@ class UserRepo extends BaseRepository implements UserRepositoryInterface
     {
         $model = $this->query->where('id', $id)->firstOrFail();
         return $model->addresses()->get();
+    }
+
+    public function storeWithSpecifiedData($data)
+    {
+        return $this->query->create($data);
     }
 }

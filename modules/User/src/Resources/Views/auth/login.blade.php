@@ -11,10 +11,21 @@
                                 <img src="assets/front/assets/images/login.png" alt="">
                             </div>
                             <div class="col-12 col-lg-7 pt-5 pt-md-0 align-self-center">
+                                <p>با عضویت در سایت از همه امکانات سایت بهره مند شوید.</p>
+
+                                <div class="col-form-label">ورود با گوگل</div>
+                                <a href="{{ route('user.oauth.google.redirect') }}"
+                                   class="border border-primary font-size-10 btn-block w-100 btn btn-outline-dark"
+                                   role="button" style="text-transform:none"
+                                >
+                                    <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in"
+                                         src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"/>
+                                    Login with Google
+                                </a>
+                                <hr>
                                 <form action="{{ route('login') }}" method="post">
                                     @csrf
-                                    <div class="title">وارد شوید</div>
-                                    <p>با عضویت در سایت از همه امکانات سایت بهره مند شوید.</p>
+                                    <div class="col-form-label">ورود با حساب</div>
 
                                     <div class="form-group">
                                         <label for="email">پست الکترونیک :</label>
@@ -42,6 +53,7 @@
                                                                                     class="btn btn-success"></a>
                                     </div>
                                 </form>
+
                             </div>
                         </div>
                     </div>
