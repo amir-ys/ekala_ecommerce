@@ -28,7 +28,6 @@ Route::middleware('guest')->group(callback: function () {
     Route::get('/auth/google/redirect' , [ OAuthByGoogleController::class , 'redirect'])->name('user.oauth.google.redirect');
     Route::get('/auth/google/callback' , [ OAuthByGoogleController::class , 'callback'])->name('user.oauth.google.callback');
 
-
 });
 
 Route::middleware(['auth'])->group(function () {
