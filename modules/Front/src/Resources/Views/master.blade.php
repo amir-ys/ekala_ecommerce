@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="fa" dir="rtl">
 <head>
+    <link rel="shortcut icon" href="{{ url('/assets/front/assets/images/logo.png') }}">
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">

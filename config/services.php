@@ -36,5 +36,11 @@ return [
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
         'redirect' =>  config('app.url') .  '/auth/google/callback',
     ],
+
+    'google_recaptcha' => [
+        'key' => env('GOOGLE_RECAPTCHA_KEY'),
+        'secret' => env('GOOGLE_RECAPTCHA_SECRET'),
+    ],
+
 ];
 
