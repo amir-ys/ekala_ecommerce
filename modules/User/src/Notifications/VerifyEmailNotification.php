@@ -3,11 +3,9 @@
 namespace Modules\User\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use Illuminate\Support\Facades\Mail;
 use Modules\User\Mail\VerifyCodeMail;
-use Modules\User\Services\EmailVerifyService;
+use Modules\User\Services\EmailVerify\EmailVerifyService;
 
 class VerifyEmailNotification extends Notification
 {
@@ -30,15 +28,13 @@ class VerifyEmailNotification extends Notification
      * @param mixed $notifiable
      * @return VerifyCodeMail
      */
-    public function toMail($notifiable)
+    public function toMail(mixed $notifiable): VerifyCodeMail
     {
-
         $code = EmailVerifyService::generateCode();
 
         EmailVerifyService::store($notifiable->id, $code, now()->addHour());
 
-        return (new VerifyCodeMail($code))
-            ->to($notifiable->email);
+        return (new VerifyCodeMail($code))->to($notifiable->email);
     }
 
     /**

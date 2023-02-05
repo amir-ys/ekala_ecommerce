@@ -1,8 +1,7 @@
 <?php
 
-namespace Modules\User\Services;
+namespace Modules\User\Services\EmailVerify;
 
-use Illuminate\Support\Facades\Cache;
 use Modules\User\Models\User;
 
 class EmailVerifyService
@@ -27,7 +26,6 @@ class EmailVerifyService
         $time = $time ?? now()->addHour();
 
         cache()->put(self::$prefix . $userId, $code, $time);
-
     }
 
     public static function has($userId)
@@ -42,8 +40,7 @@ class EmailVerifyService
 
     private static function delete($userId)
     {
-        return
-            cache()->delete(self::$prefix . $userId);
+        return cache()->delete(self::$prefix . $userId);
     }
 
     private static function getCode($userId)

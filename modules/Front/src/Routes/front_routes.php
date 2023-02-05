@@ -4,7 +4,6 @@ namespace Modules\Routes;
 
 use Illuminate\Support\Facades\Route;
 use Modules\Front\Http\Controllers\BlogController;
-use Modules\Front\Http\Controllers\CartController;
 use Modules\Front\Http\Controllers\CheckoutController;
 use Modules\Front\Http\Controllers\CouponController;
 use Modules\Front\Http\Controllers\HomeController;
@@ -17,7 +16,7 @@ use Modules\Front\Http\Controllers\UserController;
 use Modules\Front\Http\Controllers\WishlistController;
 use Modules\Product\Http\Controllers\ProductImageController;
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth' , 'verified' ]], function () {
     //user-profile
     Route::get('/user/profile/personal-info', [UserController::class, 'personalInfo'])->name('front.user.personalInfo.index');
     Route::get('/user/profile/wishlists', [UserController::class, 'wishlists'])->name('front.user.wishlists.index');

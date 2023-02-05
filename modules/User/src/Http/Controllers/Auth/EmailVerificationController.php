@@ -3,10 +3,9 @@
 namespace Modules\User\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\Request;
 use Modules\User\Http\Requests\Auth\EmailVerificationRequest;
-use Modules\User\Services\EmailVerifyService;
+use Modules\User\Services\EmailVerify\EmailVerifyService;
 
 class EmailVerificationController extends Controller
 {
@@ -34,7 +33,7 @@ class EmailVerificationController extends Controller
 
         auth()->user()->markEmailAsVerified();
 
-        return redirect()->route(auth()->user()->panelPath());
+        return redirect()->to(auth()->user()->panelPath());
     }
 
     public function resend()

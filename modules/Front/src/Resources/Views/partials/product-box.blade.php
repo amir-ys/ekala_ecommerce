@@ -19,13 +19,13 @@
             <a href="{{ $product->path() }}"><h2>{{ $product->name }}</h2></a>
             @if($product->hasDiscount)
                 <div>
-                    <span class="discounted">{{ $product->formattedPrice() }} تومان</span>
+                    <span class="discounted">{{ number_format($product->formattedPrice()) }} تومان</span>
                     <br class="d-sm-none">
-                    <span class="price">{{ $product->priceWithDiscount() }} تومان</span>
+                    <span class="price">{{ number_format($product->priceWithDiscount()) }} تومان</span>
                 </div>
             @else
                 <div>
-                    <span class="price">{{ $product->priceWithDiscount() }} تومان</span>
+                    <span class="price">{{ number_format($product->priceWithDiscount()) }} تومان</span>
                 </div>
             @endif
 {{--            <div class="rate">--}}

@@ -36,7 +36,6 @@ class UserServiceProvider extends ServiceProvider
         $this->app->bind(UserRepositoryInterface::class, UserRepo::class);
         $this->app->bind(ProvinceRepositoryInterface::class, ProvinceRepo::class);
         $this->app->bind(CityRepositoryInterface::class, CityRepo::class);
-
         $this->app->make('router')->aliasMiddleware('emailThrottle', EmailVerificationThrottle::class);
     }
 

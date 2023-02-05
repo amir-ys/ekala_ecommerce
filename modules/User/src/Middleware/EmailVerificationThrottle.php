@@ -26,7 +26,9 @@ class EmailVerificationThrottle
     public function handle(Request $request, Closure $next, $maxAttempts = 3, $decaySeconds = 1800)
     {
         $executed = $this->limiter->attempt('email_verify_' . auth()->id(), $maxAttempts,
-            function () {return;}, $decaySeconds);
+            function () {
+            return;
+            }, $decaySeconds);
 
         if (!$executed) {
             return  redirect()->route('verification.showForm')

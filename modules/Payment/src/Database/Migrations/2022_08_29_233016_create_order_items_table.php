@@ -22,7 +22,7 @@ return new class extends Migration {
             $table->integer('quantity');
             $table->decimal('total');
             $table->foreignId('color_id');
-            $table->foreignId('warranty_id');
+            $table->foreignId('warranty_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
