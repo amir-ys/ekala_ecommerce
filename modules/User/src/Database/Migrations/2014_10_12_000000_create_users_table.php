@@ -21,13 +21,14 @@ return new class extends Migration
             $table->string('last_name')->nullable();
             $table->string('national_code' , 10)->nullable();
             $table->string('card_number' , 16)->nullable();
-            $table->string('email')->unique();
+            $table->string('email')->unique()->nullable();
             $table->string('mobile')->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password')->nullable();
             $table->string('profile')->nullable();
             $table->tinyInteger('status')->default(User::STATUS_ACTIVE);
             $table->tinyInteger('is_admin')->default(User::ROLE_USER);
+            $table->boolean('2fa_enable')->default(\Modules\User\Models\User::TWO_FACTOR_AUTH_DISABLE);
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();

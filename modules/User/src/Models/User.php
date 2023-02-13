@@ -28,6 +28,9 @@ class User extends Authenticatable implements MustVerifyEmail
     const ROLE_USER = 0;
     const ROLE_ADMIN = 1;
 
+    const TWO_FACTOR_AUTH_ENABLE = 1;
+    const TWO_FACTOR_AUTH_DISABLE = 0;
+
     public static $statuses = [
         'فعال' => self::STATUS_ACTIVE,
         'غیر فعال' => self::STATUS_DISABLE,
@@ -55,7 +58,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $fillable = [
         'username', 'first_name', 'last_name',
         'email', 'mobile', 'email_verified_at', 'card_number',
-        'password', 'profile', 'status', 'is_admin', 'national_code'
+        'password', 'profile', 'status', 'is_admin', 'national_code' , '2fa_enable'
     ];
 
     protected $hidden = [
@@ -109,6 +112,12 @@ class User extends Authenticatable implements MustVerifyEmail
         return Attribute::get(function () {
             return $this->first_name . ' ' . $this->last_name;
         });
+    }
+
+    public function isTwoFactorDisable(): bool
+    {
+        $twoFactorAuthField = '2fa_enable';
+        return $this->$twoFactorAuthField == self::TWO_FACTOR_AUTH_DISABLE;
     }
 
     public function StatusName(): Attribute

@@ -159,4 +159,16 @@ class UserRepo extends BaseRepository implements UserRepositoryInterface
     {
         return $this->query->create($data);
     }
+
+    public function findByPhoneNumber($phoneNumber)
+    {
+        return $this->query->where('mobile', $phoneNumber)->first();
+    }
+
+    public function change2FAEnableStatus(int $id, $two_factor_status)
+    {
+        $this->findById($id)->update([
+            '2fa_enable' => $two_factor_status
+        ]);
+    }
 }

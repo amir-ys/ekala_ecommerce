@@ -1,0 +1,13 @@
+{
+    "name": "amir_ys/otp-module",
+    "autoload": {
+        "psr-4": {
+            "Modules\\Otp\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": "Modules\\Otp\\Providers\\OtpServiceProvider"
+        }
+    }
+}

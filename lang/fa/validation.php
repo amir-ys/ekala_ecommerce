@@ -186,5 +186,6 @@ return [
         'minimal_order_amount' => 'کمتربن مقدار سفارش' ,
         'start_date' => 'تاریخ شروع' ,
         'end_date' => 'تاریخ پایان' ,
+        'phone_number' => 'شماره موبایل' ,
     ],
 ];
