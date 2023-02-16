@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "434755016b83859951ec0adc50ae2aff",
+    "content-hash": "4aa512b463614e7e93e63f9aeb8456b7",
     "packages": [
         {
             "name": "amir_ys/attribute-module",
@@ -12,7 +12,7 @@
             "dist": {
                 "type": "path",
                 "url": "modules/Attribute",
-                "reference": "957abfacd7d2aa8e0180f7a6e4f28879314a0e98"
+                "reference": "4f314a8216a8fc49ca9434328b1653c8ce902c6b"
             },
             "type": "library",
             "extra": {
@@ -267,6 +267,29 @@
                 "files": [
                     "src/Http/Helpers/helper.php"
                 ]
+            },
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "amir_ys/notification-module",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "modules/Notification",
+                "reference": "eeec2c827f0b3ede827d604cab8fca8023f69030"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": "Modules\\Notification\\Providers\\NotificationServiceProvider"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Modules\\Notification\\": "src"
+                }
             },
             "transport-options": {
                 "relative": true
@@ -722,6 +745,69 @@
                 "source": "https://github.com/cocur/slugify/tree/v4.2.0"
             },
             "time": "2022-08-13T15:23:32+00:00"
+        },
+        {
+            "name": "cryptommer/smsir",
+            "version": "v1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cryptommer/smsir.git",
+                "reference": "144e2b7cab3c71243c92119326d72d2ce38aa57d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cryptommer/smsir/zipball/144e2b7cab3c71243c92119326d72d2ce38aa57d",
+                "reference": "144e2b7cab3c71243c92119326d72d2ce38aa57d",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "guzzlehttp/guzzle": "*",
+                "illuminate/support": "*",
+                "php": "^7.0|^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.0",
+                "phpunit/phpunit": "^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Cryptommer\\Smsir\\SmsirServiceProvider"
+                    ],
+                    "aliases": {
+                        "Smsir": "Smsir"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Cryptommer\\Smsir\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Pouya Biglari",
+                    "email": "cyberman9000@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Official sms.ir New Panel laravel repository",
+            "homepage": "https://github.com/cryptommer/Smsir",
+            "keywords": [
+                "cryptommer",
+                "smsir"
+            ],
+            "support": {
+                "issues": "https://github.com/cryptommer/smsir/issues",
+                "source": "https://github.com/cryptommer/smsir/tree/v1.1.1"
+            },
+            "time": "2022-05-16T11:48:31+00:00"
         },
         {
             "name": "cviebrock/eloquent-sluggable",
@@ -2168,6 +2254,52 @@
                 "source": "https://github.com/JayBizzle/Crawler-Detect/tree/v1.2.112"
             },
             "time": "2022-10-05T21:52:44+00:00"
+        },
+        {
+            "name": "kavenegar/php",
+            "version": "v1.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kavenegar/kavenegar-php.git",
+                "reference": "884561b8d8c91b01f7db25284c2be9923c809412"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kavenegar/kavenegar-php/zipball/884561b8d8c91b01f7db25284c2be9923c809412",
+                "reference": "884561b8d8c91b01f7db25284c2be9923c809412",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Kavenegar\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kavenegar API Team",
+                    "email": "support@kavenegar.com"
+                }
+            ],
+            "description": "A PHP wrapper for Kavenegar's API",
+            "homepage": "http://github.com/Kavenegar/kavenegar-php",
+            "keywords": [
+                "api",
+                "kavenegar",
+                "sms"
+            ],
+            "support": {
+                "issues": "https://github.com/kavenegar/kavenegar-php/issues",
+                "source": "https://github.com/kavenegar/kavenegar-php/tree/master"
+            },
+            "time": "2019-02-26T12:49:19+00:00"
         },
         {
             "name": "laravel/breeze",
@@ -9892,6 +10024,7 @@
         "amir_ys/coupon-module": 20,
         "amir_ys/dashboard-module": 20,
         "amir_ys/front-module": 20,
+        "amir_ys/notification-module": 20,
         "amir_ys/otp-module": 20,
         "amir_ys/payment-module": 20,
         "amir_ys/product-module": 20,

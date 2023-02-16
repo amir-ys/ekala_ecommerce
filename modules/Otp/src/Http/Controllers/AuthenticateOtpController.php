@@ -17,7 +17,7 @@ use Modules\User\Models\User;
 
 class AuthenticateOtpController extends Controller
 {
-    public function showLoginForm()
+    public function showLoginForm(): View
     {
         return view('Otp::login');
     }
@@ -47,7 +47,7 @@ class AuthenticateOtpController extends Controller
         $phone_number = $request->phone_number;
         $otp = (resolve(OtpRepositoryInterface::class))->findByPhoneNumber($phone_number);
         if (!$otp) {
-            return back()->withErrors(['code' =>  'کد وارد شده نامعتبر می باشد']);
+            return back()->withErrors(['code' => 'کد وارد شده نامعتبر می باشد']);
         }
 
         if ($request->code != $otp->code) {

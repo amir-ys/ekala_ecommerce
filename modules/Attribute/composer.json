@@ -1,15 +1,14 @@
 {
-    "name" : "amir_ys/attribute-module" ,
+    "name": "amir_ys/attribute-module",
     "autoload": {
         "psr-4": {
-            "Modules\\Attribute\\" : "src"
+            "Modules\\Attribute\\": "src"
         }
     },
     "extra": {
-        "laravel" : {
-            "providers" : "Modules\\Attribute\\Providers\\AttributeServiceProvider"
+        "laravel": {
+            "providers": "Modules\\Attribute\\Providers\\AttributeServiceProvider"
         }
     },
     "description": ""
-
 }

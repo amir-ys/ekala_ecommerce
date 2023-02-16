@@ -17,6 +17,7 @@
         "amir_ys/coupon-module": "dev-master",
         "amir_ys/dashboard-module": "dev-master",
         "amir_ys/front-module": "dev-master",
+        "amir_ys/notification-module": "dev-master",
         "amir_ys/otp-module": "dev-master",
         "amir_ys/payment-module": "dev-master",
         "amir_ys/product-module": "dev-master",
@@ -30,6 +31,7 @@
         "doctrine/dbal": "^3.6",
         "guzzlehttp/guzzle": "^7.2",
         "intervention/image": "^2.7",
+        "kavenegar/php": "^1.2",
         "laravel/breeze": "^1.9",
         "laravel/framework": "^9.2",
         "laravel/sanctum": "^2.14.1",
@@ -128,6 +130,10 @@
         {
             "type" : "path" ,
             "url" : "modules/Otp"
+        },
+        {
+            "type" : "path" ,
+            "url" : "modules/Notification"
         }
     ],
     "autoload-dev": {

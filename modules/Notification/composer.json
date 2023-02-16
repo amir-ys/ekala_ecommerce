@@ -1,0 +1,13 @@
+{
+    "name": "amir_ys/notification-module",
+    "autoload": {
+        "psr-4": {
+            "Modules\\Notification\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": "Modules\\Notification\\Providers\\NotificationServiceProvider"
+        }
+    }
+}
