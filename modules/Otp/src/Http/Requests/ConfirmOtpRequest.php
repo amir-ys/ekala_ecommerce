@@ -13,6 +13,7 @@ class ConfirmOtpRequest extends FormRequest
 
     public function rules(): array
     {
+        session()->reflash();
         return [
             'code' => ['required', 'numeric'] ,
             'phone_number' => ['required', 'numeric', 'digits:11']

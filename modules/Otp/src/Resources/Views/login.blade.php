@@ -25,7 +25,7 @@
                                            </small>
                                            <br>
                                            <small style="color: #3f4064 ; font-size: 13px">
-                                               لطفا شماره موبایل یا ایمیل خود را وارد کنید
+                                               لطفا شماره موبایل خود را وارد کنید
                                            </small>
                                        </div>
                                         <input type="number" name="phone_number"

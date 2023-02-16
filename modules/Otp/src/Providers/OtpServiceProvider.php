@@ -23,7 +23,6 @@ class OtpServiceProvider extends ServiceProvider
     public function boot()
     {
         OtpServiceFacades::run(OtpService::class);
-
         $this->app->singleton(OtpRepositoryInterface::class , OtpRepo::class);
     }
 

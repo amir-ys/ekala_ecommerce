@@ -33,9 +33,9 @@
                                                class="form-control activation-code-input  @error('code') is-invalid @enderror"
                                                id="code">
                                     </div>
-                                    <x-validation-error field="code"/>
+                                    <x-validation-error field="code" />
 
-                                        <div class="col-md-12">
+                                        <div class="col-md-12 mt-md-2">
                                                 <input type="submit" value="ورود" style="width:100%!important;" class="btn input-block-level  btn-block btn-success btn-square width-100">
                                         </div>
 
