@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use Modules\Otp\Contracts\OtpRepositoryInterface;
+use Modules\Otp\Events\OtpRequested;
 use Modules\Otp\Facades\OtpServiceFacades;
 use Modules\Otp\Http\Requests\ConfirmOtpRequest;
 use Modules\Otp\Http\Requests\OtpRequest;
@@ -26,8 +26,7 @@ class AuthenticateOtpController extends Controller
     {
         $otp = OtpServiceFacades::requestOtp($request->phone_number);
 
-        #todo send otp to user
-        Log::alert("send otp : $otp->code to user");
+        event(new OtpRequested($otp));
 
         return to_route('front.otp.showConfirmForm')->with('phone_number', $request->phone_number);
     }
