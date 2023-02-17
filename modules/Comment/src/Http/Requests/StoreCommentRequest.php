@@ -8,17 +8,17 @@ use Modules\User\Models\User;
 class StoreCommentRequest extends FormRequest
 {
 
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
 
-    public function rules()
+    public function rules(): array
     {
         $this->redirect = url()->previous() . '#comments-tab';
         return [
-            'model_id' => ['required' ] ,
-            'model_type' => ['required' ] ,
+            'commentable_id' => ['required' ] ,
+            'commentable_type' => ['required' ] ,
             'parent_id' => ['nullable' , 'numeric'] ,
             'body' => ['required' , 'string'] ,
         ];

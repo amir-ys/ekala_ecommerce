@@ -3,6 +3,7 @@
 namespace Modules\Otp\Tests\Feature\Controllers;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Modules\Notification\Facades\NotificationFacade;
 use Modules\Otp\Facades\OtpServiceFacades;
 use Modules\User\Models\User;
 use Tests\TestCase;
@@ -19,6 +20,7 @@ class AuthenticateOtpControllerTest extends TestCase
 
     public function test_request_otp()
     {
+        NotificationFacade::shouldReceive('send')->once()->andReturnTrue();
         $phone_number = '09121001010';
         $this->postJson(route('front.otp.request'), ['phone_number' => $phone_number])
             ->assertRedirect(route('front.otp.showConfirmForm'));

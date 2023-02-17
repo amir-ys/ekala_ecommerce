@@ -10,7 +10,7 @@ class UserTest extends TestCase
     use RefreshDatabase;
     public function test_insert_data()
     {
-        $data = User::factory()->admin()->make()->toArray();
+        $data = User::factory()->admin()->unverified()->make()->toArray();
         $data['password'] = bcrypt(123456);
         User::create($data);
 

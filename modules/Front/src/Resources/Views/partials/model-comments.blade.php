@@ -52,8 +52,8 @@
                                   action="{{ route('comments.store') }}">
                                 @csrf
                                 <input type="hidden" id="comment-parent-id" name="parent_id" value>
-                                <input type="hidden" name="model_id" value="{{ $model->id }}">
-                                <input type="hidden" name="model_type" value="{{ get_class($model) }}">
+                                <input type="hidden" name="commentable_id" value="{{ $model->id }}">
+                                <input type="hidden" name="commentable_type" value="{{ get_class($model) }}">
                                 <div id="send-comment-form">
                                    <div id="comment-text">
                                        <p>نظر خود را برای این {{ $type }} ارسال

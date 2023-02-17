@@ -25,8 +25,8 @@ class CommonDiscountFactory extends Factory
             'discount_ceiling' => $this->faker->numberBetween(10000, 500000),
             'minimal_order_amount' => $this->faker->numberBetween(10000, 30000),
             'status' => $this->faker->randomElement(CommonDiscount::$statuses),
-            'start_date' => $this->faker->dateTime()->format('Y-m-d H:i'),
-            'end_date' => $this->faker->dateTime()->format('Y-m-d H:i'),
+            'start_date' => $this->faker->dateTime()->format('Y-m-d H:i:s'),
+            'end_date' => $this->faker->dateTime()->format('Y-m-d H:i:s'),
         ];
     }
 }

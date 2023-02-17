@@ -15,6 +15,7 @@ class ProductImageTest extends TestCase
     {
         $data = ProductImage::factory()->make()->toArray();
         ProductImage::create($data);
+        $data['images'] = json_encode($data['images']);
 
         $this->assertDatabaseCount('product_images', 1);
         $this->assertDatabaseHas('product_images', $data);

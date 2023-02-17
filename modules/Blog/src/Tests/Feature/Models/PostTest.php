@@ -17,6 +17,7 @@ class PostTest extends TestCase
     {
         $data = Post::factory()->make()->toArray();
         $data['slug'] = SlugService::createSlug(Post::class, 'slug', $data['title']);
+        $data['image'] = json_decode($data['image']);
         Post::create($data);
 
 

@@ -20,26 +20,26 @@ class CommentRepo extends BaseRepository implements CommentRepositoryInterface
             'body' => $data['body'],
             'parent_id' => $data['parent_id'],
             'user_id' => $data['user_id'],
-            'commentable_id' => $data['model_id'],
-            'commentable_type' => $data['model_type'],
+            'commentable_id' => $data['commentable_id'],
+            'commentable_type' => $data['commentable_type'],
             'is_approved' => $data['is_admin'] == User::ROLE_ADMIN ? User::ROLE_ADMIN : User::ROLE_USER ,
-            'is_seen' => $data['is_admin'] == User::ROLE_ADMIN ? User::ROLE_ADMIN : User::ROLE_USER ,
+            'is_seen' => $data['is_admin'] == User::ROLE_ADMIN ? Comment::SEEN : Comment::NOT_SEEN ,
         ]);
     }
 
-    public function getParentComments()
+    public function getParentComments(): array|Collection
     {
         return $this->query->whereNull('parent_id')->get();
     }
 
-    public function getProductComments()
+    public function getProductComments(): array|Collection
     {
         return $this->query->whereNull('parent_id')
             ->whereMorphedTo('commentable', Product::class)
             ->get();
     }
 
-    public function getBlogComments()
+    public function getBlogComments(): array|Collection
     {
         return $this->query->whereNull('parent_id')
             ->whereMorphedTo('commentable', Post::class)

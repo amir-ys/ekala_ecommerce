@@ -16,6 +16,7 @@ class CategoryTest extends TestCase
     {
         $data = Category::factory()->make()->toArray();
         $data['slug'] = SlugService::createSlug(Category::class, 'slug', $data['name']);
+        $data['image'] = json_decode($data['image']);
 
         Category::create($data);
 

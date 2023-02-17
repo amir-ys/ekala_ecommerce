@@ -28,7 +28,7 @@ class CommentFactory extends Factory
             'commentable_id' => Product::factory(),
             'commentable_type' => Product::class,
             'is_approved' => $this->faker->randomElement(Comment::$statuses),
-            'is_seen' => $this->faker->randomElement([Comment::SEEN , Comment::NOT_SEEN]),
+            'is_seen' => $this->faker->randomElement([Comment::SEEN, Comment::NOT_SEEN]),
         ];
     }
 }
