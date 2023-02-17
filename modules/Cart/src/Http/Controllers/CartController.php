@@ -74,8 +74,7 @@ class CartController extends Controller
 
     }
 
-
-    public function validateInputs()
+    private function validateInputs()
     {
         $data = Validator::make(\request()->all(), [
             'color_id' => ['required', 'numeric', Rule::exists('product_colors', 'id')],

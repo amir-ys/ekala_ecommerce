@@ -55,7 +55,6 @@ class OtpService
         $otp = $this->generateRandomUniqueCode();
 
         $this->otp = $this->createNewOtp($otp);
-        ;
     }
 
     private function deletePreviousCode(): void
@@ -75,7 +74,7 @@ class OtpService
         return $randomCode;
     }
 
-    private function createNewOtp($otp)
+    private function createNewOtp($otp) :Otp
     {
        return $this->otpRepo->store([
             'phone_number' => $this->phone_number,

@@ -4,16 +4,16 @@ namespace Modules\Notification\Services;
 
 class Notification
 {
-    public function send($phone_number, $text): void
+    public function send(string $phone_number,string $text): void
     {
-        $smsProviderPath = $this->getDefaultSmsProvider();
+        $smsProviderClass = $this->getDefaultSmsProviderClass();
 
-        $smsProviderObj = new $smsProviderPath();
+        $smsProviderObj = new $smsProviderClass();
 
         $smsProviderObj->send($phone_number , $text);
     }
 
-    public function getDefaultSmsProvider(): string
+    public function getDefaultSmsProviderClass(): string
     {
         $defaultProvider = config('sms.default.provider');
         return config('sms.providers.' . $defaultProvider . '.class');
