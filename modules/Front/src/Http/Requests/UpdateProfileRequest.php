@@ -3,6 +3,7 @@
 namespace Modules\Front\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Modules\Core\Rules\ValidMobile;
 
 class UpdateProfileRequest extends FormRequest
 {
@@ -27,7 +28,7 @@ class UpdateProfileRequest extends FormRequest
             'first_name' => ['required', 'string', 'min:2'],
             'last_name' => ['required', 'string'],
             'national_code' => ['nullable', 'string', 'digits:10'],
-            'mobile' => ['required', 'string', 'min:11'],
+            'mobile' => ['required', 'string', new ValidMobile()],
             'email' => ['required', 'email'],
             'card_number' => ['nullable', 'digits:16'],
         ];

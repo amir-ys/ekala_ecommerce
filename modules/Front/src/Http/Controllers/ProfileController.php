@@ -5,6 +5,7 @@ namespace Modules\Front\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Modules\Core\Rules\ValidMobile;
 use Modules\Front\Http\Requests\UpdateProfileRequest;
 use Modules\Core\Services\ImageService;
 use Modules\User\Contracts\UserRepositoryInterface;
@@ -44,7 +45,7 @@ class ProfileController extends Controller
         return \request()->validate([
             'first_name' => ['required'],
             'last_name' => ['required'],
-            'mobile' => ['required', 'min:10', 'max:14'],
+            'mobile' => ['required', 'min:10', new ValidMobile()],
         ]);
     }
 }
