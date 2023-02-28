@@ -171,4 +171,29 @@ class UserRepo extends BaseRepository implements UserRepositoryInterface
             '2fa_enable' => $two_factor_status
         ]);
     }
+
+    public function getTotalUserCount(): int
+    {
+       return $this->query->count();
+    }
+
+
+    public function getTotalAdminCount(): int
+    {
+        return $this->query->where('is_admin' , User::ROLE_ADMIN)->count();
+    }
+
+    public function getTodayRegisteredUsersCount(): int
+    {
+       return $this->query->where('created_at' , today())->count();
+    }
+
+    public function getThisMonthReqisteredUsersCount(): int
+    {
+       return $this->query->whereBetween('created_at' ,
+            [
+                now()->startOfMonth(),
+                now()->endOfMonth(),
+            ])->count();
+    }
 }
