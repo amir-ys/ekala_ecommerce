@@ -4,11 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4aa512b463614e7e93e63f9aeb8456b7",
+    "content-hash": "13a96173cc8f2c4f78a8c32f2ea10739",
     "packages": [
         {
             "name": "amir_ys/attribute-module",
-            "version": "dev-master",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "modules/Attribute",
@@ -31,7 +31,7 @@
         },
         {
             "name": "amir_ys/attributegroup-module",
-            "version": "dev-master",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "modules/AttributeGroup",
@@ -55,7 +55,7 @@
         },
         {
             "name": "amir_ys/blog-module",
-            "version": "dev-master",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "modules/Blog",
@@ -81,7 +81,7 @@
         },
         {
             "name": "amir_ys/brand-module",
-            "version": "dev-master",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "modules/Brand",
@@ -104,7 +104,7 @@
         },
         {
             "name": "amir_ys/cart-module",
-            "version": "dev-master",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "modules/Cart",
@@ -127,7 +127,7 @@
         },
         {
             "name": "amir_ys/category-module",
-            "version": "dev-master",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "modules/Category",
@@ -150,7 +150,7 @@
         },
         {
             "name": "amir_ys/comment-module",
-            "version": "dev-master",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "modules/Comment",
@@ -173,7 +173,7 @@
         },
         {
             "name": "amir_ys/core-module",
-            "version": "dev-master",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "modules/Core",
@@ -199,7 +199,7 @@
         },
         {
             "name": "amir_ys/coupon-module",
-            "version": "dev-master",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "modules/Coupon",
@@ -225,7 +225,7 @@
         },
         {
             "name": "amir_ys/dashboard-module",
-            "version": "dev-master",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "modules/Dashboard",
@@ -248,7 +248,7 @@
         },
         {
             "name": "amir_ys/front-module",
-            "version": "dev-master",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "modules/Front",
@@ -274,7 +274,7 @@
         },
         {
             "name": "amir_ys/notification-module",
-            "version": "dev-master",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "modules/Notification",
@@ -297,7 +297,7 @@
         },
         {
             "name": "amir_ys/otp-module",
-            "version": "dev-master",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "modules/Otp",
@@ -320,7 +320,7 @@
         },
         {
             "name": "amir_ys/payment-module",
-            "version": "dev-master",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "modules/Payment",
@@ -346,7 +346,7 @@
         },
         {
             "name": "amir_ys/product-module",
-            "version": "dev-master",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "modules/Product",
@@ -372,7 +372,7 @@
         },
         {
             "name": "amir_ys/role_permissions_module",
-            "version": "dev-master",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "modules/RolePermissions",
@@ -395,7 +395,7 @@
         },
         {
             "name": "amir_ys/setting-module",
-            "version": "dev-master",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "modules/Setting",
@@ -418,7 +418,7 @@
         },
         {
             "name": "amir_ys/slide-module",
-            "version": "dev-master",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "modules/Slide",
@@ -441,7 +441,7 @@
         },
         {
             "name": "amir_ys/user-module",
-            "version": "dev-master",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "modules/User",
@@ -745,69 +745,6 @@
                 "source": "https://github.com/cocur/slugify/tree/v4.2.0"
             },
             "time": "2022-08-13T15:23:32+00:00"
-        },
-        {
-            "name": "cryptommer/smsir",
-            "version": "v1.1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/cryptommer/smsir.git",
-                "reference": "144e2b7cab3c71243c92119326d72d2ce38aa57d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/cryptommer/smsir/zipball/144e2b7cab3c71243c92119326d72d2ce38aa57d",
-                "reference": "144e2b7cab3c71243c92119326d72d2ce38aa57d",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "guzzlehttp/guzzle": "*",
-                "illuminate/support": "*",
-                "php": "^7.0|^8.0"
-            },
-            "require-dev": {
-                "orchestra/testbench": "^6.0",
-                "phpunit/phpunit": "^9.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Cryptommer\\Smsir\\SmsirServiceProvider"
-                    ],
-                    "aliases": {
-                        "Smsir": "Smsir"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Cryptommer\\Smsir\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Pouya Biglari",
-                    "email": "cyberman9000@gmail.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Official sms.ir New Panel laravel repository",
-            "homepage": "https://github.com/cryptommer/Smsir",
-            "keywords": [
-                "cryptommer",
-                "smsir"
-            ],
-            "support": {
-                "issues": "https://github.com/cryptommer/smsir/issues",
-                "source": "https://github.com/cryptommer/smsir/tree/v1.1.1"
-            },
-            "time": "2022-05-16T11:48:31+00:00"
         },
         {
             "name": "cviebrock/eloquent-sluggable",
