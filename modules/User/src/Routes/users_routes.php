@@ -26,10 +26,10 @@ Route::group(['prefix' => 'panel'] ,  function (Router $router){
     $router->get('admin/{name}/profile' , [AdminController::class , 'showImage'])->name('panel.admins.profile.show');
 
     //front
-    Route::get('users/find-city-by-province' , [UserController::class , 'findCityByProvince'])->name('panel.users.findCityByProvince');
-    Route::post('users/address/store' , [UserController::class , 'UserAddressStore'])->name('panel.users.address.store');
-    Route::any('users/address/{id}/destroy' , [UserController::class , 'UserAddressDelete'])->name('panel.users.address.destroy');
-    Route::any('users/address/{id}/changeStatus' , [UserController::class , 'UserAddressChangeStatus'])->name('panel.users.address.changeStatus');
-    Route::any('users/address/{id}/find' , [UserController::class , 'UserAddressFind'])->name('panel.users.address.find');
+    $router->get('users/find-city-by-province' , [UserController::class , 'findCityByProvince'])->name('panel.users.findCityByProvince');
+    $router->post('users/address/store' , [UserController::class , 'UserAddressStore'])->name('panel.users.address.store');
+    $router->any('users/address/{id}/destroy' , [UserController::class , 'UserAddressDelete'])->name('panel.users.address.destroy');
+    $router->any('users/address/{id}/changeStatus' , [UserController::class , 'UserAddressChangeStatus'])->name('panel.users.address.changeStatus');
+    $router->any('users/address/{id}/find' , [UserController::class , 'UserAddressFind'])->name('panel.users.address.find');
 
 });

@@ -117,7 +117,13 @@ class UserController extends Controller
 
     public function UserAddressDelete($userAddressesId)
     {
-        $this->userRepo->deleteUserAddress(auth()->id() , $userAddressesId);
+       $isDeleted =  $this->userRepo->deleteUserAddress(auth()->id() , $userAddressesId);
+
+       if (!$isDeleted){
+           alert()->warning( 'خطا' , 'این تنها آدرس شماست .نمی توانید این ادرس را حذف کنید .');
+           return back();
+       }
+
         alert()->success('آدرس با موفقیت حذف شد.');
         return back();
     }

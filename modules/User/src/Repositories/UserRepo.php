@@ -120,7 +120,12 @@ class UserRepo extends BaseRepository implements UserRepositoryInterface
     public function deleteUserAddress($id, $userAddressesId)
     {
         $model = $this->query->find($id);
-        $model->addresses()->where('id', $userAddressesId)->delete();
+
+        if($model->addresses()->count() == 1){
+            return false;
+        }
+
+       return $model->addresses()->where('id', $userAddressesId)->delete();
     }
 
     public function changeUserAddressStatus($id, $userAddressesId, $status)
