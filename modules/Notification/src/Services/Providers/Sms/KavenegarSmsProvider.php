@@ -1,9 +1,9 @@
 <?php
 
-namespace Modules\Notification\Services\Providers;
+namespace Modules\Notification\Services\Providers\Sms;
 
 use Kavenegar\KavenegarApi;
-use Modules\Notification\Services\Providers\Contracts\SmsProviderContract;
+use Modules\Notification\Services\Providers\Sms\Contracts\SmsProviderContract;
 
 class KavenegarSmsProvider extends BaseSmsProvider implements SmsProviderContract
 {

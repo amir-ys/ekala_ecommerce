@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Notification\Services\Providers\Contracts;
+namespace Modules\Notification\Services\Providers\Sms\Contracts;;
 
 interface SmsProviderContract
 {

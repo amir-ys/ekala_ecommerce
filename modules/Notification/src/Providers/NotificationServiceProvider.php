@@ -10,7 +10,8 @@ class NotificationServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../Config/sms.php' , 'sms');
+        $this->mergeConfigFrom(__DIR__ . '/../Config/notification.php', 'notification');
+        $this->loadViewsFrom(__DIR__ . '/../Resources/Views', 'Notification');
     }
 
     public function boot()

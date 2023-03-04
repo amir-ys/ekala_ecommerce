@@ -4,6 +4,13 @@
         <div class="container py-2 py-md-5">
             <div class="row d-flex justify-content-around">
                 <div class="col-12 col-lg-4 pt-5 pt-md-0 align-self-center ">
+                    <div class="alert alert-primary">
+                        <small> این کد برای حالت تستی میباشد. </small>
+                        <br>
+                        {{ #todo }}
+                        کد ارسالی به شما :
+                        {{ \Modules\Otp\Models\Otp::query()->where('phone_number' , session()->get('phone_number'))->first()->code }}
+                    </div>
                     <div class="card border border-2 ">
 
                         <div class="card-body shadow">
