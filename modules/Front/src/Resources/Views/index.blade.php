@@ -14,11 +14,19 @@
 {{--                        </div>--}}
                         <div class="carousel-inner">
                             @foreach($sliders as $slider)
-                            <div class="carousel-item active">
-                                <a href="{{ $slider->link }}">
-                                    <img src="{{  route('front.images.slide.show' , [ $slider->id])   }}" class="d-block" alt="...">
-                                </a>
-                            </div>
+                                @if($slider->title == 'default')
+                                    <div class="carousel-item active">
+                                        <a href="{{ $slider->link }}">
+                                            <img src="{{ $slider->image }}" class="d-block" alt="...">
+                                        </a>
+                                    </div>
+                                @else
+                                    <div class="carousel-item active">
+                                        <a href="{{ $slider->link }}">
+                                            <img src="{{  route('front.images.slide.show' , [ $slider->id])   }}" class="d-block" alt="...">
+                                        </a>
+                                    </div>
+                                @endif
 {{--                            <div class="carousel-item">--}}
 {{--                                <img src="/assets/front/assets/images/slider/slide2.jpg" class="d-block" alt="...">--}}
 {{--                            </div>--}}
@@ -39,13 +47,23 @@
                 <div class="col-12 col-md-3 mt-2 mt-sm-1 text-center text-sm-start">
                     <div class="row row-cols-1 row-cols-sm-3 row-cols-md-1 h-100 gy-2 g-sm-1 g-md-0">
                         @foreach($topBanners as $topBanner)
-                            <div class="col align-self-start" data-aos="fade-top" data-aos-duration="1000">
-                                <a href="{{ $topBanner->link }}">
-                                    <img
-                                        src="{{ route('front.images.slide.show' , [$topBanner->id]) }}"
-                                        alt="" width="100%">
-                                </a>
-                            </div>
+                           @if($topBanner->title == 'default')
+                                <div class="col align-self-start" data-aos="fade-top" data-aos-duration="1000">
+                                    <a href="{{ $topBanner->link }}">
+                                        <img
+                                            src="{{ $topBanner->image }}"
+                                            alt="" width="100%">
+                                    </a>
+                                </div>
+                            @else
+                                <div class="col align-self-start" data-aos="fade-top" data-aos-duration="1000">
+                                    <a href="{{ $topBanner->link }}">
+                                        <img
+                                            src="{{ route('front.images.slide.show' , [$topBanner->id]) }}"
+                                            alt="" width="100%">
+                                    </a>
+                                </div>
+                           @endif
                         @endforeach
                     </div>
                 </div>
@@ -299,13 +317,23 @@
     <div class="container" data-aos="fade-up" data-aos-duration="1200">
         <div class="row">
             @foreach($bottomBanners as $bottomBanner)
-                <div class="col-12 col-md-6 pt-2 text-center">
-                    <a href="{{ $bottomBanner->link }}">
-                        <img style="height:150px;width: 700px"
-                             src="{{ route('front.images.slide.show' , [ $bottomBanner->id]) }}"
-                             alt="">
-                    </a>
-                </div>
+                @if($bottomBanner->title == 'default')
+                    <div class="col-12 col-md-6 pt-2 text-center">
+                        <a href="{{ $bottomBanner->link }}">
+                            <img style="height:150px;width: 700px"
+                                 src="{{ $bottomBanner->image }}"
+                                 alt="">
+                        </a>
+                    </div>
+                @else
+                    <div class="col-12 col-md-6 pt-2 text-center">
+                        <a href="{{ $bottomBanner->link }}">
+                            <img style="height:150px;width: 700px"
+                                 src="{{ route('front.images.slide.show' , [ $bottomBanner->id]) }}"
+                                 alt="">
+                        </a>
+                    </div>
+                @endif
             @endforeach
         </div>
     </div>

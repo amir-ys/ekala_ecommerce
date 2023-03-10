@@ -8,6 +8,7 @@ use Modules\AttributeGroup\Database\Seeders\AttributeGroupSeeder;
 use Modules\Brand\Database\Seeders\BrandSeeder;
 use Modules\Category\Database\Seeders\CategorySeeder;
 use Modules\RolePermissions\Database\Seeders\RolePermissionsSeeder;
+use Modules\Slide\Database\Seeders\SlideSeeder;
 use Modules\User\Database\Seeders\ProvinceSeeder;
 use Modules\User\Database\Seeders\AdminSeeder;
 use Modules\User\Database\Seeders\ViewerUserSeeder;
@@ -30,6 +31,7 @@ class DatabaseSeeder extends Seeder
             AttributeGroupSeeder::class,
             AttributeSeeder::class ,
             BrandSeeder::class,
+            SlideSeeder::class
         ]);
     }
 }
